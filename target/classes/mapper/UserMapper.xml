@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="UserDAO">
+  	<!-- parameterType 결과가 들어오는 값 
+         resultType 결과가 나가는 값 -->
+    <!-- 
+  	형식) <![CDATA[쿼리문]]>
+  	쿼리문을 작성할 때 조건식 기호(>, <, &)을 사용해야 하는데 XML에서는 이러한 기호들을 쿼리문의 조건식 기호로 인식하는것이 아니라
+  	태그로 인식하는 경우가 발생한다. 이런 경우 에러가 발행한다. 따라서 조건식 기호들을 단순한 문자열로 인식시켜주어야 한다. -->
+  
+  	<!-- alias 모두 파일명과 똑같이 했으니 
+  	resultType같은곳에 쓸때 똑같이 쓰시면 됩니다 (CardDAO, CardDTO) -->
+  	
+  	<!--  예시입니다
+  	
+	<select id="allCard" parameterType="int" resultType="CardDTO">
+		select * from card
+	</select>
+	
+    <insert id="" parameterType="CardDTO">
+    
+    </insert>
+    
+    <update id="" parameterType="CardDTO">
+    
+    </update>
+	
+	<delete id="" parameterType="int">
+
+	</delete>
+  
+ 	 -->
+  
+  
+  
+  
+  
+  </mapper>

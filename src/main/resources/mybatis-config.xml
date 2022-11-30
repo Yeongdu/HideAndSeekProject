@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+    DTD(Document Type Definition)
+    - 작성한 문서가 어떤 문서인지에 대해서 정의해 놓은 것.
+    - 하나의 시스템 내에서 사용할 XML 데이터의 구조를 정의하여 유효성을 점검시 사용하는 태그.
+
+ -->
+
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<configuration>
+
+    <typeAliases>
+        <typeAlias type="com.spring.model.CardDTO" alias="CardDTO"/>
+        <typeAlias type="com.spring.model.CartDTO" alias="CartDTO"/>
+        <typeAlias type="com.spring.model.DeliveryDTO" alias="DeliveryDTO"/>
+        <typeAlias type="com.spring.model.DipsDTO" alias="DipsDTO"/>
+        <typeAlias type="com.spring.model.EventDTO" alias="EventDTO"/>
+        <typeAlias type="com.spring.model.OrderDTO" alias="OrderDTO"/>
+        <typeAlias type="com.spring.model.Product_categoryDTO" alias="Product_categoryDTO"/>
+        <typeAlias type="com.spring.model.Product_contentDTO" alias="Product_contentDTO"/>
+        <typeAlias type="com.spring.model.ProductDTO" alias="ProductDTO"/>
+        <typeAlias type="com.spring.model.ReviewDTO" alias="ReviewDTO"/>
+        <typeAlias type="com.spring.model.Subscribe_userDTO" alias="Subscribe_userDTO"/>
+        <typeAlias type="com.spring.model.SubscribeDTO" alias="SubscribeDTO"/>
+        <typeAlias type="com.spring.model.UserDTO" alias="UserDTO"/>
+        
+        <typeAlias type="com.spring.service.CardDAO" alias="CardDAO"/>
+        <typeAlias type="com.spring.service.CartDAO" alias="CartDAO"/>
+        <typeAlias type="com.spring.service.DeliveryDAO" alias="DeliveryDAO"/>
+        <typeAlias type="com.spring.service.DipsDAO" alias="DipsDAO"/>
+        <typeAlias type="com.spring.service.EventDAO" alias="EventDAO"/>
+        <typeAlias type="com.spring.service.OrderDAO" alias="OrderDAO"/>
+        <typeAlias type="com.spring.service.Product_categoryDAO" alias="Product_categoryDAO"/>
+        <typeAlias type="com.spring.service.Product_contentDAO" alias="Product_contentDAO"/>
+        <typeAlias type="com.spring.service.ProductDAO" alias="ProductDAO"/>
+        <typeAlias type="com.spring.service.ReviewDAO" alias="ReviewDAO"/>
+        <typeAlias type="com.spring.service.Subscribe_userDAO" alias="Subscribe_userDAO"/>
+        <typeAlias type="com.spring.service.SubscribeDAO" alias="SubscribeDAO"/>
+        <typeAlias type="com.spring.service.UserDAO" alias="UserDAO"/>
+    </typeAliases>
+
+</configuration>
