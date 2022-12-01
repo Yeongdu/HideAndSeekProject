@@ -16,7 +16,7 @@ public class ProductDTO {
 	private String product_sweet; // 단맛
 	private String product_acidity; // 신맛
 	
-	private int product_soda; // 탄산 .. 약(1),중(2),강(3)
+	private String product_soda; // 탄산
 	private String product_material; // 원료 .. 꽃, 곡물, 야채, 과일, 기타
 	
 	private int product_price; // 상품 판매가

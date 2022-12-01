@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
 
 @Repository
@@ -15,14 +16,16 @@ public class ProductDAOImpl implements ProductDAO{
 
 	@Override
 	public int getListCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return this.sqlSession.selectOne("getListCount");
+		
 	}
 
 	@Override
-	public List<ProductDTO> getProductList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ProductDTO> getProductList(PageDTO dto) {
+
+		return this.sqlSession.selectList("getProductList", dto);
+		
 	}
 
 	@Override
@@ -30,4 +33,5 @@ public class ProductDAOImpl implements ProductDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

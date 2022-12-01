@@ -28,6 +28,7 @@
         <typeAlias type="com.spring.model.Subscribe_userDTO" alias="Subscribe_userDTO"/>
         <typeAlias type="com.spring.model.SubscribeDTO" alias="SubscribeDTO"/>
         <typeAlias type="com.spring.model.UserDTO" alias="UserDTO"/>
+        <typeAlias type="com.spring.model.PageDTO" alias="PageDTO"/>
         
         <typeAlias type="com.spring.service.CardDAO" alias="CardDAO"/>
         <typeAlias type="com.spring.service.CartDAO" alias="CartDAO"/>
