@@ -34,6 +34,14 @@
 	</delete>
   
  	 -->
+ 	 
+ 	 <select id="getListCount" resultType="int">
+ 	 	select count(*) from product
+ 	 </select>
+ 	 
+ 	 <select id="getProductList" parameterType="PageDTO" resultType="ProductDTO">
+ 	 	<![CDATA[select * from (select p.*, row_number() over(order by product_no desc) rnum from product p where product_category = 'takju') where rnum >= #{startNo} and rnum <= #{endNo}]]>
+ 	 </select>
   
   
   
