@@ -1,0 +1,172 @@
+@charset "UTF-8";
+
+/*************************/
+/* tag reset
+/*************************/
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, img { margin: 0; padding: 0; }
+html, body {
+    width: 100%;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body, code, button {
+    font-size: 14px;
+/*     font-family: '맑은 고딕', 'Malgun Gothic', 'verdana', '굴림', 'Gulim', 'AppleGothic', 'sans-serif'; */
+    color: #333;
+    letter-spacing: -1px;
+    line-height: 1.5;
+    background: #fff;
+    text-shadow: none;
+    text-decoration: none;
+}
+body {
+    background: #fff;
+}
+
+input:focus, button:focus, textarea:focus {
+    outline: none;
+}
+
+b, h1, h2, h3, h4, h5, strong {
+    text-shadow: 0 none;
+}
+
+li {
+/*     font-family: '맑은 고딕', 'Malgun Gothic', 'verdana', '굴림', 'Gulim', 'AppleGothic', 'sans-serif'; */
+    list-style: none;
+}
+img, fieldset { border:none; vertical-align:top; }
+table { border-spacing:0; border:0; border-collapse:collapse; }
+th, td { border:0; vertical-align:middle; }
+legend { height:0; width:0; display:none; text-indent:-9999em; }
+caption { visibility:hidden; position:absolute; left:-1060px; top:-1060px; height:0; width:0; display:none; }
+button { padding:0; margin:0; border:0; cursor:pointer; overflow:visible; }
+label { margin:0; padding:0; cursor:pointer; }
+select {
+    padding: 3px 3px 4px 3px;
+    border: 1px solid #ddd;
+}
+
+select,
+option,
+input,
+textarea {
+    font-size: 100%;
+    font-family: '맑은 고딕', 'Malgun Gothic', 'verdana', '굴림', 'Gulim', 'AppleGothic', 'sans-serif';
+    color: #333;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+select:focus,
+option:focus,
+input:focus,
+textarea:focus {
+    border-color: #007bff;
+    color: #007bff;
+}
+
+
+img {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+audio {
+    display: none;
+}
+a,
+a:link,
+a:active,
+a:visited {
+    font-size: 14px;
+    font-family: '맑은 고딕', 'Malgun Gothic', 'verdana', '굴림', 'Gulim', 'AppleGothic', 'sans-serif';
+    text-decoration: none;
+    letter-spacing: -1px;
+    color: #333;
+}
+a:hover {
+    text-decoration: none !important;
+    color: #007bff;
+}
+*:focus {
+    outline: none !important;
+}
+
+
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+th,td {
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+}
+table th img,
+table td img {
+    vertical-align: middle;
+}
+
+
+h1, h2, h3, h4, h5 {
+    font-weight: 600;
+}
+
+
+	body{
+	min-width: 1000px;
+	}
+
+	.adminWrab{
+	font-family: 'ChosunCentennial', sans-serif;
+	}
+	
+	.adminWrab a {
+	font-family: 'ChosunCentennial', sans-serif;
+	font-size: 1.5em;
+	}
+	
+	.admin_navSubMenu {
+	font-size: 0.7em;
+	}
+
+	.adminNav{
+	display: flex;
+    justify-content: space-evenly;
+    height: 80px;
+    vertical-align: middle;
+	}
+	
+
+	.adminNav>li, ul{
+	list-style-type:none;
+	}
+
+    .adminNav>li{
+	width: 10em;
+    }
+    
+    .adminNav>.admin_navMenu{
+	margin-top: 25px;
+    }
+
+    .adminNav>li ul{
+    display:none;
+    }
+
+    .adminNav>li:hover ul{display:block;
+    }
+    
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+	@font-face {
+	    font-family: 'ChosunCentennial';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/ChosunCentennial.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+	
+	font-family: 'ChosunCentennial', sans-serif;
+	font-family: Noto Sans;
