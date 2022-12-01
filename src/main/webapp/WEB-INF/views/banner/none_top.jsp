@@ -14,8 +14,8 @@
 			<li class = "logo"><img src = "resources/image/logo.png"></li>
 			<li class = "sub">구 독</li>
 			<li class = "store">상 점</li>
-			<li class = "event">이벤트</li>
+			<li class = "event">이 벤 트</li>
 			<li class = "none"> </li>
-			<li class = "login">로그인</li>
+			<li class = "login">로 그 인</li>
 		</ul>
 	</div>
