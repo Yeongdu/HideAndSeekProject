@@ -1,1 +1,51 @@
 @charset "UTF-8";
+
+.body {
+	/* background-image:  */
+}
+
+.inputBtn {
+	box-sizing: border-box;
+	border: 1px solid #FFFFFF;
+	position: absolute;
+	width: 130px;
+	height: 70px;
+	left: 885px;
+	top: 387px;
+}
+
+.inputBtn:hover {
+	box-sizing: border-box;
+	background: #FFFFFF;
+	border: 1px solid #000000;
+}
+
+.title {
+	position: absolute;
+	width: 909px;
+	height: 83px;
+	left: 506px;
+	top: calc(50% - 83px/2 - 401.5px);
+	font-family: 'Chosun Centennial';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 70px;
+	line-height: 88px;
+	text-align: center;
+	color: #FFFFFF;
+}
+
+.title2{
+	position: absolute;
+	width: 778px;
+	height: 80px;
+	left: 571px;
+	top: calc(50% - 80px/2 - 305px);
+	font-family: 'Chosun Centennial';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 70px;
+	line-height: 88px;
+	text-align: center;
+	color: #FFFFFF;
+}
