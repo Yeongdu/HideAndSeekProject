@@ -6,21 +6,23 @@ import lombok.Data;
 
 @Data
 public class ProductDTO {
-	private int product_no; // »óÇ°¹øÈ£
-	private String product_name; // »óÇ°ÀÌ¸§
-	private String product_category; // »óÇ° Ä«Å×°í¸®
-	private String product_company; // »óÇ° Á¦Á¶»ç
+	private int product_no; // ìƒí’ˆ ë²ˆí˜¸
+	private String product_name; // ìƒí’ˆ ì´ë¦„
+	private String product_category; // ìƒí’ˆ ì¹´í…Œê³ ë¦¬
+	private String product_company; // ìƒí’ˆ ì œì¡°ì‚¬
 	
-	private int product_alcohol; // µµ¼ö
-	private String product_flavor; // ¸À .. ½Å¸À, ´Ü¸À
-	private int product_soda; // Åº»ê .. ¾à(1),Áß(2),°­(3)
-	private String product_material; // ¿ø·á .. ²É, °î¹°, ¾ßÃ¤, °úÀÏ, ±âÅ¸
+	private int product_alcohol; // ë„ìˆ˜
 	
-	private int product_price; // »óÇ° ÆÇ¸Å°¡
-	private int product_stock; // »óÇ° Àç°í¼ö·®
-	private int product_point; // »óÇ° Æ÷ÀÎÆ®
-	private String product_thumbnail; // »óÇ° ½æ³×ÀÏ
-	private String product_status; // »óÇ° »óÅÂ ±âº»°ª:ÆÇ¸Å .. Ç°Àı, Á¾·á
-	private Date product_date; // »óÇ° µî·ÏÀÏ
+	private String product_sweet; // ë‹¨ë§›
+	private String product_acidity; // ì‹ ë§›
 	
+	private int product_soda; // íƒ„ì‚° .. ì•½(1),ì¤‘(2),ê°•(3)
+	private String product_material; // ì›ë£Œ .. ê½ƒ, ê³¡ë¬¼, ì•¼ì±„, ê³¼ì¼, ê¸°íƒ€
+	
+	private int product_price; // ìƒí’ˆ íŒë§¤ê°€
+	private int product_stock; // ìƒí’ˆ ì¬ê³ ìˆ˜ëŸ‰
+	private int product_point; // ìƒí’ˆ í¬ì¸íŠ¸
+	private String product_thumbnail; // ìƒí’ˆ ì¸ë„¤ì¼
+	private String product_status; // ìƒí’ˆ ìƒíƒœ ê¸°ë³¸ê°’:íŒë§¤ .. í’ˆì ˆ, ì¢…ë£Œ
+	private Date product_date; // ìƒí’ˆ ë“±ë¡ì¼
 }

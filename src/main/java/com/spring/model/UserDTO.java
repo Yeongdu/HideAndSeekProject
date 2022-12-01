@@ -10,11 +10,11 @@ public class UserDTO {
 	private String user_pwd;
 	private String user_email;
 	private String user_name;
-	private int user_jumin; //ÁÖ¹Îµî·Ï¹øÈ£ ¾ÕÀÚ¸®
-	private int user_zipcode; //¿ìÆí¹øÈ£
+	private int user_jumin; //ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸ ì•ìë¦¬
+	private int user_zipcode; //ìš°í¸ë²ˆí˜¸
 	private String user_addr;
 	private String user_phone;
 	private int user_point;
-	private Date user_date; //È¸¿ø°¡ÀÔÀÏ
-	private int user_leave; //È¸¿øÅ»Åğ¿©ºÎ ±âº»°ª:1 Å»Åğ½Ã:2
+	private Date user_date; //íšŒì›ê°€ì…ì¼
+	private int user_leave; //íšŒì›íƒˆí‡´ì—¬ë¶€ ê¸°ë³¸ê°’:1 íƒˆí‡´ì‹œ:2
 }

@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 public class DipsDTO {
-	private int dibs_no; // Âò ¹øÈ£
-	private Date dibs_date; // Âò ³¯Â¥
-	private String user_id;  // À¯Àú ¾ÆÀÌµğ FK
-	private int product_no; // »óÇ° ¹øÈ£ FK
+	private int dibs_no; // ì°œ ë²ˆí˜¸
+	private Date dibs_date; // ì°œ ë‚ ì§œ
+	private String user_id;  // ìœ ì € ì•„ì´ë”” FK
+	private int product_no; // ìƒí’ˆ ë²ˆí˜¸ FK
 }

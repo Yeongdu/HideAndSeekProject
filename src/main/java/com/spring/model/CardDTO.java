@@ -4,13 +4,13 @@ import lombok.Data;
 
 @Data
 public class CardDTO {
-	private int card_num; // Ä«µå ¼ø¼­¹øÈ£
-	private int card_no1; // Ä«µå ¹øÈ£1
-	private int card_no2; // Ä«µå ¹øÈ£2
-	private int card_no3; // Ä«µå ¹øÈ£3
-	private int card_no4; // Ä«µå ¹øÈ£4
-	private int card_cvc; // CVC ¹øÈ£ // DB¾ÏÈ£È­
-	private int card_pwd; // Ä«µå ºñ¹Ğ¹øÈ£ // DB¾ÏÈ£È­
+	private int card_num; // ì¹´ë“œ ìˆœì„œë²ˆí˜¸
+	private int card_no1; // ì¹´ë“œ ë²ˆí˜¸1
+	private int card_no2; // ì¹´ë“œ ë²ˆí˜¸2
+	private int card_no3; // ì¹´ë“œ ë²ˆí˜¸3
+	private int card_no4; // ì¹´ë“œ ë²ˆí˜¸4
+	private int card_cvc; // CVC ë²ˆí˜¸ // DBì•”í˜¸í™”
+	private int card_pwd; // ì¹´ë“œ ë¹„ë°€ë²ˆí˜¸ // DBì•”í˜¸í™”
 
-	private String user_id; // À¯Àú ¾ÆÀÌµğ FK
+	private String user_id; // ìœ ì € ì•„ì´ë”” FK
 }

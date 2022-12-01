@@ -6,9 +6,9 @@ import lombok.Data;
 
 @Data
 public class Subscribe_userDTO {
-	private int sub_no; // ±¸µ¶ ¹øÈ£
-	private Date sub_start; // ±¸µ¶ ½ÃÀÛÀÏ
-	private Date sub_end; // ±¸µ¶ Á¾·áÀÏ
-	private String sub_status; // ±¸µ¶ »óÅÂ ±âº»°ª:ÁøÇà .. ÈŞ½Ä,ÁøÇà,Á¾·á
-	private String user_id; // À¯Àú ¾ÆÀÌµğ FK
+	private int sub_no; // êµ¬ë… ë²ˆí˜¸
+	private Date sub_start; // êµ¬ë… ì‹œì‘ì¼
+	private Date sub_end; // êµ¬ë… ì¢…ë£Œì¼
+	private String sub_status; // êµ¬ë… ìƒíƒœ ê¸°ë³¸ê°’:ì§„í–‰ .. íœ´ì‹,ì§„í–‰,ì¢…ë£Œ
+	private String user_id; // ìœ ì € ì•„ì´ë”” FK
 }

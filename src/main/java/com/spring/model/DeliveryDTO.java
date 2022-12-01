@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class DeliveryDTO {
-	private String deli_zipcode; // ¿ìÆí ¹øÈ£
-	private String deli_addr1; // ±âº» ÁÖ¼Ò
-	private String deli_addr2; // »ó¼¼ ÁÖ¼Ò
-	private String user_id; // À¯Àú ¾ÆÀÌµğ FK
+	private String deli_zipcode; // ìš°í¸ ë²ˆí˜¸
+	private String deli_addr1; // ê¸°ë³¸ ì£¼ì†Œ
+	private String deli_addr2; // ìƒì„¸ ì£¼ì†Œ
+	private String user_id; // ìœ ì € ì•„ì´ë”” FK
 }
