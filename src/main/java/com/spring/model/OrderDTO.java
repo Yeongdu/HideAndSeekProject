@@ -11,4 +11,5 @@ public class OrderDTO {
 	private Date order_date; // 주문 날짜
 	private String user_id; // 유저 아이디 FK
 	private int product_no; // 상품 번호 FK
+	
 }
