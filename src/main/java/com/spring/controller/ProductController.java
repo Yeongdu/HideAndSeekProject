@@ -25,6 +25,12 @@ public class ProductController {
 	// DB 상의 전체 게시물의 수
 	private int totalRecord = 0;
 	
+	@RequestMapping("/store.do")
+	public String store() {
+		
+		return "store/store_main";
+	}
+	
 	@RequestMapping("/store_tlist.do")
 	public String list(HttpServletRequest request, Model model) {
 		// 페이징 처리 작업

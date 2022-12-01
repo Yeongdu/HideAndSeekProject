@@ -1,0 +1,221 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap%27');
+
+@font-face {
+    font-family: 'dimibang_new';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.1/dimibang_new.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.main {
+	width: 100%;
+	height: auto;
+	background: rgba(255,255,255,1);
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+ul {
+	list-style: none;
+	padding: 0px;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.category {
+	font-size: 1.5rem;
+ 	font-family: dimibang_new;
+	width: 100%;
+	height: auto;
+	margin-top: 5%;
+	margin-bottom: 5%;
+}
+
+.category > ul {
+	display: flex;
+	width: 45%;
+	margin-left: auto;
+	margin-right: auto
+}
+
+.category > ul > li{
+	text-align: center;
+	width: 25%;
+	display: inline-block;
+}
+
+hr {
+	color: gray;
+	background-color: gray;
+	height: 5%;
+	margin-bottom: 5%;
+}
+
+.best_wrap {
+	width:100%;
+	max-width: 1200px;
+	margin : 50px auto 100px;
+	text-align: center;
+	font-weight: bold;	
+}
+
+.best_choice {
+	display: flex;
+	font-weight: 700px;
+}
+
+.best_logo {
+	margin-top: 1%;
+}
+
+.best_title{
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	margin-top: 2.5%;
+}
+.best_introduse1{
+	width:100%;
+	font-family: dimibang_new;
+	font-size: 2rem;
+	margin-left: 5%;
+	margin-bottom: 2.5%;
+}
+
+.best_introduse2{
+	width:100%;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 1.5rem;
+	color: #FFD600;
+	margin-left: 5%;
+}
+
+.best_product{
+	margin-top: 2.5%;
+	width: 25%;
+}
+
+.more {
+	-webkit-box-flex: 1;
+    flex-grow: 1;
+    display: flex;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.best_product_content {
+	display: flex;
+	flex-direction: column;
+	font-family: 'Noto Sans KR', sans-serif;
+	text-align: left;
+	width: 85%;
+    margin-left: auto;
+	margin-right: auto;
+}
+
+.best_product_name {
+	font-size: 1.5rem;
+	height: 6vh;
+}
+
+.best_product_pr{
+	display: flex;
+	flex-direction: column;
+}
+
+.best_product_price{
+	line-height: 6vh;
+}
+
+.best_product_coment{
+	display: flex;
+	flex-direction: column;
+	font-size: 13px;
+    font-weight: normal;
+    color: rgb(112, 112, 112);
+}
+
+.review_wrap {
+	width:100%;
+	max-width: 1200px;
+	margin : 50px auto 100px;
+	text-align: center;
+	font-weight: bold;	
+}
+
+.review_choice {
+	display: flex;
+	font-weight: 700px;
+}
+
+.review_logo {
+	margin-top: 1%;
+}
+
+.review_title{
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	margin-top: 2.5%;
+}
+.review_introduse1{
+	width:100%;
+	font-family: dimibang_new;
+	font-size: 2rem;
+	margin-left: 5%;
+	margin-bottom: 2.5%;
+}
+
+.review_introduse2{
+	width:100%;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 1.5rem;
+	color: #FFD600;
+	margin-left: 5%;
+}
+
+.review_product{
+	margin-top: 2.5%;
+	width: 25%;
+}
+
+.review_product_content {
+	display: flex;
+	flex-direction: column;
+	font-family: 'Noto Sans KR', sans-serif;
+	text-align: left;
+	width: 85%;
+    margin-left: auto;
+	margin-right: auto;
+}
+
+.review_product_name {
+	font-size: 1.5rem;
+	height: 6vh;
+}
+
+.review_product_pr{
+	display: flex;
+	flex-direction: column;
+}
+
+.review_product_price{
+	line-height: 6vh;
+}
+
+.review_product_coment{
+	display: flex;
+	flex-direction: column;
+	font-size: 13px;
+    font-weight: normal;
+    color: rgb(112, 112, 112);
+}

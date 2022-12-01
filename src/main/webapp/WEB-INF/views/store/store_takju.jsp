@@ -1,44 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<%-- <script type="text/javascript">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-	function(){
-		
-		let page = 1;
-		let size = 4;
-		let start = (page * size) - (size - 1);
-		let end = page * size;
-		
-		$.ajax({
-			url : "<%=request.getContextPath()%>/store_getlist.do",
-	  		data : {
-	  			start : start,
-	  			end : end
-	  		},
-	  		type : "post", 
-	  		async : false,
-	  		dataType : "json",
-	  		success : function(data){
-				// 서비스 성공 시 처리 할 내용
-			},
-	  		error : function(data){
-				// 서비스 실패 시 처리 할 내용
-			}
-		});
-		
-	}
-</script> --%>
-<body>
-
-	<jsp:include page="../banner/none_top.jsp" />
+<jsp:include page="../banner/none_top.jsp" />
+	
+<link href="resources/css/banner/test.css" rel="stylesheet" type="text/css"/>
 	
 	<h3>탁주 페이지</h3>
 	
@@ -92,5 +58,3 @@
 			</c:if>
 		</table>
 	</div>
-</body>
-</html>
