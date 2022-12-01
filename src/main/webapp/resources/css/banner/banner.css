@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+.header_wrap {
+	box-sizing: border-box;
+	background-color: #fff;
+	font-weight: bold;
+	font-size: 1em;
+	
+	display: flex; 
+	width:100%;
+	align-items: center;
+	height: 20%;
+	border-bottom: 1px solid #C6C6C6;
+}
+
+.header_wrap > li {
+	display: inline-block;
+	list-style: none;
+	width: 10%;
+	vertical-align: middle;
+	font-size: 1.3em;
+}
+
+.header_wrap > .login {
+	
+}
+
+.header_wrap > .none {
+	width: 45%;
+}

@@ -1,51 +1,73 @@
 @charset "UTF-8";
 
-.body {
-	/* background-image:  */
+li {
+	list-style: none;
 }
 
 .inputBtn {
 	box-sizing: border-box;
-	border: 1px solid #FFFFFF;
-	position: absolute;
-	width: 130px;
-	height: 70px;
-	left: 885px;
-	top: 387px;
+    border: 1px solid #FFFFFF;
+    background-color: rgba(255,255,255,0);
+    position: absolute;
+    width: 8em;
+    height: 4.5em;
+    left: 46.5%;
+    top: 41%;
+    color: white;
+    font-size: 1em;
 }
 
 .inputBtn:hover {
 	box-sizing: border-box;
 	background: #FFFFFF;
 	border: 1px solid #000000;
+	color: black;
+}
+
+#title {
+	position: absolute;
+	top:30%;
+	left:28%;
 }
 
 .title {
-	position: absolute;
-	width: 909px;
-	height: 83px;
-	left: 506px;
-	top: calc(50% - 83px/2 - 401.5px);
 	font-family: 'Chosun Centennial';
 	font-style: normal;
 	font-weight: 400;
-	font-size: 70px;
+	font-size: 4em;
 	line-height: 88px;
 	text-align: center;
 	color: #FFFFFF;
 }
 
 .title2{
-	position: absolute;
-	width: 778px;
-	height: 80px;
-	left: 571px;
-	top: calc(50% - 80px/2 - 305px);
 	font-family: 'Chosun Centennial';
 	font-style: normal;
 	font-weight: 400;
-	font-size: 70px;
+	font-size: 3.5em;
 	line-height: 88px;
 	text-align: center;
 	color: #FFFFFF;
 }
+
+
+
+
+
+/* #btn {
+    height: 3em; 애니메이션 높이
+    overflow-y: hidden;
+    display: block;
+}
+#btn .inputBtn {
+    font-size: 3em;애니메이션 높이
+    font-weight: bold;
+    line-height: 1;
+    animation-name: grow;
+    animation-duration: 1s;애니메이션 시간
+}
+키프레임 애니메이션
+@keyframes grow {
+    from { transform: translateY(3em) }애니메이션 높이
+    to { transform: translateY(0) }
+} */
