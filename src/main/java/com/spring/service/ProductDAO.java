@@ -1,16 +1,18 @@
 package com.spring.service;
 
 import java.util.List;
+
+import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
 
 public interface ProductDAO {
-	// DB »óÀÇ ÀüÃ¼ »óÇ° ¼ö¸¦ ¹Ş¾Æ¿À´Â ¸Ş¼­µå
+	// DB ìƒì˜ ì „ì²´ ìƒí’ˆ ìˆ˜ë¥¼ ë°›ì•„ì˜¤ëŠ” ë©”ì„œë“œ
     int getListCount();
 
-    // »óÇ°Å×ÀÌºíÀÇ ¸®½ºÆ®¸¦ ¹Ş¾Æ¿À´Â ¸Ş¼­µå
-    List<ProductDTO> getProductList();
+    // ìƒí’ˆí…Œì´ë¸”ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ë°›ì•„ì˜¤ëŠ” ë©”ì„œë“œ
+    List<ProductDTO> getProductList(PageDTO dto);
 
-    // »óÇ°ÀÇ »ó¼¼Á¤º¸¸¦ ¹Ş¾Æ¿À´Â ¸Ş¼­µå
+    // ìƒí’ˆì˜ ìƒì„¸ì •ë³´ë¥¼ ë°›ì•„ì˜¤ëŠ” ë©”ì„œë“œ
     ProductDTO getProductCont(int product_no);
 
 }
