@@ -44,8 +44,6 @@
 </head>
 <body style = "background-image: url('resources/image/main.png')">
 
-	<jsp:include page="banner/none_top.jsp" />
-
 	<div id = "main" align = "center">
 		<div align = "center" id = "title" style = "display: none">
 			<ul class = "title_wrap">
@@ -62,6 +60,5 @@
 	</div>
 
 </body>
-
 
 </html>

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,0" />
 <link href="resources/css/banner/banner.css" rel="stylesheet" type="text/css">
 
 	<div id = "header">
@@ -14,6 +15,14 @@
 			<li class = "store" onclick = "location.href = '<%=request.getContextPath()%>/store.do'">상 점</li>
 			<li class = "event" onclick = "location.href = '<%=request.getContextPath()%>/event.do'">이 벤 트</li>
 			<li class = "none"> </li>
-			<li class = "login" onclick = "location.href = '<%=request.getContextPath()%>/user_login.do'">로 그 인</li>
+			<li class = "user_name"></li>
+			<li class = "login" onclick = "location.href = '<%=request.getContextPath()%>/user_logout.do'">로그아웃</li>
+			<li class = "cart" onclick = "location.href='<%=request.getContextPath()%>/cart.do'">
+				<div class="cart_icon">
+						<div class="cart_circle" align = "right">
+							<span class="cart_count">0</span>
+						</div>
+				</div>
+			</li>
 		</ul>
 	</div>

@@ -23,4 +23,35 @@ public class HomeController {
 		return "main";
 	}
 	
+	@RequestMapping("main.do")
+	public String main() {
+	
+		return "main";
+	}
+	
+	@RequestMapping("sub.do")
+	public String sub() {
+	
+		return "sub_main";
+	}
+	
+	@RequestMapping("store.do")
+	public String store() {
+	
+		return "store_main";
+	}
+	
+	@RequestMapping("event.do")
+	public String event() {
+	
+		return "event/event_main";
+	}
+	
+	@RequestMapping("login.do")
+	public String login() {
+	
+		return "login";
+	}
+	
+	
 }
