@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class Product_categoryDTO {
-	private String product_category; // »óÇ° Ä«Å×°í¸®
+	private String product_category; // ìƒí’ˆ ì¹´í…Œê³ ë¦¬
 
 }

@@ -5,13 +5,13 @@ import lombok.Data;
 @Data
 public class Product_contentDTO {
 	
-	private int product_no; // »óÇ° ¹øÈ£ FK
-	private String product_file1; // »óÇ° »çÁø
+	private int product_no; // ìƒí’ˆ ë²ˆí˜¸ FK
+	private String product_file1; // ìƒí’ˆ ì‚¬ì§„
 	private String product_file2;
 	private String product_file3;
 	private String product_file4;
 	private String product_file5;
-	private String product_cont1; // »óÇ° ¼³¸í
+	private String product_cont1; // ìƒí’ˆ ì„¤ëª…
 	private String product_cont2;
 	private String product_cont3;
 	private String product_cont4;

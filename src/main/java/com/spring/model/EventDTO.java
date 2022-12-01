@@ -8,20 +8,20 @@ import lombok.Data;
 @Data
 public class EventDTO {
 	
-	private int event_no; // ÀÌº¥Æ® ¹øÈ£
-	private String event_thumbnail; // ½æ³×ÀÏ
-	private String event_file1; // ÀÌº¥Æ® »çÁø1
+	private int event_no; // ì´ë²¤íŠ¸ ë²ˆí˜¸
+	private String event_thumbnail; // ì¸ë„¤ì¼
+	private String event_file1; // ì´ë²¤íŠ¸ ì‚¬ì§„1
 	private String event_file2;
 	private String event_file3;
 
-	private String event_cont1;// ÀÌº¥Æ® ¼³¸í1
+	private String event_cont1;// ì´ë²¤íŠ¸ ì„¤ëª…1
 	private String event_cont2;
 	private String event_cont3;
 	
-	private Date event_date; // ÀÌº¥Æ® µî·ÏÀÏ
-	private Date event_start; // ÀÌº¥Æ® ½ÃÀÛÀÏ
-	private Date event_end; // ÀÌº¥Æ® Á¾·áÀÏ
+	private Date event_date; // ì´ë²¤íŠ¸ ë“±ë¡ì¼
+	private Date event_start; // ì´ë²¤íŠ¸ ì‹œì‘ì¼
+	private Date event_end; // ì´ë²¤íŠ¸ ì¢…ë£Œì¼
 	
-	private String event_status; // ÀÌº¥Æ® »óÅÂ
+	private String event_status; // ì´ë²¤íŠ¸ ìƒíƒœ
 
 }

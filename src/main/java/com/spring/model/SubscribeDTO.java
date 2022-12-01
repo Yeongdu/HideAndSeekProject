@@ -6,9 +6,9 @@ import lombok.Data;
 
 @Data
 public class SubscribeDTO {
-	private int sub_no; // ±¸µ¶ ¹øÈ£
-	private String sub_package; // ±¸µ¶ ÆĞÅ°Áö¸í
-	private Date sub_date; // ÆÇ¸Å ±â°£
-	private int product_no; // »óÇ° ¹øÈ£
+	private int sub_no; // êµ¬ë… ë²ˆí˜¸
+	private String sub_package; // êµ¬ë… íŒ¨í‚¤ì§€ëª…
+	private Date sub_date; // íŒë§¤ ê¸°ê°„
+	private int product_no; // ìƒí’ˆ ë²ˆí˜¸
 
 }

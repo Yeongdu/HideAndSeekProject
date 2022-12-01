@@ -6,14 +6,14 @@ import lombok.Data;
 
 @Data
 public class ReviewDTO {
-	private int review_no; // ¸®ºä ¹øÈ£
-	private String review_title; // ¸®ºä Á¦¸ñ
-	private String review_cont; // ¸®ºä ³»¿ë
-	private String review_file; // ¸®ºä »çÁø
-	private int review_star; // ¸®ºä º°Á¡ // 1~5±îÁö
-	private Date review_date; // ¸®ºä ³¯Â¥
+	private int review_no; // ë¦¬ë·° ë²ˆí˜¸
+	private String review_title; // ë¦¬ë·° ì œëª©
+	private String review_cont; // ë¦¬ë·° ë‚´ìš©
+	private String review_file; // ë¦¬ë·° ì‚¬ì§„
+	private int review_star; // ë¦¬ë·° ë³„ì  // 1~5ê¹Œì§€
+	private Date review_date; // ë¦¬ë·° ë‚ ì§œ
 	
-	private String user_id; // À¯Àú ¾ÆÀÌµğ FK
-	private int product_no; // »óÇ° ¹øÈ£
+	private String user_id; // ìœ ì € ì•„ì´ë”” FK
+	private int product_no; // ìƒí’ˆ ë²ˆí˜¸
 
 }

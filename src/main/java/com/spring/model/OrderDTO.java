@@ -6,9 +6,9 @@ import lombok.Data;
 
 @Data
 public class OrderDTO {
-	private int order_no; // ÁÖ¹® ¹øÈ£
-	private String order_status; //ÁÖ¹®»óÅÂ ±âº»°ª:ÁÖ¹®¿Ï·á
-	private Date order_date; // ÁÖ¹® ³¯Â¥
-	private String user_id; // À¯Àú ¾ÆÀÌµğ FK
-	private int product_no; // »óÇ° ¹øÈ£ FK
+	private int order_no; // ì£¼ë¬¸ ë²ˆí˜¸
+	private String order_status; //ì£¼ë¬¸ìƒíƒœ ê¸°ë³¸ê°’:ì£¼ë¬¸ì™„ë£Œ
+	private Date order_date; // ì£¼ë¬¸ ë‚ ì§œ
+	private String user_id; // ìœ ì € ì•„ì´ë”” FK
+	private int product_no; // ìƒí’ˆ ë²ˆí˜¸ FK
 }

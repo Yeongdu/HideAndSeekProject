@@ -7,11 +7,11 @@ import lombok.Data;
 @Data
 public class CartDTO {
 	
-	private int cart_no; // Àå¹Ù±¸´Ï ¹øÈ£
-	private int cart_amount; // Àå¹Ù±¸´Ï ¼ö·®
-	private int cart_price; // Àå¹Ù±¸´Ï °¡°İ
-	private Date cart_date; // Àå¹Ù±¸´Ï ³¯Â¥
-	private String user_id; // À¯Àú¾ÆÀÌµğ FK
-	private int product_no; // »óÇ° ¹øÈ£ FK
+	private int cart_no; // ì¥ë°”êµ¬ë‹ˆ ë²ˆí˜¸
+	private int cart_amount; // ì¥ë°”êµ¬ë‹ˆ ìˆ˜ëŸ‰
+	private int cart_price; // ì¥ë°”êµ¬ë‹ˆ ê°€ê²©
+	private Date cart_date; // ì¥ë°”êµ¬ë‹ˆ ë‚ ì§œ
+	private String user_id; // ìœ ì €ì•„ì´ë”” FK
+	private int product_no; // ìƒí’ˆë²ˆí˜¸ FK
 
 }
