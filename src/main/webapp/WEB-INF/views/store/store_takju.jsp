@@ -37,6 +37,9 @@
 	}
 </script> --%>
 <body>
+
+	<jsp:include page="../banner/none_top.jsp" />
+	
 	<h3>탁주 페이지</h3>
 	
 	<div align="center">
