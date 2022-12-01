@@ -48,6 +48,7 @@
 		<table border="1" cellspacing="0" width="1000">
 			<tr>
 				<th>상품 번호</th> <th>상품 이름</th> <th>상품 카테고리</th>
+				<th>상품 설명1</th> <th>상품 설명2</th>
 				<th>상품 제조사</th> <th>도수</th> <th>단맛</th> <th>신맛</th>
 				<th>탄산</th> <th>원료</th> <th>가격</th>
 				<th>썸네일</th> <th>상태</th> <th>등록일</th>
@@ -61,6 +62,8 @@
 						<td>${dto.product_no }</td>
 						<td>${dto.product_name }</td>
 						<td>${dto.product_category }</td>
+						<td>${dto.product_introduce1 }</td>
+						<td>${dto.product_introduce2 }</td>
 						<td>${dto.product_company }</td>
 						<td>${dto.product_alcohol }</td>
 						<td>${dto.product_sweet }</td>
@@ -79,7 +82,7 @@
 			
 			<c:if test="${empty list }">
 				<tr>
-					<td colspan="13" align="center">
+					<td colspan="15" align="center">
 						<h3>전체 게시물 목록이 없습니다.</h3>
 					</td>
 				</tr>

@@ -9,6 +9,8 @@ public class ProductDTO {
 	private int product_no; // 상품 번호
 	private String product_name; // 상품 이름
 	private String product_category; // 상품 카테고리
+	private String product_introduce1;	// 상품 설명1
+	private String product_introduce2;	// 상품 설명2
 	private String product_company; // 상품 제조사
 	
 	private int product_alcohol; // 도수
