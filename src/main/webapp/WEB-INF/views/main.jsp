@@ -7,11 +7,18 @@
 
 </head>
 <body>
-<h1>
-	Hello world! 헬로우
-</h1>
 
-		<a href="<%=request.getContextPath() %>/어쩌고.do">[목록]</a>
+	<div id = "main" align = "center">
+		<div align = "center" id = "title">
+			<span class = "title">양조장에서 집 까지 찾아오는</span>
+			<span class = "title2">한국의 전통적인 전통주</span>
+		</div>
+
+		<div align = "center" id = "btn">
+			<input type = "button" class = "inputBtn" onclick = "location.href = '<%=request.getContextPath() %>/store.do'" value = "about">
+		</div>
+	</div>
 
 </body>
+
 </html>
