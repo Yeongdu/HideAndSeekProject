@@ -15,8 +15,7 @@ public class Product_contentDAOImpl implements Product_contentDAO{
 
 	@Override
 	public List<Product_contentDTO> getProductContList() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.sqlSession.selectList("all");
 	}
 
 	@Override
