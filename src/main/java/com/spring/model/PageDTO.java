@@ -17,6 +17,21 @@ public class PageDTO {
 	public PageDTO() {	}	// 기본 생성자
 	
 	// 일반적인 페이징 처리 생성자
+	public PageDTO(int page, int rowsize) {
+			
+		this.page = page;
+		this.rowsize = rowsize;
+			
+		// 해당 페이지에서 시작 글 번호
+		this.startNo = (this.page * this.rowsize) - (this.rowsize - 1);
+			
+		// 해당 페이지에서 끝 글번호
+		this.endNo = (this.page * this.rowsize);
+			
+			
+	}	// 인자 생성자
+	
+	// 일반적인 페이징 처리 생성자
 	public PageDTO(int page, int rowsize, int totalRecord) {
 		
 		this.page = page;

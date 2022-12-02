@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
@@ -21,6 +23,9 @@ public class ProductController {
 	@Autowired
 	private ProductDAO dao;
 	
+	@Autowired
+	private Product_contentDAO pcdao;
+	
 	// 한 페이지당 보여질 게시물의 수
 	private final int rowsize = 4;
 		
@@ -33,6 +38,7 @@ public class ProductController {
 		return "store/store_main";
 	}
 	
+	// 탁주 페이지 이동 시 처음으로 상품의 정보를 불러오는 메서드
 	@RequestMapping("/store_tlist.do")
 	public String list(HttpServletRequest request, Model model) {
 		// 페이징 처리 작업
@@ -57,13 +63,6 @@ public class ProductController {
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductList(dto);
 		
-		System.out.println("list 값 >>> " + list);
-		System.out.println("totalRecord 값 >>> " + totalRecord);
-		System.out.println("rowsize 값 >>> " + rowsize);
-		System.out.println("page 값 >>> " + page);
-		System.out.println("startno 값 >>> " + dto.getStartNo());
-		System.out.println("endno 값 >>> " + dto.getEndNo());
-		
 		model.addAttribute("list", list);
 		
 		model.addAttribute("page", dto);
@@ -71,16 +70,25 @@ public class ProductController {
 		return "store/store_takju";
 		
 	}
-	
-		//김경령
-		@Autowired
-		private Product_contentDAO pcdao;
 		
-		@RequestMapping("/product_content_list.do")
-		public String list(Model model) {
-			List<Product_contentDTO> list = this.pcdao.getProductContList();
-			model.addAttribute("List", list);
-			return "content/product_content_list";
-		}
+	@RequestMapping("/product_content_list.do")
+	public String list(Model model) {
+		List<Product_contentDTO> list = this.pcdao.getProductContList();
+		model.addAttribute("List", list);
+		return "content/product_content_list";
+	}
+	
+	// 마지막 스크롤 이동 시 지속적으로 상품 리스트를 불러오는 메서드
+	@RequestMapping("/infinite_scroll.do")
+	@ResponseBody
+	public Object infinitescroll(@RequestParam("page") int page){
+		
+		PageDTO dto = new PageDTO(page, rowsize);
+		
+		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
+		List<ProductDTO> list = this.dao.getProductList(dto);
+				
+		return list;
+	}
 }
 
