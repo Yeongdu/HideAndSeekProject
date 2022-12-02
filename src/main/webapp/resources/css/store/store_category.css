@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap%27');
+
+@font-face {
+    font-family: 'dimibang_new';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.1/dimibang_new.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.main {
+	width: 100%;
+	height: auto;
+	background: rgba(255,255,255,1);
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+ul {
+	list-style: none;
+	padding: 0px;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.header_menu {
+ 	font-family: 'Noto Sans KR', sans-serif;
+	width: 100%;
+	margin: 0px auto;
+	padding: 0px 5%;
+}
+
+.header_menu > ul {
+	height: 50px;
+	display: flex;
+	align-items: baseline;
+    margin: 0px auto;
+    justify-content: flex-start;
+}
+
+.header_menu > ul > li{
+	align-items: center;
+	text-align: center;
+	display: inline-block;
+	height: 100%;
+	padding-top: 0.7%;
+	padding-right: 3%;
+}
+
+span {
+	font-weight: bold;
+	font-size: 1rem;
+}
+
+.select_label {
+	color: rgb(255, 186, 0);
+}
+
+.select_underbar{
+	background-color: rgb(244, 187, 95);
+    border: 1px solid rgb(244, 187, 95);
+}
+
+.label {
+	color: rgb(112, 112, 112);
+}
+
+.header_category_cont{
+    height: 120px;
+    position: relative;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    background-color: rgb(244, 244, 244);
+    color: rgb(112, 112, 112);
+    text-align: left;
+}

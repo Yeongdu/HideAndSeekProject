@@ -31,7 +31,6 @@ a {
 }
 
 .category {
-	font-size: 1.5rem;
  	font-family: dimibang_new;
 	width: 100%;
 	height: auto;
@@ -50,6 +49,10 @@ a {
 	text-align: center;
 	width: 25%;
 	display: inline-block;
+}
+
+.category > ul > li > ul > li{
+	font-size: 2.5rem;
 }
 
 hr {
