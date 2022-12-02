@@ -7,34 +7,67 @@
 <meta charset="UTF-8">
 <link href="resources/css/cont/content.css" rel="stylesheet" type="text/css">
 <title>Insert title here</title>
+<script type="text/javascript">
+function setreview() {
+	  const element = document.getElementById('warn');
+	  element.review  = ${dto.getProduct_cont5() };
+} 
+</script>
 </head>
 <body>
 	<jsp:include page="../banner/none_top.jsp" />
-	<div>
+	<div id="main"align="center">
 		<c:set var="list" value="${List }" />
 		<c:forEach items="${list }" var="dto">
-			<div class="pic">
-				<img src="resources/image/${dto.getProduct_file1() }">
+			<div class="productContentWrap">
+				<div class="picture_1">
+					<img src="resources/image/${dto.getProduct_file1() }">
+				</div>
+
+				<div class="product_cont" align="left">
+					<span class="name">이름</span>
+
+					<div class="ex_box">
+						<span class="sub_ex"># #</span>
+						<span class="ssub_ex">주종 : 주류</span>
+						<span class="ssub_ex">도수 : %</span>
+						<span class="ssub_ex">주량 : ml</span>
+					</div>
+
+					<span class="price_w">판매가격: </span>
+					<span class="price">00,000원</span>
+					<hr class="first">
+
+					<span class="su">수량</span>
+					<span class="total_price_w">총 상품 가격</span>
+					<div class="total_price" align="center">
+						<span class="final_price">00,000원</span>
+					</div>
+					<input type="button" class="buybtn" onclick="location.href='<%=request.getContextPath()%>/product_buy.do'" value="바로 구매">
+					<input type="button" class="cartbtn" onclick="location.href='<%=request.getContextPath()%>/product_cart.do'" value="장바구니">
+				</div>
 			</div>
 			
-			<span class="name">이름</span>
-			
-			<div class="ex">
-				<span class="sub_ex">#${dto.getProduct_cont1() } #${dto.getProduct_cont2() }</span>
-				<span class="ssub_ex1">주종 : ${dto.getProduct_cont3() }주류</span>
-				<span class="ssub_ex2">도수 : ${dto.getProduct_cont4() }%</span>
-				<span class="ssub_ex3">주량 : ${dto.getProduct_cont5() }ml</span>
-			</div>
-			
-			<span class="price_w">판매가격: </span>
-			<span class="price">판매가격: </span>
-			<hr class="first">
-			
-			<span class="su">수량</span>
-			
-			<span class="total_price_w">총 상품 가격</span>
-			<div class="total_price">
-				
+			<hr class="second">
+			<div class="main_cont">
+				<div class="picture_2">
+					<img src="resources/image/${dto.getProduct_file2() }">
+					<strong class="cont1">${dto.getProduct_cont1() }</strong>
+						<div class="sub_cont">
+							<span>${dto.getProduct_cont2() }</span>
+						</div>
+					<img src="resources/image/${dto.getProduct_file3() }">
+					<strong class="cont1">${dto.getProduct_cont3() }</strong>
+						<div class="sub_cont">
+							<span>${dto.getProduct_cont4() }</span>
+						</div>
+					<img src="resources/image/${dto.getProduct_file4() }">
+				</div>
+				<div id="warn" class="warn" align="left">
+					<%-- <span>${dto.getProduct_cont5() }</span> --%>
+				</div>
+				<input type='button' value='리뷰' onclick='review()'/>
+				<input type='button' value='교환/반품' onclick='change()'/>
 			</div>
 		</c:forEach>
 	</div>
