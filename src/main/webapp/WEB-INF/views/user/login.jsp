@@ -49,7 +49,7 @@
                                 
                                 <div class="login_input_btn" >
 
-                                    <button type="submit" class="btn_login" >
+                                   <button type="submit" class="btn_login" >
                                         <span class="btn_text">로그인</span>
                                     </button>
 
@@ -62,16 +62,18 @@
                                 	
                                 	<div class="find_wrap">
                                 	
-                                		<div class="find_pw">
-                                		   <a href="<%=request.getContextPath() %>/find_pw.do">비밀번호 찾기</a>
-                                		</div>
+                                		
                                 		
                                 		<div class="find_id">
-                                			<a href="<%=request.getContextPath() %>/find_id.do">아이디 찾기</a>
+                                			<a class="find_id_a" href="<%=request.getContextPath() %>/find_id.do">아이디 찾기</a>
+                                		</div>
+                                		
+                                		<div class="find_pw">
+                                		   <a class="find_pw_a"  href="<%=request.getContextPath() %>/find_pw.do">비밀번호 찾기</a>
                                 		</div>
                                 		
                                 		<div class="join_form">
-                                			<a href="<%=request.getContextPath() %>/join_form.do">회원가입</a>
+                                			<a  class="join_form_a"  href="<%=request.getContextPath() %>/join_form.do">회원가입</a>
                                 		
                                 		</div>
                                 		
@@ -81,6 +83,7 @@
                                 
                                 
                               </div>
+                              <!-- 로그인 창 end -->
                             
                         
                    
