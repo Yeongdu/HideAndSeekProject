@@ -17,10 +17,16 @@ public class UserController {
 	private UserDAO dao;
 	
 	@RequestMapping("user_login.do")
-	public String list() {
+	public String loginList() {
 		
 	return "user/login";
 		
+	}
+	
+	@RequestMapping("join_form.do")
+	public String joinformList() {
+		
+		return "user/join";
 	}
 	
 	
