@@ -15,7 +15,7 @@
 		
                         <!-- 로그인 창 -->
 		
-                             <div class="login_input_wrap">
+                             <div class="login_input_wrap" align="center">
                              	
                              		<div class="login_input_wrap_title">
                              			<span>입장하기</span>
@@ -29,7 +29,7 @@
                                 
                                 	<!-- 아이디 입력 창 -->
                                     <div class="login_input_id">
-                                        <i class="bi bi-person" style="font-size: 25px;"></i><input type="text" id="id" name="id" placeholder="아이디" title="아이디"
+                                        <i class="bi bi-person" style="font-size: 25px;"></i>&nbsp;<input type="text" id="id" name="id" placeholder="아이디" title="아이디"
                                                class="input_id" maxlength="41"
                                                value="">
                                        </div>
@@ -39,7 +39,7 @@
                                        <!-- 비밀번호 입력 창 -->
                                        <div class="login_input_pw">
                                         
-                                        <i class="bi bi-lock" style="font-size: 25px;"></i><input type="password" id="pw" name="pw" placeholder="비밀번호" title="비밀번호"
+                                        <i class="bi bi-lock" style="font-size: 25px;"></i>&nbsp;<input type="password" id="pw" name="pw" placeholder="비밀번호" title="비밀번호"
                                                class="input_pw" maxlength="16">
                                         </div>
                                         
@@ -47,9 +47,9 @@
                                 
                                    <br>
                                 
-                                <div class="login_input_btn" align="center">
+                                <div class="login_input_btn" >
 
-                                    <button type="submit" class="btn_login">
+                                    <button type="submit" class="btn_login" >
                                         <span class="btn_text">로그인</span>
                                     </button>
 
@@ -60,10 +60,23 @@
                                 
                                 	<!-- 아이디, 비밀번호 찾기 및 회원가입 버튼 -->
                                 	
-                                	<div class="">
+                                	<div class="find_wrap">
                                 	
+                                		<div class="find_pw">
+                                		   <a href="<%=request.getContextPath() %>/find_pw.do">비밀번호 찾기</a>
+                                		</div>
+                                		
+                                		<div class="find_id">
+                                			<a href="<%=request.getContextPath() %>/find_id.do">아이디 찾기</a>
+                                		</div>
+                                		
+                                		<div class="join_form">
+                                			<a href="<%=request.getContextPath() %>/join_form.do">회원가입</a>
+                                		
+                                		</div>
+                                		
+                                		
                                 	</div>
-                                	
                                 	
                                 
                                 
