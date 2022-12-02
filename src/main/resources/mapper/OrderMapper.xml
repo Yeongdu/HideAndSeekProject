@@ -41,6 +41,15 @@
   	select * from tb_order
 <!-- 		select * from (select rownum as rownumber, O.* from tb_order O order by order_date desc) where rownum <= 5; -->
 	</select>
+	
+  	<select id="admin_order" resultType="OrderDTO">
+	select * from tb_order
+	</select>
+
+
+	<select id="admin_getOrderListCount" resultType="int">
+		select count(*) from tb_order order by order_date desc
+	</select>
   
   
   

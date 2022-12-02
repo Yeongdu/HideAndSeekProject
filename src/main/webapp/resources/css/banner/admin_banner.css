@@ -176,6 +176,18 @@ h1, h2, h3, h4, h5 {
 	table th {
 	text-align: center;
 	}
+	
+	.form-control-plaintext, .thumbnailInput{
+	border:0 solid black;
+	}
+	
+	.form-control-plaintext-range{
+	width: 350px;
+	}
+	
+	.col-sm-8-range{
+	display: flex;
+	}
     
 
     

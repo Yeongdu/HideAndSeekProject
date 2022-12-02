@@ -34,6 +34,10 @@
 	</delete>
   
  	 -->
+ 	 
+ 	<select id="adminCateList" resultType="Product_categoryDTO">
+		select * from product_category
+	</select>
   
   
   
