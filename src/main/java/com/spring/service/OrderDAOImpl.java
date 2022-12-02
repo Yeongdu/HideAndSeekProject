@@ -1,5 +1,6 @@
 package com.spring.service;
 
+
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,15 +9,32 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.model.CartDTO;
 import com.spring.model.OrderDTO;
+import com.spring.model.Product_categoryDTO;
 
 @Repository
 public class OrderDAOImpl implements OrderDAO{
+	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
+
+	@Override
+	public List<OrderDTO> getNewOrderList() {
+		return this.sqlSession.selectList("admin_new5order");
+	}
+
 	@Override
 	public List<OrderDTO> getOrderList() {
-		return this.sqlSession.selectList("admin_new5order");
+		return this.sqlSession.selectList("admin_order");
+	}
+
+	@Override
+	public List<Product_categoryDTO> getCategoryList() {
+		return this.sqlSession.selectList("adminCateList");
+	}
+	
+	@Override
+	public int getOrderCount() {
+		return this.sqlSession.selectOne("admin_getOrderListCount");
 	}
 
 	@Override
@@ -42,7 +60,5 @@ public class OrderDAOImpl implements OrderDAO{
 		// TODO Auto-generated method stub
 		
 	}
-
-
-
+	
 }
