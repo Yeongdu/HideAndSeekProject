@@ -9,6 +9,10 @@
     font-style: normal;
 }
 
+div {
+	display: block;
+}
+
 .main {
 	width: 100%;
 	height: auto;
@@ -30,7 +34,9 @@ a {
  	font-family: 'Noto Sans KR', sans-serif;
 	width: 100%;
 	margin: 0px auto;
-	padding: 0px 5%;
+	padding: 0px 20%;
+	border-bottom: 3px 5px solid rgb(243, 243, 243);
+	box-sizing: border-box;
 }
 
 .header_menu > ul {
@@ -70,7 +76,7 @@ span {
 }
 
 .header_img_wrap {
-	padding: 15px 69px;
+	padding: 30px 250px;
 	min-width: 500px;
 }
 
@@ -79,7 +85,6 @@ span {
     height: 56px;
     position: relative;
     display: flex;
-    -webkit-box-pack: justify;
     justify-content: space-between;
     background-color: rgb(244, 244, 244);
     margin: 0px auto;
@@ -90,14 +95,14 @@ span {
 }
 
 .category_title {
-	font-size: 1.7rem;
+	font-size: 1.5rem;
     font-weight: bold;
     color: rgb(62, 62, 62);
-    line-height: 1;
+    line-height: 1.1;
 }
 
 .category_cont {
-	font-size: 1.2rem;
+	font-size: 1.0rem;
     font-weight: bold;
     margin-top: 10px;
     color: rgb(112, 112, 112);
@@ -107,9 +112,7 @@ span {
 	width: 100px;
     height: 100px;
     display: flex;
-    -webkit-box-pack: center;
     justify-content: center;
-    -webkit-box-align: center;
     align-items: center;
     position: absolute;
     top: 10px;
@@ -118,17 +121,78 @@ span {
     background-color: rgb(255, 255, 255);
 }
 
-.content_wrap {
+.content_tag_wrap {
 	padding: 40px 0px;
 	box-sizing: border-box;
 }
 
-.content_filer {
+.content_filter {
+	min-width: 887px;
+	padding: 0px 69px;
 	width: 100%;
     border-bottom: 10px solid rgb(241, 241, 241);
     font-weight: normal;
     font-size: 13px;
     color: rgb(62, 62, 62);
+    box-sizing: border-box;
+}
+
+.content_filter_wrap {
+	width: 100%;
+    max-width: 1144px;
+    margin: 0px auto;
+    padding-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.filter_button_group {
+	display: flex;
+	flex-wrap: wrap;
+	box-sizing: border-box;
+}
+
+.container {
+	position: relative;
+	box-sizing: border-box;
+}
+
+.container > button {
+	height: 40px;
+    padding: 12px 12.7px 11px 10px;
+    border: 1px solid rgb(244, 244, 244);
+    margin-right: 15px;
+    white-space: nowrap;
+    align-items: center;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: transparent;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.container > button > span {
+	pointer-events: none;
+	color: rgb(112, 112, 112);
+    font-size: 1rem;
+    font-weight: bold;
+    margin-right: 30px;
+    box-sizing: border-box;
+}
+
+.container > img {
+	pointer-events: none;
+	box-sizing: border-box;
+}
+
+.filter {
+	color: rgb(112, 112, 112);
+    font-size: 13px;
+    font-weight: normal;
+    margin-right: 30px;
+}
+
+.container > .flex {
+	display: flex
 }
 <!-- 경계선 -->
 
@@ -151,6 +215,27 @@ span {
 .infinite_scroll_component {
 	box-sizing: border-box;
 	height: auto;
+}
+
+.data_header {
+	margin-bottom: 25px;
+	box-sizing: border-box;
+}
+
+.data_header > .flex {
+	display: flex;
+}
+
+.data_header > .wrapper {
+	width: 100%;
+    min-height: 27.5px;
+    margin: 25px 0px 0px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgb(62, 62, 62);
+    box-sizing: border-box;
 }
 
 .data_grid {
@@ -211,7 +296,6 @@ span {
 }
 
 .content_wrap {
-	padding-top: 15px;
     display: flex;
     flex-direction: column;
 }

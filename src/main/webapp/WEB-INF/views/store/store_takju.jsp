@@ -9,28 +9,86 @@
 <c:set var="page" value="${page }"/>
 
 <script type="text/javascript">
-		
-	let page = ${page.page} + 1;
-	console.log())
+
+$(function(){
 	
-	let list = ${page.}
-		
-	$(document).on("scroll", function(){
-			
-		let scrolltop = $(window).scrollTop();
-			
-		let windowHeight = $(window).height();
-			
-		let documentHeight = $(document).height();
-			
-		let isBottom = scrolltop + windowHeight + 10 >= documentHeight;
-			
-		if(isBottom){
-			
-			if(${dto.produ})
-			
-		}			
+	let loading = false;
+	
+	let page = ${page.page} + 1;
+	
+	$.ajaxSetup({
+		ContentType : "application/x-www-form-urlencoded;charset=UTF-8",
+		type : "post"
 	});
+	
+ 	$(document).on("scroll", function(){
+			
+ 		if($(window).scrollTop()+200>=$(document).height() - $(window).height())
+ 	    {
+ 	        if(!loading)    //실행 가능 상태라면?
+ 	        {
+ 	            loading = true; //실행 불가능 상태로 변경
+ 	            getlist();
+ 	        }
+ 	    }
+	});
+	
+	function getlist(){
+		
+		let html = "";
+		
+		$.ajax({
+			url:"<%=request.getContextPath()%>/infinite_scroll.do",
+			methood:"post",
+			data: {page : page},
+			datatype: "json",
+			success:function(data){
+				
+				isBottom = false;
+				
+				$.each(data, function(index, item){			// 데이터 = item
+					
+					html = "";
+				
+					let price = item.product_price.toLocaleString('ko-KR');
+				
+					html += "<div class='product'>"
+					html += "<div class='product_wrap'>"
+					html += "<a href='<%=request.getContextPath() %>/product_content.do?no="+item.product_no+"'>"
+					html += "<div class='img_wrap'><span>"
+					html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+".jpg' style='width: 100%; height: 39.7vh'></span></div>"
+					html += "<div class='content_wrap'>"
+					html += "<div class='wrapper'>"
+					html += "<div class='content_title'>"+item.product_name+"</div></div>"
+					html += "<div class='wrapper'><div class='content_price'><p class='content_price_blank' /><div class='content_price_wrap'><p>"
+					html += price
+					html += "<span>원</span></p></div></div>"
+					html += "<div class='content_review'>"
+					html += "<img alt='img' src='resources/image/star.png'>"
+					html += "<p class='content_score'>0.0</p>"
+					html += "<div class='content_column_line'></div>"
+					html += "<p class='review'>리뷰 00</p></div></div>"
+					html += "<div class='card_footer'>"
+					html += "<div class='footer_content'>"
+					html += "<div>#"+item.product_introduce1+"</div>"
+					html += "<div>#"+item.product_introduce2+"</div></div></div></a></div></div>"
+					
+					$(".data_grid").append(html);
+				});
+				
+				page += 1;
+				
+				loading = false;
+				
+			},
+			
+			error:function(data){
+				alert("통신 실패");
+			}
+		});
+
+	}
+});
 </script>
 
 	<div class="main">
@@ -71,8 +129,6 @@
 			</ul>
 		</div>
 		
-		<hr style="color: #C6C6C6;">
-		
 		<div class="header_img_wrap">
 			<div class="header_category_cont">
 				<div>
@@ -85,9 +141,52 @@
 			</div>
 		</div>
 		
-		<div class="content_wrap">
+		<div class="content_tag_wrap">
 			<div class="content_filter">
 				<div class="content_filter_wrap">
+					<div class="filter_button_group">
+						<div class="container">
+							<button class="filter flex">
+								<span>도수</span>
+								<img src="resources/image/down_button.png" width="20px" class="img" alt="arrow-down">
+							</button>
+						</div>
+							
+						<div class="container">
+							<button class="filter flex">
+								<span>단맛</span>
+								<img src="resources/image/down_button.png" width="20px" class="img" alt="arrow-down">
+							</button>
+						</div>
+							
+						<div class="container">
+							<button class="filter flex">
+								<span>신맛</span>
+								<img src="resources/image/down_button.png" width="20px" class="img" alt="arrow-down">
+							</button>
+						</div>
+							
+						<div class="container">
+							<button class="filter flex">
+								<span>탄산</span>
+								<img src="resources/image/down_button.png" width="20px" class="img" alt="arrow-down">
+							</button>
+						</div>
+							
+						<div class="container">
+							<button class="filter flex">
+								<span>원료</span>
+								<img src="resources/image/down_button.png" width="20px" class="img" alt="arrow-down">
+							</button>
+						</div>
+							
+						<div class="container">
+							<button class="filter flex">
+								<span>가격</span>
+								<img src="resources/image/down_button.png" width="20px" class="img" alt="arrow-down">
+							</button>
+						</div>
+					</div>
 				</div>
 			</div>
 			
@@ -95,6 +194,18 @@
 				<div class="content_product_wrap">
 					<div class="infinite_scroll">
 						<div class="infinite_scroll_component">
+							<div class="data_header">
+								<div class="wrapper flex">
+									<div class="search_result flex">
+										<span>23</span>
+										<span>건의 결과가 있어요.</span>
+									</div>
+									
+									<div class="sort-wrapper flex">
+										<span>추천순</span>
+									</div>
+								</div>
+							</div>
 							<div class="data_wrap">
 								<div class="data_grid">
 									<c:forEach items="${list }" var="dto">
