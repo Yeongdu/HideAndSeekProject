@@ -34,7 +34,9 @@
 	</delete>
   
  	 -->
-  
+  	<select id="all" resultType="com.spring.model.Product_contentDTO">
+		select * from product_content
+	</select>
   
   
   
