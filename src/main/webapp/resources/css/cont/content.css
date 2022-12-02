@@ -1,84 +1,19 @@
 @charset "UTF-8";
-<!DOCTYPE html>
-<html>
-<head>
-<link href="https://fonts.googleapis.com/css?family=Chosun+Centennial&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css?family=Candal&display=swap" rel="stylesheet" />
-</head>
-<body>
-<div class="v135_138">
-<div class="name">
-</div>
-<div class="v135_151">
-</div>
-<span class="v135_156">총 상품 가격</span><
-span class="v135_167">수량</span>
-<span class="v135_154">이름</span>
-<div class="v135_153"></div>
-<div class="v135_157"></div>
-<div class="v135_175"></div>
-<span class="v135_176">바로 구매</span>
-<span class="v135_177">장바구니</span>
-<div class="v135_158"></div>
-<div class="v135_159"></div>
-<span class="v135_161">#술 설명 # 해시태그 어쩌고</span>
-<span class="v135_162">판매가격:</span>
-<span class="v135_165">00,000원</span>
-<span class="v135_164">주종 : 00주류
-도수 : 00도
-용량 : 000ml</span>
-<div class="name"></div>
-<div class="name"></div>
-<div class="name"></div>
-<span class="v135_168">0원</span>
-<div class="name"></div>
-<div class="name"></div>
-<span class="v135_171">1</span>
-<div class="name"></div>
-<div class="name"></div>
-<div class="name"></div>
-<div class="v135_179"></div>
-<div class="v135_181"></div>
-<span class="v135_180">상품 설명(상품마다 다름)</span>
-<span class="v135_183">교환 / 반품 문의
-*추후 작성 예정이므로 
-빈 div만</span>
-<div class="v135_185"></div>
-<span class="v135_186">리 뷰</span>
-<div class="v135_198"><div class="v135_187">
-</div><span class="v135_188">닉네임</span><
-span class="v135_196">구매한 술의 이름</span>
-<span class="v135_195">리뷰 작성일</span>
-<div class="v135_189"><div class="name"></div>
-<div class="name"></div>
-<div class="name"></div>
-<div class="name"></div>
-<div class="name"></div></div></div>
-<div class="v135_199">
-<div class="v135_200"></div>
-<span class="v135_201">닉네임</span>
-<span class="v135_202">구매한 술의 이름</span>
-<span class="v135_203">리뷰 작성일</span>
-<div class="v135_204"><div class="name"></div>
-<div class="name"></div>
-<div class="name"></div>
-<div class="name"></div>
-<div class="name"></div>
-</div></div><div class="v135_210">
-<div class="v135_211"></div>
-<span class="v135_212">닉네임</span>
-<span class="v135_213">구매한 술의 이름</span>
-<span class="v135_214">리뷰 작성일</span>
-<div class="v135_215">
-
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+@font-face {
+    font-family: 'ChosunCentennial';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/ChosunCentennial.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, img { margin: 0; padding: 0; }
 * {
   box-sizing: border-box;
 }
 body {
   font-size: 14px;
 }
-/* .v135_138 {
+.v135_138 {
   width: 100%;
   height: 2940px;
   background: rgba(255,255,255,1);
@@ -87,25 +22,43 @@ body {
   top: 0px;
   left: 0px;
   overflow: hidden;
-} */
+}
 .name {
   color: #fff;
 }
 .pic {
   width: 500px;
   height: 600px;
+  position: absolute;
   left: 410px;
-  top: 137px;	
+  top: 137px;
   background: rgba(217,217,217,1);
   opacity: 1;
   overflow: hidden;
 }
-.price {
+.pic img {
+  width: 500px;
+  height: 600px;
+}
+.name {
+  color: rgba(0,0,0,1);
+  position: absolute;
+  font-family: 'ChosunCentennial', sans-serif;
+  font-weight: Regular;
+  font-size: 30px;
+  opacity: 1;
+  text-align: center;
+  width: 55px;
+  left: 1006px;
+  top: 137px;
+}
+.total_price_w {
   width: 156px;
   color: rgba(0,0,0,1);
+  position: absolute;
   top: 534px;
-  left: 864px;
-  font-family: Chosun Centennial;
+  left: 1006px;
+  font-family: 'ChosunCentennial', sans-serif;
   font-weight: Regular;
   font-size: 30px;
   opacity: 1;
@@ -116,8 +69,8 @@ body {
   color: rgba(0,0,0,1);
   position: absolute;
   top: 454px;
-  left: 864px;
-  font-family: Chosun Centennial;
+  left: 1006px;
+  font-family: 'ChosunCentennial', sans-serif;
   font-weight: Regular;
   font-size: 30px;
   opacity: 1;
@@ -129,25 +82,85 @@ body {
   position: absolute;
   top: 137px;
   left: 864px;
-  font-family: Chosun Centennial;
+  font-family: 'ChosunCentennial', sans-serif;
   font-weight: Regular;
   font-size: 30px;
   opacity: 1;
   text-align: center;
 }
-.v135_153 {
+.ex {
   width: 442px;
   height: 150px;
   background: rgba(217,217,217,0.5);
   opacity: 1;
   position: absolute;
   top: 181px;
-  left: 875px;
+  left: 1017px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   overflow: hidden;
+}
+.sub_ex {
+	width: 422px;
+    height: 25px;
+    left: 4%;
+    top: 12%;
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: bolder;
+    font-size: 18px;
+    line-height: 25px;
+    position: absolute;
+}
+.sub_ex1 {
+	width: 500px;
+    height: 25px;
+    left: 4%;
+    top: 12%;
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: bolder;
+    font-size: 18px;
+    line-height: 25px;
+    position: absolute;
+}
+.ssub_ex1 {
+	width: 208px;
+    height: 25px;
+    left: 4%;
+    top: 33%;
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    position: absolute;
+}
+.ssub_ex2 {
+	width: 208px;
+    height: 25px;
+    left: 4%;
+    top: 52%;
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    position: absolute;
+}
+.ssub_ex3 {
+	width: 208px;
+    height: 25px;
+    left: 4%;
+    top: 72%;
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    position: absolute;
 }
 .v135_157 {
   width: 192px;
@@ -237,29 +250,39 @@ body {
   opacity: 1;
   text-align: left;
 }
-.v135_162 {
+.price_w {
   width: 79px;
   color: rgba(0,0,0,1);
   position: absolute;
   top: 351px;
-  left: 864px;
+  left: 1006px;
   font-family: Noto Sans;
   font-weight: Regular;
   font-size: 20px;
   opacity: 1;
   text-align: left;
 }
-.v135_165 {
+.price {
   width: 94px;
   color: rgba(0,0,0,1);
   position: absolute;
-  top: 378px;
-  left: 886px;
+  left: 1028px;
+  top: 381px;
   font-family: Noto Sans;
   font-weight: Regular;
   font-size: 23px;
   opacity: 1;
   text-align: left;
+  line-height: 31px;
+}
+.first {
+	position: absolute;
+	width: 471px;
+	height: 0px;
+	left: 1006px;
+	top: 423px;
+	
+	border: 1px solid #000000;
 }
 .v135_164 {
   width: 85px;
