@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
+import com.spring.model.Product_contentDTO;
 import com.spring.service.ProductDAO;
+import com.spring.service.Product_contentDAO;
 
 @Controller
 public class ProductController {
@@ -69,4 +71,16 @@ public class ProductController {
 		return "store/store_takju";
 		
 	}
+	
+		//김경령
+		@Autowired
+		private Product_contentDAO pcdao;
+		
+		@RequestMapping("/product_content_list.do")
+		public String list(Model model) {
+			List<Product_contentDTO> list = this.pcdao.getProductContList();
+			model.addAttribute("List", list);
+			return "content/product_content_list";
+		}
 }
+
