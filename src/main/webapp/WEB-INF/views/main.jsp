@@ -42,19 +42,19 @@
 
 </script>
 </head>
-<body style = "background-image: url('resources/image/main.png')">
+<body>
 
 	<div id = "main" align = "center">
-		<div align = "center" id = "title" style = "display: none">
+		<div align = "center" id = "title" style = "display: none" align = "center">
 			<ul class = "title_wrap">
-				<li><span class = "title">양조장에서 집 까지 찾아오는</span></li>
-				<li><span class = "title2">한국의 전통적인 전통주</span></li>
+				<li><h1 class = "title">양조장에서 집 까지 찾아오는</h1></li>
+				<li><h2 class = "title2">한국의 전통적인 전통주</h2></li>
 			</ul>
 			
 			
 		</div>
 
-		<div align = "center" id = "btn" style = "display: none">
+		<div align = "center" id = "btn" style = "display: none" align = "center">
 			<input type = "button" class = "inputBtn" onclick = "location.href = '<%=request.getContextPath() %>/store.do'" value = "about">
 		</div>
 	</div>
