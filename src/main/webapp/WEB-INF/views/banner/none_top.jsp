@@ -6,7 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="resources/css/banner/banner.css" rel="stylesheet" type="text/css">
-
+<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+</head>
+<body>
 	<div id = "header">
 		<ul class = "header_wrap">
 			<li class = "logo" onclick = "location.href = '<%=request.getContextPath()%>'"><img src = "resources/image/logo.png"></li>

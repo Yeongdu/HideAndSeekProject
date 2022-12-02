@@ -133,7 +133,7 @@ h1, h2, h3, h4, h5 {
 	width:100%;
 	align-items: center;
 	height: 80px;
-	border-bottom: 1px solid #C6C6C6;
+	border-bottom: 2px solid #C6C6C6;
 }
 
 .header_wrap > li {
