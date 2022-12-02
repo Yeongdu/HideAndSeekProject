@@ -5,6 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+	crossorigin="anonymous"></script>
 <link href="resources/css/banner/admin_banner.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -25,7 +34,7 @@
 		    </li>
 		
 		    <li class="admin_navMenu">
-		        <a href="<%=request.getContextPath() %>/admin_order_list.do">주문관리</a>
+		        <a class="admin_navMenu1" href="<%=request.getContextPath() %>/admin_order_list.do">주문관리</a>
 		        <ul>
 		            <li><a class="admin_navSubMenu" href="<%=request.getContextPath() %>/admin_order_list.do">전체 주문 목록</a></li>
 		            <li><a class="admin_navSubMenu" href="<%=request.getContextPath() %>/admin_order_del.do">주문 취소 목록</a></li>
@@ -38,7 +47,7 @@
 		    
 		    <li class="admin_navMenu"><a href=></a></li>
 		    
-		    <li class="admin_navMenu"><a href="">관리자</a>
+		    <li class="admin_navMenu"><a href="<%=request.getContextPath() %>/admin_main.do">관리자</a>
 		     	<ul>
 		            <li><a class="admin_navSubMenu" href="<%=request.getContextPath() %>/admin_logout.do">로그아웃</a></li>
 		        </ul>
