@@ -29,6 +29,18 @@ public class UserController {
 		return "user/join";
 	}
 	
+	@RequestMapping("policy.do")
+	public String joinpolicyList() {
+		
+		return "user/policy";
+	}
+	
+	@RequestMapping("privacy.do")
+	public String joinprivacyList() {
+		
+		return "user/privacy";
+	}
+	
 	
 
 }
