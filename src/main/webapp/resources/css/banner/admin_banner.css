@@ -116,17 +116,31 @@ h1, h2, h3, h4, h5 {
 }
 
 
+
+	
+	
+	
+	
+
+
 	body{
 	min-width: 1000px;
 	}
 
 	.adminWrab{
 	font-family: 'ChosunCentennial', sans-serif;
+	font-weight: bold;
+	font-size: 1em;
+	width:100%;
+	
+    height: 80px;
+    vertical-align: middle;
 	}
 	
 	.adminWrab a {
 	font-family: 'ChosunCentennial', sans-serif;
 	font-size: 1.5em;
+	font-weight: bold;
 	}
 	
 	.admin_navSubMenu {
@@ -136,8 +150,6 @@ h1, h2, h3, h4, h5 {
 	.adminNav{
 	display: flex;
     justify-content: space-evenly;
-    height: 80px;
-    vertical-align: middle;
 	}
 	
 
@@ -145,7 +157,7 @@ h1, h2, h3, h4, h5 {
 	list-style-type:none;
 	}
 
-    .adminNav>li{
+    .adminNav > li{
 	width: 10em;
     }
     
@@ -157,8 +169,15 @@ h1, h2, h3, h4, h5 {
     display:none;
     }
 
-    .adminNav>li:hover ul{display:block;
+    .adminNav>li:hover ul{
+    display:block;
     }
+    
+	table th {
+	text-align: center;
+	}
+    
+
     
     @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 	@font-face {
