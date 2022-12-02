@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("reset.css");
 @font-face {
     font-family: 'ChosunCentennial';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/ChosunCentennial.woff2') format('woff2');
@@ -6,8 +7,27 @@
     font-style: normal;
 }
 
+#main {
+	background-image: url('../image/main.png');
+	height: 100%;
+	background-size: cover;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+
+ul {
+	text-align: center;
+}
+
 li {
 	list-style: none;
+}
+
+#btn {
+	position: absolute;
+	width:100%;
+	top: 350px;
+    right: 65px;
 }
 
 .inputBtn {
@@ -17,8 +37,6 @@ li {
     position: absolute;
     width: 8em;
     height: 4.5em;
-    left: 46.5%;
-    top: 41%;
     color: white;
     font-size: 1em;
 }
@@ -33,7 +51,7 @@ li {
 #title {
 	position: absolute;
 	top:30%;
-	left:28%;
+	width:100%;
 }
 
 .title {
