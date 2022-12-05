@@ -4,7 +4,7 @@
     
     <jsp:include page="../banner/user_top.jsp"/>
     <link href="resources/css/event/event_main.css" rel="stylesheet" type="text/css">
-
+    
 	<div align = "center" id = "event">
 		<h1 class = "title">EVENT</h1>
 		<div id = "event_center">
@@ -22,4 +22,11 @@
 		</div>
 	</div>
 
+<script>
+window.onload = function () {
+	$(".loading").fadeOut(100,function(){
+		$("#div_load_image").fadeOut(300);
+	});
+}
+</script>	
 <jsp:include page="../banner/bottom.jsp" />
