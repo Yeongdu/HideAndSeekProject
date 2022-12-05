@@ -29,10 +29,4 @@ public class HomeController {
 		return "main";
 	}
 	
-	@RequestMapping("sub.do")
-	public String event() {
-		
-		return "sub/sub_main";
-	} 
-	
 }

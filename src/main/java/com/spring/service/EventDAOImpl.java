@@ -1,11 +1,15 @@
 package com.spring.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.model.EventDTO;
+
 /*
- * < ¿¹ ½Ã >
+ * < ï¿½ï¿½ ï¿½ï¿½ >
 
 @Override
 public List<EmpDTO> getEmpList() {
@@ -29,4 +33,17 @@ public class EventDAOImpl implements EventDAO{
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+
+	@Override
+	public List<EventDTO> eventList() {
+		return this.sqlSession.selectList("eventList");
+	}
+
+	@Override
+	public EventDTO getEventCont(EventDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 }
