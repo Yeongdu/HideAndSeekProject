@@ -4,8 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>Insert title here</title>
-<link href="resources/css/user/join.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+  
+  <link href="resources/css/join.css" rel="stylesheet" type="text/css">
+  
 </head>
 <body>
 
@@ -30,7 +40,11 @@
 					
 						<div class="join_id">
 						  <label for="user_id">아이디</label>
-						    <input type="text" id="user_id" name="user_id" placeholder="아이디를 입력해주세요." >
+						  	<div>
+						       <input type="text" id="user_id" name="user_id" placeholder="아이디를 입력해주세요." >
+						     </div>
+						        <button id="idbtn" type="button" class="idbtn">중복검사</button>
+                                  <span id="spanid"></span>
 						</div>
 						
 						<div class="join_pwd">
@@ -96,6 +110,7 @@
 						</div> 
 						
 						<br>
+						<hr width="45%" align="center">
 						
 						
 						
@@ -106,23 +121,68 @@
                                     <span>모두 동의합니다</span>
                                  </label><br>
                                  
-                                <label for="agree">
-                                  <input type="checkbox" name="agree" value="1">
-                                    <span>이용약관 동의<strong>(필수)</strong></span>
-                                 </label><br>
                                  
                                  
-                                  <label for="agree">
-                                    <input type="checkbox" name="agree" value="2">
-                                      <span>개인정보처리방침 동의<strong>(필수)</strong></span>
-                                    </label><br>
-                             </div>
+                                
+                                 
+    <div class="container-fluid">
+ 
+    <!-- 그룹 태그로 role과 aria-multiselectable를 설정한다. -->
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    
+      <!-- 하나의 item입니다. data-parent 설청과 href 설정만 제대로 하면 문제없이 작동합니다. -->
+      <div class="panel panel-default" style="width: 800px;">
+        <div class="panel-heading"  role="tab">
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false">
+            이용약관 동의 
+            </a>
+            <label for="agree">
+          <input type="checkbox" name="agree" value="1">
+             <span>이용약관 동의<strong>(필수)</strong></span>
+               </label><br>
+        </div>
+       
+       
+       <div id="collapse1" class="panel-collapse collapse" role="tabpanel">
+          <div class="panel-body">
+            Hello world1
+          </div>
+        </div>
+      </div>
+      
+      
+      
+      <!-- -->
+      <!-- 하나의 item입니다.  -->
+      <div class="panel panel-default" style="width: 800px;">
+        <div class="panel-heading" role="tab">
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false">
+           개인정보처리방침 동의
+          </a>
+          <label for="agree">
+            <input type="checkbox" name="agree" value="2">
+               <span>개인정보처리방침 동의<strong>(필수)</strong></span>
+                 </label><br>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse" role="tabpanel">
+          <div class="panel-body">
+            Hello world2
+          </div>
+        </div>
+      </div>
+      
+      
+     
+    
+    </div>
+  
+  </div>
+  
+          </div>
                              
-                             <div class="agreement-text">
-							<a href="<%=request.getContextPath() %>/policy.do">이용약관</a>
-							및
-							<a href="<%=request.getContextPath() %>/privacy.do">개인정보처리방침</a>
-							내용을 확인 하였으며, 이에 동의합니다.
+              <div class="agreement-text">
+				 <p>이용약관 및 개인정보처리방침 내용을 확인 하였으며, 이에 동의합니다.</p>
+					
 						</div>
                              
                              <div class="join_ok_btn">
@@ -246,6 +306,69 @@
                  
                  
                  }//getAge() end
+                 
+                 $(function() {
+                	 
+                	 
+                	//id입력시 - id keyup
+                		$('#user_id').on('keyup', function(){ // keyup -> 입력할 때 
+                			idval = $('#user_id').val().trim();
+                			
+                			idreg = /^[a-zA-Z][a-zA-Z0-9]{3,11}$/; // [a-zA-Z]한 자리 차지해서 4~12자리
+                			
+                			if(!(idreg.test(idval))){
+                				$(this).css('border', '2px solid red');
+                				//중복검사버튼 비활성 - 속성설정 prop
+                				$('#idbtn').prop('disabled',true);
+                			}else{
+                				$(this).css('border', '2px solid blue');
+                				//중복검사버튼 활성
+                				$('#idbtn').prop('disabled',false);
+                				
+                			}
+                		});  //id입력시 - id keyup end
+                		
+                		
+                		
+                		/* 아이디 중복검사 */
+                		$('#idbtn').on('click',function(){
+                			idvalue = $('#user_id').val().trim();
+                			
+                			if(idvalue.length < 1){
+                				alert("아이디를 입력하세요");
+                				return false;
+                			}
+                			
+                			if(idvalue.length < 4 || idvalue.length > 12){
+                				alert("id는 4~12 사이");
+                				return false;
+                			}
+                			
+                			//정규식 체크 - idcheck() 호출
+                			if(!idcheck())return false;
+                			
+                			//정규식 체크 통과하면 서버로 전송하기
+                			$.ajax({
+                				url : '/finalPJ/CheckId.do',
+                				data : {"user_id" : idvalue}, // data : "id=" + idvalue
+                				type : 'get',
+                				success : function(res){
+                					$('#spanid').html(res.sw).css('color', 'red');
+                				},
+                				error : function(xhr){
+                					alert("상태 : " + xhr.status); //404(이름,path), 500(콘솔확인), 200(json형태 - jsp페이지확인)
+                				},
+                				dataType : 'json'
+                			});
+                			
+                		});
+                	
+                	
+                	
+					
+				})
+                 
+                 
 
                  
                  
