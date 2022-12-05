@@ -9,6 +9,10 @@
     font-style: normal;
 }
 
+input {
+	display: none;
+}
+
 div {
 	display: block;
 }
@@ -194,8 +198,93 @@ span {
 .container > .flex {
 	display: flex
 }
-<!-- 경계선 -->
 
+.filter_check {
+	width: 350px;
+    padding: 15px 20px 0px;
+    position: absolute;
+    top: 50px;
+    box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px 0px;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    z-index: 200;
+    display: none;
+    box-sizing: border-box;
+}
+
+.check_grid {
+	box-sizing: border-box;
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+}
+
+.grid_item {
+        flex-basis: 50%;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    max-width: 50%;
+}
+
+.check-box_filter {
+	display: flex;
+	margin-bottom: 22px;
+	box-sizing: border-box;
+}
+
+.check_button {
+    margin-left: 15px;
+    box-sizing: border-box;
+}
+
+.check-wrap {
+	box-sizing: border-box;
+}
+
+.check-wrap > button {
+	padding: 0px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.custom_checkbox {
+	padding: 0px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.check-box_filter > div > label > span > img {
+	width: 25px;
+    height: 25px;
+    box-sizing: border-box;
+}
+
+.custom_checkbox > img {
+	width: 25px;
+    height: 25px;
+    box-sizing: border-box;
+}
+
+.check-box_filter > div > label > span {
+	font-size: 0.9rem;
+	margin-left: 15px;
+	box-sizing: border-box;
+}
 
 .content_product_list {
 	padding: 0px 69px;
