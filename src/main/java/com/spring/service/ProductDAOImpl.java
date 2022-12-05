@@ -47,4 +47,9 @@ public class ProductDAOImpl implements ProductDAO{
 		return this.sqlSession.selectList(field, keyword);
 	}
 
+	@Override
+	public int getSearchListCount(String keyword) {
+		return this.sqlSession.selectOne("getSearchListCount", keyword);
+	}
+
 }
