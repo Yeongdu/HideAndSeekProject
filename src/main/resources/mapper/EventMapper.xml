@@ -35,7 +35,9 @@
   
  	 -->
   
-  
+  	<select id = "eventList" resultType="eventDTO">
+  		select * from event
+  	</select>
   
   
   
