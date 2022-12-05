@@ -1,4 +1,12 @@
 @charset "UTF-8";
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 
 #event{
 	height: 90%;
@@ -7,6 +15,7 @@
 .title{
 	margin-top: 30px;
 	font-size: 3em;
+	font-family: 'yg-jalnan';
 }
 
 #event_center{
@@ -20,7 +29,7 @@
 }
 
 .event_wrap{
-	margin-bottom: 15px;
+	margin-bottom: 30px;
 }
 
 .event_img{

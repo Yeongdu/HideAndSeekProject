@@ -15,25 +15,27 @@
 	
 		<div class = "sub_banner2" align = "center">
 			<img src = "resources/image/sub_icon.jpg" class = "sub_icon">
-			<h2 class = "sub_title2">한한국술의 다양한 맛을 느낄 수 있는 최고의 방법</h2>
+			<h2 class = "sub_title2">한국술의 다양한 맛을 느낄 수 있는 최고의 방법</h2>
 		</div>
 	</div>
 	
 	<div id = "section2">
+		<div class = "sub_section2">
 		<div class = "sub_banner3" align = "center">
 			<h1 class = "sub_title3">여러 종류의 전통주를 마셔볼 수 있는 기회</h1>
 			<p class = "sub_title3_cont">당신이 원하던 인생술을 발견할지도 몰라요</p>
 			<div class = "sub2" align = "center">
-				<img src = "resources/image/sub2.png" class = "sub2">
+				<img src = "resources/image/sub2.png" class = "sub2_img">
 				<h3 class = "sub2_title">4도부터 53도까지<br>다양한 전통주가 준비되어있어요.</h3>
 			</div>
+		</div>
 		</div>
 	</div>
 	
 	<div id = "section3">
 		<div class ="sub_banner4" align ="center">
 			<h1 class = "sub_banner4_title">매 달 새로운 경험을 쌓아드려요</h1>
-			<p>계절에 맞추어 변화하는 술래잡기 패키지</p>
+			<p style = "margin-bottom: 15px;">계절에 맞추어 변화하는 술래잡기 패키지</p>
 			<div class = "sub_package_wrap">
 				<img src = "resources/image/sub_package.png" class = "sub_package">
 				<div class = "sub_package_info">
@@ -51,8 +53,14 @@
 		</div>
 	</div>
 	
-	
+
 <script type="text/javascript">
+
+	window.onload = function () {
+		$(".loading").fadeOut(100,function(){
+			$("#div_load_image").fadeOut(300);
+		});
+	}
 	
 	// 배너 이미지 효과
 	$(document).ready(function(){
@@ -90,7 +98,45 @@
 	    mHtml.animate({scrollTop : posTop});
 	})
 	
+	
+	
+	// section 한개가 내려갈때마다 이벤트 발생
+ 	var ani1 = false;
+    var ani2 = false;
+    $("#section1").on('mousewheel',function(e){ 
+        var wheels = e.originalEvent.wheelDelta; 
+              if(wheels>0){ 
+                //스크롤 올릴때 
+              } else { 
+                //스크롤  내릴때 
+                if(ani1==false){
+                  //ani1 false 이면 true 로 바꿔주고 애니메이션 동작 진행
+                    ani1=true;
+                    $("#section2").fadeIn(100, function(){
+                    	$("#section2 .sub_title3").animate({left:"0"}, 500);
+                        $("#section2 .sub_title3_cont").animate({right:"0"}, 500);
+                        $(".sub2").slideDown(500);
+                        $(".sub2_title").fadeIn(500);
+                    });
+                }
+              }
+            }); 
+    
+    $("#section2").on('mousewheel',function(e){ 
+    	var wheels2 = e.originalEvent.wheelDelta;
+              if(wheels2>0){ 
+                //스크롤 올릴때 
+              } else { 
+                //스크롤  내릴때 
+                if(ani2==false){
+                  //ani1 false 이면 true 로 바꿔주고 애니메이션 동작 진행
+                    ani1=true;
+                    $("#section3").fadeIn(1000);
+                }
+              }
+            }); 
+    
+	
 </script>	
 
-</body>
-</html>
+<jsp:include page="../banner/bottom.jsp" />
