@@ -13,7 +13,10 @@
 
 
 <configuration>
-
+	
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
     <typeAliases>
         <typeAlias type="com.spring.model.CardDTO" alias="CardDTO"/>
         <typeAlias type="com.spring.model.CartDTO" alias="CartDTO"/>

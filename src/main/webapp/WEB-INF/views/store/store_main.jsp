@@ -16,7 +16,7 @@
 							<li>
 								<img alt="takju" src="resources/image/store_takju_logo.png">
 							</li>
-							<li>탁 주</li>
+							<li class="text">탁 주</li>
 						</ul>
 					</a>
 				</li>
@@ -27,7 +27,7 @@
 							<li>
 								<img alt="takju" src="resources/image/store_chungju_logo.png">
 							</li>
-							<li>청 주</li>
+							<li class="text">청 주</li>
 						</ul>
 					</a>
 				</li>
@@ -38,7 +38,7 @@
 							<li>
 								<img alt="takju" src="resources/image/store_wine_logo.png">
 							</li>
-							<li>과실주</li>
+							<li class="text">과실주</li>
 						</ul>
 					</a>
 				</li>
@@ -49,7 +49,7 @@
 							<li>
 								<img alt="takju" src="resources/image/store_soju_logo.png">
 							</li>
-							<li>증류주</li>
+							<li class="text">증류주</li>
 						</ul>
 					</a>
 				</li>
@@ -165,4 +165,14 @@
 	<br>
 	
 	</div>
+	
+<script type="text/javascript">
+
+	window.onload = function () {
+	    $(".loading").fadeOut(100,function(){
+	        $("#div_load_image").fadeOut(300);
+	    });
+	}
+
+</script>
 	

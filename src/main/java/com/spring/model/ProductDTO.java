@@ -14,6 +14,7 @@ public class ProductDTO {
 	private String product_company; // 상품 제조사
 	
 	private int product_alcohol; // 도수
+	private String product_dosu; // 태그검색 범위
 	
 	private String product_sweet; // 단맛
 	private String product_acidity; // 신맛
