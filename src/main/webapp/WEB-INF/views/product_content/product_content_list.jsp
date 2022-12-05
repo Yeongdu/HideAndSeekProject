@@ -42,7 +42,6 @@
 				</div>
 			</div>
 			
-			<hr class="second">
 			<div class="main_cont">
 				<div class="picture_2">
 					<img src="resources/image/${dto.getProduct_file2() }">
@@ -83,24 +82,45 @@
 					title1.addEventListener("click", handleClick1);
 				</script>
 				<div id='my_div' align="left">
-						<span>${dto.getProduct_cont5() }</span>
-					</div>
-					<%-- <div id="warn" class="warn" align="left">
-						<span>${dto.getProduct_cont5() }</span>
-					</div> --%>
-					<script type="text/javascript">
-						function review() {
-							const element = document.getElementById('my_div');
-							element.innerHTML = '<div style="color:blue">InnerHTML<div>';
-						}
-					
-						function change() {
-							const element = document.getElementById('my_div');
-							element.innerText = '<div style="color:blue">InnerText<div>';
-						}
-					</script>
+					<span class="txt">${dto.getProduct_cont5() }</span>
+				</div>
+				<script type="text/javascript">
+					function review() {
+						const element = document.getElementById('my_div');
+						element.innerHTML = '<div style="color:blue">InnerHTML<div>';
+					}
+					function change() {
+						const element = document.getElementById('my_div');
+						let text = document.getElementsByClassName('txt');
+						/* element.innerHTML = text.value; */
+						/* element.innerHTML = document.getElementById('txt'); */
+						/* let text = document.getElementById("txt").innerHTML; */
+					}
+				</script>
 			</div>
 		</c:forEach>
+		<a href="#" class="back_to_top"> 
+			<img src="resources/image/top.png" />
+		</a>
+		<script type="text/javascript">
+		jQuery(document).ready(function() {
+		    var offset = 720;
+		    var duration = 100;
+		    jQuery(window).scroll(function() {
+		        if (jQuery(this).scrollTop() > offset) {
+		            jQuery('.back_to_top').fadeIn(duration);
+		        } else {
+		            jQuery('.back_to_top').fadeOut(duration);
+		        }
+		    });
+		    
+		    jQuery('.back_to_top').click(function(event) {
+		        event.preventDefault();
+		        jQuery('html, body').animate({scrollTop: 0}, duration);
+		        return false;
+		    })
+		});
+		</script>
 	</div>
 </body>
 </html>
