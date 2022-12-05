@@ -75,13 +75,14 @@ public class ProductController {
 
 	// 탁주 페이지에서 태그 검색 시 상품의 정보를 불러오는 메서드
 	@RequestMapping("/store_tlist_tag.do")
-	public void taglist(@RequestParam(value = "dosu", required = false) List<String> dosu,
+	public String taglist(@RequestParam(value = "dosu", required = false) List<String> dosu,
 			@RequestParam(value = "sweet", required = false) List<String> sweet,
 			@RequestParam(value = "acidity", required = false) List<String> acidity,
 			@RequestParam(value = "soda", required = false) List<String> soda,
 			@RequestParam(value = "material", required = false) List<String> material,
 			@RequestParam(value = "minprice", required = false) int minprice,
-			@RequestParam(value = "maxprice", required = false) int maxprice) {
+			@RequestParam(value = "maxprice", required = false) int maxprice,
+			Model model) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
@@ -93,20 +94,24 @@ public class ProductController {
 		map.put("minprice", minprice);
 		map.put("maxprice", maxprice);
 
-		/*
-		 * int count = this.dao.getListTagCount(map);
-		 * 
-		 * System.out.println("count 값 >>> " + count);
-		 */
+		 totalRecord = this.dao.getListTagCount(map);
+		 
+		 int page = 1;
+		 
+		 PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+		 
+		 map.put("startNo", dto.getStartNo());
+		 map.put("endNo", dto.getEndNo());
+		 
+		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
+		List<ProductDTO> list = this.dao.getProductTagList(map);
 
-		System.out.println("카운트 다음");
+		model.addAttribute("list", list);
 
-		
-		  for(String i : map.keySet()) {
-		  
-		  System.out.println("[key]:" + i + " [value]:" + map.get(i));
-		  
-		  }
+		model.addAttribute("page", dto);
+
+		return "store/store_takju_tag";
+		 
 		 
 	}
 
