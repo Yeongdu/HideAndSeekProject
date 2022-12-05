@@ -220,7 +220,7 @@ span {
 }
 
 .grid_item {
-        flex-basis: 50%;
+    flex-basis: 50%;
     -webkit-box-flex: 0;
     flex-grow: 0;
     max-width: 50%;
@@ -274,16 +274,39 @@ span {
     box-sizing: border-box;
 }
 
-.custom_checkbox > img {
-	width: 25px;
-    height: 25px;
-    box-sizing: border-box;
-}
-
 .check-box_filter > div > label > span {
 	font-size: 0.9rem;
 	margin-left: 15px;
 	box-sizing: border-box;
+}
+
+.price_info {
+	display: flex;
+}
+
+.price_info > input {
+	display: block;
+	font-size: 11px;
+    width: 80px;
+    border-radius: 5px;
+    text-align: right;
+    padding: 10px;
+}
+
+.price_info_button {
+	width: 80px;
+	height: 36px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: rgb(112, 112, 112);
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    margin-left: 10px;
+}
+
+.container-button > input {
+	display: block;
+	cursor: pointer;
 }
 
 .content_product_list {

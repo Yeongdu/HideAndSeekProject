@@ -36,7 +36,12 @@
  	 -->
  	 
 	<select id="getListCount" resultType="int">
-		select count(*) from product
+		select count(*) from product where product_category = 'takju'
+	</select>
+	
+	<select id="getListTagCount" parameterType="Map" resultType="int">
+		select count(*) from product where product_category = 'takju' and product_dosu in
+		<foreach collection="map" item="item" separator="," open="(" close=")">#{item.dosu}</foreach>
 	</select>
  	 
 	<select id="getProductList" parameterType="PageDTO" resultType="ProductDTO">

@@ -23,7 +23,11 @@ $(function(){
 		
 		$(".b1 > img").attr({src:"resources/image/up_button.png"});
 			
-		$(this).css("borderColor", "skyblue");
+		$(this).css("borderColor", "#5197F2");
+		
+		$(".b1").addClass("b1-active");
+		
+		$(".b1-active").removeClass("b1");
 		
 		$(".dosu").css("display", "block");
 		
@@ -35,7 +39,11 @@ $(function(){
 		
 		$(".b2 > img").attr({src:"resources/image/up_button.png"});
 			
-		$(this).css("borderColor", "skyblue");
+		$(this).css("borderColor", "#5197F2");
+		
+		$(".b2").addClass("b2-active");
+		
+		$(".b2-active").removeClass("b2");
 		
 		$(".sweet").css("display", "block");
 		
@@ -47,7 +55,11 @@ $(function(){
 		
 		$(".b3 > img").attr({src:"resources/image/up_button.png"});
 			
-		$(this).css("borderColor", "skyblue");
+		$(this).css("borderColor", "#5197F2");
+		
+		$(".b3").addClass("b3-active");
+		
+		$(".b3-active").removeClass("b3");
 		
 		$(".acidity").css("display", "block");
 		
@@ -59,7 +71,11 @@ $(function(){
 		
 		$(".b4 > img").attr({src:"resources/image/up_button.png"});
 			
-		$(this).css("borderColor", "skyblue");
+		$(this).css("borderColor", "#5197F2");
+		
+		$(".b4").addClass("b4-active");
+		
+		$(".b4-active").removeClass("b4");
 		
 		$(".soda").css("display", "block");
 		
@@ -71,9 +87,131 @@ $(function(){
 		
 		$(".b5 > img").attr({src:"resources/image/up_button.png"});
 			
-		$(this).css("borderColor", "skyblue");
+		$(this).css("borderColor", "#5197F2");
+		
+		$(".b5").addClass("b5-active");
+		
+		$(".b5-active").removeClass("b5");
 		
 		$(".material").css("display", "block");
+		
+	});
+	
+	$(document).on("click", ".b6", function(){
+		
+		tag();
+		
+		$(".b6 > img").attr({src:"resources/image/up_button.png"});
+			
+		$(this).css("borderColor", "#5197F2");
+		
+		$(".b6").addClass("b6-active");
+		
+		$(".b6-active").removeClass("b6");
+		
+		$(".price").css("display", "block");
+		
+	});
+	
+	$(document).on("click", ".b1-active", function(){
+		
+		tag();
+		
+		$(".b1-active").addClass("b1");
+		
+		$(".b1").removeClass("b1-active");
+		
+	});
+	
+	$(document).on("click", ".b2-active", function(){
+		
+		tag();
+		
+		$(".b2-active").addClass("b2");
+		
+		$(".b2").removeClass("b2-active");
+		
+	});
+	
+	$(document).on("click", ".b3-active", function(){
+		
+		tag();
+		
+		$(".b3-active").addClass("b3");
+		
+		$(".b3").removeClass("b3-active");
+		
+	});
+	
+	$(document).on("click", ".b4-active", function(){
+		
+		tag();
+		
+		$(".b4-active").addClass("b4");
+		
+		$(".b4").removeClass("b4-active");
+		
+	});
+	
+	$(document).on("click", ".b5-active", function(){
+		
+		tag();
+		
+		$(".b5-active").addClass("b5");
+		
+		$(".b5").removeClass("b5-active");
+		
+	});
+	
+	$(document).on("click", ".b6-active", function(){
+		
+		let minprice = $(".minprice").val();
+		
+		let maxprice = $(".maxprice").val();
+		
+		if(parseInt(minprice) > parseInt(maxprice)){
+			
+			alert('최소값은 최대값보다 작아야 합니다.')
+			
+			$(".minprice").val("");
+			
+			$(".maxprice").val("");
+			
+		}else {
+			
+			tag();
+			
+			$(".b6-active").addClass("b6");
+			
+			$(".b6").removeClass("b6-active");
+			
+		}
+		
+	});
+	
+	$(document).on("click", ".price_info_button", function(){
+		
+		let minprice = $(".minprice").val();
+		
+		let maxprice = $(".maxprice").val();
+		
+		if(parseInt(minprice) > parseInt(maxprice)){
+			
+			alert('최소값은 최대값보다 작아야 합니다.')
+			
+			$(".minprice").val("");
+			
+			$(".maxprice").val("");
+			
+		}else {
+			
+			tag();
+			
+			$(".b6-active").addClass("b6");
+			
+			$(".b6").removeClass("b6-active");
+			
+		}
 		
 	});
 	
@@ -307,6 +445,16 @@ $(function(){
 		
 	});
 	
+	$(document).on("click", ".soda4", function(){
+		
+		$(".soda4 > label > span > img").attr({src:"resources/image/checkbox-active.png"});
+		
+		$(".soda4").addClass("soda4-active");
+		
+		$(".soda4-active").removeClass("soda4");
+		
+	});
+	
 	$(document).on("click", ".soda1-active", function(){
 		
 		$(".soda1-active > label > span > img").attr({src:"resources/image/checkbox.png"});
@@ -334,6 +482,16 @@ $(function(){
 		$(".soda3-active").addClass("soda3");
 		
 		$(".soda3").removeClass("soda3-active");
+		
+	});
+	
+	$(document).on("click", ".soda4-active", function(){
+		
+		$(".soda4-active > label > span > img").attr({src:"resources/image/checkbox.png"});
+		
+		$(".soda4-active").addClass("soda4");
+		
+		$(".soda4").removeClass("soda4-active");
 		
 	});
 	
@@ -427,7 +585,7 @@ $(function(){
 		
 	});
 	
-	$(document).on("other", ".other-active", function(){
+	$(document).on("click", ".other-active", function(){
 		
 		$(".other-active > label > span > img").attr({src:"resources/image/checkbox.png"});
 		
@@ -439,22 +597,24 @@ $(function(){
 	
 	function tag(){
 		
-		$(".b1").css("borderColor", "rgb(244, 244, 244)");
-		$(".b1 > img").attr({src:"resources/image/down_button.png"});
-		$(".b2").css("borderColor", "rgb(244, 244, 244)");
-		$(".b2 > img").attr({src:"resources/image/down_button.png"});
-		$(".b3").css("borderColor", "rgb(244, 244, 244)");
-		$(".b3 > img").attr({src:"resources/image/down_button.png"});
-		$(".b4").css("borderColor", "rgb(244, 244, 244)");
-		$(".b4 > img").attr({src:"resources/image/down_button.png"});
-		$(".b5").css("borderColor", "rgb(244, 244, 244)");
-		$(".b5 > img").attr({src:"resources/image/down_button.png"});
-		$(".b6").css("borderColor", "rgb(244, 244, 244)");
-		$(".b6 > img").attr({src:"resources/image/down_button.png"});
+		$(".b1-active").css("borderColor", "rgb(244, 244, 244)");
+		$(".b1-active > img").attr({src:"resources/image/down_button.png"});
+		$(".b2-active").css("borderColor", "rgb(244, 244, 244)");
+		$(".b2-active > img").attr({src:"resources/image/down_button.png"});
+		$(".b3-active").css("borderColor", "rgb(244, 244, 244)");
+		$(".b3-active > img").attr({src:"resources/image/down_button.png"});
+		$(".b4-active").css("borderColor", "rgb(244, 244, 244)");
+		$(".b4-active > img").attr({src:"resources/image/down_button.png"});
+		$(".b5-active").css("borderColor", "rgb(244, 244, 244)");
+		$(".b5-active > img").attr({src:"resources/image/down_button.png"});
+		$(".b6-active").css("borderColor", "rgb(244, 244, 244)");
+		$(".b6-active > img").attr({src:"resources/image/down_button.png"});
 		$(".dosu").css("display", "none");
 		$(".sweet").css("display", "none");
 		$(".acidity").css("display", "none");
 		$(".soda").css("display", "none");
+		$(".material").css("display", "none");
+		$(".price").css("display", "none");
 		
 	}
 		
@@ -584,11 +744,12 @@ $(function(){
 		</div>
 		
 		<div class="content_tag_wrap">
+			<form method="get" action="<%=request.getContextPath()%>/store_tlist_tag.do">
 			<div class="content_filter">
 				<div class="content_filter_wrap">
 					<div class="filter_button_group">
 						<div class="container">
-							<button class="filter flex b1">
+							<button type="button" class="filter flex b1">
 								<span>도수</span>
 								<img src="resources/image/down_button.png" width="20px" class="img" alt="arrow-down">
 							</button>
@@ -604,7 +765,7 @@ $(function(){
 													</span>
 												</label>
 												<label for="dosu_low" style="box-sizing: border-box">
-													<span>1%~10%</span>
+													<span>0%~10%</span>
 												</label>
 											</div>
 										</div>
@@ -619,7 +780,7 @@ $(function(){
 													</span>
 												</label>
 												<label for="dosu_middle" style="box-sizing: border-box">
-													<span>11%~20%</span>
+													<span>10%~20%</span>
 												</label>
 											</div>
 										</div>
@@ -634,7 +795,7 @@ $(function(){
 													</span>
 												</label>
 												<label for="dosu_high" style="box-sizing: border-box">
-													<span>21%~30%</span>
+													<span>20%~30%</span>
 												</label>
 											</div>
 										</div>
@@ -659,7 +820,7 @@ $(function(){
 						</div>
 							
 						<div class="container">
-							<button class="filter flex b2">
+							<button type="button" class="filter flex b2">
 								<span>단맛</span>
 								<img src="resources/image/down_button.png" width="20px" class="img" alt="arrow-down">
 							</button>
@@ -667,7 +828,7 @@ $(function(){
 								<div class="check_grid">
 									<div class="grid_item">
 										<div class="check-box_filter">
-											<input type="checkbox" id="sweet_low" name="dosu" value="low">
+											<input type="checkbox" id="sweet_low" name="sweet" value="low">
 											<div class="sweet1">
 												<label for="sweet_low" style="box-sizing: border-box">
 													<span>
@@ -682,7 +843,7 @@ $(function(){
 									</div>
 									<div class="grid_item">
 										<div class="check-box_filter">
-											<input type="checkbox" id="sweet_middle" name="dosu" value="middle">
+											<input type="checkbox" id="sweet_middle" name="sweet" value="middle">
 											<div class="sweet2">
 												<label for="sweet_middle" style="box-sizing: border-box">
 													<span>
@@ -697,7 +858,7 @@ $(function(){
 									</div>
 									<div class="grid_item">
 										<div class="check-box_filter">
-											<input type="checkbox" id="sweet_high" name="dosu" value="strong">
+											<input type="checkbox" id="sweet_high" name="sweet" value="high">
 											<div class="sweet3">
 												<label for="sweet_high" style="box-sizing: border-box">
 													<span>
@@ -715,7 +876,7 @@ $(function(){
 						</div>
 							
 						<div class="container">
-							<button class="filter flex b3">
+							<button type="button" class="filter flex b3">
 								<span>신맛</span>
 								<img src="resources/image/down_button.png" width="20px" class="img" alt="arrow-down">
 							</button>
@@ -723,7 +884,7 @@ $(function(){
 								<div class="check_grid">
 									<div class="grid_item">
 										<div class="check-box_filter">
-											<input type="checkbox" id="acidity_low" name="dosu" value="low">
+											<input type="checkbox" id="acidity_low" name="acidity" value="low">
 											<div class="acidity1">
 												<label for="acidity_low" style="box-sizing: border-box">
 													<span>
@@ -738,7 +899,7 @@ $(function(){
 									</div>
 									<div class="grid_item">
 										<div class="check-box_filter">
-											<input type="checkbox" id="acidity_middle" name="dosu" value="middle">
+											<input type="checkbox" id="acidity_middle" name="acidity" value="middle">
 											<div class="acidity2">
 												<label for="acidity_middle" style="box-sizing: border-box">
 													<span>
@@ -753,7 +914,7 @@ $(function(){
 									</div>
 									<div class="grid_item">
 										<div class="check-box_filter">
-											<input type="checkbox" id="acidity_high" name="dosu" value="strong">
+											<input type="checkbox" id="acidity_high" name="acidity" value="high">
 											<div class="acidity3">
 												<label for="acidity_high" style="box-sizing: border-box">
 													<span>
@@ -771,7 +932,7 @@ $(function(){
 						</div>
 							
 						<div class="container">
-							<button class="filter flex b4">
+							<button type="button" class="filter flex b4">
 								<span>탄산</span>
 								<img src="resources/image/down_button.png" width="20px" class="img" alt="arrow-down">
 							</button>
@@ -779,8 +940,23 @@ $(function(){
 								<div class="check_grid">
 									<div class="grid_item">
 										<div class="check-box_filter">
-											<input type="checkbox" id="soda_low" name="dosu" value="low">
+											<input type="checkbox" id="soda_low" name="soda" value="nosoda">
 											<div class="soda1">
+												<label for="soda_low" style="box-sizing: border-box">
+													<span>
+														<img alt="checkbox" src="resources/image/checkbox.png">
+													</span>
+												</label>
+												<label for="soda_low" style="box-sizing: border-box">
+													<span>없음</span>
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="grid_item">
+										<div class="check-box_filter">
+											<input type="checkbox" id="soda_low" name="soda" value="low">
+											<div class="soda2">
 												<label for="soda_low" style="box-sizing: border-box">
 													<span>
 														<img alt="checkbox" src="resources/image/checkbox.png">
@@ -794,8 +970,8 @@ $(function(){
 									</div>
 									<div class="grid_item">
 										<div class="check-box_filter">
-											<input type="checkbox" id="soda_middle" name="dosu" value="middle">
-											<div class="soda2">
+											<input type="checkbox" id="soda_middle" name="soda" value="middle">
+											<div class="soda3">
 												<label for="soda_middle" style="box-sizing: border-box">
 													<span>
 														<img alt="checkbox" src="resources/image/checkbox.png">
@@ -809,8 +985,8 @@ $(function(){
 									</div>
 									<div class="grid_item">
 										<div class="check-box_filter">
-											<input type="checkbox" id="soda_high" name="dosu" value="strong">
-											<div class="soda3">
+											<input type="checkbox" id="soda_high" name="soda" value="high">
+											<div class="soda4">
 												<label for="soda_high" style="box-sizing: border-box">
 													<span>
 														<img alt="checkbox" src="resources/image/checkbox.png">
@@ -827,7 +1003,7 @@ $(function(){
 						</div>
 							
 						<div class="container">
-							<button class="filter flex b5">
+							<button type="button" class="filter flex b5">
 								<span>원료</span>
 								<img src="resources/image/down_button.png" width="20px" class="img" alt="arrow-down">
 							</button>
@@ -835,7 +1011,7 @@ $(function(){
 								<div class="check_grid">
 									<div class="grid_item">
 										<div class="check-box_filter">
-											<input type="checkbox" id="material_fruit" name="dosu" value="low">
+											<input type="checkbox" id="material_fruit" name="material" value="fruit">
 											<div class="fruit">
 												<label for="material_fruit" style="box-sizing: border-box">
 													<span>
@@ -850,7 +1026,7 @@ $(function(){
 									</div>
 									<div class="grid_item">
 										<div class="check-box_filter">
-											<input type="checkbox" id="material_flower" name="dosu" value="middle">
+											<input type="checkbox" id="material_flower" name="material" value="flower">
 											<div class="flower">
 												<label for="material_flower" style="box-sizing: border-box">
 													<span>
@@ -865,7 +1041,7 @@ $(function(){
 									</div>
 									<div class="grid_item">
 										<div class="check-box_filter">
-											<input type="checkbox" id="material_nut" name="dosu" value="strong">
+											<input type="checkbox" id="material_nut" name="material" value="nut">
 											<div class="nut">
 												<label for="material_nut" style="box-sizing: border-box">
 													<span>
@@ -880,7 +1056,7 @@ $(function(){
 									</div>
 									<div class="grid_item">
 										<div class="check-box_filter">
-											<input type="checkbox" id="material_herb" name="dosu" value="strong">
+											<input type="checkbox" id="material_herb" name="material" value="herb">
 											<div class="herb">
 												<label for="material_herb" style="box-sizing: border-box">
 													<span>
@@ -895,7 +1071,7 @@ $(function(){
 									</div>
 									<div class="grid_item">
 										<div class="check-box_filter">
-											<input type="checkbox" id="material_other" name="dosu" value="strong">
+											<input type="checkbox" id="material_other" name="material" value="other">
 											<div class="other">
 												<label for="material_other" style="box-sizing: border-box">
 													<span>
@@ -913,14 +1089,33 @@ $(function(){
 						</div>
 							
 						<div class="container">
-							<button class="filter flex b6">
+							<button type="button" class="filter flex b6">
 								<span>가격</span>
 								<img src="resources/image/down_button.png" width="20px" class="img" alt="arrow-down">
 							</button>
+							<div class="filter_check price">
+								<div class="check_grid">
+									<div class="grid_item">
+										<div class="check-box_filter">
+											<div class="price_info">
+												<input name="minprice" class="minprice" placeholder="0원">
+												&nbsp;~&nbsp;
+												<input name="maxprice" class="maxprice" placeholder="100,000원">
+												<button type="button" class="price_info_button">확인</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="container-button">
+							<input type="submit" value="검색" class="price_info_button" style="display: block;"/>
 						</div>
 					</div>
 				</div>
 			</div>
+			</form>
 			
 			<div class="content_product_list">
 				<div class="content_product_wrap">
@@ -929,7 +1124,7 @@ $(function(){
 							<div class="data_header">
 								<div class="wrapper flex">
 									<div class="search_result flex">
-										<span>23</span>
+										<span>${page.totalRecord}</span>
 										<span>건의 결과가 있어요.</span>
 									</div>
 									

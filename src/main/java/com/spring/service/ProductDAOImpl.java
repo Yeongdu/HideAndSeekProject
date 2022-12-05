@@ -1,6 +1,7 @@
 package com.spring.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,13 @@ public class ProductDAOImpl implements ProductDAO{
 	public int getListCount() {
 		
 		return this.sqlSession.selectOne("getListCount");
+		
+	}
+	
+	@Override
+	public int getListTagCount(Map<String, Object> map) {
+
+		return this.sqlSession.selectOne("getListTagCount", map);
 		
 	}
 
