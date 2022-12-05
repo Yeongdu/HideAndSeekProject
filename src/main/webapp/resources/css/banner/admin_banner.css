@@ -114,7 +114,9 @@ table td img {
 h1, h2, h3, h4, h5 {
     font-weight: 600;
 }
-
+/*************************/
+/* tag reset end
+/*************************/
 
 
 	
@@ -126,30 +128,49 @@ h1, h2, h3, h4, h5 {
 	body{
 	min-width: 1000px;
 	}
+	
+	.h4{
+	font-family: 'ChosunCentennial', sans-serif;
+	}
 
 	.adminWrab{
 	font-family: 'ChosunCentennial', sans-serif;
 	font-weight: bold;
 	font-size: 1em;
 	width:100%;
-	
     height: 80px;
     vertical-align: middle;
 	}
 	
+	
+	/*a링크태그 전부 해당*/
 	.adminWrab a {
 	font-family: 'ChosunCentennial', sans-serif;
 	font-size: 1.5em;
 	font-weight: bold;
 	}
 	
-	.admin_navSubMenu {
-	font-size: 0.7em;
+	/*로고*/
+	.adminNav > .logo{
+	margin-left: 2%;
+	margin-right: 1%;
+	}
+	
+	/*빈 공간 띄우기 용*/
+	.adminNav > .admin_navMenu_none{
+	width: 49%;
 	}
 
 	.adminNav{
 	display: flex;
-    justify-content: space-evenly;
+    vertical-align: middle;
+    height: 80px;
+    box-sizing: border-box;
+	}
+
+	/*메뉴 속 메뉴*/
+	.adminNav .admin_navMenu .admin_navSubMenuWrab a{
+	font-size: 1.2em;
 	}
 	
 
@@ -157,8 +178,14 @@ h1, h2, h3, h4, h5 {
 	list-style-type:none;
 	}
 
-    .adminNav > li{
-	width: 10em;
+    .adminNav > .admin_navMenu{
+	width: 8%;
+	min-width: 105px;
+    }
+    
+    .logo{
+    margin-top: 6.5px;
+    min-width: 80px;
     }
     
     .adminNav>.admin_navMenu{
@@ -188,6 +215,44 @@ h1, h2, h3, h4, h5 {
 	.col-sm-8-range{
 	display: flex;
 	}
+	
+	.paging_1, .paging_1 > li{
+	display: inline-block;
+	padding: 0;
+
+	}
+	
+	.paging_1 li a{
+	font-size: 1.4em;
+	margin: 3px;
+	}
+	
+	.page-paging{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	}
+	
+	.svg-inline--fa {
+    font-size: 1.4em;
+    }
+    
+    .page-paging > span{
+    margin: 3px;
+    }
+    
+    .now{
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 3px;
+    color: red;
+    }
+    
+    .searchWrab{
+    display: flex;
+    justify-content: center;
+    }
+    
     
 
     

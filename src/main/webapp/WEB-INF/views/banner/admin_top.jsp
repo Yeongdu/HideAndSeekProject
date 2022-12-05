@@ -25,7 +25,7 @@
 		    
 		    <li class="admin_navMenu">
 		        <a href="<%=request.getContextPath() %>/admin_product_list.do">상품관리</a>
-		        <ul>
+		        <ul class="admin_navSubMenuWrab">
 		            <li><a class="admin_navSubMenu" href="<%=request.getContextPath() %>/admin_product_list.do">전체 상품 목록</a></li>
 		            <li><a class="admin_navSubMenu" href="<%=request.getContextPath() %>/admin_product_insert.do">상품 신규 등록</a></li>
 		            <li><a class="admin_navSubMenu" href="<%=request.getContextPath() %>/admin_product_view.do">판매 노출 관리</a></li>
@@ -35,7 +35,7 @@
 		
 		    <li class="admin_navMenu">
 		        <a class="admin_navMenu1" href="<%=request.getContextPath() %>/admin_order_list.do">주문관리</a>
-		        <ul>
+		        <ul class="admin_navSubMenuWrab">
 		            <li><a class="admin_navSubMenu" href="<%=request.getContextPath() %>/admin_order_list.do">전체 주문 목록</a></li>
 		            <li><a class="admin_navSubMenu" href="<%=request.getContextPath() %>/admin_order_del.do">주문 취소 목록</a></li>
 		        </ul>
@@ -45,10 +45,10 @@
 		    
 		    <li class="admin_navMenu"><a href="<%=request.getContextPath() %>/admin_event.do">이벤트</a></li>
 		    
-		    <li class="admin_navMenu"><a href=></a></li>
+		    <li class="admin_navMenu_none"> </li>
 		    
 		    <li class="admin_navMenu"><a href="<%=request.getContextPath() %>/admin_main.do">관리자</a>
-		     	<ul>
+		     	<ul class="admin_navSubMenuWrab">
 		            <li><a class="admin_navSubMenu" href="<%=request.getContextPath() %>/admin_logout.do">로그아웃</a></li>
 		        </ul>
 		    </li>

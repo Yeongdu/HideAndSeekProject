@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="list" value="${list }" />
+<c:set var="page" value="${page }"/>
+<c:set var="field" value="${field }"/>
+<c:set var="keyword" value="${keyword }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +17,120 @@
 <body>
 <jsp:include page="../banner/admin_top.jsp" />
 
+<br>
+<br>
+<br>
+<br>
+	<div align="center">
+		<span><h4 align="right" style="width: 800px;">전체 제품 목록</h4></span>
+	</div>
+	<div align="center">
 
+		<table class="table table-hover table-bordered" style="width: 60em">
+			<tr>
+				<th>상품번호</th>
+				<th>상품이름</th>
+				<th>이미지</th>
+				<th>카테고리</th>
+				<th>제조사</th>
+				<th>판매가</th>
+				<th>재고</th>
+				<th>상태</th>
+				<th>등록일</th>
+			</tr>
+
+			<c:if test="${!empty list }">
+				<c:forEach items="${list }" var="dto">
+					<tr
+						onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">
+						<td>${dto.product_no }</td>
+						<td>${dto.product_name }</td>
+						<td>${dto.product_thumbnail }</td>
+						<td>${dto.product_category }</td>
+						<td>${dto.product_company }</td>
+						<td>${dto.product_price }</td>
+						<td>${dto.product_stock }</td>
+						<td>${dto.product_status }</td>
+						<td>${dto.product_date }</td>
+					</tr>
+				</c:forEach>
+			</c:if>
+
+			<c:if test="${empty list }">
+				<tr>
+					<td colspan="8" align="center">
+						<h4>게시물이 없습니다.</h4>
+					</td>
+				</tr>
+			</c:if>
+
+			<tr>
+				<td colspan="9" align="center">
+				<input type="button"
+					class="btn btn-outline-primary" value="상품추가"
+					onclick="location.href='admin_product_insert.do'">
+					<c:if test="${!empty keyword }">
+						<input type="button" value="전체목록" onclick="location.href='admin_product_list.do'">
+					</c:if>
+				</td>
+			</tr>
+		</table>
+		<br>
+	</div>
+
+	<%-- 페이징 처리 --%>
+		<div class="page-paging">
+		    <c:if test="${page.startBlock > 1}"><span><a href="admin_product_list.do?page=1"><i class="fa fa-angle-double-left"></i></a></span></c:if>
+		    <c:if test="${page.startBlock <= 1}"><span class="nolink"><i class="fa fa-angle-double-left"></i></span></c:if>
+		
+		    <c:if test="${page.page > 1}"><span><a href="admin_product_list.do?page=${page.page - 1}"><i class="fa fa-angle-left"></i></a></span></c:if>
+		    <c:if test="${page.page <= 1}"><span class="nolink"><i class="fa fa-angle-left"></i></span></c:if>
+		
+		    <ol class="paging_1">
+		        <c:forEach begin="${page.startBlock}" end="${page.endBlock}" var="i">
+		        <c:if test="${i == page.page}"><li class="now">${i}</li></c:if>
+		        <c:if test="${i != page.page}"><li><a href="admin_product_list.do?page=${i}">${i}</a></li></c:if>
+		        </c:forEach>
+		    </ol>
+		
+		    <c:if test="${page.page < page.allPage}"><span><a href="admin_product_list.do?page=${page.page + 1}"><i class="fa fa-angle-right"></i></a></span></c:if>
+		    <c:if test="${page.page >= page.allPage}"><span class="nolink"><i class="fa fa-angle-right"></i></span></c:if>
+		
+		    <c:if test="${page.endBlock < page.allPage}"><span><a href="admin_product_list.do?page=${page.allPage}"><i class="fa fa-angle-double-right"></i></a></span></c:if>
+		    <c:if test="${page.endBlock >= page.allPage}"><span class="nolink"><i class="fa fa-angle-double-right"></i></span></c:if>
+		</div>
+	<%-- 페이징 처리 end --%>
+		
+		<br>
+		
+		<div class="searchWrab" align="center">
+		<div>
+			<form method="post"
+				action="<%=request.getContextPath()%>/admin_product_search.do">
+
+				<span> <select name="field" class="form-select"
+					style="width: 8em; display: inline-block;">
+						<option value="allSearch"
+							<c:if test="${field == 'all'}"> selected="selected"</c:if>>통합</option>
+						<option value="name"
+							<c:if test="${field == 'name'}"> selected="selected"</c:if>>상품이름</option>
+						<option value="company"
+							<c:if test="${field == 'company'}"> selected="selected"</c:if>>제조사</option>
+				</select>
+				
+				</span> <span> <input type="text" name="keyword" value="${keyword}"
+					class="form-control" style="width: 20em; display: inline-block;" /></span>
+				&nbsp;&nbsp;&nbsp;
+
+				<button type="submit" class="btn btn-secondary ml-1">
+					<i class="fa fa-search"></i> 검색
+				</button>
+
+			</form>
+		</div>
+		</div>
+
+
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 </body>
 </html>

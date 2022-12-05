@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.model.OrderDTO;
 import com.spring.model.PageDTO;
@@ -28,7 +29,7 @@ public class AdminController {
 	private ProductDAO pdao;
 	
 	// 한 페이지당 보여질 게시물의 수
-	private final int rowsize = 4;
+	private final int rowsize = 10;
 			
 	// DB 상의 전체 게시물의 수
 	private int totalRecord = 0;
@@ -59,7 +60,6 @@ public class AdminController {
 			// 처음으로 게시물 전체 목록 태그를 클릭한 경우
 			page = 1;
 		}
-		
 		// DB상의 전체 게시물의 수를 확인하는 메서드
 		totalRecord = this.pdao.getListCount();
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
@@ -79,6 +79,31 @@ public class AdminController {
 //	public void product_insert_ok(ProductDTO dto, HttpServletResponse response) {
 //		return;
 //	}
+	
+	@RequestMapping("admin_product_search.do")
+	public String admin_product_search(@RequestParam("field") String field, @RequestParam("keyword") String keyword, Model model,HttpServletRequest request) {
+		// 페이징 처리 작업
+		int page;	// 현재 페이지 변수
+						
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}else {
+			// 처음으로 게시물 전체 목록 태그를 클릭한 경우
+			page = 1;
+		}
+		// DB상의 전체 게시물의 수를 확인하는 메서드
+		totalRecord = this.pdao.getListCount();
+		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+
+		List<ProductDTO> productSearchList = this.pdao.searchProductList(field, keyword);
+		model.addAttribute("list", productSearchList);
+		model.addAttribute("field", field);
+		model.addAttribute("keyword", keyword);
+		
+		model.addAttribute("page", dto);
+		return "admin/admin_product_list";
+	}
+	
 	
 	@RequestMapping("admin_product_view.do")
 	public String admin_product_view() {
