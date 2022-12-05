@@ -940,14 +940,14 @@ $(function(){
 								<div class="check_grid">
 									<div class="grid_item">
 										<div class="check-box_filter">
-											<input type="checkbox" id="soda_low" name="soda" value="nosoda">
+											<input type="checkbox" id="soda_none" name="soda" value="nosoda">
 											<div class="soda1">
-												<label for="soda_low" style="box-sizing: border-box">
+												<label for="soda_none" style="box-sizing: border-box">
 													<span>
 														<img alt="checkbox" src="resources/image/checkbox.png">
 													</span>
 												</label>
-												<label for="soda_low" style="box-sizing: border-box">
+												<label for="soda_none" style="box-sizing: border-box">
 													<span>없음</span>
 												</label>
 											</div>
