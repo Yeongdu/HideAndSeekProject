@@ -28,11 +28,18 @@ public class ProductDAOImpl implements ProductDAO{
 		return this.sqlSession.selectOne("getListTagCount", map);
 		
 	}
-
+	
 	@Override
 	public List<ProductDTO> getProductList(PageDTO dto) {
 
 		return this.sqlSession.selectList("getProductList", dto);
+		
+	}
+	
+	@Override
+	public List<ProductDTO> getProductTagList(Map<String, Object> map) {
+
+		return this.sqlSession.selectList("getProductTagList", map);
 		
 	}
 
