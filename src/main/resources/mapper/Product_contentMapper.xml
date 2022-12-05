@@ -34,9 +34,13 @@
 	</delete>
   
  	 -->
-  	<select id="all" resultType="com.spring.model.Product_contentDTO">
+  	<select id="all" resultType="Product_contentDTO">
 		select * from product_content
 	</select>
+	
+	<select id="admin_product_content_cont" parameterType="int" resultType="Product_contentDTO">
+  		select * from Product_content where product_no = #{no}
+  	</select>
   
   
   
