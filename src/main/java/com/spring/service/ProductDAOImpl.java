@@ -34,4 +34,9 @@ public class ProductDAOImpl implements ProductDAO{
 		return null;
 	}
 
+	@Override
+	public List<ProductDTO> searchProductList(String field, String keyword) {
+		return this.sqlSession.selectList(field, keyword);
+	}
+
 }

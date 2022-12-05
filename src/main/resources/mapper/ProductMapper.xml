@@ -35,13 +35,27 @@
   
  	 -->
  	 
- 	 <select id="getListCount" resultType="int">
- 	 	select count(*) from product
- 	 </select>
+	<select id="getListCount" resultType="int">
+		select count(*) from product
+	</select>
  	 
- 	 <select id="getProductList" parameterType="PageDTO" resultType="ProductDTO">
- 	 	<![CDATA[select * from (select p.*, row_number() over(order by product_no desc) rnum from product p where product_category = 'takju') where rnum >= #{startNo} and rnum <= #{endNo}]]>
- 	 </select>
+	<select id="getProductList" parameterType="PageDTO" resultType="ProductDTO">
+		<![CDATA[select * from (select p.*, row_number() over(order by product_no desc) rnum from product p where product_category = 'takju') where rnum >= #{startNo} and rnum <= #{endNo}]]>
+	</select>
+ 	 
+ 	 
+ 	 
+	<select id="allSearch" parameterType="String" resultType="ProductDTO">
+  		 select * from product where ((product_name like '%' || #{keyword} || '%') or (product_company like '%' || #{keyword} || '%') or (product_no like '%' || #{keyword} || '%')) order by product_no desc 
+	</select>
+  	
+	<select id="name" parameterType="String" resultType="ProductDTO">
+  		 select * from product where product_name like '%' || #{keyword} || '%' order by product_no desc 
+	</select>
+  	
+	<select id="company" parameterType="String" resultType="ProductDTO">
+  		select * from product where product_company like '%' || #{keyword} || '%' order by product_no desc
+	</select>
   
   
   
