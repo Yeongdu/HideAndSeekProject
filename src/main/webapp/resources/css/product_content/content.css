@@ -183,7 +183,33 @@ body {
 	ont-family: 'Noto Sans';
 	font-size: 20px;
 }
-.warn span{
+#my_div span{
 	display: flex;
   justify-content: center;
+}
+.btn{
+	padding: 0;
+    width: 75px;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid rgb(178, 178, 178);
+    margin-right: 1%;
+    background-color: #efefef;
+    
+    font-family: 'Noto Sans';
+	font-style: normal;
+    font-size: 12px;
+}
+.btn1{
+	padding: 0;
+    width: 75px;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid rgb(178, 178, 178);
+    margin-right: 44%;
+    background-color: #efefef;
+    
+    font-family: 'Noto Sans';
+	font-style: normal;
+    font-size: 12px;
 }

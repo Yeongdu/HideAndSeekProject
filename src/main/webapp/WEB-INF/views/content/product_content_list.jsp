@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="resources/css/cont/content.css" rel="stylesheet" type="text/css">
+<link href="resources/css/product_content/content.css" rel="stylesheet" type="text/css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -82,7 +82,6 @@
 					}
 					title1.addEventListener("click", handleClick1);
 				</script>
-				
 				<div id='my_div' align="left">
 						<span>${dto.getProduct_cont5() }</span>
 					</div>
