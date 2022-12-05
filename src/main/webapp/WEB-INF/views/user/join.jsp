@@ -18,7 +18,7 @@
 
 
       <div align="center">
-		   <form  method="post" action="<%=request.getContextPath() %>/user_join_ok.do">
+		   <form  name="form1" method="post" action="<%=request.getContextPath() %>/user_join_ok.do">
 			
 			<fieldset class="join_field">
 				<legend>회원가입</legend>
@@ -67,7 +67,9 @@
 						
 						<div class="join_idnum">
 							<label for="user_idnum">주민등록번호</label>
-							<input type="text" maxlength="6"> - <input type="password" maxlength="7">
+							<input type="text"  name="juminnum" maxlength="6"> - <input type="password"  name="juminnum2" maxlength="7">
+							<input type="button" value="성인인증" onclick="getAge();">
+ 
 						</div>
 						
 						<br>
@@ -95,31 +97,33 @@
 						
 						<br>
 						
-						<div class="agreement-text">
-							<a href="<%=request.getContextPath() %>/policy.do">이용약관</a>
-							및
-							<a href="<%=request.getContextPath() %>/privacy.do">개인정보처리방침</a>
-							내용을 확인 하였으며, 이에 동의합니다.
-						</div>
+						
 						
 							<div class="agreement-checkbox">
 							
 								<label for="agree_all">
                                   <input type="checkbox" name="agree_all" id="agree_all">
                                     <span>모두 동의합니다</span>
-                                 </label>
+                                 </label><br>
                                  
                                 <label for="agree">
                                   <input type="checkbox" name="agree" value="1">
                                     <span>이용약관 동의<strong>(필수)</strong></span>
-                                 </label>
+                                 </label><br>
                                  
                                  
                                   <label for="agree">
                                     <input type="checkbox" name="agree" value="2">
                                       <span>개인정보처리방침 동의<strong>(필수)</strong></span>
-                                    </label>
+                                    </label><br>
                              </div>
+                             
+                             <div class="agreement-text">
+							<a href="<%=request.getContextPath() %>/policy.do">이용약관</a>
+							및
+							<a href="<%=request.getContextPath() %>/privacy.do">개인정보처리방침</a>
+							내용을 확인 하였으며, 이에 동의합니다.
+						</div>
                              
                              <div class="join_ok_btn">
                              	<button type="submit">가입완료</button>
@@ -136,6 +140,8 @@
 			
  		
 	   <!-- 회원가입 페이지 -->
+             
+           <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
              <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
                <script type="text/javascript">
 	            
@@ -163,6 +169,90 @@
                    agreeChk[i].checked = e.target.checked;
                  }
              });
+                 
+                 <!-- 생년월일로 성인인증 처리 -->
+                 // 주민등록상 생일을 현재 날짜와 비교하여 나이계산 (만)
+                 function getAge() {
+                 
+                  jumin1 = document.form1.juminnum.value;
+                 
+                  jumin2 = document.form1.juminnum2.value;
+                 
+                 
+                  var curDateObj = new Date(); // 날짜 Object 생성
+                  var tmpSSN = jumin1; // 주민번호
+                  var curDate = ''; // 현재일자
+                  var tmpAge = 0; // 임시나이
+                  var y = curDateObj.getFullYear(); // 현재년도
+                  var m = curDateObj.getMonth() + 1; // 현재월
+                  if(m < 10) m = '0' + m; // 현재 월이 10보다 작을경우 '0' 문자 합한다
+                  var d = curDateObj.getDate(); // 현재일
+                  if(d < 10) d = '0' + d; // 현재 일이 10보다 작을경우 '0' 문자 합한다
+                  curDate = y + m + d;
+                 
+                  var genType = jumin2.substring(0, 1); // 주민번호 성별구분 문자 추출
+                 
+
+                if(parseInt(tmpSSN.substring(0, 2))<25 && genType < 3 ){
+
+                 alert("주민등록번호를 다시 확인해주세요.");
+
+                  return false;
+
+                }
+
+
+                if(parseInt(tmpSSN.substring(0, 2))>25 && genType > 2 ){
+
+                 alert("주민등록번호를 다시 확인해주세요.");
+
+                  return false;
+
+                }
+
+
+
+                  if(genType <= 2) {
+                  tmpAge = y - (1900 + parseInt(tmpSSN.substring(0, 2))); // 1, 2 일경우
+                  } else {
+                  tmpAge = y - (2000 + parseInt(tmpSSN.substring(0, 2))); // 그 외의 경우
+                  }
+
+
+                 
+                  var tmpBirthday = tmpSSN.substring(2, 6); // 주민번호 4자리 생일문자 추출
+                 
+                  if(curDate > (y + tmpBirthday)) {
+                  tmpAge += 1;
+                  }
+                 
+                 
+                  if(parseInt(tmpAge)>19){
+                 
+                  alert ("성인인증 완료")
+                 
+                 
+                 
+                  }else{
+                  alert ("미성년으로 구입할 수 없습니다.")
+                   
+                   document.form1.juminnum.value = "";
+                  
+                   document.form1.juminnum2.value = "";
+                  
+                    
+
+                  }
+                 
+                 
+                 }//getAge() end
+
+                 
+                 
+              
+                 
+                 
+                 
              
              
              </script>
