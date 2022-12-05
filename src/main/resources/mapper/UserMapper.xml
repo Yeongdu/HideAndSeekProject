@@ -34,6 +34,11 @@
 	</delete>
   
  	 -->
+ 	 <!-- 로그인 -->
+ 	 <select id="memberLogin" resultType="UserDTO">
+ 	 	select * from tb_user where USER_ID = #{USER_ID} and USER_PWD = {#USER_PWD}
+ 	 
+ 	 </select>
   
   
   
