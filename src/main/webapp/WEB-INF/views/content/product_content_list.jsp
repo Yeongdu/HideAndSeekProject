@@ -5,14 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="resources/css/cont/content.css" rel="stylesheet" type="text/css">
+<link href="resources/css/product_content/content.css" rel="stylesheet" type="text/css">
 <title>Insert title here</title>
-<script type="text/javascript">
-function setreview() {
-	  const element = document.getElementById('warn');
-	  element.review  = ${dto.getProduct_cont5() };
-} 
-</script>
 </head>
 <body>
 	<jsp:include page="../banner/none_top.jsp" />
@@ -63,11 +57,48 @@ function setreview() {
 						</div>
 					<img src="resources/image/${dto.getProduct_file4() }">
 				</div>
-				<div id="warn" class="warn" align="left">
-					<%-- <span>${dto.getProduct_cont5() }</span> --%>
+				
+				<!-- 수정중 -->
+				<div id="btn">
+					<input id="title" class="btn" type='button' value='리뷰' onclick='review()'/>
+					<input id="title1" class="btn1" type='button' value='교환/반품' onclick='change()'/>
 				</div>
-				<input type='button' value='리뷰' onclick='review()'/>
-				<input type='button' value='교환/반품' onclick='change()'/>
+				<script type="text/javascript">
+					const title = document.querySelector("#title");
+					function handleClick() {
+						title.style.backgroundColor = "rgb(0, 151, 243)";
+						title.style.color = "white";
+						title1.style.backgroundColor = "#efefef";
+						title1.style.color = "black";
+					}
+					title.addEventListener("click", handleClick);
+
+					const title1 = document.querySelector("#title1");
+					function handleClick1() {
+						title1.style.backgroundColor = "rgb(0, 151, 243)";
+						title1.style.color = "white";
+						title.style.backgroundColor = "#efefef";
+						title.style.color = "black";
+					}
+					title1.addEventListener("click", handleClick1);
+				</script>
+				<div id='my_div' align="left">
+						<span>${dto.getProduct_cont5() }</span>
+					</div>
+					<%-- <div id="warn" class="warn" align="left">
+						<span>${dto.getProduct_cont5() }</span>
+					</div> --%>
+					<script type="text/javascript">
+						function review() {
+							const element = document.getElementById('my_div');
+							element.innerHTML = '<div style="color:blue">InnerHTML<div>';
+						}
+					
+						function change() {
+							const element = document.getElementById('my_div');
+							element.innerText = '<div style="color:blue">InnerText<div>';
+						}
+					</script>
 			</div>
 		</c:forEach>
 	</div>
