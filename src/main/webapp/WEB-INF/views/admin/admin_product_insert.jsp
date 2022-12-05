@@ -1,31 +1,93 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+<jsp:include page="../banner/admin_top.jsp" />
+
+<title>관리자 상품 등록</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 <link href="resources/css/banner/admin_banner.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
-function readURL(input) {
+	function readURL(input) {
 	  if (input.files && input.files[0]) {
 	    var reader = new FileReader();
 	    reader.onload = function(e) {
-	      document.getElementById('preview').src = e.target.result;
+	      document.getElementById('preview1').src = e.target.result;
 	    };
 	    reader.readAsDataURL(input.files[0]);
 	  } else {
-	    document.getElementById('preview').src = "";
+	    document.getElementById('preview1').src = "";
 	  }
 	}
+	
+	function readURL2(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function(e) {
+	      document.getElementById('preview2').src = e.target.result;
+	    };
+	    reader.readAsDataURL(input.files[0]);
+	  } else {
+	    document.getElementById('preview2').src = "";
+	  }
+	}
+	
+	function readURL3(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function(e) {
+	      document.getElementById('preview3').src = e.target.result;
+	    };
+	    reader.readAsDataURL(input.files[0]);
+	  } else {
+	    document.getElementById('preview3').src = "";
+	  }
+	}
+	
+	function readURL4(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function(e) {
+	      document.getElementById('preview4').src = e.target.result;
+	    };
+	    reader.readAsDataURL(input.files[0]);
+	  } else {
+	    document.getElementById('preview4').src = "";
+	  }
+	}
+	
+	
+	//휠 이벤트
+	
+	// 윈도우 휠 설정 초기화
+	window.addEventListener("wheel", function(e){
+	    e.preventDefault();
+	},{passive : false});
+	
+	//한번의 휠 내릴 시 섹션 1개씩만 보이는 이벤트
+	var mHtml = $("html");
+	var page = 1;
+	mHtml.animate({scrollTop : 0},10);
+	
+	$(window).on(click, function(e) {
+	    if(mHtml.is(":animated")) return;
+	    if(e.originalEvent.deltaY > 0) {
+	        if(page == 4) return;
+	        page++;
+	    } else if(e.originalEvent.deltaY < 0) {
+	        if(page == 1) return;
+	        page--;
+	    }
+	    var posTop =(page-1) * $(window).height();
+	    mHtml.animate({scrollTop : posTop});
+	})
+		
+	
 </script>
-</head>
-<body>
-<jsp:include page="../banner/admin_top.jsp" />
 
-<div style="width:45em; margin: 50px auto; text-align: center;" align="center">
+
+<div style="width:45em; height:auto; margin: 50px auto; text-align: center;" align="center">
 
 <br><br><br>
         <form method="post" action="<%=request.getContextPath()%>/admin_product_insert_ok.do" class="border-top">
@@ -128,7 +190,7 @@ function readURL(input) {
                 <label for="product_thumbnail" class="col-sm-4 col-form-label">썸네일</label>
                 <div class="col-sm-8">
                     <input type="file" class="thumbnailInput" name="product_thumbnail" id="product_thumbnail" onchange="readURL(this);" required />
-                <img width="120px;" id="preview" />
+                <img width="120px;" id="preview1" />
                 </div>
             </div>
 
@@ -136,14 +198,73 @@ function readURL(input) {
 			<div class="form-group row mt-4" align="center">
                 <div>
                     <button type="submit" class="btn btn-success">등록하기</button>
-                    <button type="reset" class="btn btn-outline-danger">다시작성</button>
+                    &nbsp;&nbsp;
                     <input type="button" class="btn btn-secondary" value="메인화면" onclick="location.href='admin_main.do'">
                 </div>
             </div>
-        </form>
+            <br>
+
+		<!-- 상품 사진, 설명 더 작성하기 -->
+			<details>
+			<br><br>
+				<summary class="btn btn-secondary">계속 작성</summary>
+
+				<div class="form-group row border-bottom py-2">
+					<label for="product_file1" class="col-sm-4 col-form-label">상품사진1</label>
+					<div class="col-sm-8">
+						<img width="300px;" id="preview2" />
+						<input type="file" class="thumbnailInput" name="product_file1"
+							id="product_file1" onchange="readURL2(this);" required />
+					</div>
+				</div>
+
+
+				<div class="form-group row border-bottom py-2">
+					<label for="product_cont1" class="col-sm-4 col-form-label">상품설명1</label>
+					<div class="col-sm-8">
+					 <textarea class="form-control" name="product_cont1" id="product_cont1"></textarea>
+					</div>
+				</div>
+
+				<div class="form-group row border-bottom py-2">
+					<label for="product_file2" class="col-sm-4 col-form-label">상품사진2</label>
+					<div class="col-sm-8">
+						<img width="300px;" id="preview3" />
+						<input type="file" class="thumbnailInput" name="product_file1"
+							id="product_file2" onchange="readURL3(this);" required /> 
+					</div>
+				</div>
+
+
+				<div class="form-group row border-bottom py-2">
+					<label for="product_cont2" class="col-sm-4 col-form-label">상품설명2</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" name="product_cont2" id="product_cont2"></textarea>
+					</div>
+				</div>
+
+				<div class="form-group row border-bottom py-2">
+					<label for="product_file3" class="col-sm-4 col-form-label">상품사진3</label>
+					<div class="col-sm-8">
+						<img width="300px;" id="preview4" />
+						<input type="file" class="thumbnailInput" name="product_file3"
+							id="product_file1" onchange="readURL4(this);" required />
+					</div>
+				</div>
+
+
+				<div class="form-group row border-bottom py-2">
+					<label for="product_cont3" class="col-sm-4 col-form-label">상품설명3</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" name="product_cont3" id="product_cont3"></textarea>
+					</div>
+				</div>
+				<br>
+				<button type="submit" class="btn btn-success">등록하기</button>
+
+			</details>
+		<!-- 상품 사진, 설명 더 작성하기 end -->
+
+		</form>
         </div>
-
-
-
-</body>
-</html>
+<jsp:include page="../banner/bottom.jsp" />

@@ -19,8 +19,7 @@ public class Product_contentDAOImpl implements Product_contentDAO{
 	}
 
 	@Override
-	public Product_contentDTO getProduct(int product_no) {
-		// TODO Auto-generated method stub
-		return null;
+	public Product_contentDTO getProduct(int no) {
+		return this.sqlSession.selectOne("admin_product_content_cont", no);
 	}
 }

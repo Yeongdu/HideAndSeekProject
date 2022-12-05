@@ -3,7 +3,6 @@ package com.spring.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +14,10 @@ import com.spring.model.OrderDTO;
 import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
 import com.spring.model.Product_categoryDTO;
+import com.spring.model.Product_contentDTO;
 import com.spring.service.OrderDAO;
 import com.spring.service.ProductDAO;
+import com.spring.service.Product_contentDAO;
 
 
 @Controller
@@ -28,8 +29,11 @@ public class AdminController {
 	@Autowired
 	private ProductDAO pdao;
 	
+	@Autowired
+	private Product_contentDAO pcdao;
+	
 	// 한 페이지당 보여질 게시물의 수
-	private final int rowsize = 10;
+	private final int rowsize = 5;
 			
 	// DB 상의 전체 게시물의 수
 	private int totalRecord = 0;
@@ -53,6 +57,7 @@ public class AdminController {
 	public String admin_product_list(HttpServletRequest request, Model model) {
 		// 페이징 처리 작업
 		int page;	// 현재 페이지 변수
+		
 						
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -81,9 +86,10 @@ public class AdminController {
 //	}
 	
 	@RequestMapping("admin_product_search.do")
-	public String admin_product_search(@RequestParam("field") String field, @RequestParam("keyword") String keyword, Model model,HttpServletRequest request) {
+	public String admin_product_search(HttpServletRequest request, @RequestParam("field") String field, @RequestParam("keyword") String keyword, Model model) {
 		// 페이징 처리 작업
 		int page;	// 현재 페이지 변수
+		int rowsize = 5;
 						
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -92,16 +98,28 @@ public class AdminController {
 			page = 1;
 		}
 		// DB상의 전체 게시물의 수를 확인하는 메서드
-		totalRecord = this.pdao.getListCount();
+		totalRecord = this.pdao.getSearchListCount(keyword);
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
-
+		
 		List<ProductDTO> productSearchList = this.pdao.searchProductList(field, keyword);
+
 		model.addAttribute("list", productSearchList);
 		model.addAttribute("field", field);
 		model.addAttribute("keyword", keyword);
-		
 		model.addAttribute("page", dto);
-		return "admin/admin_product_list";
+		
+		return "admin/admin_product_search";
+	}
+	
+	@RequestMapping("admin_product_content.do")
+	public String admin_product_cont(@RequestParam("no") int no, Model model) {
+		ProductDTO dto = this.pdao.getProductCont(no);
+		
+		Product_contentDTO pcdto = this.pcdao.getProduct(no);
+		
+		model.addAttribute("PCCont", pcdto);
+		model.addAttribute("Cont", dto);
+		return "admin/admin_product_cont";
 	}
 	
 	

@@ -1,21 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
 <jsp:include page="../banner/admin_top.jsp" />
-<br><br>
-<div align="center">
-		<span><h4 align="right" style="width: 504px;">최근 주문</h4></span>
-		</div>
+
+<title>관리자 페이지 메인</title>
+<div class="admin_main_Wrab" style="height: 100%">
+	<br> <br> <br> <br>
+
 	<div align="center">
+		<span><h4 align="right" style="width: 504px;">최근 주문</h4></span>
+	</div>
 	
+	<div align="center">
 		<table class="table table-hover table-bordered" style="width: 36em;">
+		
 			<tr>
 				<th>주문번호</th>
 				<th>주문상태</th>
@@ -35,6 +34,7 @@
 					</tr>
 				</c:forEach>
 			</c:if>
+			
 			<c:if test="${empty olist }">
 				<tr>
 					<td colspan="5" align="center">
@@ -42,9 +42,8 @@
 					</td>
 				</tr>
 			</c:if>
-			
-			</table>
-	</div>
 
-</body>
-</html>
+		</table>
+	</div>
+</div>
+<jsp:include page="../banner/bottom.jsp" />
