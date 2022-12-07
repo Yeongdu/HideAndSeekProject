@@ -2,6 +2,8 @@ package com.spring.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
@@ -27,5 +29,7 @@ public class ProductDTO {
 	private int product_point; // 상품 포인트
 	private String product_thumbnail; // 상품 썸네일
 	private String product_status; // 상품 상태 기본값:판매 .. 품절, 종료
+	
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date product_date; // 상품 등록일
 }

@@ -59,6 +59,17 @@ public class AdminController {
 	
 	@RequestMapping("/admin_product_insert_ok.do")
 	public void product_insert_Ok(ProductDTO dto, HttpServletResponse response) throws IOException {
+		
+		if(dto.getProduct_alcohol() <= 7) {
+			dto.setProduct_dosu("low");
+		}else if(dto.getProduct_alcohol() <= 20) {
+			dto.setProduct_dosu("middle");
+		}else if(dto.getProduct_alcohol() <= 35) {
+			dto.setProduct_dosu("high");
+		}else if(dto.getProduct_alcohol() <= 50) {
+			dto.setProduct_dosu("very-high");	
+		}
+		
 		int check = this.pdao.insertProduct(dto);
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -96,10 +107,6 @@ public class AdminController {
 
 	}
 	
-//	@RequestMapping("admin_product_insert_ok.do")
-//	public void product_insert_ok(ProductDTO dto, HttpServletResponse response) {
-//		return;
-//	}
 	
 	@RequestMapping("admin_product_search.do")
 	public String admin_product_search(HttpServletRequest request, @RequestParam("field") String field, @RequestParam("keyword") String keyword, Model model) {
@@ -128,13 +135,15 @@ public class AdminController {
 	}
 	
 	@RequestMapping("admin_product_content.do")
-	public String admin_product_cont(@RequestParam("no") int no, Model model) {
+	public String admin_product_cont(@RequestParam("no") int no,@RequestParam("page") int page , Model model) {
 		ProductDTO dto = this.pdao.getProductCont(no);
+		model.addAttribute("Cont", dto);
 		
 		Product_contentDTO pcdto = this.pcdao.getProduct(no);
-		
 		model.addAttribute("PCCont", pcdto);
-		model.addAttribute("Cont", dto);
+		
+		model.addAttribute("page", page);
+		
 		return "admin/admin_product_cont";
 	}
 	
@@ -164,6 +173,26 @@ public class AdminController {
 		}
 	}
 	
+	@RequestMapping("admin_product_update.do")
+	public String admin_productUpdate(@RequestParam("no") int no, Model model) {
+		ProductDTO pdto = this.pdao.getProductCont(no);
+		Product_contentDTO pcdto = this.pcdao.getProduct(no);
+		List<Product_categoryDTO> cateList = this.dao.getCategoryList();
+		model.addAttribute("CategoryList", cateList);
+		model.addAttribute("PCont", pdto);
+		model.addAttribute("PCCont", pcdto);
+		
+		return "admin/admin_product_update";
+		
+//		int check = this.dao.updateMember(dto);
+//		response.setContentType("text/html; charset=UTF-8");
+//		PrintWriter out = response.getWriter();
+//		if(check > 0) {
+//			out.println("<script> alert('회원수정성공'); location.href='member_content.do?num="+dto.getNum()+"'; </script>");
+//		}else {
+//			out.println("<script> alert('회원등록실패 8^8'); history.back(); </script>");
+//		}
+	}
 	
 	
 	@RequestMapping("admin_product_del.do")

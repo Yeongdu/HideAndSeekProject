@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="dto" value="${Cont }" />
 <c:set var="pcdto" value="${PCCont }" />
+<c:set var="page" value="${page }" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 <jsp:include page="../banner/admin_top.jsp" />
@@ -27,7 +28,7 @@
 	
 	<tr>
 		<td class="admin_table_tdLabel">도수</td>
-		<td colspan="3">${dto.product_alcohol }</td>
+		<td colspan="3">${dto.product_alcohol } % ( ${dto.product_dosu } )</td>
 	</tr>
 	
 	<tr>
@@ -93,6 +94,23 @@
 		<td class="admin_table_tdLabel">설명3</td>
 		<td colspan="5">${pcdto.product_cont3 }</td>
 	</tr>
+	
+	<tr>
+		<td colspan="6">
+		<input type="button"
+					class="btn btn-outline-primary" value="상품수정"
+					onclick="location.href='<%=request.getContextPath()%>/admin_product_update.do?no=${dto.product_no }&page=${page}'">
+		
+		<input type="button" class="btn btn-outline-danger" value="상품 삭제"
+					onclick="if(confirm('상품을 삭제하시겠습니까? 상품은 판매중지로 변경되어 스토어에선 사라지지만 DB에서는 사라지지 않습니다.')){
+					location.href='<%=request.getContextPath() %>/admin_product_delete.do?no=${dto.product_no }'} 
+					else{return; }">
+		<input type="button" class="btn btn-outline-secondary" value="전체목록" onclick="location.href='admin_product_list.do'">
+					
+		</td>
+	</tr>
+	
+	
 	
 </table>
 
