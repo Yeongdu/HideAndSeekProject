@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 
 
 <title>Insert title here</title>
@@ -23,7 +24,7 @@
 
 
 
-      <div align="center" style="height: 100%;">
+      <div align="center">
 		   <form  name="form1" method="post" action="<%=request.getContextPath() %>/user_join_ok.do">
 			
 			<fieldset class="join_field">
@@ -37,20 +38,23 @@
 						<div class="join_id">
 						  <label for="user_id">아이디</label>
 						  	<div>
-						       <input type="text" id="user_id" name="user_id" placeholder="아이디를 입력해주세요." >
+						       <input type="text" id="user_id" name="user_id" placeholder="아이디를 입력해주세요." ><br>
+						     		<span id="idcheck"></span>
 						     </div>
-						        <button id="idbtn" type="button" class="idbtn">중복검사</button>
-                                  <span id="spanid"></span>
+						        
+          
 						</div>
 						
 						<div class="join_pwd">
 							<label for="user_pwd">비밀번호</label>
-								<input type="password" id="user_pwd" name="user_pwd" placeholder="비밀번호를 입력해주세요.">
+								<input type="password" id="user_pwd" name="user_pwd" placeholder="비밀번호를 입력해주세요."><br>
+								    <span id="pwcheck"></span>
 						</div>
 						
 						<div class="join_pwd_check">
 							<label for="user_pwd_check">비밀번호 확인</label>
-								<input type="password" id="user_pwd_check" name="user_pwd_check" placeholder="비밀번호를 확인해주세요.">
+								<input type="password" id="user_pwd_check" name="user_pwd_check" placeholder="비밀번호를 확인해주세요."><br>
+								<span id="pwcheck2"></span>
 						</div>
 						
 						<div class="join_name">
@@ -71,9 +75,21 @@
 						</div>
 						
 						<div class="join_phone">
-							<label for="user_phone">전화번호</label>
-								<input type="text" id="user_phone" name="user_phone" placeholder="전화번호를 입력해주세요.">
-						</div>
+                            <label for="user_phone">전화번호</label>
+                              <select name="select_phone" id="select_phone"   onchange="select_phone(this)">
+                                <option value="" selected>선택하세요.</option>
+                                <option value="010">010</option>
+                                <option value="011">011</option>
+                                <option value="016">016</option>
+                                <option value="017">017</option>
+                                <option value="018">018</option>
+                                </select>
+
+                            - <input type="text" name="user_phone2" id="user_phone2"> - <input type="text" name="user_phone3" id="user_phone3">
+                            </div>
+
+
+
 						
 						<div class="join_idnum">
 							<label for="user_idnum">주민등록번호</label>
@@ -306,80 +322,149 @@
                  $(function() {
                 	 
                 	 
-                	//id입력시 - id keyup
+                	//id입력시 - 정규식확인id keyup
                 		$('#user_id').on('keyup', function(){ // keyup -> 입력할 때 
-                			idval = $('#user_id').val().trim();
+                		  var idval = $('#user_id').val().trim();
                 			
-                			idreg = /^[a-zA-Z][a-zA-Z0-9]{3,11}$/; // [a-zA-Z]한 자리 차지해서 4~12자리
+                		  var idreg = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{4,10}$/; // [a-zA-Z]한 자리 차지해서 4~12자리
                 			
                 			if(!(idreg.test(idval))){
-                				$(this).css('border', '2px solid red');
+                				let warningTxt = '<font color="red" size="1.5em">아이디는 4~10자의 영문자와 숫자를 조합해서 입력해주세요</font>';
+        						
+        						$("#idcheck").text('');		// span 태그 영역 초기화
+        							
+        						$("#idcheck").append(warningTxt);
+        						
+        						//$("#user_id").val('');
                 				//중복검사버튼 비활성 - 속성설정 prop
-                				$('#idbtn').prop('disabled',true);
+                				//$('#idbtn').prop('disabled',true);
                 			}else{
-                				$(this).css('border', '2px solid blue');
-                				//중복검사버튼 활성
-                				$('#idbtn').prop('disabled',false);
+                                let warningTxt = '<font color="green" size="1.5em">사용가능한 아이디입니다.</font>';
+        						
+        						$("#idcheck").text('');		// span 태그 영역 초기화
+        							
+        						$("#idcheck").append(warningTxt);
                 				
                 			}
                 		});  //id입력시 - id keyup end
                 		
                 		
+                		//비밀번호입력시 - 정규식확인 pw
+                		$('#user_pwd').on('keyup', function(){ // keyup -> 입력할 때 
+                		  var pwd = $('#user_pwd').val().trim();
+                			
+                		  var num = pwd.search(/[0-9]/g);
+              			  var eng = pwd.search(/[a-zA-Z]/ig);
+              			  var spe = pwd.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+                			
+              			if(pwd.length < 8 || pwd.length > 20){
+
+            				let warningTxt = '<font color="red" size="1.5em">8자리 ~ 20자리 이내로 입력해주세요.</font>';
+            				
+            				$("#pwcheck").text('');		// span 태그 영역 초기화
+            				
+            				$("#pwcheck").append(warningTxt);
+            				
+            				//$("#user_pwd").val('');
+            				
+            				
+            			 }else if(num < 0 || eng < 0 || spe < 0 ){
+            				 
+            			  	let warningTxt = '<font color="red" size="1.5em">영문, 숫자, 특수문자를 혼합하여 입력해주세요.</font>';
+            				
+            				$("#pwcheck").text('');		// span 태그 영역 초기화
+            				
+            				$("#pwcheck").append(warningTxt);
+            				
+            				//$("#user_pwd").val('');
+            				
+            				
+            			 }else {
+            				 
+            				let warningTxt = '<font color="green" size="1.5em">사용 가능한 비밀번호 입니다.</font>';
+            					
+            				$("#pwcheck").text('');		// span 태그 영역 초기화
+            					
+            				$("#pwcheck").append(warningTxt);
+            				
+            			 }
+                		});  //비밀번호입력시 - 정규식확인 pw end
                 		
-                		/* 아이디 중복검사 */
-                		$('#idbtn').on('click',function(){
-                			idvalue = $('#user_id').val().trim();
+                		//비밀번호확인입력시 - 정규식확인 pwcheck
+                		$('#user_pwd_check').on('keyup', function(){ // keyup -> 입력할 때 
+                		  
+                			var pwd = $('#user_pwd').val().trim();
+                			var pwdck = $('#user_pwd_check').val().trim();
                 			
-                			if(idvalue.length < 1){
-                				alert("아이디를 입력하세요");
-                				return false;
+                			if(pwd == pwdck){
+                				
+                				let warningTxt = '<font color="green" size="1.5em">비밀번호가 일치합니다.</font>';
+                				
+                				$("#pwcheck2").text('');		// span 태그 영역 초기화
+                				
+                				$("#pwcheck2").append(warningTxt);
+                				
+                				
+                				
+                			}else {
+                				
+                				let warningTxt = '<font color="red" size="1.5em">비밀번호가 일치하지 않습니다.</font>';
+                				
+                				$("#pwcheck2").text('');		// span 태그 영역 초기화
+                				
+                				$("#pwcheck2").append(warningTxt);
+                				
+                				//$("#signup_pwd_ck_input").val('');
+                				
                 			}
-                			
-                			if(idvalue.length < 4 || idvalue.length > 12){
-                				alert("id는 4~12 사이");
-                				return false;
-                			}
-                			
-                			//정규식 체크 - idcheck() 호출
-                			if(!idcheck())return false;
-                			
-                			//정규식 체크 통과하면 서버로 전송하기
-                			$.ajax({
-                				url : '/finalPJ/CheckId.do',
-                				data : {"user_id" : idvalue}, // data : "id=" + idvalue
-                				type : 'get',
-                				success : function(res){
-                					$('#spanid').html(res.sw).css('color', 'red');
-                				},
-                				error : function(xhr){
-                					alert("상태 : " + xhr.status); //404(이름,path), 500(콘솔확인), 200(json형태 - jsp페이지확인)
-                				},
-                				dataType : 'json'
-                			});
-                			
-                		});
-                	
-                	
-                	
-					
-				})
+                		});  //비밀번호확인입력시 - 정규식확인 pwcheck end
+                		 
+                   })
                  
-				  window.onload = function () {
-                     $(".loading").fadeOut(100,function(){
-                         $("#div_load_image").fadeOut(300);
+                   $('#user_id').on('focusout', function(){
+                     
+                	 var id = $('#user_id').val(); //id값이 "id"인 입력란의 값을 저장
+                     console.log(id);
+                	 $.ajax({
+                         url:'<%=request.getContextPath() %>/idCheck.do', //Controller에서 요청 받을 주소
+                         type:'get', //POST 방식으로 전달
+                         data:{user_id:id},
+                         datatype : "text",
+                         success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+                             if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+                            	let warningTxt = '<font color="green" size="1.5em">사용가능한 아이디입니다.</font>';
+                 				
+                 				$("#idcheck").text('');		// span 태그 영역 초기화
+                 				
+                 				$("#idcheck").append(warningTxt);
+                             } else if(cnt == 1) { // cnt가 1일 경우 -> 이미 존재하는 아이디
+                            	 let warningTxt = '<font color="red" size="1.5em">중복 아이디입니다.</font>';
+                  				
+                  				$("#idcheck").text('');		// span 태그 영역 초기화
+                  				
+                  				$("#idcheck").append(warningTxt);
+                             }
+                         },
+                         error:function(request,status,error){
+                             //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+                         }
                      });
-                 }
+                	 
+                     });
+                 
+                 
 
                  
                  
-              
+                 
                  
                  
                  
              
              
              </script>
-     
+       </body>
+
      <!-- 카카오 주소 API  -->
           <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
              <script>
@@ -430,6 +515,13 @@
                         }
              }).open();
         }
+                
+                window.onload = function () {
+                    $(".loading").fadeOut(100,function(){
+                        $("#div_load_image").fadeOut(300);
+                    });
+                }
 </script>
+	
 	
 <jsp:include page="../banner/bottom.jsp" />
