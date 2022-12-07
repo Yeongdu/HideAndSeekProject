@@ -14,10 +14,30 @@ $(function(){
 	
 	let loading = false;
 	
+	let status = true;
+	
 	let page = ${page.page} + 1;
 	
+	let list = ${json};
+	
+	console.log("페이지 >>" + page);
+	$.each(data, function(index, item){			// 데이터 = item
 		
-$(document).on("click", ".b1", function(){
+		console.log("도수 >>" + item.dosu);
+		console.log("단맛 >>" + item.sweet);
+		console.log("신맛 >>" + item.acidity);
+		console.log("탄산 >>" + item.soda);
+		console.log("원료 >>" + item.material);
+		
+	});
+		/* const sweet = ${map.sweet};
+	const acidity = ${map.acidity};
+	const soda = ${map.soda};
+	const material = ${map.material};
+	const minprice = ${map.minprice};
+	const maxprice = ${map.maxprice}; */
+		
+	$(document).on("click", ".b1", function(){
 		
 		tag();
 		
@@ -615,7 +635,7 @@ $(document).on("click", ".b1", function(){
 		
 	});
 	
-function tag(){
+	function tag(){
 		
 		let minprice = $(".minprice").val();
 		
@@ -702,13 +722,15 @@ function tag(){
 		let html = "";
 		
 		$.ajax({
-			url:"<%=request.getContextPath()%>/infinite_scroll.do",
+			url:"<%=request.getContextPath()%>/infinite_scroll_tag.do",
 			methood:"post",
-			data: {page : page},
+			data: {
+				page : page,
+				list : JSON.stringify(list)
+				},
+			contentType : 'application/json; charset=UTF-8',
 			datatype: "json",
 			success:function(data){
-				
-				isBottom = false;
 				
 				$.each(data, function(index, item){			// 데이터 = item
 					
@@ -746,8 +768,8 @@ function tag(){
 				
 			},
 			
-			error:function(data){
-				alert("통신 실패");
+			error:function(request,status,error){
+		        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
 			}
 		});
 
