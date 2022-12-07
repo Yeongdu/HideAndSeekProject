@@ -3,6 +3,7 @@
     
 <jsp:include page="../banner/none_top.jsp" />
 
+
 <link href="resources/css/store/store_main.css" rel="stylesheet" type="text/css">
 
 	<div class="main">
@@ -165,7 +166,8 @@
 	<br>
 	
 	</div>
-	
+
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 <script type="text/javascript">
 
 	window.onload = function () {
@@ -175,4 +177,6 @@
 	}
 
 </script>
+
+<jsp:include page="../banner/bottom.jsp" />
 	

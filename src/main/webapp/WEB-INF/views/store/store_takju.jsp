@@ -1191,3 +1191,14 @@ $(function(){
 		</div>
 	</div>
 
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<script type="text/javascript">
+	
+	// 로딩창 종료
+	window.onload = function () {
+	    $(".loading").fadeOut(100,function(){
+	        $("#div_load_image").fadeOut(300);
+	    });
+	}
+
+</script>

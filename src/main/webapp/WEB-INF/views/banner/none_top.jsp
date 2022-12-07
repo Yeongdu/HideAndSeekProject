@@ -8,11 +8,9 @@
 <link href="resources/css/banner/banner.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
-
 	<div id="div_load_image" style="position:absolute; width:100%;height:100%; z-index:9999; background:white; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; text-align:center">
-     	 <img src="resources/image/loading.gif" style="width:400px; height:450px; position:relative; top:25%;">
+     	 <img src="resources/image/loading_new.gif" style="width:400px; height:400px; position:relative; top:30%;" class = "loading">
   	</div>
-<body>
 	<div id = "header">
 		<ul class = "header_wrap">
 			<li class = "logo" onclick = "location.href = '<%=request.getContextPath()%>'"><img src = "resources/image/logo.png"></li>
