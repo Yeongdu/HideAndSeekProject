@@ -30,9 +30,9 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 	
 	@Override
-	public List<ProductDTO> getProductList(PageDTO dto) {
+	public List<ProductDTO> getProductList(PageDTO dto, String sort) {
 
-		return this.sqlSession.selectList("getProductList", dto);
+		return this.sqlSession.selectList(sort, dto);
 		
 	}
 	

@@ -20,17 +20,10 @@ $(function(){
 	
 	let list = ${json};
 	
-	console.log("페이지 >>" + page);
-	$.each(data, function(index, item){			// 데이터 = item
-		
-		console.log("도수 >>" + item.dosu);
-		console.log("단맛 >>" + item.sweet);
-		console.log("신맛 >>" + item.acidity);
-		console.log("탄산 >>" + item.soda);
-		console.log("원료 >>" + item.material);
-		
-	});
-		/* const sweet = ${map.sweet};
+	console.log(JSON.stringify(list, null, 2));
+	
+	console.log(list.dosu);
+	/* const sweet = ${map.sweet};
 	const acidity = ${map.acidity};
 	const soda = ${map.soda};
 	const material = ${map.material};
@@ -723,12 +716,17 @@ $(function(){
 		
 		$.ajax({
 			url:"<%=request.getContextPath()%>/infinite_scroll_tag.do",
-			methood:"post",
+			method:"post",
 			data: {
 				page : page,
-				list : JSON.stringify(list)
+				dosu : list.dosu,
+				sweet : list.sweet,
+				acidity : list.acidity,
+				soda : list.soda,
+				material : list.material,
+				minprice : list.minprice,
+				maxprice : list.maxprice
 				},
-			contentType : 'application/json; charset=UTF-8',
 			datatype: "json",
 			success:function(data){
 				
@@ -742,7 +740,7 @@ $(function(){
 					html += "<div class='product_wrap'>"
 					html += "<a href='<%=request.getContextPath() %>/product_content.do?no="+item.product_no+"'>"
 					html += "<div class='img_wrap'><span>"
-					html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+".jpg' style='width: 100%; height: 39.7vh'></span></div>"
+					html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+"' style='width: 100%; height: 39.7vh'></span></div>"
 					html += "<div class='content_wrap'>"
 					html += "<div class='wrapper'>"
 					html += "<div class='content_title'>"+item.product_name+"</div></div>"
@@ -1225,7 +1223,7 @@ $(function(){
 												<a href="<%=request.getContextPath() %>/product_content.do?no=${dto.product_no}">
 													<div class="img_wrap">
 														<span>
-															<img alt="img" src="resources/upload/${dto.product_thumbnail }.jpg" style="width: 100%; height: 39.7vh">
+															<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
 														</span>
 													</div>
 													

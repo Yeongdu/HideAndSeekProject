@@ -16,6 +16,8 @@ $(function(){
 	
 	let page = ${page.page} + 1;
 	
+	let html = "";
+	
 		
 $(document).on("click", ".b1", function(){
 		
@@ -696,19 +698,26 @@ function tag(){
  	        }
  	    }
 	});
-	
-	function getlist(){
-		
-		let html = "";
-		
+ 	
+ 	$(document).on("change", ".sort-menu", function(){
+ 		
+ 		let sort = $('.sort-menu').val();
+ 		
+ 		page = 1;
+ 		
+ 		console.log("page 값 >>" + page);
+ 		
 		$.ajax({
 			url:"<%=request.getContextPath()%>/infinite_scroll.do",
-			methood:"post",
-			data: {page : page},
+			method:"post",
+			data: {
+				page : page,
+				sort : sort
+				},
 			datatype: "json",
 			success:function(data){
 				
-				isBottom = false;
+				$(".data_grid").empty();
 				
 				$.each(data, function(index, item){			// 데이터 = item
 					
@@ -720,7 +729,64 @@ function tag(){
 					html += "<div class='product_wrap'>"
 					html += "<a href='<%=request.getContextPath() %>/product_content.do?no="+item.product_no+"'>"
 					html += "<div class='img_wrap'><span>"
-					html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+".jpg' style='width: 100%; height: 39.7vh'></span></div>"
+					html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+"' style='width: 100%; height: 39.7vh'></span></div>"
+					html += "<div class='content_wrap'>"
+					html += "<div class='wrapper'>"
+					html += "<div class='content_title'>"+item.product_name+"</div></div>"
+					html += "<div class='wrapper'><div class='content_price'><p class='content_price_blank' /><div class='content_price_wrap'><p>"
+					html += price+"&nbsp;"
+					html += "<span>원</span></p></div></div>"
+					html += "<div class='content_review'>"
+					html += "<img alt='img' src='resources/image/star.png'>"
+					html += "<p class='content_score'>0.0</p>"
+					html += "<div class='content_column_line'></div>"
+					html += "<p class='review'>리뷰 00</p></div></div>"
+					html += "<div class='card_footer'>"
+					html += "<div class='footer_content'>"
+					html += "<div>#"+item.product_introduce1+"</div>"
+					html += "<div>#"+item.product_introduce2+"</div></div></div></a></div></div>"
+					
+					$(".data_grid").append(html);
+				});
+				
+				page += 1;
+				
+				loading = false;
+				
+			},
+			
+			error:function(data){
+				alert("통신 실패");
+			}
+		});
+ 		
+ 	});
+	
+	function getlist(){
+		
+		let sort = $('.sort-menu').val();
+		
+		$.ajax({
+			url:"<%=request.getContextPath()%>/infinite_scroll.do",
+			method:"post",
+			data: {
+				page : page,
+				sort : sort
+				},
+			datatype: "json",
+			success:function(data){
+				
+				$.each(data, function(index, item){			// 데이터 = item
+					
+					html = "";
+				
+					let price = item.product_price.toLocaleString('ko-KR');
+				
+					html += "<div class='product'>"
+					html += "<div class='product_wrap'>"
+					html += "<a href='<%=request.getContextPath() %>/product_content.do?no="+item.product_no+"'>"
+					html += "<div class='img_wrap'><span>"
+					html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+"' style='width: 100%; height: 39.7vh'></span></div>"
 					html += "<div class='content_wrap'>"
 					html += "<div class='wrapper'>"
 					html += "<div class='content_title'>"+item.product_name+"</div></div>"
@@ -1191,7 +1257,16 @@ function tag(){
 									</div>
 									
 									<div class="sort-wrapper flex">
-										<span>추천순</span>
+										<div class="sort-box">
+											<select class="sort-menu" name="sort">
+												<option value="released" selected>최신순</option>
+												<option value="rating">평점순</option>
+												<option value="star_count">리뷰 많은순</option>
+												<option value="selling_count">판매순</option>
+												<option value="price_high">높은 가격순</option>
+												<option value="price_low">낮은 가격순</option>
+											</select>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -1203,7 +1278,7 @@ function tag(){
 												<a href="<%=request.getContextPath() %>/product_content.do?no=${dto.product_no}">
 													<div class="img_wrap">
 														<span>
-															<img alt="img" src="resources/upload/${dto.product_thumbnail }.jpg" style="width: 100%; height: 39.7vh">
+															<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
 														</span>
 													</div>
 													

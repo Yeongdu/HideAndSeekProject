@@ -59,6 +59,8 @@ public class ProductController {
 			page = 1;
 
 		}
+		
+		String sort = "released";
 
 		// DB상의 전체 게시물의 수를 확인하는 메서드
 		totalRecord = this.dao.getListCount();
@@ -66,7 +68,7 @@ public class ProductController {
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
 
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
-		List<ProductDTO> list = this.dao.getProductList(dto);
+		List<ProductDTO> list = this.dao.getProductList(dto, sort);
 
 		model.addAttribute("list", list);
 
@@ -132,36 +134,55 @@ public class ProductController {
 	// 마지막 스크롤 이동 시 지속적으로 상품 리스트를 불러오는 메서드
 	@RequestMapping("/infinite_scroll.do")
 	@ResponseBody
-	public Object InfiniteScroll(@RequestParam("page") int page) {
+	public Object InfiniteScroll(@RequestParam("page") int page,
+								 @RequestParam("sort") String sort) {
 
 		PageDTO dto = new PageDTO(page, rowsize);
+		
+		System.out.println("메서드 진입");
+		
+		System.out.println(dto.getStartNo());
+		System.out.println(dto.getEndNo());
 
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
-		List<ProductDTO> list = this.dao.getProductList(dto);
+		List<ProductDTO> list = this.dao.getProductList(dto, sort);
+		
+		for(ProductDTO var : list){
 
+			System.out.println(var);
+
+			}
+		
 		return list;
 	}
 	
 	// 마지막 스크롤 이동 시 지속적으로 상품 리스트를 불러오는 메서드
-	@RequestMapping(value="/infinite_scroll_tag.do", method=RequestMethod.POST)
+	@RequestMapping("/infinite_scroll_tag.do")
 	@ResponseBody
 	public Object InfiniteScrollTag(@RequestParam("page") int page,
-									@RequestBody Map<String, Object> map) {
+									@RequestParam(value = "dosu", required = false) List<String> dosu,
+									@RequestParam(value = "sweet", required = false) List<String> sweet,
+									@RequestParam(value = "acidity", required = false) List<String> acidity,
+									@RequestParam(value = "soda", required = false) List<String> soda,
+									@RequestParam(value = "material", required = false) List<String> material,
+									@RequestParam(value = "minprice", required = false) int minprice,
+									@RequestParam(value = "maxprice", required = false) int maxprice) {
 		
-		System.out.println("ajax 성공");
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("dosu", dosu);
+		map.put("sweet", sweet);
+		map.put("acidity", acidity);
+		map.put("soda", soda);
+		map.put("material", material);
+		map.put("minprice", minprice);
+		map.put("maxprice", maxprice);
 		
 		PageDTO dto = new PageDTO(page, rowsize);
-		
-		map.remove("startNo");
-		map.remove("endNo");
 		
 		map.put("startNo", dto.getStartNo());
 		map.put("endNo", dto.getEndNo());
 		
-		for ( String key : map.keySet() ) {
-		    System.out.println("key : " + key +" / value : " + map.get(key));
-		}
-
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductTagList(map);
 
