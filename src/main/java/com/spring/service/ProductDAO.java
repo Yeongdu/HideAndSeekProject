@@ -14,7 +14,7 @@ public interface ProductDAO {
     int getListTagCount(Map<String, Object> map);
 
     // 상품테이블의 리스트를 받아오는 메서드
-    List<ProductDTO> getProductList(PageDTO dto);
+    List<ProductDTO> getProductList(PageDTO dto, String sort);
     
 	// 태그가 포함된 상품테이블의 리스트를 받아오는 메서드
     List<ProductDTO> getProductTagList(Map<String, Object> map);
