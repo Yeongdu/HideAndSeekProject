@@ -44,6 +44,19 @@ public class UserDAOImpl implements UserDAO{
 	  }
 
 
+	@Override
+	public int idCheck(String id) {
+		
+		int cnt = this.sqlSession.selectOne("idCheck",id);
+		System.out.println("IMPL >>> " + id);
+		
+		System.out.println(cnt);
+		return cnt;
+	}
+
+
+	
+
 
 	
 

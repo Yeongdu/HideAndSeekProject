@@ -12,6 +12,8 @@ public interface UserDAO {
 	
 	int userCheck(String id, String pw);
 	
+	 int idCheck(String id);
+	
 	
 	
 	

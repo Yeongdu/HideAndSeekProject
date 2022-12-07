@@ -62,6 +62,20 @@ public class UserController {
 		}
 		return "user/login";
 	}
+	
+	@RequestMapping("/idCheck.do")
+	public int idCheck(@RequestParam("user_id") String id) {
+		
+		System.out.println("Controller Id >>> " + id);
+		
+		int cnt = dao.idCheck(id);
+		
+		System.out.println("Controller cnt >>> " + cnt);
+		
+		return cnt;
+		
+		
+	}
 
 	
 

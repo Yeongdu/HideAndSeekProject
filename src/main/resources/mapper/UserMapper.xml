@@ -40,6 +40,10 @@
  	 
  	 </select>
  	 
+ 	 <!--  아이디 중복체크 -->
+ 	 	<select id="idCheck" parameterType="String" resultType="int">
+ 	 		select count(USER_ID) from tb_user where USER_ID = #{USER_ID}
+ 	 	</select>
  	 
  	
   
