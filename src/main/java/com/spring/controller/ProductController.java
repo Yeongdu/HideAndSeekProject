@@ -6,10 +6,13 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -76,13 +79,13 @@ public class ProductController {
 	// 탁주 페이지에서 태그 검색 시 상품의 정보를 불러오는 메서드
 	@RequestMapping("/store_tlist_tag.do")
 	public String taglist(@RequestParam(value = "dosu", required = false) List<String> dosu,
-			@RequestParam(value = "sweet", required = false) List<String> sweet,
-			@RequestParam(value = "acidity", required = false) List<String> acidity,
-			@RequestParam(value = "soda", required = false) List<String> soda,
-			@RequestParam(value = "material", required = false) List<String> material,
-			@RequestParam(value = "minprice", required = false) int minprice,
-			@RequestParam(value = "maxprice", required = false) int maxprice,
-			Model model) {
+						  @RequestParam(value = "sweet", required = false) List<String> sweet,
+						  @RequestParam(value = "acidity", required = false) List<String> acidity,
+						  @RequestParam(value = "soda", required = false) List<String> soda,
+						  @RequestParam(value = "material", required = false) List<String> material,
+						  @RequestParam(value = "minprice", required = false) int minprice,
+						  @RequestParam(value = "maxprice", required = false) int maxprice,
+						  Model model) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
@@ -93,19 +96,23 @@ public class ProductController {
 		map.put("material", material);
 		map.put("minprice", minprice);
 		map.put("maxprice", maxprice);
-
-		 totalRecord = this.dao.getListTagCount(map);
+		
+		totalRecord = this.dao.getListTagCount(map);
 		 
-		 int page = 1;
+		int page = 1;
 		 
-		 PageDTO dto = new PageDTO(page, rowsize, totalRecord);
-		 
-		 map.put("startNo", dto.getStartNo());
-		 map.put("endNo", dto.getEndNo());
-		 
+		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+		
+		map.put("startNo", dto.getStartNo());
+		map.put("endNo", dto.getEndNo());
+		
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductTagList(map);
-
+		
+		JSONObject json = new JSONObject(map);
+		
+		model.addAttribute("json", json);
+		
 		model.addAttribute("list", list);
 
 		model.addAttribute("page", dto);
@@ -125,12 +132,38 @@ public class ProductController {
 	// 마지막 스크롤 이동 시 지속적으로 상품 리스트를 불러오는 메서드
 	@RequestMapping("/infinite_scroll.do")
 	@ResponseBody
-	public Object infinitescroll(@RequestParam("page") int page) {
+	public Object InfiniteScroll(@RequestParam("page") int page) {
 
 		PageDTO dto = new PageDTO(page, rowsize);
 
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductList(dto);
+
+		return list;
+	}
+	
+	// 마지막 스크롤 이동 시 지속적으로 상품 리스트를 불러오는 메서드
+	@RequestMapping(value="/infinite_scroll_tag.do", method=RequestMethod.POST)
+	@ResponseBody
+	public Object InfiniteScrollTag(@RequestParam("page") int page,
+									@RequestBody Map<String, Object> map) {
+		
+		System.out.println("ajax 성공");
+		
+		PageDTO dto = new PageDTO(page, rowsize);
+		
+		map.remove("startNo");
+		map.remove("endNo");
+		
+		map.put("startNo", dto.getStartNo());
+		map.put("endNo", dto.getEndNo());
+		
+		for ( String key : map.keySet() ) {
+		    System.out.println("key : " + key +" / value : " + map.get(key));
+		}
+
+		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
+		List<ProductDTO> list = this.dao.getProductTagList(map);
 
 		return list;
 	}
