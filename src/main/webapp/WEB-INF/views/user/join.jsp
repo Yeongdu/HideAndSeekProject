@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+
 
 <title>Insert title here</title>
 
@@ -16,8 +13,7 @@
   
   <link href="resources/css/join.css" rel="stylesheet" type="text/css">
   
-</head>
-<body>
+
 
 		<!-- top include 지정 -->
 		<jsp:include page="../banner/none_top.jsp" />
@@ -27,7 +23,7 @@
 
 
 
-      <div align="center">
+      <div align="center" style="height: 100%;">
 		   <form  name="form1" method="post" action="<%=request.getContextPath() %>/user_join_ok.do">
 			
 			<fieldset class="join_field">
@@ -368,7 +364,11 @@
 					
 				})
                  
-                 
+				  window.onload = function () {
+                     $(".loading").fadeOut(100,function(){
+                         $("#div_load_image").fadeOut(300);
+                     });
+                 }
 
                  
                  
@@ -379,8 +379,7 @@
              
              
              </script>
-       </body>
-
+     
      <!-- 카카오 주소 API  -->
           <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
              <script>
@@ -433,5 +432,4 @@
         }
 </script>
 	
-	
-</html>
+<jsp:include page="../banner/bottom.jsp" />
