@@ -27,5 +27,13 @@ public interface ProductDAO {
     
     // 검색된 상품의 수를 받아오는 메서드
     int getSearchListCount(String keyword);
+    
+    //상품 추가하는 메서드
+    int insertProduct(ProductDTO dto);
+    
+    //상품의 판매상태를 변경하는 메서드
+    int productStatusChange(int product_no);
+    //상품의 판매상태를 변경하는 메서드
+    int productStatusChange2(int product_no);
 
 }

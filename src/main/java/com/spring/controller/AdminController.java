@@ -1,8 +1,11 @@
 package com.spring.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +36,8 @@ public class AdminController {
 	private Product_contentDAO pcdao;
 	
 	// 한 페이지당 보여질 게시물의 수
-	private final int rowsize = 5;
+	private final int rowsize = 10;
+	
 			
 	// DB 상의 전체 게시물의 수
 	private int totalRecord = 0;
@@ -51,6 +55,18 @@ public class AdminController {
 		List<Product_categoryDTO> cateList = this.dao.getCategoryList();
 		model.addAttribute("CategoryList", cateList);
 		return "admin/admin_product_insert";
+	}
+	
+	@RequestMapping("/admin_product_insert_ok.do")
+	public void product_insert_Ok(ProductDTO dto, HttpServletResponse response) throws IOException {
+		int check = this.pdao.insertProduct(dto);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		if(check > 0) {
+			out.println("<script> alert('제품 등록 성공'); location.href='admin_product_list.do'; </script>");
+		}else {
+			out.println("<script> alert('제품 등록 실패했습니다.'); history.back(); </script>");
+		}
 	}
 	
 	@RequestMapping("/admin_product_list.do")
@@ -122,11 +138,33 @@ public class AdminController {
 		return "admin/admin_product_cont";
 	}
 	
-	
-	@RequestMapping("admin_product_view.do")
-	public String admin_product_view() {
-		return "admin/admin_product_view";
+	//판매중 -> 판매중지(품절)
+	@RequestMapping("admin_product_statusChange.do")
+	public void admin_product_statusChange(HttpServletResponse response, @RequestParam("no") int no) throws IOException {
+		int check = this.pdao.productStatusChange(no);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		if(check > 0) {
+			out.println("<script> alert('제품 판매상태 변경 성공'); location.href='admin_product_list.do'; </script>");
+		}else {
+			out.println("<script> alert('제품 판매상태 변경을 실패했습니다.'); history.back(); </script>");
+		}
 	}
+	
+	//판매중지(품절) -> 판매중
+	@RequestMapping("admin_product_statusChange2.do")
+	public void admin_product_statusChange2(HttpServletResponse response, @RequestParam("no") int no) throws IOException {
+		int check = this.pdao.productStatusChange2(no);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		if(check > 0) {
+			out.println("<script> alert('제품 판매상태 변경 성공'); location.href='admin_product_list.do'; </script>");
+		}else {
+			out.println("<script> alert('제품 판매상태 변경을 실패했습니다.'); history.back(); </script>");
+		}
+	}
+	
+	
 	
 	@RequestMapping("admin_product_del.do")
 	public String admin_product_del() {

@@ -17,11 +17,11 @@
 <br>
 <br>
 <br>
-<br>
 
-	<div align="center">
-		<span><h4 align="right" style="width: 800px;">전체 제품 목록</h4></span>
+	<div class="adminProductListTitle" align="center">
+		<h4>전체 제품 목록</h4>
 	</div>
+	<br>
 	<div align="center">
 
 		<table class="table table-hover table-bordered" style="width: 60em">
@@ -33,23 +33,32 @@
 				<th>제조사</th>
 				<th>판매가</th>
 				<th>재고</th>
-				<th>상태</th>
 				<th>등록일</th>
+				<th>상태</th>
 			</tr>
 
 			<c:if test="${!empty list }">
 				<c:forEach items="${list }" var="dto">
-					<tr
-						onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">
-						<td>${dto.product_no }</td>
-						<td>${dto.product_name }</td>
-						<td>${dto.product_thumbnail }</td>
-						<td>${dto.product_category }</td>
-						<td>${dto.product_company }</td>
-						<td>${dto.product_price }</td>
-						<td>${dto.product_stock }</td>
-						<td>${dto.product_status }</td>
-						<td>${dto.product_date }</td>
+					<tr>
+						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">${dto.product_no }</td>
+						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">${dto.product_name }</td>
+						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">${dto.product_thumbnail }</td>
+						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">${dto.product_category }</td>
+						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">${dto.product_company }</td>
+						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">${dto.product_price }</td>
+						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">${dto.product_stock }</td>
+						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">${dto.product_date }</td>
+						<td>
+						<c:if test="${dto.product_status =='판매' }">
+						<input type="button" value="판매중"
+							onclick="if(confirm('판매상태를 판매 중지로 변경하시겠습니까?')){
+							location.href='<%=request.getContextPath() %>/admin_product_statusChange.do?no=${dto.product_no }&page=${page.page }'} 
+							else{return; }">
+						</c:if>
+						<c:if test="${dto.product_status != '판매' }">
+						${dto.product_status }
+						</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 			</c:if>
