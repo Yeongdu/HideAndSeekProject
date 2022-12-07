@@ -29,4 +29,5 @@ window.onload = function () {
 	});
 }
 </script>	
+
 <jsp:include page="../banner/bottom.jsp" />

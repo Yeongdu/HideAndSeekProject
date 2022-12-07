@@ -6,8 +6,12 @@
     font-style: normal;
 }
 
+main {
+	height: 100%;
+}
+
 html{
-	overflow: hidden;
+	/* overflow: hidden; */
 }
 
 #section1 {
@@ -192,6 +196,13 @@ html{
 }
 
 
+#main {
+    min-height: calc(100vh - 20px);
+    height: 100%;
+}
 
+#footer{
+	position: relative;
+}
 
 
