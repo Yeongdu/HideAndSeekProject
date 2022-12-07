@@ -14,6 +14,8 @@
 	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 	crossorigin="anonymous"></script>
 <link href="resources/css/banner/admin_banner.css" rel="stylesheet" type="text/css">
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
 </head>
 <body>
 <div class="adminWrab">

@@ -19,7 +19,7 @@
 <br>
 
 	<div class="adminProductListTitle" align="center">
-		<h4>전체 제품 목록</h4>
+		<h4>'${keyword }' 제품 검색 결과</h4>
 	</div>
 	<br>
 	<div align="center">
