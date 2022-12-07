@@ -41,14 +41,38 @@
 	
 	<select id="getListTagCount" parameterType="Map" resultType="int">
 		select count(*) from product where product_category = 'takju' and product_dosu in
-		<foreach collection="map" item="item" separator="," open="(" close=")">#{item.dosu}</foreach>
+		<foreach collection="dosu" item="item" separator="," open="(" close=")">#{item}</foreach>
+		and product_sweet in
+		<foreach collection="sweet" item="item" separator="," open="(" close=")">#{item}</foreach>
+		and product_acidity in
+		<foreach collection="acidity" item="item" separator="," open="(" close=")">#{item}</foreach>
+		and product_soda in
+		<foreach collection="soda" item="item" separator="," open="(" close=")">#{item}</foreach>
+		and product_material in
+		<foreach collection="material" item="item" separator="," open="(" close=")">#{item}</foreach>
+		and product_price > #{minprice} and product_price <![CDATA[<]]> #{maxprice}
 	</select>
  	 
-	<select id="getProductList" parameterType="PageDTO" resultType="ProductDTO">
-		<![CDATA[select * from (select p.*, row_number() over(order by product_no desc) rnum from product p where product_category = 'takju') where rnum >= #{startNo} and rnum <= #{endNo}]]>
+ 	 <select id="getProductList" parameterType="PageDTO" resultType="ProductDTO">
+		<![CDATA[select * from (select p.*, row_number() over(order by product_no desc) rnum from product p where product_category = 'takju') 
+		where rnum >= #{startNo} and rnum <= #{endNo}]]>
 	</select>
- 	 
- 	 
+	
+	<select id="getProductTagList" parameterType="Map" resultType="ProductDTO">
+		select * from (select p.*, row_number() over(order by product_no desc) rnum from product p where product_category = 'takju') 
+		where product_dosu in
+		<foreach collection="dosu" item="item" separator="," open="(" close=")">#{item}</foreach>
+		and product_sweet in
+		<foreach collection="sweet" item="item" separator="," open="(" close=")">#{item}</foreach>
+		and product_acidity in
+		<foreach collection="acidity" item="item" separator="," open="(" close=")">#{item}</foreach>
+		and product_soda in
+		<foreach collection="soda" item="item" separator="," open="(" close=")">#{item}</foreach>
+		and product_material in
+		<foreach collection="material" item="item" separator="," open="(" close=")">#{item}</foreach>
+		and product_price > #{minprice} and product_price <![CDATA[<]]> #{maxprice}
+		and rnum >= #{startNo} and rnum <![CDATA[<=]]> #{endNo}
+	</select>
  	 
 	<select id="allSearch" parameterType="String" resultType="ProductDTO">
   		 select * from product where ((product_name like '%' || #{keyword} || '%') or (product_company like '%' || #{keyword} || '%') or (product_no like '%' || #{keyword} || '%')) order by product_no desc 
