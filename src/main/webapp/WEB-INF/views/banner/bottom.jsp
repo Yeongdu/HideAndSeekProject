@@ -1,3 +1,15 @@
+
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<script type="text/javascript">
+
+	// 로딩 페이지 종료 이벤트
+    window.onload = function () {
+        $(".loading").fadeOut(100,function(){
+            $("#div_load_image").fadeOut(300);
+        });
+    }
+
+</script>
 <div style = "position: fixed; bottom: 20px; right: 20px; display:none;" class = "ontop">
 	<img src = "resources/image/ontop.png" class = "ontop_img" onmouseover = "this.src ='resources/image/ontop_hover.png'" onmouseout = "this.src ='resources/image/ontop.png'">
 </div>
@@ -39,7 +51,7 @@ $(document).ready(function() {
 			<p>술래잡기 사이트는 spring 프로젝트를 통해 만들어졌습니다.</p>
 			<p>해당 사이트는 상업적 영리를 취득하지 않는 팀 프로젝트입니다</p>
 		</div>
-	</div>
+</div>
 
 </body>
 </html>

@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,0" />
 <link href="resources/css/banner/banner.css" rel="stylesheet" type="text/css">
+<link href="resources/css/reset.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 </head>
 	<div id="div_load_image" style="position:absolute; width:100%;height:100%; z-index:9999; background:white; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; text-align:center">

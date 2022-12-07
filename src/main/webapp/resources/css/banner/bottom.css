@@ -5,6 +5,9 @@
 	padding: 30px;
 	padding-left: 10%;
 	box-sizing: border-box;
+	height: 200px;
+    width: 100%;
+    position: relative;
 }
 
 .footer_title {
@@ -30,3 +33,5 @@
 .footer_terms {
 	color : #d9d9d9;
 }
+
+
