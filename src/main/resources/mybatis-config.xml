@@ -46,6 +46,7 @@
         <typeAlias type="com.spring.service.Subscribe_userDAO" alias="Subscribe_userDAO"/>
         <typeAlias type="com.spring.service.SubscribeDAO" alias="SubscribeDAO"/>
         <typeAlias type="com.spring.service.UserDAO" alias="UserDAO"/>
+        <typeAlias type="com.spring.service.MyPageDAO" alias = "MyPageDAO"/>
     </typeAliases>
 
 </configuration>

@@ -21,7 +21,9 @@
 			<li class = "store" onclick = "location.href = '<%=request.getContextPath()%>/store.do'">상 점</li>
 			<li class = "event" onclick = "location.href = '<%=request.getContextPath()%>/event.do'">이 벤 트</li>
 			<li class = "none"> </li>
-			<li class = "user_name"></li>
+			<li class = "user_name" onclick = "location.href = '<%=request.getContextPath()%>/mypage.do'">
+			<label for = "user_name">${userId }</label>님
+			</li>
 			<li class = "login" onclick = "location.href = '<%=request.getContextPath()%>/user_logout.do'">로그아웃</li>
 			<li class = "cart" onclick = "location.href='<%=request.getContextPath()%>/cart.do'">
 				<div class="cart_icon">
