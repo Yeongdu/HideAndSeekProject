@@ -60,38 +60,17 @@
 	
 	//휠 이벤트
 	
-	// 윈도우 휠 설정 초기화
-	window.addEventListener("wheel", function(e){
-	    e.preventDefault();
-	},{passive : false});
-	
-	//한번의 휠 내릴 시 섹션 1개씩만 보이는 이벤트
-	var mHtml = $("html");
-	var page = 1;
-	mHtml.animate({scrollTop : 0},10);
-	
-	$(window).on(click, function(e) {
-	    if(mHtml.is(":animated")) return;
-	    if(e.originalEvent.deltaY > 0) {
-	        if(page == 4) return;
-	        page++;
-	    } else if(e.originalEvent.deltaY < 0) {
-	        if(page == 1) return;
-	        page--;
-	    }
-	    var posTop =(page-1) * $(window).height();
-	    mHtml.animate({scrollTop : posTop});
-	})
-		
 	
 </script>
 
 
 <div style="width:45em; height:auto; margin: 50px auto; text-align: center;" align="center">
 
-<br><br><br>
+<br><br>
         <form method="post" action="<%=request.getContextPath()%>/admin_product_insert_ok.do" class="border-top">
             
+            
+            <%--상품이름 --%>
             <div class="form-group row border-bottom py-2">
                 <label for="product_name" class="col-sm-4 col-form-label">상품이름</label>
                 <div class="col-sm-8">
@@ -99,12 +78,12 @@
                 </div>
             </div>
             
-            
+            <%--상품 카테고리 --%>
 			<c:set var="slist" value="${CategoryList }" />
 			<div class="form-group row border-bottom py-2">
 				<label for="form-select" class="col-sm-4 col-form-label">카테고리</label>
 				<div class="col-sm-8">
-					<select required class="form-select" name="job"
+					<select required class="form-select" name="product_category"
 						aria-label="Default select example">
 						<option value="">카테고리 선택</option>
 
@@ -120,50 +99,163 @@
 					</select>
 				</div>
 			</div>
+			
+			<%--상품설명1 --%>
+			<div class="form-group row border-bottom py-2">
+                <label for="product_introduce1" class="col-sm-4 col-form-label">상품설명1</label>
+                <div class="col-sm-8">
+                    <input type="text" name="product_introduce1" id="product_introduce1" class="form-control-plaintext" required />
+                </div>
+            </div>
+            
+            <%--상품설명2 --%>
+            <div class="form-group row border-bottom py-2">
+                <label for="product_introduce2" class="col-sm-4 col-form-label">상품설명2</label>
+                <div class="col-sm-8">
+                    <input type="text" name="product_introduce2" id="product_introduce2" class="form-control-plaintext" required />
+                </div>
+            </div>
+            
+            <%--제조사 --%>
+            <div class="form-group row border-bottom py-2">
+                <label for="product_company" class="col-sm-4 col-form-label">제조사</label>
+                <div class="col-sm-8">
+                    <input type="text" name="product_company" id="product_company" class="form-control-plaintext" required />
+                </div>
+            </div>
+            
 
-
+			<%--도수 (%) 0~50 --%>
 			<div class="form-group row border-bottom py-2">
                 <label for="product_alcohol" class="col-sm-4 col-form-label">도 수</label>
                 <div class="col-sm-8">
-                    <input type="number" id="volume" name="product_alcohol"
+                    <input type="number" id="product_alcohol" name="product_alcohol"
          min="0" max="50" class="form-control-plaintext" required />
                 </div>
             </div>
             
-           <div class="form-group row border-bottom py-2">
-                <label for="sweet_volume" class="col-sm-4 col-form-label">단 맛</label>
-                <div class="col-sm-8">
-                    <input  type="range" id="volume" name="sweet_volume"
-         min="0" max="5" class="form-control-plaintext-range" oninput="document.getElementById('sweet_volume').innerHTML=this.value;" required />
-                &nbsp;<span id="sweet_volume"></span>
-                </div>
-            </div>
+            <c:set var="alcohol" value="${product_alcohol }" />
             
+            <!-- 도수에 따른 도수 단계 -->
+			<c:if test="${alcohol < 7}" > 
+			    <c:set var="dosu" value="row" />
+			</c:if>
+			<c:if test="${7 <= alcohol < 15}" > 
+			    <c:set var="dosu" value="middle" />
+			</c:if>
+			<c:if test="${15 <= alcohol < 27}" > 
+			    <c:set var="dosu" value="high" />
+			</c:if>
+			<c:if test="${27 <= alcohol <= 50}" > 
+			    <c:set var="dosu" value="very-high" />
+			</c:if>
+			
+            
+            <input type="hidden" id="product_dosu" name="product_dosu" value="${dosu}">
+            
+            
+            
+            <%--도수 (단계) low, middle, high, very high --%>
+<!--             <div class="form-group row border-bottom py-2"> -->
+<!--                 <label for="product_dosu" class="col-sm-4 col-form-label">도수 단계</label> -->
+<!--                 <div class="col-sm-8"> -->
+                
+<!-- 				  <input class="form-check-input" type="radio" name="product_dosu" id="product_dosu" value="row" required> -->
+<!-- 				  <label class="form-check-label" for="inlineRadio1">낮음</label> -->
+<!--                 	&nbsp;&nbsp;&nbsp;&nbsp; -->
+<!-- 				  <input class="form-check-input" type="radio" name="product_dosu" id="product_dosu" value="middle" required> -->
+<!-- 				  <label class="form-check-label" for="inlineRadio1">보통</label> -->
+<!--                 	&nbsp;&nbsp;&nbsp;&nbsp; -->
+<!-- 				  <input class="form-check-input" type="radio" name="product_dosu" id="product_dosu" value="high" required> -->
+<!-- 				  <label class="form-check-label" for="inlineRadio1">높음</label> -->
+<!--                 	&nbsp;&nbsp;&nbsp;&nbsp; -->
+<!-- 				  <input class="form-check-input" type="radio" name="product_dosu" id="product_dosu" value="very-high" required> -->
+<!-- 				  <label class="form-check-label" for="inlineRadio1">매우높음</label> -->
+                
+<!--                 </div> -->
+<!--             </div> -->
+
+			<%--단맛 (단계) low, middle, high --%>
+			<div class="form-group row border-bottom py-2">
+				<label for="product_sweet" class="col-sm-4 col-form-label">단맛</label>
+				<div class="col-sm-8">
+
+					<input class="form-check-input" type="radio" name="product_sweet" id="product_sweet" value="row" required> 
+					<label class="form-check-label" for="inlineRadio1">낮음</label>
+					&nbsp;&nbsp;&nbsp;&nbsp; 
+					<input class="form-check-input" type="radio" name="product_sweet" id="product_sweet" value="middle" required>
+					<label class="form-check-label" for="inlineRadio1">보통</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input class="form-check-input" type="radio" name="product_sweet" id="product_sweet" value="high" required>
+					<label class="form-check-label" for="inlineRadio1">높음</label>
+
+				</div>
+			</div>
+
+			<%--신맛 (단계) low, middle, high --%>
             <div class="form-group row border-bottom py-2">
-                <label for="alcohol_volume" class="col-sm-4 col-form-label">신 맛</label>
+                <label for="product_acidity" class="col-sm-4 col-form-label">신 맛</label>
                 <div class="col-sm-8">
-                    <input type="range" id="volume" name="alcohol_volume"
-         min="0" max="5" class="form-control-plaintext-range" oninput="document.getElementById('acidity_volume').innerHTML=this.value;" required />
-                &nbsp; <span id="acidity_volume"></span>
+					<input class="form-check-input" type="radio" name="product_acidity" id="product_acidity" value="row" required> 
+					<label class="form-check-label" for="inlineRadio1">낮음</label>
+					&nbsp;&nbsp;&nbsp;&nbsp; 
+					<input class="form-check-input" type="radio" name="product_acidity" id="product_acidity" value="middle" required>
+					<label class="form-check-label" for="inlineRadio1">보통</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input class="form-check-input" type="radio" name="product_acidity" id="product_acidity" value="high" required>
+					<label class="form-check-label" for="inlineRadio1">높음</label>
                 </div>
             </div>
-            
+
+            <%--탄산 (단계) nosoda, low, middle, high --%>
             <div class="form-group row border-bottom py-2">
-                <label for="soda_volume" class="col-sm-4 col-form-label">탄 산</label>
+                <label for="product_soda" class="col-sm-4 col-form-label">탄 산</label>
                 <div class="col-sm-8">
-                    <input type="range" id="volume" name="alcohol_volume"
-         min="0" max="5" class="form-control-plaintext-range" oninput="document.getElementById('soda_volume').innerHTML=this.value;" required />
-                &nbsp; <span id="soda_volume"></span>
+                
+					<input class="form-check-input" type="radio" name="product_soda" id="product_soda" value="nosoda" required>
+					<label class="form-check-label" for="inlineRadio1">탄산없음</label>
+                	&nbsp;&nbsp;&nbsp;&nbsp;
+					<input class="form-check-input" type="radio" name="product_soda" id="product_soda" value="row" required>
+					<label class="form-check-label" for="inlineRadio1">적음</label>
+                	&nbsp;&nbsp;&nbsp;&nbsp;
+					<input class="form-check-input" type="radio" name="product_soda" id="product_soda" value="middle" required>
+					<label class="form-check-label" for="inlineRadio1">보통</label>
+                	&nbsp;&nbsp;&nbsp;&nbsp;
+					<input class="form-check-input" type="radio" name="product_soda" id="product_soda" value="high" required>
+					<label class="form-check-label" for="inlineRadio1">많음</label>
+                
                 </div>
             </div>
             
+            
+            <%--원료 fruit, flower, nut, herb, other --%>
             <div class="form-group row border-bottom py-2">
-                <label for="product_material" class="col-sm-4 col-form-label">원 료</label>
+                <label for="product_material" class="col-sm-4 col-form-label">도수 단계</label>
                 <div class="col-sm-8">
-                    <input type="text" name="product_material" id="product_material" class="form-control-plaintext" required />
+                
+				  <input class="form-check-input" type="radio" name="product_material" id="product_material" value="fruit" required>
+				  <label class="form-check-label" for="inlineRadio1">과일</label>
+                	&nbsp;&nbsp;&nbsp;&nbsp;
+				  <input class="form-check-input" type="radio" name="product_material" id="product_material" value="flower" required>
+				  <label class="form-check-label" for="inlineRadio1">꽃</label>
+                	&nbsp;&nbsp;&nbsp;&nbsp;
+				  <input class="form-check-input" type="radio" name="product_material" id="product_material" value="nut" required>
+				  <label class="form-check-label" for="inlineRadio1">견과류</label>
+                	&nbsp;&nbsp;&nbsp;&nbsp;
+				  <input class="form-check-input" type="radio" name="product_material" id="product_material" value="herb" required>
+				  <label class="form-check-label" for="inlineRadio1">허브</label>
+                	&nbsp;&nbsp;&nbsp;&nbsp;
+				  <input class="form-check-input" type="radio" name="product_material" id="product_material" value="other" required>
+				  <label class="form-check-label" for="inlineRadio1">기타</label>
+                
                 </div>
             </div>
             
+            
+            
+            
+            
+            <%--판매가 --%>
             <div class="form-group row border-bottom py-2">
                 <label for="product_price" class="col-sm-4 col-form-label">판매가</label>
                 <div class="col-sm-8">
@@ -171,7 +263,7 @@
                 </div>
             </div>
 			
-	
+			<%--재고수량(입고량) --%>
             <div class="form-group row border-bottom py-2">
                 <label for="product_stock" class="col-sm-4 col-form-label">재고수량</label>
                 <div class="col-sm-8">
@@ -179,13 +271,8 @@
                 </div>
             </div>
             
-            <div class="form-group row border-bottom py-2">
-                <label for="product_point" class="col-sm-4 col-form-label">구매 포인트</label>
-                <div class="col-sm-8">
-                    <input type="number" min="0" name="product_point" id="product_point" class="form-control-plaintext" required />
-                </div>
-            </div>
             
+            <%--썸네일 --%>
             <div class="form-group row border-bottom py-2">
                 <label for="product_thumbnail" class="col-sm-4 col-form-label">썸네일</label>
                 <div class="col-sm-8">
@@ -205,64 +292,64 @@
             <br>
 
 		<!-- 상품 사진, 설명 더 작성하기 -->
-			<details>
-			<br><br>
-				<summary class="btn btn-secondary">계속 작성</summary>
+<!-- 			<details> -->
+<!-- 			<br><br> -->
+<!-- 				<summary class="btn btn-secondary">계속 작성</summary> -->
 
-				<div class="form-group row border-bottom py-2">
-					<label for="product_file1" class="col-sm-4 col-form-label">상품사진1</label>
-					<div class="col-sm-8">
-						<img width="300px;" id="preview2" />
-						<input type="file" class="thumbnailInput" name="product_file1"
-							id="product_file1" onchange="readURL2(this);" required />
-					</div>
-				</div>
-
-
-				<div class="form-group row border-bottom py-2">
-					<label for="product_cont1" class="col-sm-4 col-form-label">상품설명1</label>
-					<div class="col-sm-8">
-					 <textarea class="form-control" name="product_cont1" id="product_cont1"></textarea>
-					</div>
-				</div>
-
-				<div class="form-group row border-bottom py-2">
-					<label for="product_file2" class="col-sm-4 col-form-label">상품사진2</label>
-					<div class="col-sm-8">
-						<img width="300px;" id="preview3" />
-						<input type="file" class="thumbnailInput" name="product_file1"
-							id="product_file2" onchange="readURL3(this);" required /> 
-					</div>
-				</div>
+<!-- 				<div class="form-group row border-bottom py-2"> -->
+<!-- 					<label for="product_file1" class="col-sm-4 col-form-label">상품사진1</label> -->
+<!-- 					<div class="col-sm-8"> -->
+<!-- 						<img width="300px;" id="preview2" /> -->
+<!-- 						<input type="file" class="thumbnailInput" name="product_file1" -->
+<!-- 							id="product_file1" onchange="readURL2(this);" required /> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 
 
-				<div class="form-group row border-bottom py-2">
-					<label for="product_cont2" class="col-sm-4 col-form-label">상품설명2</label>
-					<div class="col-sm-8">
-						<textarea class="form-control" name="product_cont2" id="product_cont2"></textarea>
-					</div>
-				</div>
+<!-- 				<div class="form-group row border-bottom py-2"> -->
+<!-- 					<label for="product_cont1" class="col-sm-4 col-form-label">상품설명1</label> -->
+<!-- 					<div class="col-sm-8"> -->
+<!-- 					 <textarea class="form-control" name="product_cont1" id="product_cont1"></textarea> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 
-				<div class="form-group row border-bottom py-2">
-					<label for="product_file3" class="col-sm-4 col-form-label">상품사진3</label>
-					<div class="col-sm-8">
-						<img width="300px;" id="preview4" />
-						<input type="file" class="thumbnailInput" name="product_file3"
-							id="product_file1" onchange="readURL4(this);" required />
-					</div>
-				</div>
+<!-- 				<div class="form-group row border-bottom py-2"> -->
+<!-- 					<label for="product_file2" class="col-sm-4 col-form-label">상품사진2</label> -->
+<!-- 					<div class="col-sm-8"> -->
+<!-- 						<img width="300px;" id="preview3" /> -->
+<!-- 						<input type="file" class="thumbnailInput" name="product_file1" -->
+<!-- 							id="product_file2" onchange="readURL3(this);" required />  -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 
 
-				<div class="form-group row border-bottom py-2">
-					<label for="product_cont3" class="col-sm-4 col-form-label">상품설명3</label>
-					<div class="col-sm-8">
-						<textarea class="form-control" name="product_cont3" id="product_cont3"></textarea>
-					</div>
-				</div>
-				<br>
-				<button type="submit" class="btn btn-success">등록하기</button>
+<!-- 				<div class="form-group row border-bottom py-2"> -->
+<!-- 					<label for="product_cont2" class="col-sm-4 col-form-label">상품설명2</label> -->
+<!-- 					<div class="col-sm-8"> -->
+<!-- 						<textarea class="form-control" name="product_cont2" id="product_cont2"></textarea> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 
-			</details>
+<!-- 				<div class="form-group row border-bottom py-2"> -->
+<!-- 					<label for="product_file3" class="col-sm-4 col-form-label">상품사진3</label> -->
+<!-- 					<div class="col-sm-8"> -->
+<!-- 						<img width="300px;" id="preview4" /> -->
+<!-- 						<input type="file" class="thumbnailInput" name="product_file3" -->
+<!-- 							id="product_file1" onchange="readURL4(this);" required /> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+
+
+<!-- 				<div class="form-group row border-bottom py-2"> -->
+<!-- 					<label for="product_cont3" class="col-sm-4 col-form-label">상품설명3</label> -->
+<!-- 					<div class="col-sm-8"> -->
+<!-- 						<textarea class="form-control" name="product_cont3" id="product_cont3"></textarea> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<br> -->
+<!-- 				<button type="submit" class="btn btn-success">등록하기</button> -->
+
+<!-- 			</details> -->
 		<!-- 상품 사진, 설명 더 작성하기 end -->
 
 		</form>

@@ -94,7 +94,38 @@
 	<select id="getSearchListCount" parameterType="String" resultType="int">
 		select count(*) from product where ((product_name like '%' || #{keyword} || '%') or (product_company like '%' || #{keyword} || '%') or (product_no like '%' || #{keyword} || '%')) order by product_no desc
 	</select>
+	
+	<insert id="adminProductInsert" parameterType="ProductDTO">
+  		insert into product values(
+  		(select max(product_no) from product) +1,
+  		#{product_name},
+  		#{product_category},
+  		#{product_introduce1},
+  		#{product_introduce2},
+  		#{product_company},
+  		#{product_alcohol},
+  		#{product_dosu},
+  		#{product_sweet},
+  		#{product_acidity},
+  		#{product_soda},
+  		#{product_material},
+  		#{product_price},
+  		#{product_stock},
+  		#{product_price}*0.01,
+  		#{product_thumbnail},
+  		default,
+  		sysdate)
+  	</insert>
   
+  	<!-- 판매중 > 품절 -->
+  	<update id="productStatusChange" parameterType="int">
+  		update product set product_status = '품절' where product_no = #{no}
+    </update>
+  
+  	<!-- 품절 > 판매중 -->
+  	<update id="productStatusChange2" parameterType="int">
+  		update product set product_status = '판매' where product_no = #{no}
+    </update>
   
   
   

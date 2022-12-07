@@ -59,4 +59,21 @@ public class ProductDAOImpl implements ProductDAO{
 		return this.sqlSession.selectOne("getSearchListCount", keyword);
 	}
 
+	@Override
+	public int insertProduct(ProductDTO dto) {
+		return this.sqlSession.insert("adminProductInsert", dto);
+	}
+
+	//판매중 -> 판매중지(품절)
+	@Override
+	public int productStatusChange(int product_no) {
+		return this.sqlSession.update("productStatusChange", product_no);
+	}
+
+	//판매중지(품절) -> 판매중
+	@Override
+	public int productStatusChange2(int product_no) {
+		return this.sqlSession.update("productStatusChange2", product_no);
+	}
+
 }
