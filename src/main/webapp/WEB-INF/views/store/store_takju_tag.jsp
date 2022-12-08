@@ -20,16 +20,6 @@ $(function(){
 	
 	let list = ${json};
 	
-	console.log(JSON.stringify(list, null, 2));
-	
-	console.log(list.dosu);
-	/* const sweet = ${map.sweet};
-	const acidity = ${map.acidity};
-	const soda = ${map.soda};
-	const material = ${map.material};
-	const minprice = ${map.minprice};
-	const maxprice = ${map.maxprice}; */
-		
 	$(document).on("click", ".b1", function(){
 		
 		tag();
@@ -716,9 +706,6 @@ $(function(){
  		
  		page = 1;
  		
- 		console.log("page 값 >>" + page);
- 		console.log("sort 값 >>" + sort);
- 		
 		$.ajax({
 			url:"<%=request.getContextPath()%>/infinite_scroll_tag.do",
 			method:"post",
@@ -786,9 +773,6 @@ $(function(){
 		let html = "";
 		
 		let sort = $('.sort-menu').val();
-		
-		console.log("sort 값 >>" + sort);
-		console.log("page 값 >>" + page);
 		
 		$.ajax({
 			url:"<%=request.getContextPath()%>/infinite_scroll_tag.do",

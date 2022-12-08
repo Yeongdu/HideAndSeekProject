@@ -705,8 +705,6 @@ function tag(){
  		
  		page = 1;
  		
- 		console.log("page 값 >>" + page);
- 		
 		$.ajax({
 			url:"<%=request.getContextPath()%>/infinite_scroll.do",
 			method:"post",
