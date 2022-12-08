@@ -709,10 +709,86 @@ $(function(){
  	        }
  	    }
 	});
+ 	
+	$(document).on("change", ".sort-menu", function(){
+ 		
+ 		let sort = $('.sort-menu').val();
+ 		
+ 		page = 1;
+ 		
+ 		console.log("page 값 >>" + page);
+ 		console.log("sort 값 >>" + sort);
+ 		
+		$.ajax({
+			url:"<%=request.getContextPath()%>/infinite_scroll_tag.do",
+			method:"post",
+			data: {
+				page : page,
+				dosu : list.dosu,
+				sweet : list.sweet,
+				acidity : list.acidity,
+				soda : list.soda,
+				material : list.material,
+				minprice : list.minprice,
+				maxprice : list.maxprice,
+				sort : sort
+				},
+			datatype: "json",
+			success:function(data){
+				
+				$(".data_grid").empty();
+				
+				$.each(data, function(index, item){			// 데이터 = item
+					
+					html = "";
+				
+					let price = item.product_price.toLocaleString('ko-KR');
+				
+					html += "<div class='product'>"
+					html += "<div class='product_wrap'>"
+					html += "<a href='<%=request.getContextPath() %>/product_content.do?no="+item.product_no+"'>"
+					html += "<div class='img_wrap'><span>"
+					html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+"' style='width: 100%; height: 39.7vh'></span></div>"
+					html += "<div class='content_wrap'>"
+					html += "<div class='wrapper'>"
+					html += "<div class='content_title'>"+item.product_name+"</div></div>"
+					html += "<div class='wrapper'><div class='content_price'><p class='content_price_blank' /><div class='content_price_wrap'><p>"
+					html += price+"&nbsp;"
+					html += "<span>원</span></p></div></div>"
+					html += "<div class='content_review'>"
+					html += "<img alt='img' src='resources/image/star.png'>"
+					html += "<p class='content_score'>0.0</p>"
+					html += "<div class='content_column_line'></div>"
+					html += "<p class='review'>리뷰 00</p></div></div>"
+					html += "<div class='card_footer'>"
+					html += "<div class='footer_content'>"
+					html += "<div>#"+item.product_introduce1+"</div>"
+					html += "<div>#"+item.product_introduce2+"</div></div></div></a></div></div>"
+					
+					$(".data_grid").append(html);
+				});
+				
+				page += 1;
+				
+				loading = false;
+				
+			},
+			
+			error:function(data){
+				alert("통신 실패");
+			}
+		});
+ 		
+ 	});
 	
 	function getlist(){
 		
 		let html = "";
+		
+		let sort = $('.sort-menu').val();
+		
+		console.log("sort 값 >>" + sort);
+		console.log("page 값 >>" + page);
 		
 		$.ajax({
 			url:"<%=request.getContextPath()%>/infinite_scroll_tag.do",
@@ -725,7 +801,8 @@ $(function(){
 				soda : list.soda,
 				material : list.material,
 				minprice : list.minprice,
-				maxprice : list.maxprice
+				maxprice : list.maxprice,
+				sort : sort
 				},
 			datatype: "json",
 			success:function(data){
@@ -1211,7 +1288,16 @@ $(function(){
 									</div>
 									
 									<div class="sort-wrapper flex">
-										<span>추천순</span>
+										<div class="sort-box">
+											<select class="sort-menu" name="sort">
+												<option value="released" selected>최신순</option>
+												<option value="rating">평점순</option>
+												<option value="star_count">리뷰 많은순</option>
+												<option value="selling_count">판매순</option>
+												<option value="price_high">높은 가격순</option>
+												<option value="price_low">낮은 가격순</option>
+											</select>
+										</div>
 									</div>
 								</div>
 							</div>

@@ -36,7 +36,7 @@ public class ProductController {
 
 	// DB 상의 전체 게시물의 수
 	private int totalRecord = 0;
-
+	
 	@RequestMapping("/store.do")
 	public String store() {
 
@@ -61,7 +61,7 @@ public class ProductController {
 		}
 		
 		String sort = "released";
-
+		
 		// DB상의 전체 게시물의 수를 확인하는 메서드
 		totalRecord = this.dao.getListCount();
 
@@ -85,23 +85,45 @@ public class ProductController {
 						  @RequestParam(value = "acidity", required = false) List<String> acidity,
 						  @RequestParam(value = "soda", required = false) List<String> soda,
 						  @RequestParam(value = "material", required = false) List<String> material,
-						  @RequestParam(value = "minprice", required = false) int minprice,
-						  @RequestParam(value = "maxprice", required = false) int maxprice,
+						  @RequestParam(value = "minprice", required = false) Integer minprice,
+						  @RequestParam(value = "maxprice", required = false) Integer maxprice,
 						  Model model) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
-
-		map.put("dosu", dosu);
-		map.put("sweet", sweet);
-		map.put("acidity", acidity);
-		map.put("soda", soda);
-		map.put("material", material);
-		map.put("minprice", minprice);
-		map.put("maxprice", maxprice);
+		
+		if(dosu != null) {
+			map.put("dosu", dosu);
+		}
+		
+		if(sweet != null) {
+			map.put("sweet", sweet);
+		}
+		
+		if(acidity != null) {
+			map.put("acidity", acidity);
+		}
+		
+		if(soda != null) {
+			map.put("soda", soda);
+		}
+		
+		if(material != null) {
+			map.put("material", material);
+		}
+		
+		if(minprice != null) {
+			map.put("minprice", minprice);
+		}
+		
+		if(maxprice != null) {
+			map.put("maxprice", maxprice);
+		}
 		
 		totalRecord = this.dao.getListTagCount(map);
 		 
 		int page = 1;
+		
+		String sort = "released";
 		 
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
 		
@@ -109,7 +131,7 @@ public class ProductController {
 		map.put("endNo", dto.getEndNo());
 		
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
-		List<ProductDTO> list = this.dao.getProductTagList(map);
+		List<ProductDTO> list = this.dao.getProductTagList(map, sort);
 		
 		JSONObject json = new JSONObject(map);
 		
@@ -132,51 +154,61 @@ public class ProductController {
 	}
 
 	// 마지막 스크롤 이동 시 지속적으로 상품 리스트를 불러오는 메서드
-	@RequestMapping("/infinite_scroll.do")
 	@ResponseBody
+	@RequestMapping("/infinite_scroll.do")
 	public Object InfiniteScroll(@RequestParam("page") int page,
 								 @RequestParam("sort") String sort) {
 
 		PageDTO dto = new PageDTO(page, rowsize);
 		
-		System.out.println("메서드 진입");
-		
-		System.out.println(dto.getStartNo());
-		System.out.println(dto.getEndNo());
-
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductList(dto, sort);
-		
-		for(ProductDTO var : list){
-
-			System.out.println(var);
-
-			}
 		
 		return list;
 	}
 	
 	// 마지막 스크롤 이동 시 지속적으로 상품 리스트를 불러오는 메서드
-	@RequestMapping("/infinite_scroll_tag.do")
 	@ResponseBody
+	@RequestMapping("/infinite_scroll_tag.do")
 	public Object InfiniteScrollTag(@RequestParam("page") int page,
 									@RequestParam(value = "dosu", required = false) List<String> dosu,
 									@RequestParam(value = "sweet", required = false) List<String> sweet,
 									@RequestParam(value = "acidity", required = false) List<String> acidity,
 									@RequestParam(value = "soda", required = false) List<String> soda,
 									@RequestParam(value = "material", required = false) List<String> material,
-									@RequestParam(value = "minprice", required = false) int minprice,
-									@RequestParam(value = "maxprice", required = false) int maxprice) {
+									@RequestParam(value = "minprice", required = false) Integer minprice,
+									@RequestParam(value = "maxprice", required = false) Integer maxprice,
+									@RequestParam("sort") String sort) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		map.put("dosu", dosu);
-		map.put("sweet", sweet);
-		map.put("acidity", acidity);
-		map.put("soda", soda);
-		map.put("material", material);
-		map.put("minprice", minprice);
-		map.put("maxprice", maxprice);
+		if(dosu != null) {
+			map.put("dosu", dosu);
+		}
+		
+		if(sweet != null) {
+			map.put("sweet", sweet);
+		}
+		
+		if(acidity != null) {
+			map.put("acidity", acidity);
+		}
+		
+		if(soda != null) {
+			map.put("soda", soda);
+		}
+		
+		if(material != null) {
+			map.put("material", material);
+		}
+		
+		if(minprice != null) {
+			map.put("minprice", minprice);
+		}
+		
+		if(maxprice != null) {
+			map.put("maxprice", maxprice);
+		}
 		
 		PageDTO dto = new PageDTO(page, rowsize);
 		
@@ -184,7 +216,7 @@ public class ProductController {
 		map.put("endNo", dto.getEndNo());
 		
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
-		List<ProductDTO> list = this.dao.getProductTagList(map);
+		List<ProductDTO> list = this.dao.getProductTagList(map, sort);
 
 		return list;
 	}
