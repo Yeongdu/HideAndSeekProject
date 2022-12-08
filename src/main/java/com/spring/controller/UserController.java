@@ -43,32 +43,27 @@ public class UserController {
 
 	}
 
-	@RequestMapping("user_check")
-	public String signIn(HttpSession session, @RequestParam String id, @RequestParam String pw, Model model) {
-		int result = dao.userCheck(id, pw);
-		if (result == 0) {
-			model.addAttribute("id", id);
 
-			/*
-			 * UserDTO uDto = new UserDTO(); uDto = null; 고객 정보 조회
-			 * session.setAttribute("customer", uDto);
-			 */
-			session.setAttribute("userId", id);
+	@RequestMapping("user_check.do")
+    public String signIn(HttpSession session, @RequestParam("id") String id, @RequestParam("pw") String pw, Model model) {
+        int result = dao.userCheck(id, pw);
+        if (result == 1) {
+            model.addAttribute("id", id);
 
-			//System.out.println(uDto);
-			System.out.println(id);
+            session.setAttribute("userId", id);
 
-			return "store/store_main";
-		}
-		return "user/login";
-	}
+            return "store/store_main";
+        }else {
+        	return "user/login";
+        }
+    }
 	
 	@ResponseBody
 	@RequestMapping("/idCheck.do")
 	public int idCheck(@RequestParam("user_id") String id) {
 		
 		System.out.println("Controller Id >>> " + id);
-		
+	
 		int cnt = dao.idCheck(id);
 		
 		System.out.println("Controller cnt >>> " + cnt);

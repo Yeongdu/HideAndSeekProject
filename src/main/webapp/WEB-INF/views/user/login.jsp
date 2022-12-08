@@ -16,7 +16,7 @@
 		                  
                              <div class="login_input_wrap" align="center" style="height:100%;">
                              	
-                             			<form action="user_check" method="post">
+                             			<form action="user_check.do" method="post">
                              		
                              		<div class="login_input_wrap_title">
                              			<span>입장하기</span>
