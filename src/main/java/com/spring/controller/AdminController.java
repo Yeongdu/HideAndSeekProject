@@ -2,6 +2,7 @@ package com.spring.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -109,10 +110,19 @@ public class AdminController {
 	
 	
 	@RequestMapping("admin_product_search.do")
-	public String admin_product_search(HttpServletRequest request, @RequestParam("field") String field, @RequestParam("keyword") String keyword, Model model) {
+	public String admin_product_search(HttpServletRequest request, 
+			@RequestParam(value = "field", required = false) String field,
+			@RequestParam(value = "keyword", required = false) String keyword,
+			Model model) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
 		// 페이징 처리 작업
 		int page;	// 현재 페이지 변수
-		int rowsize = 5;
+		int rowsize = 10;
+		int totalRecord;
+
 						
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -124,7 +134,11 @@ public class AdminController {
 		totalRecord = this.pdao.getSearchListCount(keyword);
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
 		
-		List<ProductDTO> productSearchList = this.pdao.searchProductList(field, keyword);
+		map.put("field", field);
+		map.put("keyword", keyword);
+		map.put("Page", dto);
+		
+		List<ProductDTO> productSearchList = this.pdao.searchProductList(map);
 
 		model.addAttribute("list", productSearchList);
 		model.addAttribute("field", field);

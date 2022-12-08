@@ -54,8 +54,8 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 
 	@Override
-	public List<ProductDTO> searchProductList(String field, String keyword) {
-		return this.sqlSession.selectList(field, keyword);
+	public List<ProductDTO> searchProductList(Map<String, Object> map) {
+		return this.sqlSession.selectList("adminProductSearch", map);
 	}
 
 	@Override

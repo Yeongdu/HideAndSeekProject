@@ -25,8 +25,8 @@ public interface ProductDAO {
     // 상품의 상세정보를 받아오는 메서드
     ProductDTO getProductCont(int product_no);
     
-    //상품 검색하는 메서드
-    List<ProductDTO> searchProductList(String field, String keyword);
+  //상품 검색하는 메서드
+    List<ProductDTO> searchProductList(Map<String, Object> map);
     
     // 검색된 상품의 수를 받아오는 메서드
     int getSearchListCount(String keyword);
