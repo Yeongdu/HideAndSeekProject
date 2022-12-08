@@ -19,6 +19,8 @@ import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
 import com.spring.model.Product_categoryDTO;
 import com.spring.model.Product_contentDTO;
+import com.spring.service.Admin_productDAO;
+import com.spring.service.Admin_product_contentDAO;
 import com.spring.service.OrderDAO;
 import com.spring.service.ProductDAO;
 import com.spring.service.Product_contentDAO;
@@ -35,6 +37,12 @@ public class AdminController {
 	
 	@Autowired
 	private Product_contentDAO pcdao;
+	
+	@Autowired
+	private Admin_productDAO apdao;
+	
+	@Autowired
+	private Admin_product_contentDAO apcdao;
 	
 	// 한 페이지당 보여질 게시물의 수
 	private final int rowsize = 10;
@@ -188,13 +196,14 @@ public class AdminController {
 	}
 	
 	@RequestMapping("admin_product_update.do")
-	public String admin_productUpdate(@RequestParam("no") int no, Model model) {
+	public String admin_productUpdate(@RequestParam("page") int page, @RequestParam("no") int no, Model model) {
 		ProductDTO pdto = this.pdao.getProductCont(no);
 		Product_contentDTO pcdto = this.pcdao.getProduct(no);
 		List<Product_categoryDTO> cateList = this.dao.getCategoryList();
 		model.addAttribute("CategoryList", cateList);
 		model.addAttribute("PCont", pdto);
 		model.addAttribute("PCCont", pcdto);
+		model.addAttribute("page", page);
 		
 		return "admin/admin_product_update";
 		
@@ -206,6 +215,35 @@ public class AdminController {
 //		}else {
 //			out.println("<script> alert('회원등록실패 8^8'); history.back(); </script>");
 //		}
+	}
+	
+	@RequestMapping("admin_product_update_ok.do")
+	public String admin_product_update_ok(
+			@RequestParam("page") int page, 
+			@RequestParam("no") int no, 
+			ProductDTO pdto, 
+			Product_contentDTO pccdto, 
+			HttpServletResponse response, 
+			Model model) throws IOException {
+
+		
+		int check1 = this.apdao.productUpdate(pdto);
+		int check2 = this.apcdao.productContentUpdate(pccdto);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		model.addAttribute("page", page);
+		
+		if(check1 > 0 || ( (check1 > 0)  && (check2 > 0) )) { //&page="+page+"
+			out.println("<script> alert('상품수정성공'); location.href='admin_product_content.do?no="+no+"&page="+page+"'; </script>");
+		}else {
+			out.println("<script> alert('상품수정실패'); history.back(); </script>");
+		}
+		ProductDTO dto = this.pdao.getProductCont(no);
+		model.addAttribute("Cont", dto);
+		
+		Product_contentDTO pcdto = this.pcdao.getProduct(no);
+		model.addAttribute("PCCont", pcdto);
+		return "admin/admin_product_cont";
 	}
 	
 	

@@ -59,7 +59,7 @@
 	<tr>
 		<td class="admin_table_tdLabel">사진1</td>
 		<td colspan="5">
-		<c:if test="${!empty pcdto.product_file1  }" > <img src = "resources/image/${pcdto.product_file1 }"> </c:if>
+		<c:if test="${!empty pcdto.product_file1  }" > <img width="400px" src = "resources/image/${pcdto.product_file1 }"> </c:if>
 		<c:if test="${empty pcdto.product_file1  }" > </c:if>
 		</td>
 	</tr>
@@ -72,7 +72,7 @@
 	<tr>
 		<td class="admin_table_tdLabel">사진2</td>
 		<td colspan="5">
-		<c:if test="${!empty pcdto.product_file2  }" > <img src = "resources/image/${pcdto.product_file2 }"> </c:if>
+		<c:if test="${!empty pcdto.product_file2  }" > <img width="400px" src = "resources/image/${pcdto.product_file2 }"> </c:if>
 		<c:if test="${empty pcdto.product_file2  }" > </c:if>
 		</td>
 	</tr>
@@ -85,7 +85,7 @@
 	<tr>
 		<td class="admin_table_tdLabel">사진3</td>
 		<td colspan="5">
-		<c:if test="${!empty pcdto.product_file3  }" > <img src = "resources/image/${pcdto.product_file3 }"> </c:if>
+		<c:if test="${!empty pcdto.product_file3  }" > <img width="400px" src = "resources/image/${pcdto.product_file3 }"> </c:if>
 		<c:if test="${empty pcdto.product_file3  }" > </c:if>
 		</td>
 	</tr>
