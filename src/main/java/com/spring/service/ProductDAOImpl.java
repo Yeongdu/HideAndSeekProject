@@ -50,8 +50,7 @@ public class ProductDAOImpl implements ProductDAO{
 
 	@Override
 	public ProductDTO getProductCont(int product_no) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.sqlSession.selectOne("adminProductCont", product_no);
 	}
 
 	@Override
