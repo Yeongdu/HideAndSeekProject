@@ -63,6 +63,7 @@ public class UserController {
 		return "user/login";
 	}
 	
+	@ResponseBody
 	@RequestMapping("/idCheck.do")
 	public int idCheck(@RequestParam("user_id") String id) {
 		
@@ -71,6 +72,22 @@ public class UserController {
 		int cnt = dao.idCheck(id);
 		
 		System.out.println("Controller cnt >>> " + cnt);
+		
+		return cnt;
+		
+		
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/emailCheck.do")
+	public int emailCheck(@RequestParam("user_email") String email) {
+		
+		System.out.println("Controller email >>> " + email);
+		
+		int cnt = dao.emailCheck(email);
+		
+		System.out.println("Controller email cnt >>> " + cnt);
 		
 		return cnt;
 		

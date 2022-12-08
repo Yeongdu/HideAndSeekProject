@@ -64,19 +64,14 @@
 						
 						<div class="join_email">
 							<label for="user_email">이메일</label>
-								<input type="text" name="email1" id="email1"> @ <input type="text" name="email2" id="email2">
-								<select name="select_email" id="select_email"   onchange="selectEmail(this)">
-									<option value="" selected>선택하세요.</option>
-									<option value="naver">naver.com</option>
-									<option value="gmail">gmail.com</option>
-									<option value="hanmail">hanmail.com</option>
-									<option value="1">직접입력</option>
-								</select>
+								<input type="email" name="user_email" id="user_email"><br>
+								<span id="emailcheck"></span>
+							
 						</div>
 						
 						<div class="join_phone">
                             <label for="user_phone">전화번호</label>
-                              <select name="select_phone" id="select_phone"   onchange="select_phone(this)">
+                              <select name="select_phone" id="select_phone"   onchange="select_phone(this.value)">
                                 <option value="" selected>선택하세요.</option>
                                 <option value="010">010</option>
                                 <option value="011">011</option>
@@ -217,19 +212,7 @@
              <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
                <script type="text/javascript">
 	            
-             //이메일 입력방식 선택
-	               $('#select_email').change(function(){
-		             $("#select_email option:selected").each(function () {
-				
-				       if($(this).val()== '1'){ //직접입력일 경우
-					      $("#email2").val(''); //값 초기화
-					        $("#email2").attr("disabled",false); //활성화
-				              }else{ //직접입력이 아닐경우
-					            $("#email2").val($(this).text());      //선택값 입력
-					              $("#email2").attr("disabled",true); //비활성화
-				               }
-		                    });
-		                  });
+            
              
              <!-- 이용약관 및 개인정보처리 방침 checkbox 전체선택-->
              
@@ -390,6 +373,7 @@
             			 }
                 		});  //비밀번호입력시 - 정규식확인 pw end
                 		
+                		
                 		//비밀번호확인입력시 - 정규식확인 pwcheck
                 		$('#user_pwd_check').on('keyup', function(){ // keyup -> 입력할 때 
                 		  
@@ -418,16 +402,51 @@
                 				
                 			}
                 		});  //비밀번호확인입력시 - 정규식확인 pwcheck end
+                		
+                		
+                		
+                		//이메일입력시 - 유효성확인 keyup
+                		$('#user_email').on('keyup', function(){ // keyup -> 입력할 때 
+                		  var email = $('#user_email').val().trim();
+                			
+                		//이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우
+                		  var emailck = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; 
+                			
+                		  if(!(emailck.test(email))){
+              				let warningTxt = '<font color="red" size="1.5em">유효한 이메일이 아닙니다.</font>';
+      						
+      						$("#emailcheck").text('');		// span 태그 영역 초기화
+      							
+      						$("#emailcheck").append(warningTxt);
+      						
+      						//$("#user_id").val('');
+              				//중복검사버튼 비활성 - 속성설정 prop
+              				//$('#idbtn').prop('disabled',true);
+              			}else{
+                              let warningTxt = '<font color="green" size="1.5em"></font>';
+      						
+      						$("#emailcheck").text('');		// span 태그 영역 초기화
+      							
+      						$("#emailcheck").append(warningTxt);
+              				
+              			}
+                		});  //id입력시 - id keyup end
                 		 
-                   })
+                   
                  
+                 })
+                 
+                 
+                 <!-- 아이디, 이메일 중복 검사 -->
+                 
+                  //아이디 중복검사
                    $('#user_id').on('focusout', function(){
                      
                 	 var id = $('#user_id').val(); //id값이 "id"인 입력란의 값을 저장
                      console.log(id);
                 	 $.ajax({
                          url:'<%=request.getContextPath() %>/idCheck.do', //Controller에서 요청 받을 주소
-                         type:'get', //POST 방식으로 전달
+                         type:'post', //POST 방식으로 전달
                          data:{user_id:id},
                          datatype : "text",
                          success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
@@ -451,6 +470,39 @@
                      });
                 	 
                      });
+                 
+                 
+               //이메일 중복검사
+                 $('#user_email').on('focusout', function(){
+                   
+              	 var email = $('#user_email').val(); //id값이 "id"인 입력란의 값을 저장
+                   console.log(email);
+              	 $.ajax({
+                       url:'<%=request.getContextPath() %>/emailCheck.do', //Controller에서 요청 받을 주소
+                       type:'post', //POST 방식으로 전달
+                       data:{user_email:email},
+                       datatype : "text",
+                       success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+                           if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+                          	let warningTxt = '<font color="green" size="1.5em">사용가능한 이메일입니다.</font>';
+               				
+               				$("#emailcheck").text('');		// span 태그 영역 초기화
+               				
+               				$("#emailcheck").append(warningTxt);
+                           } else if(cnt == 1) { // cnt가 1일 경우 -> 이미 존재하는 아이디
+                          	 let warningTxt = '<font color="red" size="1.5em">중복 이메일입니다.</font>';
+                				
+                				$("#emailcheck").text('');		// span 태그 영역 초기화
+                				
+                				$("#emailcheck").append(warningTxt);
+                           }
+                       },
+                       error:function(request,status,error){
+                           //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+                       }
+                   });
+              	 
+                   });
                  
                  
 

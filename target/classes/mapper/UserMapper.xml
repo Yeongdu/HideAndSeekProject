@@ -44,6 +44,11 @@
  	 	<select id="idCheck" parameterType="String" resultType="int">
  	 		select count(USER_ID) from tb_user where USER_ID = #{USER_ID}
  	 	</select>
+ 	 	
+ 	 	<!-- 이메일 중복체크 -->
+ 	 		<select id="emailCheck" parameterType="String" resultType="int">
+ 	 			select count(USER_EMAIL) from tb_user where USER_EMAIL = #{USER_EMAIL}
+ 	 		</select>
  	 
  	
   
