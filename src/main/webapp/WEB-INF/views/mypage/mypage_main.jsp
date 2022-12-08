@@ -76,16 +76,41 @@ $("#mypage_sub").on("click", function(){
 		    dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
 		    data : {userId : id},
 		    success : function(result) { // 결과 성공 콜백함수
+		    		var res = '';
 		    	$.each(result, function(index, item){
+		    		res = "<div id = 'mypage_sub_wrap'>" +
+				    			"<div class = 'mypage_sub_pacakge_image'> " + "<img src = 'resources/image/" + item.sub_image + "' class = 'sub_image'>" + "</div>" +
+				    			"<div clas = 'mypage_sub_infoNpackage'>" +
+				    			"<div class = 'mypage_sub_info'>" +
+					    			"<div class = 'mypage_sub_packagename'> <span class = 'sub_packagename'>현재 구독중인 패키지</span>" + item.sub_package + "</div>" +
+					    			"<div class = 'mypage_sub_date'>" + item.sub_start + "<span>~</span>" + item.sub_end + "<span>동안 구독 중이에요</span> " +"</div>" +
+								"<div class ='sub_package'> <span class = 'package_name'>받아보신 패키지 술</span>" +
+								"<div class = 'sub_drinks'>";
 		    		
-		    		var res = "<div id = 'mypage_sub'>" +
-				    			"<div class = 'mypage_sub_packagename'>" + item.sub_package + "</div>" +
-				    			"<div class = 'mypage_sub_startdate'>" + item.sub_start + "</div>" +
-				    			"<div class = 'mypage_sub_enddate'>" + item.sub_end + "</div>" +
-				    			"</div>";
-		    			
-		    			 $('#mypage_content').append(res);
+								$.each(result, function(index, sub_item){
+	    							res += "<div class = 'sub_drink'>" + 
+									"<img src = 'resources/upload/" + sub_item.product_thumbnail + "' class = 'drink1'>" +
+									"<span class = 'drink_name'>" + sub_item.product_name + "</span>" +
+									"<span class = 'drick_dosu'>도수 : " + sub_item.product_alcohol + "%</span>" +
+								"</div>" ;
+								
+	    							console.log(item.sub_image);
+	    					    	console.log(sub_item.product_thumbnail);
+    					
+							
+    						});
+						res +=
+							"</div>" +
+							"</div>" +
+							"</div>" +
+				    		"</div>";
 		    		});
+		    	
+		    	
+		    	
+		    	$('#mypage_content').append(res);
+		    	
+		    	
 		    },error : function(request, status, error) { // 결과 에러 콜백함수
 		    	/* alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); */
 		    }

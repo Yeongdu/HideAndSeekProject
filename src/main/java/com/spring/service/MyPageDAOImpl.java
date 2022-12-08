@@ -39,7 +39,6 @@ public class MyPageDAOImpl implements MyPageDAO{
 
 	@Override
 	public List<Subscribe_userDTO> getSubCont(String userId) {
-		System.out.println("IMPL userId >>> " + userId);
 		return this.sqlSession.selectList("sub_cont", userId);
 	}
 

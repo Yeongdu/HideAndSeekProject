@@ -8,6 +8,8 @@
 	padding: 3%;
 }
 
+/*마이페이지 카테고리 css*/
+
 #mypage_category{
 	border: 1px solid black;
 	border-radius: 10px;
@@ -16,7 +18,7 @@
 	width: 70%;
 	display: flex;
 	align-items: center;
-	margin: 2% 5%;
+	margin-bottom: 2%;
 	
 }
 
@@ -59,4 +61,70 @@
 	width: 42px;
 	height: 42px;
 }
+
+#mypage_content {
+	margin-bottom: 10px;
+}
+
+/* 구독관리 컨텐츠 css */
+
+#mypage_sub_wrap{
+	height: 70%;
+	width: 70%;
+	display: flex;
+	align-items: center;
+	
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 10px;
+}
+.mypage_sub_packagename{
+	font-size: 1.5em;	
+}
+.mypage_sub_pacakge_image{
+	
+}
+.sub_image{
+	width: 60%;
+}
+
+.mypage_sub_info{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mypage_sub_startdate{
+	display: inline-block;
+}
+.mypage_sub_enddate{
+	display: inline-block;
+}
+
+.sub_packagename {
+	display: block;
+}
+
+.sub_drinks {
+	display:flex;
+	justify-content: space-evenly;
+    align-items: center;
+}
+
+.sub_drink{
+	display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.drink1{
+	width: 100%;
+}
+    
+.mypage_sub_infoNpackage{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+    
 

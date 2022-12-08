@@ -42,7 +42,10 @@
  	 </select>
  	 
  	 <select id="sub_cont" parameterType="String" resultType="Subscribe_userDTO">
- 	 	select * from subscribe s join subscribe_user su on s.sub_no = su.sub_no where user_id = #{userId}
+ 	 	select * from (select * from subscribe s join product p on s.product_no = p.product_no) sub
+		join subscribe_user su 
+		on sub.sub_package = su.sub_package
+		where user_id = #{userId}
  	 </select>
  	 
   
