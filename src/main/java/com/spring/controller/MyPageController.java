@@ -31,7 +31,12 @@ public class MyPageController {
 		
 		 UserDTO user_info = this.mypage_dao.getUserCont(userId);
 		 model.addAttribute("user_cont", user_info);
-		 return "mypage/mypage_main";
+		 if(userId != null) {
+			 return "mypage/mypage_main";
+		 }else {
+			 return "user/login";
+		 }
+		 
 		 
 	}
 	
@@ -39,8 +44,6 @@ public class MyPageController {
 	
 	@ResponseBody
 	public List<Subscribe_userDTO> mypage_sub(Model model, HttpServletResponse response, @RequestParam("userId")String userId) {
-		
-		System.out.println("Controller userId >>> " + userId);
 		
 		List<Subscribe_userDTO> sub_info = this.mypage_dao.getSubCont(userId);
 		

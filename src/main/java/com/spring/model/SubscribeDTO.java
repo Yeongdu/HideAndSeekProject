@@ -10,5 +10,6 @@ public class SubscribeDTO {
 	private String sub_package; // 구독 패키지명
 	private Date sub_date; // 판매 기간
 	private int product_no; // 상품 번호
+	private String sub_image; // 패키지 이미지 
 
 }

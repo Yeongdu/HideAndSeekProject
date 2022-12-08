@@ -24,5 +24,15 @@ public class Subscribe_userDTO {
 	private Date sub_date; // 판매 기간
 	
 	private int product_no; // 상품 번호
+	private String sub_image; // 패키지 이미지 
+	
+	
+	// 상품 상세 관련 
+	private String product_name; // 상품 이름
+	private String product_category; // 상품 카테고리
+	private String product_introduce1;	// 상품 설명1
+	private int product_alcohol; // 도수
+	private int product_price; // 상품 판매가
+	private String product_thumbnail; // 상품 썸네일
 	
 }
