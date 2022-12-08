@@ -55,6 +55,17 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 
+	@Override
+	public int emailCheck(String email) {
+		
+		int cnt = this.sqlSession.selectOne("emailCheck",email);
+		System.out.println("emailIMPL >>> " + email);
+		
+		System.out.println(cnt);
+		return cnt;
+	}
+
+
 	
 
 
