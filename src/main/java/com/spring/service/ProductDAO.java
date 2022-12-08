@@ -16,6 +16,8 @@ public interface ProductDAO {
     // 상품테이블의 리스트를 받아오는 메서드
     List<ProductDTO> getProductList(PageDTO dto, String sort);
     
+    List<ProductDTO> getProductList(PageDTO dto);
+    
 	// 태그가 포함된 상품테이블의 리스트를 받아오는 메서드
     List<ProductDTO> getProductTagList(Map<String, Object> map);
 

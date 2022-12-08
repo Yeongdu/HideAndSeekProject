@@ -75,6 +75,8 @@
 		</if>
 	</select>
 	
+	
+	
  	 <!-- 최신순으로 정렬된 상품들을 불러오는 메서드 -->
  	 <select id="released" parameterType="PageDTO" resultType="ProductDTO">
 		<![CDATA[select * from (select p.*, row_number() over(order by product_no desc) rnum from product p where product_category = 'takju') 
@@ -161,7 +163,16 @@
 		</if> 
 		where rnum >= #{startNo} and rnum <![CDATA[<=]]> #{endNo}
 	</select>
- 	 
+	
+	
+	<!-- =================================================================================================================== -->
+	
+	<!--   -->
+	<select id="getProductList" parameterType="PageDTO" resultType="ProductDTO">
+		<![CDATA[select * from (select p.*, row_number() over(order by product_no desc) rnum from product p where product_category = 'takju') 
+		where rnum >= #{startNo} and rnum <= #{endNo}]]>
+	</select>
+	
 	<select id="allSearch" parameterType="String" resultType="ProductDTO">
   		 select * from product where ((product_name like '%' || #{keyword} || '%') or (product_company like '%' || #{keyword} || '%') or (product_no like '%' || #{keyword} || '%')) order by product_no desc 
 	</select>
@@ -214,6 +225,8 @@
   	<update id="productStatusChange2" parameterType="int">
   		update product set product_status = '판매' where product_no = #{no}
     </update>
+    
+    
   
   
   
