@@ -32,4 +32,7 @@ public class ProductDTO {
 	
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date product_date; // 상품 등록일
+	
+	private int product_review_count; // 상품번호에 해당하는 리뷰 카운트
+	private double product_review_star; // 상품번호에 해당하는 별점
 }

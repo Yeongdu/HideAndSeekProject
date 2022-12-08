@@ -774,11 +774,15 @@ function tag(){
 			datatype: "json",
 			success:function(data){
 				
+				console.log('data 값 >>> ' + JSON.stringify(data, undefined, 2));
+				
 				$.each(data, function(index, item){			// 데이터 = item
 					
 					html = "";
+					
+					console.log("price 값 >>> " + item.list);
 				
-					let price = item.product_price.toLocaleString('ko-KR');
+					<%-- let price = item.product_price.toLocaleString('ko-KR');
 				
 					html += "<div class='product'>"
 					html += "<div class='product_wrap'>"
@@ -801,7 +805,7 @@ function tag(){
 					html += "<div>#"+item.product_introduce1+"</div>"
 					html += "<div>#"+item.product_introduce2+"</div></div></div></a></div></div>"
 					
-					$(".data_grid").append(html);
+					$(".data_grid").append(html); --%>
 				});
 				
 				page += 1;
@@ -1271,6 +1275,7 @@ function tag(){
 							<div class="data_wrap">
 								<div class="data_grid">
 									<c:forEach items="${list }" var="dto">
+										<c:set var="i" value="${i+1 }"/>
 										<div class="product">
 											<div class="product_wrap">
 												<a href="<%=request.getContextPath() %>/product_content.do?no=${dto.product_no}">
@@ -1300,9 +1305,9 @@ function tag(){
 															
 															<div class="content_review">
 																<img alt="img" src="resources/image/star.png">
-																<p class="content_score">0.0</p>
+																<p class="content_score">${star[i] }</p>
 																<div class="content_column_line"></div>
-																<p class="review">리뷰 00</p>
+																<p class="review">리뷰 ${count[i] }</p>
 															</div>
 														</div>
 														

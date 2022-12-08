@@ -1,8 +1,12 @@
 package com.spring.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,9 +14,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -69,7 +71,27 @@ public class ProductController {
 
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductList(dto, sort);
-
+		
+		List<Integer> count = new ArrayList<Integer>();
+		
+		List<Double> star = new ArrayList<Double>();
+		
+		for(ProductDTO item : list) {
+			
+			ProductDTO pdto = new ProductDTO(); 
+			
+			pdto.setProduct_review_count(this.dao.getReviewCount(item.getProduct_no()));
+			
+			double num2 = this.dao.getReviewStar(item.getProduct_no());
+			
+			star.add(num2);
+			
+		}
+		
+		model.addAttribute("count", count);
+		
+		model.addAttribute("star", star);
+		
 		model.addAttribute("list", list);
 
 		model.addAttribute("page", dto);
@@ -164,7 +186,31 @@ public class ProductController {
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductList(dto, sort);
 		
-		return list;
+		List<Integer> count = new ArrayList<Integer>();
+		
+		List<Double> star = new ArrayList<Double>();
+		
+		for(ProductDTO item : list) {
+			
+			int num1 = this.dao.getReviewCount(item.getProduct_no());
+			
+			double num2 = this.dao.getReviewStar(item.getProduct_no());
+			
+			count.add(num1);
+			
+			star.add(num2);
+			
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("list", list);
+		
+		map.put("count", count);
+		
+		map.put("star", star);
+		
+		return map;
 	}
 	
 	// 마지막 스크롤 이동 시 지속적으로 상품 리스트를 불러오는 메서드

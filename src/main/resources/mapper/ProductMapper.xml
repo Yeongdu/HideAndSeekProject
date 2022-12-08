@@ -40,6 +40,16 @@
 		select count(*) from product where product_category = 'takju'
 	</select>
 	
+	<!-- 상품번호에 해당하는 리뷰 총 개수를 받아오는 메서드  -->
+	<select id="getReviewCount" parameterType="int" resultType="int">
+		select count(product_no) from review where product_no = #{product_no}
+	</select>
+	
+	<!-- 상품번호에 해당하는 별점 받아오는 메서드 -->
+	<select id="getReviewStar" parameterType="int" resultType="double">
+		select nvl(ROUND((sum(review_star)/count(product_no)), 1),0) from review where product_no = #{product_no}
+	</select>
+	
  	 <!-- 최신순으로 정렬된 상품들을 불러오는 메서드 -->
  	 <select id="released" parameterType="PageDTO" resultType="ProductDTO">
 		select * from (select p.*, row_number() over(order by product_date desc) rnum from product p where product_category = 'takju') 

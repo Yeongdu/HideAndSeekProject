@@ -30,6 +30,20 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 	
 	@Override
+	public int getReviewCount(int product_no) {
+		
+		return this.sqlSession.selectOne("getReviewCount", product_no);
+		
+	}
+
+	@Override
+	public double getReviewStar(int product_no) {
+		
+			return this.sqlSession.selectOne("getReviewStar", product_no);
+			
+	}
+	
+	@Override
 	public List<ProductDTO> getProductList(PageDTO dto) {
 		return this.sqlSession.selectList("getProductList",dto);
 	}
@@ -79,6 +93,5 @@ public class ProductDAOImpl implements ProductDAO{
 	public int productStatusChange2(int product_no) {
 		return this.sqlSession.update("productStatusChange2", product_no);
 	}
-
 
 }
