@@ -10,5 +10,7 @@ public interface Admin_product_contentDAO {
 	Product_contentDTO getProduct(int product_no);
 	
 	int productContentUpdate(Product_contentDTO dto);
+	
+	int insertProductContent(int product_no);
 
 }

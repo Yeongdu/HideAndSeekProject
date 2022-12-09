@@ -10,7 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 <jsp:include page="../banner/admin_top.jsp" />
 
-<title>관리자 상품 수정 ${dto.product_no }) ${dto.product_name }</title>
+<title>${dto.product_no }) ${dto.product_name } 수정</title>
 <div style="width:45em; height:auto; margin: 50px auto; text-align: center;" align="center">
 <script type="text/javascript">
 	function readURL(input) {
@@ -18,7 +18,7 @@
 	    var reader = new FileReader();
 	    reader.onload = function(e) {
 	      document.getElementById('preview1').src = e.target.result;
-	      document.getElementById('thumbnailHidden').value = e.target.result;
+	      document.getElementById('product_thumbnail').value = e.target.result;
 	    };
 	    reader.readAsDataURL(input.files[0]);
 	  } else {
@@ -26,41 +26,44 @@
 	  }
 	}
 	
-	function readURL2(input) {
-	  if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	    reader.onload = function(e) {
-	      document.getElementById('preview2').src = e.target.result;
-	    };
-	    reader.readAsDataURL(input.files[0]);
-	  } else {
-	    document.getElementById('preview2').src = "";
-	  }
-	}
+// 	function readURL2(input) {
+// 	  if (input.files && input.files[0]) {
+// 	    var reader = new FileReader();
+// 	    reader.onload = function(e) {
+// 	      document.getElementById('preview2').src = e.target.result;
+// 	      document.getElementById('product_file1').value = e.target.result;
+// 	    };
+// 	    reader.readAsDataURL(input.files[0]);
+// 	  } else {
+// 	    document.getElementById('preview2').src = "";
+// 	  }
+// 	}
 	
-	function readURL3(input) {
-	  if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	    reader.onload = function(e) {
-	      document.getElementById('preview3').src = e.target.result;
-	    };
-	    reader.readAsDataURL(input.files[0]);
-	  } else {
-	    document.getElementById('preview3').src = "";
-	  }
-	}
+// 	function readURL3(input) {
+// 	  if (input.files && input.files[0]) {
+// 	    var reader = new FileReader();
+// 	    reader.onload = function(e) {
+// 	      document.getElementById('preview3').src = e.target.result;
+// 	      document.getElementById('product_file2').value = e.target.result;
+// 	    };
+// 	    reader.readAsDataURL(input.files[0]);
+// 	  } else {
+// 	    document.getElementById('preview3').src = "";
+// 	  }
+// 	}
 	
-	function readURL4(input) {
-	  if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	    reader.onload = function(e) {
-	      document.getElementById('preview4').src = e.target.result;
-	    };
-	    reader.readAsDataURL(input.files[0]);
-	  } else {
-	    document.getElementById('preview4').src = "";
-	  }
-	}
+// 	function readURL4(input) {
+// 	  if (input.files && input.files[0]) {
+// 	    var reader = new FileReader();
+// 	    reader.onload = function(e) {
+// 	      document.getElementById('preview4').src = e.target.result;
+// 	      document.getElementById('product_file3').value = e.target.result;
+// 	    };
+// 	    reader.readAsDataURL(input.files[0]);
+// 	  } else {
+// 	    document.getElementById('preview4').src = "";
+// 	  }
+// 	}
 
 	
 </script>
@@ -277,9 +280,9 @@
             <div class="form-group row border-bottom py-2">
                 <label for="product_thumbnail" class="col-sm-4 col-form-label">썸네일</label>
                 <div class="col-sm-8">
-                    <input type="file" class="thumbnailInput" name="product_thumbnail" id="product_thumbnail" onchange="readURL(this);" value="${dto.product_thumbnail }"/>
+                    <input type="file" class="thumbnailInput" onchange="readURL(this);"/>
                 <img width="120px;" id="preview1" src = "resources/upload/${dto.product_thumbnail }"/>
-                <input type="hidden" id="thumbnailHidden" name="product_thumbnail" value="${dto.product_thumbnail }">
+                <input type="hidden" name="product_thumbnail" id="product_thumbnail" value="${dto.product_thumbnail }"/>
 
                 </div>
             </div>
@@ -294,86 +297,8 @@
             </div>
             <br>
 
-		<!-- 상품 사진, 설명 더 작성하기 -->
-			<details>
-			<br><br>
-				<summary class="btn btn-secondary">계속 작성</summary>
-				
-				
 
-				<div class="form-group row border-bottom py-2">
-					<label for="product_file1" class="col-sm-4 col-form-label">상품사진1</label>
-					<div class="col-sm-8">
-						<input type="file" class="thumbnailInput" name="product_file1"
-							id="product_file1" onchange="readURL2(this);" value="${pcdto.product_file1 }"/>
-						<img width="300px;" id="preview2" 
-							<c:if test="${!empty pcdto.product_file1  }">
-								src = "resources/upload/${pcdto.product_file1 }"
-							</c:if>
-							<c:if test="${empty pcdto.product_file1  }" > </c:if>
-						/>
-					</div>
-				</div>
-
-
-				<div class="form-group row border-bottom py-2">
-					<label for="product_cont1" class="col-sm-4 col-form-label">상품설명1</label>
-					<div class="col-sm-8">
-					 <textarea class="form-control" name="product_cont1" id="product_cont1">${pcdto.product_cont1 }</textarea>
-					</div>
-				</div>
-
-				<div class="form-group row border-bottom py-2">
-					<label for="product_file2" class="col-sm-4 col-form-label">상품사진2</label>
-					<div class="col-sm-8">
-						<input type="file" class="thumbnailInput" name="product_file2"
-							id="product_file2" onchange="readURL3(this);" value="${pcdto.product_file2 }"/> 
-						<img width="300px;" id="preview3"
-							<c:if test="${!empty pcdto.product_file2  }" >
-							src = "resources/upload/${pcdto.product_file2 }"
-							</c:if>
-							<c:if test="${empty pcdto.product_file2  }" >
-							</c:if>
-						 />
-					</div>
-				</div>
-
-
-				<div class="form-group row border-bottom py-2">
-					<label for="product_cont2" class="col-sm-4 col-form-label">상품설명2</label>
-					<div class="col-sm-8">
-						<textarea class="form-control" name="product_cont2" id="product_cont2">${pcdto.product_cont2 }</textarea>
-					</div>
-				</div>
-
-				<div class="form-group row border-bottom py-2">
-					<label for="product_file3" class="col-sm-4 col-form-label">상품사진3</label>
-					<div class="col-sm-8">
-						<input type="file" class="thumbnailInput" name="product_file3"
-							id="product_file1" onchange="readURL4(this);" value="${pcdto.product_file3 }"/>
-						<img width="300px;" id="preview4"
-							<c:if test="${!empty pcdto.product_file3  }" >
-							src = "resources/upload/${pcdto.product_file3 }"
-							</c:if>
-							<c:if test="${empty pcdto.product_file3  }" >
-							</c:if>
-						 />
-					</div>
-				</div>
-
-
-				<div class="form-group row border-bottom py-2">
-					<label for="product_cont3" class="col-sm-4 col-form-label">상품설명3</label>
-					<div class="col-sm-8">
-						<textarea class="form-control" name="product_cont3" id="product_cont3">${pcdto.product_cont3 }</textarea>
-					</div>
-				</div>
-				<br>
-				<button type="submit" class="btn btn-success">등록하기</button>
-
-			</details>
-		상품 사진, 설명 더 작성하기 end
-
+			
 		</form>
         </div>
 <jsp:include page="../banner/bottom.jsp" />

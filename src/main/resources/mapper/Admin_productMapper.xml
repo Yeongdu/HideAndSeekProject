@@ -6,7 +6,8 @@
   
   <mapper namespace="Admin_productDAO">
   	<update id="adminProductUpdate" parameterType="ProductDTO">
-  		update product set product_name = #{product_name}, 
+  		update product set 
+  		product_name = #{product_name}, 
   		product_category = #{product_category}, 
   		product_introduce1 = #{product_introduce1}, 
   		product_introduce2 = #{product_introduce2}, 
