@@ -15,6 +15,10 @@ public interface MyPageDAO {
 	
 	List<OrderDTO> getOrderCont(Map<String, Object> map);
 	int getOrderCount(String userId);
+	int getOrderAllCount(String userId);
+	int getRefundCount(String userId);
+	int getDeliveryCount(String userId);
+	int getDeliveryCompleteCount(String userId);
 	
 	List<ReviewDTO> getReviewCont(String userId);
 	int getReviewCount(String userId);
@@ -22,6 +26,6 @@ public interface MyPageDAO {
 	List<Subscribe_userDTO> getSubCont(String userId);
 	
 	List<DeliveryDTO> getDeliveryCont(String userId);
-	int getDeliveryCount(String userId);
+	int getDeliveryAddrCount(String userId);
 
 }

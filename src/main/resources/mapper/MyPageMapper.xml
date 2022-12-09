@@ -59,7 +59,27 @@
 	</select>
 	
 	 <select id ="count_order" parameterType="String" resultType="int">
- 	 	select count(*) as count from tb_order 
+ 	 	select count(*) as count from tb_order where user_id = #{userId}
  	 </select>
+ 	 
+	 <select id ="count_refund" parameterType="String" resultType="int">
+ 	 	select count(*) as count from tb_order where user_id = #{userId} and order_status = '취소'
+ 	 </select>
+ 	 
+	 <select id ="count_delivery" parameterType="String" resultType="int">
+ 	 	select count(*) as count from tb_order where user_id = #{userId} and order_status = '배송중'
+ 	 </select>
+ 	 
+	 <select id ="count_deliverycomplete" parameterType="String" resultType="int">
+ 	 	select count(*) as count from tb_order where user_id = #{userId} and order_status = '배송완료'
+ 	 </select>
+ 	 
+ 	 <select id ="orderall" parameterType="String" resultType="int">
+ 	 	select count(*) as count from tb_order where user_id = #{userId} and order_status = '주문 완료'
+ 	 </select>
+ 	 
+ 	 
+ 	 
+ 	 
  	 
   </mapper>

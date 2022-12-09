@@ -12,10 +12,15 @@
 .mypage_loading{
 	position: absolute;
 	top:50%;
+	height: 40%;
+	width: 50%;
 	height: 50%;
-	width: 100%;
-	height: 100%;
+	display: none;
 
+}
+
+#mypage_select > div > span {
+	display: block;
 }
 
 /*마이페이지 카테고리 css*/
@@ -174,11 +179,104 @@
 		font-size: 3em;
 	}
 	
-/* 주문 내역 css*/
+/* 주문 내역 건수 css */
+
+.order_category_all {
+	display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 70%;
+    margin-bottom: 30px;
+    background-color: skyblue;
+    padding: 20px 10px;
+    border-radius: 10px;
+}
+
+#order_info_date{
+	text-align: left;
+	width: 100%;
+}
+
+#order_info_date > span{
+	display: inline-block;
+	margin-right: 80%;
+}
+
+#order_info_status{
+	display: inline-block;
+	text-align: right;
+}
+
+
+.order_title{
+	font-size:1.2em;
+	font-weight: bold;
+}
+
+.order_count{
+	font-size:12px;
+}
+
+.order_count > span{
+	font-size:1.2em;
+	font-weight: bold;
+}
+
+
+/* 주문 내역 ajax*/
+
+
+.order_main_wrap{
+	border-radius: 10px;
+    border: 1px solid;
+    padding: 2%;
+    width: 67%;
+}
+
+#order_wrap {
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 60%;
+    height: 20%;
+    padding: 20px;
+    box-sizing: border-box;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 20px;
+}
+
+#order_info {
+	display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 10px;
+    width: 100%;
+}
+
+#order_image {
+	width: 15%;	
+}
 
 .order_thumbnail{
-	width:20%;
-	height: 30%;
+	width: 100%;
+    height: 100%;
 }
+
+#order_info_price{
+	font-size: 1.2em;
+}
+
+#order_info_title{
+	font-size: 1.5em;
+    font-weight: bold;
+}
+
+#order_info_price{
+	font-size: 1.5em;
+}
+
+    
+
+
     
 

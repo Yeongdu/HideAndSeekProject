@@ -9,10 +9,17 @@
 <link href="resources/css/mypage/mypage_main.css" rel="stylesheet" type="text/css">
 
 	<jsp:include page="../banner/user_top.jsp" />
-    
+ 
+<main style = "min-height : 100%;;">
 <div id = "mypage"> <!-- main 영역 -->
 	
 	<c:set  var = "user_dto" value = "${user_cont }"/>
+	<c:set var = "order_all" value = "${count }" />
+	<c:set var = "order_count" value = "${order }" />
+	<c:set var = "refund_count" value = "${refund }" />
+	<c:set var = "delivery_count" value = "${delivery }" />
+	<c:set var = "delivery_complete_count" value = "${delivery_complete }" />
+	
 	
 	<div id = "mypage_wrap" align = "center"> <!-- 컨텐츠 전체 영역 -->
 		<div id = "mypage_category"> <!-- 카테고리 영역 / 이름, 포인트, 카테고리 등 -->
@@ -30,27 +37,27 @@
 			<div id = "mypage_select">
 			
 				<div id = "mypage_sub">
-					<p>구독관리</p>
+					<span>구독관리</span>
 					<img src = "resources/image/sub.png" class = "mypage_icon">
 				</div>
 				
 				<div id = "mypage_order">
-					<p>주문내역</p>
+					<span>주문내역</span>
 					<img src = "resources/image/order.png" class = "mypage_icon">
 				</div>
 				
 				<div id = "mypage_refund">
-					<p>취소/환불내역</p>
+					<span>취소/환불내역</span>
 					<img src = "resources/image/refund.png" class = "mypage_icon">
 				</div>
 				
 				<div id = "mypage_review">
-					<p>리뷰</p>
+					<span>리뷰</span>
 					<img src = "resources/image/review.png" class = "mypage_icon">
 				</div>
 				
 				<div id = "mypage_delivery">
-					<p>배송지관리</p>
+					<span>배송지관리</span>
 					<img src = "resources/image/delivery.png" class = "mypage_icon">
 				</div>
 				
@@ -81,6 +88,7 @@
 		</div>
 	</div>
 </div>
+</main>
     
     
 <script>
@@ -112,10 +120,11 @@ var loading = false;
 var su = false;
 
 // 구독관리 ==============================================================================================================
+	
 $(document).on("click", "#mypage_sub", function(){
 	displayoff();
 	$("#mypage_sub").attr("id","mypage_sub-active");
-	$('.sub_main_wrap').slideDown(1000)
+	$('.sub_main_wrap').slideDown(1000);
 	
 	if(!loading){
 		var id = '<%=(String)session.getAttribute("userId")%>';
@@ -172,12 +181,6 @@ $(document).on("click", "#mypage_sub", function(){
 		    	
 		    },error : function(request, status, error) { // 결과 에러 콜백함수
 		    	
-		    },beforeSend: function () {
-		    	
-	           $(".mypage_loading").slideDown(500);
-	              
-		    },complete: function () {
-		    	 $(".mypage_loading").fadeOut(500);
 		    }
 		    
 		}); // ajax 끝
@@ -196,7 +199,30 @@ $(document).on("click", "#mypage_sub-active", function(){
 // 주문내역 ==============================================================================================================
 $(document).on("click", "#mypage_order", function(){
 	
+	// ajax창 전체 종료(초기화)
 	displayoff();
+	
+	// 주문 건수 div 추가
+	$("#mypage_content").append($("<div class = 'order_category_all'></div>"));
+	$(".order_category_all").append($("<div class = 'order_category'></div>"));
+	$(".order_category").append($("<div class = 'order_title'> 전체 주문 </div>"));
+	$(".order_category").append($("<div class = 'order_count'><span>" + ${count} + "</span>건</div>"));
+	
+	$(".order_category_all").append($("<div class = 'order_orderall'></div>"));
+	$(".order_orderall").append($("<div class = 'order_title'> 주문 완료 </div>"));
+	$(".order_orderall").append($("<div class = 'order_count'><span>" + ${order} + "</span>건</div>"));
+	
+	$(".order_category_all").append($("<div class = 'order_refund_all'></div>"));
+	$(".order_refund_all").append($("<div class = 'order_title'> 취 소 </div>"));
+	$(".order_refund_all").append($("<div class = 'order_count'><span>" + ${refund } + "</span>건</div>"));
+	
+	$(".order_category_all").append($("<div class = 'order_delivery_all'></div>"));
+	$(".order_delivery_all").append($("<div class = 'order_title'> 배송중 </div>"));
+	$(".order_delivery_all").append($("<div class = 'order_count'><span>" + ${delivery} + "</span>건</div>"));
+	
+	$(".order_category_all").append($("<div class = 'order_delivery_complete_all'></div>"));
+	$(".order_delivery_complete_all").append($("<div class = 'order_title'> 배송 완료 </div>"));
+	$(".order_delivery_complete_all").append($("<div class = 'order_count'><span>" + ${delivery_complete} + "</span>건</div>"));
 	
 	page = 1;
 	
@@ -263,8 +289,7 @@ function getorder(){
     				su = true;
 	    		}
 	    	}else {
-	    		
-	    			res = "<div class = 'order_main_wrap'>";
+	    			
 	    		$.each(result, function(index, item){
 			    	
 		    		res += "<div id = 'order_wrap'>";
@@ -272,13 +297,12 @@ function getorder(){
 	    			res += 			"<img src = 'resources/upload/" + item.product_thumbnail + "' class = 'order_thumbnail'>";
 	    			res += 		"</div>"
 	    			
-	    			res += 		"<div id = 'order_info>'"
+	    			res += 		"<div id = 'order_info'>"
+	    			res += 			"<div id = 'order_info_date'><span>" + item.order_date + "</span><div id = 'order_info_status'>" + item.order_status + "</div>" + "</div>"
 	    			res += 			"<div id = 'order_info_title'>" + item.product_name + "</div>"
-	    			res += 			"<div id = 'order_info_alchol'>" + item.product_alcohol + "%</div>"
+	    			res += 			"<div id = 'order_info_alchol'>도수 : " + item.product_alcohol + "%</div>"
+	    			res += 			"<div id = 'order_info_amount'>수량 : " + item.order_amount + "개</div>"
 	    			res += 			"<div id = 'order_info_price'>" + item.product_price + "원</div>"
-	    			res += 			"<div id = 'order_info_introduce1'>" + item.product_introduce1 + "</div>"
-	    			res += 			"<div id = 'order_info_introduce2'>" + item.product_introduce2 + "</div>"
-	    			res += 			"<div id = 'order_info_company'>" + item.product_company + "</div>"
 					res += 		"</div>"
 					res += "</div>"
 		    		 
@@ -291,8 +315,6 @@ function getorder(){
 	    	
 	    	}
 	    	
-	    	res += "</div>" + "</div>";
-	    	
 	    	page += 1;
 	    	
 	    	console.log("page :" + page);
@@ -303,12 +325,7 @@ function getorder(){
 	    	
 	    },error : function(request, status, error) { // 결과 에러 콜백함수
 	    	/* alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); */
-	    },beforeSend: function () {
-	           $(".mypage_loading").slideDown(500);
-	              
-		},complete: function () {
-		    	 $(".mypage_loading").fadeOut(500);
-		}
+	    }
 	    
 	}); // ajax 끝
 } // 주문내역 ajax 메서드 끝

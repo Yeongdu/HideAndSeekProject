@@ -2,15 +2,21 @@ package com.spring.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
 public class OrderDTO {
 	private int order_no; // 주문 번호
 	private String order_status; //주문상태 기본값:주문완료
+	
+	@JsonFormat(pattern = "yyyy년 MM월 dd일")
 	private Date order_date; // 주문 날짜
+	
 	private String user_id; // 유저 아이디 FK
 	private int product_no; // 상품 번호 FK
+	private int order_amount; // 주문 갯수
 	
 	private int count;
 	
