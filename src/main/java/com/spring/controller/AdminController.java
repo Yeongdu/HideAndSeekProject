@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.model.OrderDTO;
 import com.spring.model.PageDTO;
@@ -78,11 +79,11 @@ public class AdminController {
 		}else if(dto.getProduct_alcohol() <= 50) {
 			dto.setProduct_dosu("very-high");	
 		}
-		
 		int check = this.pdao.insertProduct(dto);
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		if(check > 0) {
+			this.apcdao.insertProductContent(dto.getProduct_no());
 			out.println("<script> alert('제품 등록 성공'); location.href='admin_product_list.do'; </script>");
 		}else {
 			out.println("<script> alert('제품 등록 실패했습니다.'); history.back(); </script>");
@@ -198,33 +199,30 @@ public class AdminController {
 	@RequestMapping("admin_product_update.do")
 	public String admin_productUpdate(@RequestParam("page") int page, @RequestParam("no") int no, Model model) {
 		ProductDTO pdto = this.pdao.getProductCont(no);
-		Product_contentDTO pcdto = this.pcdao.getProduct(no);
+//		Product_contentDTO pcdto = this.pcdao.getProduct(no);
 		List<Product_categoryDTO> cateList = this.dao.getCategoryList();
 		model.addAttribute("CategoryList", cateList);
 		model.addAttribute("PCont", pdto);
-		model.addAttribute("PCCont", pcdto);
+//		model.addAttribute("PCCont", pcdto);
 		model.addAttribute("page", page);
 		
 		return "admin/admin_product_update";
-		
-//		int check = this.dao.updateMember(dto);
-//		response.setContentType("text/html; charset=UTF-8");
-//		PrintWriter out = response.getWriter();
-//		if(check > 0) {
-//			out.println("<script> alert('회원수정성공'); location.href='member_content.do?num="+dto.getNum()+"'; </script>");
-//		}else {
-//			out.println("<script> alert('회원등록실패 8^8'); history.back(); </script>");
-//		}
 	}
 	
 	@RequestMapping("admin_product_update_ok.do")
-	public String admin_product_update_ok(
+	public void admin_product_update_ok(
+			@RequestParam("product_thumbnail") MultipartFile file,
 			@RequestParam("page") int page, 
 			@RequestParam("no") int no, 
 			ProductDTO pdto, 
 			Product_contentDTO pccdto, 
 			HttpServletResponse response, 
 			Model model) throws IOException {
+		
+		String fileRealName = file.getOriginalFilename(); //파일명을 얻어낼 수 있는 메서드!
+		long size = file.getSize(); //파일 사이즈
+		System.out.println("파일명 : "  + fileRealName);
+		System.out.println("용량크기(byte) : " + size);
 
 		
 		int check1 = this.apdao.productUpdate(pdto);
@@ -233,17 +231,84 @@ public class AdminController {
 		PrintWriter out = response.getWriter();
 		model.addAttribute("page", page);
 		
-		if(check1 > 0 || ( (check1 > 0)  && (check2 > 0) )) { //&page="+page+"
+		if( (check1 > 0)  && (check2 > 0) ) { //&page="+page+"
 			out.println("<script> alert('상품수정성공'); location.href='admin_product_content.do?no="+no+"&page="+page+"'; </script>");
 		}else {
 			out.println("<script> alert('상품수정실패'); history.back(); </script>");
 		}
-		ProductDTO dto = this.pdao.getProductCont(no);
-		model.addAttribute("Cont", dto);
+//		ProductDTO dto = this.pdao.getProductCont(no);
+//		model.addAttribute("Cont", dto);
+//		
+//		Product_contentDTO pcdto = this.pcdao.getProduct(no);
+//		model.addAttribute("PCCont", pcdto);
+//		return "admin/admin_product_cont";
+	}
+	
+	@RequestMapping("admin_product_contentEdit.do")
+	public String admin_product_edit(HttpServletRequest request, Model model) {
+		// 페이징 처리 작업
+		int page;	// 현재 페이지 변수
 		
+						
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}else {
+			// 처음으로 게시물 전체 목록 태그를 클릭한 경우
+			page = 1;
+		}
+		// DB상의 전체 게시물의 수를 확인하는 메서드
+		totalRecord = this.pdao.getListCount();
+		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+		
+		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
+		List<ProductDTO> plist = this.pdao.getProductList(dto);
+		
+
+		model.addAttribute("list", plist);
+		
+		model.addAttribute("page", dto);
+		return "admin/admin_product_contentEdit";
+	}
+	
+	@RequestMapping("admin_product_content_update.do")
+	public String admin_productContentUpdate(@RequestParam("page") int page, @RequestParam("no") int no, Model model) {
+		ProductDTO pdto = this.pdao.getProductCont(no);
 		Product_contentDTO pcdto = this.pcdao.getProduct(no);
+		List<Product_categoryDTO> cateList = this.dao.getCategoryList();
+		model.addAttribute("CategoryList", cateList);
+		model.addAttribute("PCont", pdto);
 		model.addAttribute("PCCont", pcdto);
-		return "admin/admin_product_cont";
+		model.addAttribute("page", page);
+		return "admin/admin_product_content_update";
+	}
+	
+	
+	
+	@RequestMapping("admin_product_content_update_ok.do")
+	public void admin_product_content_update_ok(
+			@RequestParam("page") int page, 
+			@RequestParam("no") int no, 
+			ProductDTO pdto, 
+			Product_contentDTO pccdto, 
+			HttpServletResponse response, 
+			Model model) throws IOException {
+
+		int check2 = this.apcdao.productContentUpdate(pccdto);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		model.addAttribute("page", page);
+		
+		if(check2 > 0) { //&page="+page+"
+			out.println("<script> alert('상품수정성공'); location.href='admin_product_content.do?no="+no+"&page="+page+"'; </script>");
+		}else {
+			out.println("<script> alert('상품수정실패'); history.back(); </script>");
+		}
+//		ProductDTO dto = this.pdao.getProductCont(no);
+//		model.addAttribute("Cont", dto);
+//		
+//		Product_contentDTO pcdto = this.pcdao.getProduct(no);
+//		model.addAttribute("PCCont", pcdto);
+//		return "admin/admin_product_cont";
 	}
 	
 	

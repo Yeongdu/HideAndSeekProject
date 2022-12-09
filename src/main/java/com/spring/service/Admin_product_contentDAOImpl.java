@@ -28,4 +28,9 @@ public class Admin_product_contentDAOImpl implements Admin_product_contentDAO{
 		return this.sqlSession.update("admin_product_content_update", dto);
 	}
 
+	@Override
+	public int insertProductContent(int no) {
+		return this.sqlSession.insert("adminProductContentInsert", no);
+	}
+
 }

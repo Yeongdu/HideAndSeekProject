@@ -5,8 +5,15 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="Admin_product_contentDAO">
+  	
+  	<insert id="adminProductContentInsert" parameterType="int">
+  		insert into product_content values(
+  		(select max(product_no) from product_content) +1,
+  		'','','','','','','','','','')
+  	</insert>
     <update id="admin_product_content_update" parameterType="Product_contentDTO">
-  		update product_content set product_file1 = #{product_file1}, 
+  		update product_content set 
+  		product_file1 = #{product_file1}, 
   		product_file2 = #{product_file2}, 
   		product_file3 = #{product_file3}, 
   		product_cont1 = #{product_cont1}, 
