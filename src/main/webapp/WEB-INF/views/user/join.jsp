@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<title>Insert title here</title>
+<title>회원가입</title>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
@@ -27,7 +27,7 @@
       <div align="center">
 		   <form  name="form1" method="post" action="<%=request.getContextPath() %>/user_join_ok.do">
 			
-			<fieldset class="join_field">
+			 <fieldset class="join_field">
 				<legend>회원가입</legend>
 				
 					<div class="title_1">
@@ -66,12 +66,11 @@
 							<label for="user_email">이메일</label>
 								<input type="email" name="user_email" id="user_email" onblur="emailCheck()" required><br>
 								<span id="emailcheck"></span>
-							
 						</div>
 						
 						<div class="join_phone">
                             <label for="user_phone">전화번호</label>
-                              <select name="select_phone" id="select_phone" onchange="select_phone(this.value)" required>
+                              <select name="user_phone1" id="user_phone1" onchange="user_phone1(this.value)" required>
                                 <option value="" selected>선택하세요.</option>
                                 <option value="010">010</option>
                                 <option value="011">011</option>
@@ -81,17 +80,16 @@
                                 </select>
 
                             <span> - </span><input type="text" name="user_phone2" id="user_phone2" required><span> - </span><input type="text" name="user_phone3" id="user_phone3" required>
-                            </div>
+                        </div>
 
 
 
 						
 						<div class="join_idnum">
 							<label for="user_idnum">주민등록번호</label>
-							<input type="text"  name="juminnum" id="juminnum"   maxlength="6" required><span>-</span><input type="password"  name="juminnum2"  id="juminnum2"  maxlength="7" required>
+							<input type="text"  name="user_jumin1" id="user_jumin1"   maxlength="6" required><span> - </span><input type="password"  name="user_jumin2"  id="user_jumin2"  maxlength="7" required>
 							<input type="checkbox" value="성인인증"  class="chk1" id="chk1"  name="chk1" onclick="getAge();" required>
- 
-						</div>
+                        </div>
 						
 						<br>
 						
@@ -121,45 +119,38 @@
 						
 						
 						
-							<div class="agreement-checkbox">
+				<div class="agreement-checkbox">
 							
-								<label for="agree_all">
-                                  <input type="checkbox" name="agree_all" id="agree_all" required>
-                                    <span>모두 동의합니다</span>
-                                 </label><br>
+					<label for="agree_all">
+                      <input type="checkbox" name="agree_all" id="agree_all" required>
+                           <span>모두 동의합니다</span>
+                               </label><br>
                                  
-                                 
-                                 
-                                
-                                 
-    <div class="container-fluid">
+                                  <div class="container-fluid">
  
-    <!-- 그룹 태그로 role과 aria-multiselectable를 설정한다. -->
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                     <!-- 그룹 태그로 role과 aria-multiselectable를 설정한다. -->
+                                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     
-      <!-- 하나의 item입니다. data-parent 설청과 href 설정만 제대로 하면 문제없이 작동합니다. -->
-      <div class="panel panel-default" style="width: 800px;">
-        <div class="panel-heading"  role="tab">
-          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false">
-            이용약관 동의 
-            </a>
-            <label for="agree">
-          <input type="checkbox" name="agree" value="1" required>
-             <span>이용약관 동의<strong>(필수)</strong></span>
-               </label><br>
-        </div>
+                                          <!-- 하나의 item입니다. data-parent 설청과 href 설정만 제대로 하면 문제없이 작동합니다. -->
+                                            <div class="panel panel-default" style="width: 800px;">
+                                              <div class="panel-heading"  role="tab">
+                                                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false">
+                                                    이용약관 동의 
+                                                   </a>
+                                                 <label for="agree">
+                                               <input type="checkbox" name="agree" value="1" required>
+                                             <span>이용약관 동의<strong>(필수)</strong></span>
+                                            </label><br>
+                                          </div>
        
        
-       <div id="collapse1" class="panel-collapse collapse" role="tabpanel">
-          <div class="panel-body">
-            Hello world1
-          </div>
-        </div>
-      </div>
+                <div id="collapse1" class="panel-collapse collapse" role="tabpanel">
+                  <div class="panel-body">
+                    Hello world1
+                  </div>
+                </div>
+             </div>
       
-      
-      
-      <!-- -->
       <!-- 하나의 item입니다.  -->
       <div class="panel panel-default" style="width: 800px;">
         <div class="panel-heading" role="tab">
@@ -233,9 +224,9 @@
                  // 주민등록상 생일을 현재 날짜와 비교하여 나이계산 (만)
                  function getAge() {
                  
-                  jumin1 = document.form1.juminnum.value;
+                  jumin1 = document.form1.user_jumin1.value;
                  
-                  jumin2 = document.form1.juminnum2.value;
+                  jumin2 = document.form1.user_jumin2.value;
                  
                  
                   var curDateObj = new Date(); // 날짜 Object 생성
@@ -252,7 +243,7 @@
                   var genType = jumin2.substring(0, 1); // 주민번호 성별구분 문자 추출
                   
                   
-                  if(document.form1.juminnum.value == ''){
+                  if(document.form1.user_jumin1.value == ''){
                 	  
                 	  document.getElementById("chk1").checked = false;
                 	  
@@ -308,9 +299,9 @@
                   }else{
                   alert ("미성년으로 구입할 수 없습니다.")
                    
-                   document.form1.juminnum.value = "";
+                   document.form1.user_jumin1.value = "";
                   
-                   document.form1.juminnum2.value = "";
+                   document.form1.user_jumin2.value = "";
                    
                    document.getElementById("chk1").checked = false;
                   
@@ -325,14 +316,14 @@
                 <!-- 성인인증 체크박스 되어있을 시 변화감지되면 입력창 초기화 -->
                  $(document).ready(function(){
                 	 
-                	 jumin1 = document.form1.juminnum.value;
+                	 jumin1 = document.form1.user_jumin1.value;
                      
-                     jumin2 = document.form1.juminnum2.value;
+                     jumin2 = document.form1.user_jumin2.value;
                     
-                     $("#juminnum").change(function(){
+                     $("#user_jumin1").change(function(){
                          if($("#chk1").is(":checked")){
-                        	 document.form1.juminnum.value = "";
-                        	 document.form1.juminnum2.value = "";
+                        	 document.form1.user_jumin1.value = "";
+                        	 document.form1.user_jumin2.value = "";
                         	 document.getElementById("chk1").checked = false;
                              //alert("체크박스 체크했음!");
                              
@@ -346,14 +337,14 @@
 
                  $(document).ready(function(){
                 	 
-                	 jumin1 = document.form1.juminnum.value;
+                	 jumin1 = document.form1.user_jumin1.value;
                      
-                     jumin2 = document.form1.juminnum2.value;
+                     jumin2 = document.form1.user_jumin2.value;
                     
-                     $("#juminnum2").change(function(){
+                     $("#user_jumin2").change(function(){
                          if($("#chk1").is(":checked")){
-                        	 document.form1.juminnum.value = "";
-                        	 document.form1.juminnum2.value = "";
+                        	 document.form1.user_jumin1.value = "";
+                        	 document.form1.user_jumin2.value = "";
                         	 document.getElementById("chk1").checked = false;
                              //alert("체크박스 체크했음!");
                              
@@ -581,7 +572,8 @@
                 
                 		
                 		//비밀번호입력시 - 정규식확인 pw
-                		$('#user_pwd').on('keyup', function(){ // keyup -> 입력할 때 
+                		$("#user_pwd").blur(function(){
+                		//$('#user_pwd').on('keyup', function(){ // keyup -> 입력할 때 
                 		  var pwd = $('#user_pwd').val().trim();
                 			
                 		  var num = pwd.search(/[0-9]/g);
@@ -623,7 +615,8 @@
                 		
                 		
                 		//비밀번호확인입력시 - 정규식확인 pwcheck
-                		$('#user_pwd_check').on('keyup', function(){ // keyup -> 입력할 때 
+                		$("#user_pwd_check").blur(function(){
+                		//$('#user_pwd_check').on('keyup', function(){ // keyup -> 입력할 때 
                 		  
                 			var pwd = $('#user_pwd').val().trim();
                 			var pwdck = $('#user_pwd_check').val().trim();
@@ -646,7 +639,9 @@
                 				
                 				$("#pwcheck2").append(warningTxt);
                 				
-                				$("#user_pwd_check").val('');
+                				document.getElementById('user_pwd_check').value = '';
+                				
+                				//$("#user_pwd_check").text('');
                 				
                 			}
                 		});  //비밀번호확인입력시 - 정규식확인 pwcheck end

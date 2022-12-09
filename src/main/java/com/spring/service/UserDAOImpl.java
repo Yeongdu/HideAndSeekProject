@@ -26,12 +26,14 @@ public class UserDAOImpl implements UserDAO{
 	UserDTO dto;
 
 
+	//로그인
 	@Override
     public int userCheck(String id, String pw) {
        return sqlSession.selectOne("getMember",id);
       }
 
 
+	//회원가입_아이디 중복체크
 	@Override
 	public int idCheck(String id) {
 		
@@ -43,6 +45,7 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 
+	//회원가입_ 이메일 중복체크
 	@Override
 	public int emailCheck(String email) {
 		
@@ -52,6 +55,18 @@ public class UserDAOImpl implements UserDAO{
 		System.out.println(cnt);
 		return cnt;
 	}
+
+
+	
+	//회원가입완료(DB에 값 저장)
+	@Override
+	public int insertUser(UserDTO dto) {
+		
+		return this.sqlSession.insert("add", dto);
+	}
+	
+	
+	
 
 
 	

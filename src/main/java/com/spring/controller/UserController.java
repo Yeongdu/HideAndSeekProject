@@ -1,9 +1,12 @@
 package com.spring.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +30,7 @@ public class UserController {
 	@Autowired
 	private UserDAO dao;
 
-	// 로그인페이지
+	// 로그인페이지이동
 	@RequestMapping("user_login.do")
 	public String loginList() {
 
@@ -35,7 +38,7 @@ public class UserController {
 
 	}
 
-	// 회원가입페이지
+	// 회원가입페이지이동
 	@RequestMapping("join_form.do")
 	public String joinformList() {
 
@@ -44,6 +47,7 @@ public class UserController {
 	}
 
 
+	//로그인
 	@RequestMapping("user_check.do")
     public String signIn(HttpSession session, @RequestParam("id") String id, @RequestParam("pw") String pw, Model model) {
         int result = dao.userCheck(id, pw);
@@ -58,6 +62,8 @@ public class UserController {
         }
     }
 	
+	
+	//회원가입_아이디 중복체크
 	@ResponseBody
 	@RequestMapping("/idCheck.do")
 	public int idCheck(@RequestParam("user_id") String id) {
@@ -73,7 +79,7 @@ public class UserController {
 		
 	}
 	
-	
+	//회원가입_ 이메일 중복체크
 	@ResponseBody
 	@RequestMapping("/emailCheck.do")
 	public int emailCheck(@RequestParam("user_email") String email) {
@@ -87,6 +93,25 @@ public class UserController {
 		return cnt;
 		
 		
+	}
+	
+	@RequestMapping("user_join_ok.do")
+	public void insertUser(UserDTO dto,
+	           HttpServletResponse response) throws IOException {
+	
+		
+		int check = this.dao.insertUser(dto);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+        PrintWriter out = response.getWriter();
+        
+        if(check > 0) {
+        	out.println("<script> alert('회원 가입 성공'); location.href='store.do'; </script>");
+        	
+        }else {
+        	out.println("<script> alert('회원 가입 실패'); history.back(); </script>");
+        }
 	}
 
 	
