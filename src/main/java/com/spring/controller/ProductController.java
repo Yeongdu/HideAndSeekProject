@@ -394,12 +394,6 @@ public class ProductController {
 		 
 	}
 
-	/*
-	 * @RequestMapping("/product_content_list.do") public String list(Model model) {
-	 * List<Product_contentDTO> list = this.pcdao.getProductContList();
-	 * model.addAttribute("List", list); return "content/product_content_list"; }
-	 */
-
 	// 마지막 스크롤 이동 시 지속적으로 상품 리스트를 불러오는 메서드
 	@ResponseBody
 	@RequestMapping("/infinite_scroll.do")
