@@ -14,11 +14,18 @@ import com.spring.model.ProductDTO;
 public class ProductDAOImpl implements ProductDAO{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-
+	
 	@Override
 	public int getListCount() {
 		
 		return this.sqlSession.selectOne("getListCount");
+		
+	}
+
+	@Override
+	public int getListCategoryCount(String category) {
+		
+		return this.sqlSession.selectOne("getListCategoryCount", category);
 		
 	}
 	
@@ -30,14 +37,28 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 	
 	@Override
+	public int getReviewCount(int product_no) {
+		
+		return this.sqlSession.selectOne("getReviewCount", product_no);
+		
+	}
+
+	@Override
+	public double getReviewStar(int product_no) {
+		
+			return this.sqlSession.selectOne("getReviewStar", product_no);
+			
+	}
+	
+	@Override
 	public List<ProductDTO> getProductList(PageDTO dto) {
 		return this.sqlSession.selectList("getProductList",dto);
 	}
 
 	
 	@Override
-	public List<ProductDTO> getProductList(PageDTO dto, String sort) {
-		return this.sqlSession.selectList(sort,dto);
+	public List<ProductDTO> getProductList(Map<String, Object> map, String sort) {
+		return this.sqlSession.selectList(sort,map);
 		
 	}
 	
@@ -79,6 +100,5 @@ public class ProductDAOImpl implements ProductDAO{
 	public int productStatusChange2(int product_no) {
 		return this.sqlSession.update("productStatusChange2", product_no);
 	}
-
 
 }
