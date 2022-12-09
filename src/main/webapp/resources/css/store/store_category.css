@@ -302,6 +302,7 @@ span {
     border-radius: 5px;
     color: rgb(255, 255, 255);
     margin-left: 10px;
+    display: block;
 }
 
 .container-button > input {

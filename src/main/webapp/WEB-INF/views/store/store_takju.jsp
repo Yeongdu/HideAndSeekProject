@@ -14,6 +14,8 @@ $(function(){
 	
 	let loading = false;
 	
+	let status = true;
+	
 	let page = ${page.page} + 1;
 	
 	let html = "";
@@ -617,6 +619,55 @@ $(document).on("click", ".b1", function(){
 		
 	});
 	
+function form(){
+		
+		let minprice = $(".minprice").val();
+		
+		let maxprice = $(".maxprice").val();
+		
+		var f = document.from;
+		
+		console.log("최소값 >>> " + minprice);
+		console.log("최대값 >>> " + maxprice);
+		
+		if(parseInt(minprice) > parseInt(maxprice)){
+			
+			alert('최소값은 최대값보다 작아야 합니다.')
+			
+			$(".minprice").val("");
+			
+			$(".maxprice").val("");
+			
+			status = false;
+			
+			return;
+			
+		}else if(minprice && !maxprice){
+			
+			alert('최대값 범위 설정을 해주세요.');
+			
+			 $(".maxprice").focus();
+			 
+			 status = false;
+			 
+			 return;
+			 
+		}else if(maxprice && !minprice){
+			
+			alert('최소값 범위 설정을 해주세요.');
+			
+			$(".minprice").focus();
+			
+			status = false;
+			
+			return;
+			
+		}
+			
+		f.submit();
+	
+	}
+	
 function tag(){
 		
 		let minprice = $(".minprice").val();
@@ -659,16 +710,28 @@ function tag(){
 		
 			$(".b1-active").css("borderColor", "rgb(244, 244, 244)");
 			$(".b1-active > img").attr({src:"resources/image/down_button.png"});
+			$(".b1-active").addClass("b1");
+			$(".b1").removeClass("b1-active");
 			$(".b2-active").css("borderColor", "rgb(244, 244, 244)");
 			$(".b2-active > img").attr({src:"resources/image/down_button.png"});
+			$(".b2-active").addClass("b2");
+			$(".b2").removeClass("b2-active");
 			$(".b3-active").css("borderColor", "rgb(244, 244, 244)");
 			$(".b3-active > img").attr({src:"resources/image/down_button.png"});
+			$(".b3-active").addClass("b3");
+			$(".b3").removeClass("b3-active");
 			$(".b4-active").css("borderColor", "rgb(244, 244, 244)");
 			$(".b4-active > img").attr({src:"resources/image/down_button.png"});
+			$(".b4-active").addClass("b4");
+			$(".b4").removeClass("b4-active");
 			$(".b5-active").css("borderColor", "rgb(244, 244, 244)");
 			$(".b5-active > img").attr({src:"resources/image/down_button.png"});
+			$(".b5-active").addClass("b5");
+			$(".b5").removeClass("b5-active");
 			$(".b6-active").css("borderColor", "rgb(244, 244, 244)");
 			$(".b6-active > img").attr({src:"resources/image/down_button.png"});
+			$(".b6-active").addClass("b6");
+			$(".b6").removeClass("b6-active");
 			$(".dosu").css("display", "none");
 			$(".sweet").css("display", "none");
 			$(".acidity").css("display", "none");
@@ -703,6 +766,8 @@ function tag(){
  		
  		let sort = $('.sort-menu').val();
  		
+ 		let category = "takju";
+ 		
  		page = 1;
  		
 		$.ajax({
@@ -710,7 +775,8 @@ function tag(){
 			method:"post",
 			data: {
 				page : page,
-				sort : sort
+				sort : sort,
+				category : category
 				},
 			datatype: "json",
 			success:function(data){
@@ -725,7 +791,7 @@ function tag(){
 				
 					html += "<div class='product'>"
 					html += "<div class='product_wrap'>"
-					html += "<a href='<%=request.getContextPath() %>/product_content.do?no="+item.product_no+"'>"
+					html += "<a href='<%=request.getContextPath() %>/product_content_list.do?no="+item.product_no+"'>"
 					html += "<div class='img_wrap'><span>"
 					html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+"' style='width: 100%; height: 39.7vh'></span></div>"
 					html += "<div class='content_wrap'>"
@@ -736,9 +802,9 @@ function tag(){
 					html += "<span>원</span></p></div></div>"
 					html += "<div class='content_review'>"
 					html += "<img alt='img' src='resources/image/star.png'>"
-					html += "<p class='content_score'>0.0</p>"
+					html += "<p class='content_score'> "+item.product_review_star+"</p>"
 					html += "<div class='content_column_line'></div>"
-					html += "<p class='review'>리뷰 00</p></div></div>"
+					html += "<p class='review'>리뷰 "+item.product_review_count+"</p></div></div>"
 					html += "<div class='card_footer'>"
 					html += "<div class='footer_content'>"
 					html += "<div>#"+item.product_introduce1+"</div>"
@@ -764,29 +830,30 @@ function tag(){
 		
 		let sort = $('.sort-menu').val();
 		
+		let category = "takju";
+		
 		$.ajax({
 			url:"<%=request.getContextPath()%>/infinite_scroll.do",
 			method:"post",
 			data: {
 				page : page,
-				sort : sort
+				sort : sort,
+				category : category
 				},
 			datatype: "json",
 			success:function(data){
 				
-				console.log('data 값 >>> ' + JSON.stringify(data, undefined, 2));
+				console.log('data 값 >>> ' + data);
 				
 				$.each(data, function(index, item){			// 데이터 = item
 					
 					html = "";
 					
-					console.log("price 값 >>> " + item.list);
-				
-					<%-- let price = item.product_price.toLocaleString('ko-KR');
+					let price = item.product_price.toLocaleString('ko-KR');
 				
 					html += "<div class='product'>"
 					html += "<div class='product_wrap'>"
-					html += "<a href='<%=request.getContextPath() %>/product_content.do?no="+item.product_no+"'>"
+					html += "<a href='<%=request.getContextPath() %>/product_content_list.do?no="+item.product_no+"'>"
 					html += "<div class='img_wrap'><span>"
 					html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+"' style='width: 100%; height: 39.7vh'></span></div>"
 					html += "<div class='content_wrap'>"
@@ -797,15 +864,15 @@ function tag(){
 					html += "<span>원</span></p></div></div>"
 					html += "<div class='content_review'>"
 					html += "<img alt='img' src='resources/image/star.png'>"
-					html += "<p class='content_score'>0.0</p>"
+					html += "<p class='content_score'> "+item.product_review_star+"</p>"
 					html += "<div class='content_column_line'></div>"
-					html += "<p class='review'>리뷰 00</p></div></div>"
+					html += "<p class='review'>리뷰 "+item.product_review_count+"</p></div></div>"
 					html += "<div class='card_footer'>"
 					html += "<div class='footer_content'>"
 					html += "<div>#"+item.product_introduce1+"</div>"
 					html += "<div>#"+item.product_introduce2+"</div></div></div></a></div></div>"
 					
-					$(".data_grid").append(html); --%>
+					$(".data_grid").append(html);
 				});
 				
 				page += 1;
@@ -814,8 +881,8 @@ function tag(){
 				
 			},
 			
-			error:function(data){
-				alert("통신 실패");
+			error:function(request,status,error){
+		        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
 			}
 		});
 
@@ -836,7 +903,7 @@ function tag(){
 				</li>
 				
 				<li>
-					<a href="<%=request.getContextPath()%>/store_chungju.do">
+					<a href="<%=request.getContextPath()%>/store_clist.do">
 						<div class="menu_label">
 							<span class="label">약.청주</span>
 						</div>
@@ -844,7 +911,7 @@ function tag(){
 				</li>
 				
 				<li>
-					<a href="<%=request.getContextPath()%>/store_wine.do">
+					<a href="<%=request.getContextPath()%>/store_wlist.do">
 						<div class="menu_label">
 							<span class="label">과실주</span>
 						</div>
@@ -852,7 +919,7 @@ function tag(){
 				</li>
 				
 				<li>
-					<a href="<%=request.getContextPath()%>/store_soju.do">
+					<a href="<%=request.getContextPath()%>/store_slist.do">
 						<div class="menu_label">
 							<span class="label">증류주</span>
 						</div>
@@ -874,7 +941,8 @@ function tag(){
 		</div>
 		
 		<div class="content_tag_wrap">
-			<form method="get" action="<%=request.getContextPath()%>/store_tlist_tag.do">
+			<form name="form" method="get" action="<%=request.getContextPath()%>/store_list_tag.do">
+			<input type="hidden" name="category" value="takju">
 			<div class="content_filter">
 				<div class="content_filter_wrap">
 					<div class="filter_button_group">
@@ -1240,7 +1308,7 @@ function tag(){
 						</div>
 						
 						<div class="container-button">
-							<input type="submit" value="검색" class="price_info_button" style="display: block;"/>
+							<input type="button" class="price_submit_button" value="검색">
 						</div>
 					</div>
 				</div>
@@ -1274,11 +1342,11 @@ function tag(){
 							</div>
 							<div class="data_wrap">
 								<div class="data_grid">
+									<c:set var="i" value="0"/>
 									<c:forEach items="${list }" var="dto">
-										<c:set var="i" value="${i+1 }"/>
 										<div class="product">
 											<div class="product_wrap">
-												<a href="<%=request.getContextPath() %>/product_content.do?no=${dto.product_no}">
+												<a href="<%=request.getContextPath() %>/product_content_list.do?no=${dto.product_no}">
 													<div class="img_wrap">
 														<span>
 															<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
@@ -1321,6 +1389,7 @@ function tag(){
 												</a>
 											</div>
 										</div>
+										<c:set var="i" value="${i+1 }"/>
 									</c:forEach>
 								</div>
 							</div>

@@ -14,11 +14,18 @@ import com.spring.model.ProductDTO;
 public class ProductDAOImpl implements ProductDAO{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-
+	
 	@Override
 	public int getListCount() {
 		
 		return this.sqlSession.selectOne("getListCount");
+		
+	}
+
+	@Override
+	public int getListCategoryCount(String category) {
+		
+		return this.sqlSession.selectOne("getListCategoryCount", category);
 		
 	}
 	
@@ -50,8 +57,8 @@ public class ProductDAOImpl implements ProductDAO{
 
 	
 	@Override
-	public List<ProductDTO> getProductList(PageDTO dto, String sort) {
-		return this.sqlSession.selectList(sort,dto);
+	public List<ProductDTO> getProductList(Map<String, Object> map, String sort) {
+		return this.sqlSession.selectList(sort,map);
 		
 	}
 	
