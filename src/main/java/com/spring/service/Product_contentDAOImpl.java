@@ -14,12 +14,12 @@ public class Product_contentDAOImpl implements Product_contentDAO{
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<Product_contentDTO> getProductContList() {
-		return this.sqlSession.selectList("all");
+	public List<Product_contentDTO> getProductContList(int product_no) {
+		return this.sqlSession.selectList("all", product_no);
 	}
 
 	@Override
-	public Product_contentDTO getProduct(int no) {
-		return this.sqlSession.selectOne("admin_product_content_cont", no);
+	public Product_contentDTO getProduct(int product_no) {
+		return this.sqlSession.selectOne("product_cont", product_no);
 	}
 }
