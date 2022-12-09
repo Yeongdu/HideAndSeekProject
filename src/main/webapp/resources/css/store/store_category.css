@@ -90,7 +90,6 @@ span {
     position: relative;
     display: flex;
     justify-content: space-between;
-    background-color: rgb(244, 244, 244);
     margin: 0px auto;
     padding: 32px 40px;
     border-radius: 10px;
@@ -295,7 +294,18 @@ span {
 
 .price_info_button {
 	width: 80px;
-	height: 36px;
+	height: 40px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: rgb(112, 112, 112);
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    margin-left: 10px;
+}
+
+.price_submit_button {
+	width: 80px;
+	height: 40px;
     font-size: 12px;
     font-weight: bold;
     background-color: rgb(112, 112, 112);
@@ -366,7 +376,7 @@ span {
 }
 
 .sort-box {
-    font-size: 1rem;
+    font-size: 0.9rem;
     line-height: 1.4375em;
     letter-spacing: 0.00938em;
     color: rgba(0, 0, 0, 0.87);
@@ -377,6 +387,7 @@ span {
 }
 
 .sort-menu {
+	border-radius: 10px;
 	text-align: right;
 }
 

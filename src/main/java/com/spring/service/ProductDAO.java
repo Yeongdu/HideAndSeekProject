@@ -7,6 +7,10 @@ import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
 
 public interface ProductDAO {
+	
+	// 가장 많이 팔린 상품 수를 받아오는 메서드
+	List<ProductDTO> getBestList();
+	
 	// DB 상의 전체 상품 수를 받아오는 메서드
     int getListCount();
     

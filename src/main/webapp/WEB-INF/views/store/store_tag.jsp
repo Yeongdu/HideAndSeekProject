@@ -618,6 +618,64 @@ $(function(){
 		
 	});
 	
+	$(document).on("click", ".price_submit_button", function(){
+		
+		let minprice = $(".minprice").val();
+		
+		let maxprice = $(".maxprice").val();
+		
+		if(parseInt(minprice) > parseInt(maxprice)){
+			
+			alert('최소값은 최대값보다 작아야 합니다.')
+			
+			$(".minprice").focus();
+			
+			$(".minprice").val("");
+			
+			status = false;
+			
+			return;
+			
+		}else if(minprice && !maxprice){
+			
+			alert('최대값 범위 설정을 해주세요.');
+			
+			 $(".maxprice").focus();
+			 
+			 status = false;
+			 
+			 return;
+			 
+		}else if(maxprice && !minprice){
+			
+			alert('최소값 범위 설정을 해주세요.');
+			
+			$(".minprice").focus();
+			
+			status = false;
+			
+			return;
+			
+		}else if(maxprice > 1000000){
+			
+			alert('최대 입력 가능 금액은 백만원 입니다..');
+			
+			$(".maxprice").focus();
+			
+			$(".maxprice").val("");
+			
+			status = false;
+			
+			return;
+			
+		}else {
+			
+			$("#frm").submit();
+			
+		}
+			
+	});
+	
 	function tag(){
 		
 		let minprice = $(".minprice").val();
@@ -628,9 +686,9 @@ $(function(){
 			
 			alert('최소값은 최대값보다 작아야 합니다.')
 			
-			$(".minprice").val("");
+			$(".minprice").focus();
 			
-			$(".maxprice").val("");
+			$(".minprice").val("");
 			
 			status = false;
 			
@@ -651,6 +709,18 @@ $(function(){
 			alert('최소값 범위 설정을 해주세요.');
 			
 			$(".minprice").focus();
+			
+			status = false;
+			
+			return;
+			
+		}else if(maxprice > 1000000){
+			
+			alert('최대 입력 가능 금액은 백만원 입니다..');
+			
+			$(".maxprice").focus();
+			
+			$(".maxprice").val("");
 			
 			status = false;
 			
@@ -1257,7 +1327,7 @@ $(function(){
 											<div class="price_info">
 												<input name="minprice" class="minprice" placeholder="0원">
 												&nbsp;~&nbsp;
-												<input name="maxprice" class="maxprice" placeholder="100,000원">
+												<input name="maxprice" class="maxprice" placeholder="1,000,000원">
 												<button type="button" class="price_info_button">확인</button>
 											</div>
 										</div>
@@ -1267,7 +1337,7 @@ $(function(){
 						</div>
 						
 						<div class="container-button">
-							<input type="submit" value="검색" class="price_info_button" style="display: block;"/>
+							<input type="button" class="price_submit_button" value="검색">
 						</div>
 					</div>
 				</div>

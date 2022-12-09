@@ -62,6 +62,161 @@ hr {
 	margin-bottom: 5%;
 }
 
+.data_grid {
+	box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    flex-direction: row;
+    margin-top: -16px;
+    width: calc(100% + 16px);
+    margin-left: -16px;
+}
+
+.product {
+	box-sizing: border-box;
+	margin-bottom: 50px;
+	padding-left: 16px;
+	padding-top: 16px;
+	flex-basis: 25%;
+    flex-grow: 0;
+    max-width: 25%;
+}
+
+.product_wrap {
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.img_wrap {
+	width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.img_wrap > span {
+	sbox-sizing: border-box; 
+	display: block; 
+	overflow: hidden; 
+	width: initial; 
+	height: initial; 
+	background: none; 
+	opacity: 1; 
+	border: 0px; 
+	margin: 0px; 
+	padding: 0px; 
+	position: relative;"
+}
+
+.img_wrap > img {
+	position: absolute; 
+	box-sizing: border-box; 
+	padding: 0px; 
+	border: none; 
+	margin: auto; 
+	display: block; 
+}
+
+.content_wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper {
+	box-sizing: border-box;
+}
+
+.content_title {
+	margin-top: 15px;
+	height: 41px;
+    font-size: 1.1rem;
+    color: rgb(62, 62, 62);
+    font-weight: bold;
+    text-align: left;
+    line-height: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.content_price {
+	color: rgb(62, 62, 62);
+    font-size: 1rem;
+    text-align: left;
+    font-weight: bold;
+    line-height: 15px;
+}
+
+.content_price_blank {
+	height: 15px;
+    margin-bottom: 5px;
+    color: rgb(178, 178, 178);
+    text-decoration: line-through;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.content_price_wrap {
+	height: 26px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.content_price_wrap > p > span{
+	font-size: 12px;
+    line-height: 12px;
+}
+
+.content_review {
+	display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.content_review img {
+	box-sizing: border-box;
+	height: 12px;
+}
+
+.content_score {
+	font-size: 13px;
+    color: rgb(62, 62, 62);
+    margin: 0px 8.4px 0px 5px;
+}
+
+.content_column_line {
+	width: 0.8px;
+    height: 18px;
+    background-color: rgb(235, 235, 235);
+}
+
+.review {
+	font-size: 12px;
+    font-weight: normal;
+    margin-left: 6.6px;
+    color: rgb(112, 112, 112);
+}
+
+.card_footer {
+	box-sizing: border-box;
+	border-top: 0.5px solid rgb(235, 235, 235);
+    padding-top: 8px;
+    font-weight: bold;
+}
+
+.footer_content {
+	display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    font-weight: normal;
+    color: rgb(112, 112, 112);
+    text-align: left;
+}
+
 .best_wrap {
 	width:100%;
 	max-width: 1200px;
