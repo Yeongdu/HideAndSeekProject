@@ -1,42 +1,86 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="list" value="${List }" />
+<c:set var="pdto" value="${Cont }" />
 <!DOCTYPE html>
-<html>
 <head>
 <meta charset="UTF-8">
 <link href="resources/css/product_content/content.css" rel="stylesheet" type="text/css">
-<title>Insert title here</title>
+<title>${pdto.product_name }</title>
+<script src="https://code.jquery.com/jquery-3.1.0.js%22%3E"></script>
+<script type="text/javascript">
+	window.onload = function() {
+		$(".loading").fadeOut(100, function() {
+			$("#div_load_image").fadeOut(300);
+		});
+	}
+</script>
 </head>
-<body>
 	<jsp:include page="../banner/none_top.jsp" />
 	<div id="main"align="center">
-		<c:set var="list" value="${List }" />
 		<c:forEach items="${list }" var="dto">
 			<div class="productContentWrap">
 				<div class="picture_1">
-					<img src="resources/image/${dto.getProduct_file1() }">
+					<img src="resources/upload/${pdto.product_thumbnail }">
 				</div>
 
 				<div class="product_cont" align="left">
-					<span class="name">이름</span>
+					<span class="name">${pdto.product_name }</span>
 
 					<div class="ex_box">
-						<span class="sub_ex"># #</span>
-						<span class="ssub_ex">주종 : 주류</span>
-						<span class="ssub_ex">도수 : %</span>
-						<span class="ssub_ex">주량 : ml</span>
+						<span class="sub_ex">#${pdto.product_introduce1 } #${pdto.product_introduce2 }</span>
+						<span class="ssub_ex">주종 : ${pdto.product_company }</span>
+						<span class="ssub_ex">도수 : ${pdto.product_alcohol }%</span>
+						<span class="ssub_ex">용량 : ml</span>
 					</div>
 
 					<span class="price_w">판매가격: </span>
-					<span class="price">00,000원</span>
+					<span class="price">${pdto.product_price }원</span>
 					<hr class="first">
 
-					<span class="su">수량</span>
+					<!-- <span class="su">수량</span>
+					
 					<span class="total_price_w">총 상품 가격</span>
 					<div class="total_price" align="center">
 						<span class="final_price">00,000원</span>
-					</div>
+					</div> -->
+					
+					<!-- 수량 변경 수정중 -->
+					   <span class="su">수량</span>
+					   <div class="quan">
+						   <button type="button" class="minus">-</button>
+						   <input type="number" class="numBox" min="1" max="${pdto.product_stock}" value="1" readonly="readonly"/>
+						   <button type="button" class="plus">+</button>
+					   </div>
+					   <script>
+					   $(".plus").click(function(){
+						   var num = $(".numBox").val();
+						   var plusNum = Number(num) + 1;
+						   
+						   if(plusNum >= ${pdto.product_stock}) {
+						    $(".numBox").val(num);
+						   } else {
+						    $(".numBox").val(plusNum);          
+						   }
+						  });
+						  
+						  $(".minus").click(function(){
+						   var num = $(".numBox").val();
+						   var minusNum = Number(num) - 1;
+						   
+						   if(minusNum <= 0) {
+						    $(".numBox").val(num);
+						   } else {
+						    $(".numBox").val(minusNum);          
+						   }
+						  });
+						 </script>
+						 <span class="total_price_w">총 상품 가격</span>
+							<div class="total_price" align="center">
+								<span class="final_price">00,000원</span>
+							</div>
+					
 					<input type="button" class="buybtn" onclick="location.href='<%=request.getContextPath()%>/product_buy.do'" value="바로 구매">
 					<input type="button" class="cartbtn" onclick="location.href='<%=request.getContextPath()%>/product_cart.do'" value="장바구니">
 				</div>
@@ -122,5 +166,3 @@
 		});
 		</script>
 	</div>
-</body>
-</html>
