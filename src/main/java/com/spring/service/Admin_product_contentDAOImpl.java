@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.model.Product_contentDTO;
+import com.spring.model.admin_product_contentDTO;
 
 @Repository
 public class Admin_product_contentDAOImpl implements Admin_product_contentDAO{
@@ -19,7 +20,7 @@ public class Admin_product_contentDAOImpl implements Admin_product_contentDAO{
 	}
 
 	@Override
-	public Product_contentDTO getProduct(int no) {
+	public admin_product_contentDTO getProduct(int no) {
 		return this.sqlSession.selectOne("admin_product_content_cont", no);
 	}
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
+import com.spring.model.admin_productDTO;
 
 @Repository
 public class Admin_productDAOImpl implements Admin_productDAO{
@@ -30,7 +31,7 @@ public class Admin_productDAOImpl implements Admin_productDAO{
 	}
 	
 	@Override
-	public List<ProductDTO> getProductList(PageDTO dto) {
+	public List<admin_productDTO> getProductList(PageDTO dto) {
 		return this.sqlSession.selectList("getProductList",dto);
 	}
 
@@ -49,12 +50,12 @@ public class Admin_productDAOImpl implements Admin_productDAO{
 	}
 
 	@Override
-	public ProductDTO getProductCont(int product_no) {
-		return this.sqlSession.selectOne("adminProductCont", product_no);
+	public admin_productDTO getProductCont(int product_no) {
+		return this.sqlSession.selectOne("adminProductContent", product_no);
 	}
 
 	@Override
-	public List<ProductDTO> searchProductList(Map<String, Object> map) {
+	public List<admin_productDTO> searchProductList(Map<String, Object> map) {
 		return this.sqlSession.selectList("adminProductSearch", map);
 	}
 

@@ -20,6 +20,8 @@ import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
 import com.spring.model.Product_categoryDTO;
 import com.spring.model.Product_contentDTO;
+import com.spring.model.admin_productDTO;
+import com.spring.model.admin_product_contentDTO;
 import com.spring.service.Admin_productDAO;
 import com.spring.service.Admin_product_contentDAO;
 import com.spring.service.OrderDAO;
@@ -107,7 +109,7 @@ public class AdminController {
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
 		
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
-		List<ProductDTO> plist = this.pdao.getProductList(dto);
+		List<admin_productDTO> plist = this.apdao.getProductList(dto);
 		
 
 		model.addAttribute("list", plist);
@@ -159,10 +161,10 @@ public class AdminController {
 	
 	@RequestMapping("admin_product_content.do")
 	public String admin_product_cont(@RequestParam("no") int no,@RequestParam("page") int page , Model model) {
-		ProductDTO dto = this.pdao.getProductCont(no);
+		admin_productDTO dto = this.apdao.getProductCont(no);
 		model.addAttribute("Cont", dto);
 		
-		Product_contentDTO pcdto = this.pcdao.getProduct(no);
+		admin_product_contentDTO pcdto = this.apcdao.getProduct(no);
 		model.addAttribute("PCCont", pcdto);
 		
 		model.addAttribute("page", page);

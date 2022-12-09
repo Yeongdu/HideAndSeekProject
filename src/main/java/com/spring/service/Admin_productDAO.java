@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
+import com.spring.model.admin_productDTO;
 
 public interface Admin_productDAO {
 	
@@ -18,16 +19,16 @@ public interface Admin_productDAO {
     List<ProductDTO> getProductList(PageDTO dto, String sort);
     
     // 상품테이블의 리스트를 받아오는 메서드
-    List<ProductDTO> getProductList(PageDTO dto);
+    List<admin_productDTO> getProductList(PageDTO dto);
     
 	// 태그가 포함된 상품테이블의 리스트를 받아오는 메서드
     List<ProductDTO> getProductTagList(Map<String, Object> map, String sort);
 
     // 상품의 상세정보를 받아오는 메서드
-    ProductDTO getProductCont(int product_no);
+    admin_productDTO getProductCont(int product_no);
     
   //상품 검색하는 메서드
-    List<ProductDTO> searchProductList(Map<String, Object> map);
+    List<admin_productDTO> searchProductList(Map<String, Object> map);
     
     // 검색된 상품의 수를 받아오는 메서드
     int getSearchListCount(String keyword);
