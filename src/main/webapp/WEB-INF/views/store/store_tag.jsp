@@ -660,16 +660,28 @@ $(function(){
 		
 			$(".b1-active").css("borderColor", "rgb(244, 244, 244)");
 			$(".b1-active > img").attr({src:"resources/image/down_button.png"});
+			$(".b1-active").addClass("b1");
+			$(".b1").removeClass("b1-active");
 			$(".b2-active").css("borderColor", "rgb(244, 244, 244)");
 			$(".b2-active > img").attr({src:"resources/image/down_button.png"});
+			$(".b2-active").addClass("b2");
+			$(".b2").removeClass("b2-active");
 			$(".b3-active").css("borderColor", "rgb(244, 244, 244)");
 			$(".b3-active > img").attr({src:"resources/image/down_button.png"});
+			$(".b3-active").addClass("b3");
+			$(".b3").removeClass("b3-active");
 			$(".b4-active").css("borderColor", "rgb(244, 244, 244)");
 			$(".b4-active > img").attr({src:"resources/image/down_button.png"});
+			$(".b4-active").addClass("b4");
+			$(".b4").removeClass("b4-active");
 			$(".b5-active").css("borderColor", "rgb(244, 244, 244)");
 			$(".b5-active > img").attr({src:"resources/image/down_button.png"});
+			$(".b5-active").addClass("b5");
+			$(".b5").removeClass("b5-active");
 			$(".b6-active").css("borderColor", "rgb(244, 244, 244)");
 			$(".b6-active > img").attr({src:"resources/image/down_button.png"});
+			$(".b6-active").addClass("b6");
+			$(".b6").removeClass("b6-active");
 			$(".dosu").css("display", "none");
 			$(".sweet").css("display", "none");
 			$(".acidity").css("display", "none");
@@ -718,6 +730,7 @@ $(function(){
 				material : list.material,
 				minprice : list.minprice,
 				maxprice : list.maxprice,
+				category : "${category}",
 				sort : sort
 				},
 			datatype: "json",
@@ -744,9 +757,9 @@ $(function(){
 					html += "<span>원</span></p></div></div>"
 					html += "<div class='content_review'>"
 					html += "<img alt='img' src='resources/image/star.png'>"
-					html += "<p class='content_score'>0.0</p>"
+					html += "<p class='content_score'> "+item.product_review_star+"</p>"
 					html += "<div class='content_column_line'></div>"
-					html += "<p class='review'>리뷰 00</p></div></div>"
+					html += "<p class='review'>리뷰 "+item.product_review_count+"</p></div></div>"
 					html += "<div class='card_footer'>"
 					html += "<div class='footer_content'>"
 					html += "<div>#"+item.product_introduce1+"</div>"
@@ -786,6 +799,7 @@ $(function(){
 				material : list.material,
 				minprice : list.minprice,
 				maxprice : list.maxprice,
+				category : "${category}",
 				sort : sort
 				},
 			datatype: "json",
@@ -810,9 +824,9 @@ $(function(){
 					html += "<span>원</span></p></div></div>"
 					html += "<div class='content_review'>"
 					html += "<img alt='img' src='resources/image/star.png'>"
-					html += "<p class='content_score'>0.0</p>"
+					html += "<p class='content_score'> "+item.product_review_star+"</p>"
 					html += "<div class='content_column_line'></div>"
-					html += "<p class='review'>리뷰 00</p></div></div>"
+					html += "<p class='review'>리뷰 "+item.product_review_count+"</p></div></div>"
 					html += "<div class='card_footer'>"
 					html += "<div class='footer_content'>"
 					html += "<div>#"+item.product_introduce1+"</div>"
@@ -1287,6 +1301,7 @@ $(function(){
 							</div>
 							<div class="data_wrap">
 								<div class="data_grid">
+									<c:set var="i" value="0"/>
 									<c:forEach items="${list }" var="dto">
 										<div class="product">
 											<div class="product_wrap">
@@ -1317,9 +1332,9 @@ $(function(){
 															
 															<div class="content_review">
 																<img alt="img" src="resources/image/star.png">
-																<p class="content_score">0.0</p>
+																<p class="content_score">${star[i] }</p>
 																<div class="content_column_line"></div>
-																<p class="review">리뷰 00</p>
+																<p class="review">리뷰 ${count[i] }</p>
 															</div>
 														</div>
 														
@@ -1333,6 +1348,7 @@ $(function(){
 												</a>
 											</div>
 										</div>
+										<c:set var="i" value="${i+1 }"/>
 									</c:forEach>
 								</div>
 							</div>

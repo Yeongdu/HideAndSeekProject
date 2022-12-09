@@ -33,4 +33,8 @@ public class ProductDTO {
 	
 
 	private Date product_date; // 상품 등록일
+	
+	private int product_review_count; // 상품에 달린 리뷰 개수
+	private double product_review_star; // 상품에 달린 별점
+	private int product_amount; // 상품 용량
 }
