@@ -38,7 +38,20 @@ public class MyPageController {
 		String userId = (String)session.getAttribute("userId");
 		
 		 UserDTO user_info = this.mypage_dao.getUserCont(userId);
+		 int count = this.mypage_dao.getOrderCount(userId);
+		 int order = this.mypage_dao.getOrderAllCount(userId);
+		 int refund = this.mypage_dao.getRefundCount(userId);
+		 int delivery = this.mypage_dao.getDeliveryCount(userId);
+		 int delivery_complete = this.mypage_dao.getDeliveryCompleteCount(userId);
+		 
 		 model.addAttribute("user_cont", user_info);
+		 model.addAttribute("count", count);
+		 model.addAttribute("order", order);
+		 model.addAttribute("refund", refund);
+		 model.addAttribute("delivery", delivery);
+		 model.addAttribute("delivery_complete", delivery_complete);
+		 
+		 
 		 if(userId != null) {
 			 return "mypage/mypage_main";
 		 }else {

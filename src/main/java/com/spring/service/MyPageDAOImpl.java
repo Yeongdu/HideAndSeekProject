@@ -37,14 +37,36 @@ public class MyPageDAOImpl implements MyPageDAO{
 	
 	@Override
 	public int getOrderCount(String userId) {
-		
 		return this.sqlSession.selectOne("count_order", userId);
-		
 	}
 	
+	@Override
+	public int getRefundCount(String userId) {
+		return this.sqlSession.selectOne("count_refund", userId);
+	}
+	
+	@Override
+	public int getDeliveryCount(String userId) {
+		return this.sqlSession.selectOne("count_delivery", userId);
+	}
+
+	@Override
+	public int getDeliveryCompleteCount(String userId) {
+		return this.sqlSession.selectOne("count_deliverycomplete", userId);
+	}
+	
+	@Override
+	public int getOrderAllCount(String userId) {
+		return this.sqlSession.selectOne("orderall", userId);
+	}
+
+
 	
 	
 
+	
+	
+	
 	@Override
 	public List<ReviewDTO> getReviewCont(String userId) {
 		// TODO Auto-generated method stub
@@ -75,12 +97,20 @@ public class MyPageDAOImpl implements MyPageDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
-	public int getDeliveryCount(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getDeliveryAddrCount(String userId) {
+		return this.sqlSession.selectOne("count_order", userId);
 	}
+
+
+
+
+	
+
+
+
+	
 
 	
 
