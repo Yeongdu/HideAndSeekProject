@@ -26,22 +26,10 @@ public class UserDAOImpl implements UserDAO{
 	UserDTO dto;
 
 
-	  @Override
-	  public int userCheck(String id, String pw) {
-		  dto = sqlSession.selectOne("getMember",id);
-		  
-		  	System.out.println(dto.getUser_id());
-		  	System.out.println(dto.getUser_addr());
-		  	System.out.println(dto.getUser_jumin());
-		  	System.out.println(dto.getUser_name());
-		  if(dto != null) {
-			  if(pw.equals(dto.getUser_pwd())) {
-				  return 0;
-			  }
-		  }
-		  
-		  return 1;
-	  }
+	@Override
+    public int userCheck(String id, String pw) {
+       return sqlSession.selectOne("getMember",id);
+      }
 
 
 	@Override

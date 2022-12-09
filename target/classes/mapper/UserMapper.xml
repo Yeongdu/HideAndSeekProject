@@ -35,8 +35,8 @@
   
  	 -->
  	 <!-- 로그인 -->
- 	 <select id="getMember" resultType="UserDTO" >
- 	 	select * from tb_user where USER_ID = #{USER_ID}
+ 	 <select id="getMember" parameterType="String" resultType="int" >
+ 	 	select count(*) from tb_user where USER_ID = #{USER_ID}
  	 
  	 </select>
  	 

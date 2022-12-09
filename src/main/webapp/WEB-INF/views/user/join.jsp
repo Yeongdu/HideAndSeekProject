@@ -38,7 +38,7 @@
 						<div class="join_id">
 						  <label for="user_id">아이디</label>
 						  	<div>
-						       <input type="text" id="user_id" name="user_id" placeholder="아이디를 입력해주세요." ><br>
+						       <input type="text" id="user_id" name="user_id" placeholder="아이디를 입력해주세요." required><br>
 						     		<span id="idcheck"></span>
 						     </div>
 						        
@@ -47,31 +47,31 @@
 						
 						<div class="join_pwd">
 							<label for="user_pwd">비밀번호</label>
-								<input type="password" id="user_pwd" name="user_pwd" placeholder="비밀번호를 입력해주세요."><br>
+								<input type="password" id="user_pwd" name="user_pwd" placeholder="비밀번호를 입력해주세요."  required><br>
 								    <span id="pwcheck"></span>
 						</div>
 						
 						<div class="join_pwd_check">
 							<label for="user_pwd_check">비밀번호 확인</label>
-								<input type="password" id="user_pwd_check" name="user_pwd_check" placeholder="비밀번호를 확인해주세요."><br>
+								<input type="password" id="user_pwd_check" name="user_pwd_check" placeholder="비밀번호를 확인해주세요." required><br>
 								<span id="pwcheck2"></span>
 						</div>
 						
 						<div class="join_name">
 							<label for="user_name">이름</label>
-								<input type="text" id="user_name" name="user_name">
+								<input type="text" id="user_name" name="user_name" required>
 						</div>
 						
 						<div class="join_email">
 							<label for="user_email">이메일</label>
-								<input type="email" name="user_email" id="user_email"><br>
+								<input type="email" name="user_email" id="user_email" required><br>
 								<span id="emailcheck"></span>
 							
 						</div>
 						
 						<div class="join_phone">
                             <label for="user_phone">전화번호</label>
-                              <select name="select_phone" id="select_phone"   onchange="select_phone(this.value)">
+                              <select name="select_phone" id="select_phone" onchange="select_phone(this.value)" required>
                                 <option value="" selected>선택하세요.</option>
                                 <option value="010">010</option>
                                 <option value="011">011</option>
@@ -80,7 +80,7 @@
                                 <option value="018">018</option>
                                 </select>
 
-                            - <input type="text" name="user_phone2" id="user_phone2"> - <input type="text" name="user_phone3" id="user_phone3">
+                            <span> - </span><input type="text" name="user_phone2" id="user_phone2" required><span> - </span><input type="text" name="user_phone3" id="user_phone3" required>
                             </div>
 
 
@@ -88,8 +88,8 @@
 						
 						<div class="join_idnum">
 							<label for="user_idnum">주민등록번호</label>
-							<input type="text"  name="juminnum" maxlength="6"> - <input type="password"  name="juminnum2" maxlength="7">
-							<input type="button" value="성인인증" onclick="getAge();">
+							<input type="text"  name="juminnum" id="juminnum"   maxlength="6" required><span>-</span><input type="password"  name="juminnum2"  id="juminnum2"  maxlength="7" required>
+							<input type="checkbox" value="성인인증"  class="chk1" id="chk1"  name="chk1" onclick="getAge();" required>
  
 						</div>
 						
@@ -124,7 +124,7 @@
 							<div class="agreement-checkbox">
 							
 								<label for="agree_all">
-                                  <input type="checkbox" name="agree_all" id="agree_all">
+                                  <input type="checkbox" name="agree_all" id="agree_all" required>
                                     <span>모두 동의합니다</span>
                                  </label><br>
                                  
@@ -144,7 +144,7 @@
             이용약관 동의 
             </a>
             <label for="agree">
-          <input type="checkbox" name="agree" value="1">
+          <input type="checkbox" name="agree" value="1" required>
              <span>이용약관 동의<strong>(필수)</strong></span>
                </label><br>
         </div>
@@ -167,7 +167,7 @@
            개인정보처리방침 동의
           </a>
           <label for="agree">
-            <input type="checkbox" name="agree" value="2">
+            <input type="checkbox" name="agree" value="2" required>
                <span>개인정보처리방침 동의<strong>(필수)</strong></span>
                  </label><br>
         </div>
@@ -246,11 +246,22 @@
                   curDate = y + m + d;
                  
                   var genType = jumin2.substring(0, 1); // 주민번호 성별구분 문자 추출
+                  
+                  
+                  if(document.form1.juminnum.value == ''){
+                	  
+                	  document.getElementById("chk1").checked = false;
+                	  
+                	  return false;
+                  }
+                  
                  
 
                 if(parseInt(tmpSSN.substring(0, 2))<25 && genType < 3 ){
 
                  alert("주민등록번호를 다시 확인해주세요.");
+                 
+                 document.getElementById("chk1").checked = false;
 
                   return false;
 
@@ -260,6 +271,8 @@
                 if(parseInt(tmpSSN.substring(0, 2))>25 && genType > 2 ){
 
                  alert("주민등록번호를 다시 확인해주세요.");
+                 
+                 document.getElementById("chk1").checked = false;
 
                   return false;
 
@@ -294,6 +307,8 @@
                    document.form1.juminnum.value = "";
                   
                    document.form1.juminnum2.value = "";
+                   
+                   document.getElementById("chk1").checked = false;
                   
                     
 
@@ -301,6 +316,28 @@
                  
                  
                  }//getAge() end
+                 
+
+                
+                 $(document).ready(function(){
+                	 
+                	 jumin1 = document.form1.juminnum.value;
+                     
+                     jumin2 = document.form1.juminnum2.value;
+                    
+                     $("#juminnum").change(function(){
+                         if($("#chk1").is(":checked")){
+                        	 document.form1.juminnum.value = "";
+                        	 document.getElementById("chk1").checked = false;
+                             alert("체크박스 체크했음!");
+                             
+                         }else{
+                             alert("체크박스 체크 해제!");
+                         }
+                     });
+                 });
+                
+                 
                  
                  $(function() {
                 	 
@@ -318,7 +355,7 @@
         							
         						$("#idcheck").append(warningTxt);
         						
-        						//$("#user_id").val('');
+        						$("#idcheck").val('');
                 				//중복검사버튼 비활성 - 속성설정 prop
                 				//$('#idbtn').prop('disabled',true);
                 			}else{
@@ -441,8 +478,9 @@
                  
                   //아이디 중복검사
                    $('#user_id').on('focusout', function(){
-                     
+                	   
                 	 var id = $('#user_id').val(); //id값이 "id"인 입력란의 값을 저장
+                	 
                      console.log(id);
                 	 $.ajax({
                          url:'<%=request.getContextPath() %>/idCheck.do', //Controller에서 요청 받을 주소
@@ -450,7 +488,13 @@
                          data:{user_id:id},
                          datatype : "text",
                          success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
-                             if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+                        	 
+                        	 if(id == ''){
+                              	 let warningTxt = '<font color="red" size="1.5em">아이디를 입력하세요.</font>';
+                 				$("#idcheck").text('');		// span 태그 영역 초기화
+                 				
+                 				$("#idcheck").append(warningTxt);
+                            }else if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
                             	let warningTxt = '<font color="green" size="1.5em">사용가능한 아이디입니다.</font>';
                  				
                  				$("#idcheck").text('');		// span 태그 영역 초기화
@@ -463,6 +507,9 @@
                   				
                   				$("#idcheck").append(warningTxt);
                              }
+                         	
+                             
+                         
                          },
                          error:function(request,status,error){
                              //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
@@ -483,7 +530,13 @@
                        data:{user_email:email},
                        datatype : "text",
                        success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
-                           if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+                    	   if(email == ''){
+                            	 let warningTxt = '<font color="red" size="1.5em">이메일을 입력하세요.</font>';
+               				$("#emailcheck").text('');		// span 태그 영역 초기화
+               				
+               				$("#emailcheck").append(warningTxt);
+                    	   
+                    	   }else if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
                           	let warningTxt = '<font color="green" size="1.5em">사용가능한 이메일입니다.</font>';
                				
                				$("#emailcheck").text('');		// span 태그 영역 초기화

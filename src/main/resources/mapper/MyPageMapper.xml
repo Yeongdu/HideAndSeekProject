@@ -48,7 +48,18 @@
 		where user_id = #{userId}
  	 </select>
  	 
-  
-  
-  
+ 	 <select id="order_cont" parameterType="Map" resultType="orderDTO">
+ 	 	<![CDATA[
+ 	 	select * 
+		from (select pall.*, row_number() over(order by order_date desc) rnum 
+		from (select * from product p join tb_order o on p.product_no = o.product_no) pall
+		where user_id = #{userId}) 
+		where rnum >= #{startNo} and rnum <= #{endNo} order by order_date desc
+ 	 	]]>
+	</select>
+	
+	 <select id ="count_order" parameterType="String" resultType="int">
+ 	 	select count(*) as count from tb_order 
+ 	 </select>
+ 	 
   </mapper>

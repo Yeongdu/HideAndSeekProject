@@ -4,6 +4,7 @@
 <c:set var="dto" value="${PCont }" />
 <c:set var="pcdto" value="${PCCont }" />
 <c:set var="page" value="${page }" />
+<c:set var="slist" value="${CategoryList }" />
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
@@ -11,21 +12,82 @@
 
 <title>관리자 상품 수정 ${dto.product_no }) ${dto.product_name }</title>
 <div style="width:45em; height:auto; margin: 50px auto; text-align: center;" align="center">
+<script type="text/javascript">
+	function readURL(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function(e) {
+	      document.getElementById('preview1').src = e.target.result;
+	      document.getElementById('thumbnailHidden').value = e.target.result;
+	    };
+	    reader.readAsDataURL(input.files[0]);
+	  } else {
+	    document.getElementById('preview1').src = "";
+	  }
+	}
+	
+	function readURL2(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function(e) {
+	      document.getElementById('preview2').src = e.target.result;
+	    };
+	    reader.readAsDataURL(input.files[0]);
+	  } else {
+	    document.getElementById('preview2').src = "";
+	  }
+	}
+	
+	function readURL3(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function(e) {
+	      document.getElementById('preview3').src = e.target.result;
+	    };
+	    reader.readAsDataURL(input.files[0]);
+	  } else {
+	    document.getElementById('preview3').src = "";
+	  }
+	}
+	
+	function readURL4(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function(e) {
+	      document.getElementById('preview4').src = e.target.result;
+	    };
+	    reader.readAsDataURL(input.files[0]);
+	  } else {
+	    document.getElementById('preview4').src = "";
+	  }
+	}
 
+	
+</script>
 <br><br>
         <form method="post" action="<%=request.getContextPath()%>/admin_product_update_ok.do" class="border-top">
-            
+            <input type="hidden" name="product_no" value="${dto.product_no }">
+            <input type="hidden" name="page" value="${page }">
+            <input type="hidden" name="no" value="${dto.product_no }">
             
             <%--상품이름 --%>
             <div class="form-group row border-bottom py-2">
                 <label for="product_name" class="col-sm-4 col-form-label">상품이름</label>
                 <div class="col-sm-8">
-                    <input type="text" name="product_name" id="product_name" value="${dto.product_name }" class="form-control-plaintext" disabled />
+                    <input type="text" name="product_name" id="product_name" value="${dto.product_name }" class="form-control-plaintext" required/>
+                </div>
+            </div>
+            
+            <%--등록일 --%>
+            <div class="form-group row border-bottom py-2">
+                <label for="product_name" class="col-sm-4 col-form-label">등록일</label>
+                <div class="col-sm-8">
+                    <input type="text" name="product_date" id="product_date" value="${dto.product_date }" class="form-control-plaintext" disabled/>
                 </div>
             </div>
             
             <%--상품 카테고리 --%>
-			<c:set var="slist" value="${CategoryList }" />
+			
 			<div class="form-group row border-bottom py-2">
 				<label for="form-select" class="col-sm-4 col-form-label">카테고리</label>
 				<div class="col-sm-8">
@@ -36,32 +98,21 @@
 						
 						
 						<c:if test="${empty slist }">
-							<option value="">:: 카테고리 없음 ::</option>
+							<option value="">:: 담당업무 없음 ::</option>
 						</c:if>
-						
 						<c:if test="${!empty slist }">
 							<c:forEach items="${slist }" var="str">
-								<c:if test="${str.product_category == str}">
-									<option value="${str }" selected>${str }</option>
+																				
+								<c:if test="${dto.product_category eq str.product_category}">
+									<option value="${dto.product_category }" selected>${str.product_category }</option>
 								</c:if>
-
-								<c:if test="${str.product_category != str}">
-									<option value="${str }">${str }</option>
+								
+								<c:if test="${dto.product_category ne str.product_category}">
+									<option value="${dto.product_category }">${str.product_category }</option>
 								</c:if>
 							</c:forEach>
 						</c:if>
 						
-						
-
-<%-- 						<c:if test="${empty slist }"> --%>
-<!-- 							<option value="">:: 카테고리 없음 ::</option> -->
-<%-- 						</c:if> --%>
-
-<%-- 						<c:if test="${!empty slist }"> --%>
-<%-- 							<c:forEach items="${slist }" var="cdto"> --%>
-<%-- 								<option value="${cdto.product_category }">${cdto.product_category }</option> --%>
-<%-- 							</c:forEach> --%>
-<%-- 						</c:if> --%>
 					</select>
 				</div>
 			</div>
@@ -100,19 +151,21 @@
                 </div>
             </div>
             
+            <input type="hidden" name="product_dosu" value="${dto.product_dosu }">
+            
 
 			<%--단맛 (단계) low, middle, high --%>
 			<div class="form-group row border-bottom py-2">
 				<label for="product_sweet" class="col-sm-4 col-form-label">단맛</label>
 				<div class="col-sm-8">
 
-					<input class="form-check-input" type="radio" name="product_sweet" id="product_sweet" value="row" required> 
+					<input class="form-check-input" type="radio" name="product_sweet" id="product_sweet" value="low" <c:if test="${dto.product_sweet eq 'low'}">checked</c:if> required> 
 					<label class="form-check-label" for="inlineRadio1">낮음</label>
 					&nbsp;&nbsp;&nbsp;&nbsp; 
-					<input class="form-check-input" type="radio" name="product_sweet" id="product_sweet" value="middle" required>
+					<input class="form-check-input" type="radio" name="product_sweet" id="product_sweet" value="middle" <c:if test="${dto.product_sweet eq 'middle'}">checked</c:if> required>
 					<label class="form-check-label" for="inlineRadio1">보통</label>
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					<input class="form-check-input" type="radio" name="product_sweet" id="product_sweet" value="high" required>
+					<input class="form-check-input" type="radio" name="product_sweet" id="product_sweet" value="high" <c:if test="${dto.product_sweet eq 'high'}">checked</c:if> required>
 					<label class="form-check-label" for="inlineRadio1">높음</label>
 
 				</div>
@@ -122,13 +175,13 @@
             <div class="form-group row border-bottom py-2">
                 <label for="product_acidity" class="col-sm-4 col-form-label">신 맛</label>
                 <div class="col-sm-8">
-					<input class="form-check-input" type="radio" name="product_acidity" id="product_acidity" value="row" required> 
+					<input class="form-check-input" type="radio" name="product_acidity" id="product_acidity" value="low" <c:if test="${dto.product_acidity eq 'low'}">checked</c:if> required> 
 					<label class="form-check-label" for="inlineRadio1">낮음</label>
 					&nbsp;&nbsp;&nbsp;&nbsp; 
-					<input class="form-check-input" type="radio" name="product_acidity" id="product_acidity" value="middle" required>
+					<input class="form-check-input" type="radio" name="product_acidity" id="product_acidity" value="middle" <c:if test="${dto.product_acidity eq 'middle'}">checked</c:if> required>
 					<label class="form-check-label" for="inlineRadio1">보통</label>
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					<input class="form-check-input" type="radio" name="product_acidity" id="product_acidity" value="high" required>
+					<input class="form-check-input" type="radio" name="product_acidity" id="product_acidity" value="high" <c:if test="${dto.product_acidity eq 'high'}">checked</c:if> required>
 					<label class="form-check-label" for="inlineRadio1">높음</label>
                 </div>
             </div>
@@ -138,16 +191,16 @@
                 <label for="product_soda" class="col-sm-4 col-form-label">탄 산</label>
                 <div class="col-sm-8">
                 
-					<input class="form-check-input" type="radio" name="product_soda" id="product_soda" value="nosoda" required>
+					<input class="form-check-input" type="radio" name="product_soda" id="product_soda" value="nosoda" <c:if test="${dto.product_soda eq 'nosoda'}">checked</c:if> required>
 					<label class="form-check-label" for="inlineRadio1">탄산없음</label>
                 	&nbsp;&nbsp;&nbsp;&nbsp;
-					<input class="form-check-input" type="radio" name="product_soda" id="product_soda" value="row" required>
+					<input class="form-check-input" type="radio" name="product_soda" id="product_soda" value="low" <c:if test="${dto.product_soda eq 'low'}">checked</c:if> required>
 					<label class="form-check-label" for="inlineRadio1">적음</label>
                 	&nbsp;&nbsp;&nbsp;&nbsp;
-					<input class="form-check-input" type="radio" name="product_soda" id="product_soda" value="middle" required>
+					<input class="form-check-input" type="radio" name="product_soda" id="product_soda" value="middle" <c:if test="${dto.product_soda eq 'middle'}">checked</c:if> required>
 					<label class="form-check-label" for="inlineRadio1">보통</label>
                 	&nbsp;&nbsp;&nbsp;&nbsp;
-					<input class="form-check-input" type="radio" name="product_soda" id="product_soda" value="high" required>
+					<input class="form-check-input" type="radio" name="product_soda" id="product_soda" value="high" <c:if test="${dto.product_soda eq 'high'}">checked</c:if> required>
 					<label class="form-check-label" for="inlineRadio1">많음</label>
                 
                 </div>
@@ -159,19 +212,19 @@
                 <label for="product_material" class="col-sm-4 col-form-label">원료</label>
                 <div class="col-sm-8">
                 
-				  <input class="form-check-input" type="radio" name="product_material" id="product_material" value="fruit" required>
+				  <input class="form-check-input" type="radio" name="product_material" id="product_material" value="fruit" <c:if test="${dto.product_material eq 'fruit'}">checked</c:if> required>
 				  <label class="form-check-label" for="inlineRadio1">과일</label>
                 	&nbsp;&nbsp;&nbsp;&nbsp;
-				  <input class="form-check-input" type="radio" name="product_material" id="product_material" value="flower" required>
+				  <input class="form-check-input" type="radio" name="product_material" id="product_material" value="flower" <c:if test="${dto.product_material eq 'flower'}">checked</c:if> required>
 				  <label class="form-check-label" for="inlineRadio1">꽃</label>
                 	&nbsp;&nbsp;&nbsp;&nbsp;
-				  <input class="form-check-input" type="radio" name="product_material" id="product_material" value="nut" required>
+				  <input class="form-check-input" type="radio" name="product_material" id="product_material" value="nut" <c:if test="${dto.product_material eq 'nut'}">checked</c:if> required>
 				  <label class="form-check-label" for="inlineRadio1">견과류</label>
                 	&nbsp;&nbsp;&nbsp;&nbsp;
-				  <input class="form-check-input" type="radio" name="product_material" id="product_material" value="herb" required>
+				  <input class="form-check-input" type="radio" name="product_material" id="product_material" value="herb" <c:if test="${dto.product_material eq 'herb'}">checked</c:if> required>
 				  <label class="form-check-label" for="inlineRadio1">허브</label>
                 	&nbsp;&nbsp;&nbsp;&nbsp;
-				  <input class="form-check-input" type="radio" name="product_material" id="product_material" value="other" required>
+				  <input class="form-check-input" type="radio" name="product_material" id="product_material" value="other" <c:if test="${dto.product_material eq 'other'}">checked</c:if> required>
 				  <label class="form-check-label" for="inlineRadio1">기타</label>
                 
                 </div>
@@ -185,7 +238,7 @@
             <div class="form-group row border-bottom py-2">
                 <label for="product_price" class="col-sm-4 col-form-label">판매가</label>
                 <div class="col-sm-8">
-                    <input type="number" min="0" name="product_price" id="product_price" class="form-control-plaintext" required />
+                    <input type="number" min="0" name="product_price" id="product_price" class="form-control-plaintext" value="${dto.product_price }" required />
                 </div>
             </div>
 			
@@ -193,17 +246,41 @@
             <div class="form-group row border-bottom py-2">
                 <label for="product_stock" class="col-sm-4 col-form-label">재고수량</label>
                 <div class="col-sm-8">
-                    <input type="number" min="0" name="product_stock" id="product_stock" class="form-control-plaintext" required />
+                    <input type="number" min="0" name="product_stock" id="product_stock" class="form-control-plaintext" value="${dto.product_stock }" required />
                 </div>
             </div>
             
+			<%--적립 포인트 --%>
+            <div class="form-group row border-bottom py-2">
+                <label for="product_point" class="col-sm-4 col-form-label">재고수량</label>
+                <div class="col-sm-8">
+                    <input type="number" min="0" name="product_point" id="product_point" class="form-control-plaintext" value="${dto.product_point }" required />
+                </div>
+            </div>
+            
+            <%--판매 상태 --%>
+            <div class="form-group row border-bottom py-2">
+                <label for="product_status" class="col-sm-4 col-form-label">상품상태</label>
+                <div class="col-sm-8">
+					<input class="form-check-input" type="radio" name="product_status" id="product_acidity" value="판매" <c:if test="${dto.product_status eq '판매'}">checked</c:if> required> 
+					<label class="form-check-label" for="inlineRadio1">판매</label>
+					&nbsp;&nbsp;&nbsp;&nbsp; 
+					<input class="form-check-input" type="radio" name="product_status" id="product_acidity" value="품절" <c:if test="${dto.product_status eq '품절'}">checked</c:if> required>
+					<label class="form-check-label" for="inlineRadio1">품절</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input class="form-check-input" type="radio" name="product_status" id="product_acidity" value="종료" <c:if test="${dto.product_status eq '종료'}">checked</c:if> required>
+					<label class="form-check-label" for="inlineRadio1">종료</label>
+                </div>
+            </div>
             
             <%--썸네일 --%>
             <div class="form-group row border-bottom py-2">
                 <label for="product_thumbnail" class="col-sm-4 col-form-label">썸네일</label>
                 <div class="col-sm-8">
-                    <input type="file" class="thumbnailInput" name="product_thumbnail" id="product_thumbnail" onchange="readURL(this);" required />
-                <img width="120px;" id="preview1" />
+                    <input type="file" class="thumbnailInput" name="product_thumbnail" id="product_thumbnail" onchange="readURL(this);" value="${dto.product_thumbnail }"/>
+                <img width="120px;" id="preview1" src = "resources/upload/${dto.product_thumbnail }"/>
+                <input type="hidden" id="thumbnailHidden" name="product_thumbnail" value="${dto.product_thumbnail }">
+
                 </div>
             </div>
 
@@ -221,13 +298,20 @@
 			<details>
 			<br><br>
 				<summary class="btn btn-secondary">계속 작성</summary>
+				
+				
 
 				<div class="form-group row border-bottom py-2">
 					<label for="product_file1" class="col-sm-4 col-form-label">상품사진1</label>
 					<div class="col-sm-8">
-						<img width="300px;" id="preview2" />
 						<input type="file" class="thumbnailInput" name="product_file1"
-							id="product_file1" onchange="readURL2(this);" required />
+							id="product_file1" onchange="readURL2(this);" value="${pcdto.product_file1 }"/>
+						<img width="300px;" id="preview2" 
+							<c:if test="${!empty pcdto.product_file1  }">
+								src = "resources/upload/${pcdto.product_file1 }"
+							</c:if>
+							<c:if test="${empty pcdto.product_file1  }" > </c:if>
+						/>
 					</div>
 				</div>
 
@@ -235,16 +319,22 @@
 				<div class="form-group row border-bottom py-2">
 					<label for="product_cont1" class="col-sm-4 col-form-label">상품설명1</label>
 					<div class="col-sm-8">
-					 <textarea class="form-control" name="product_cont1" id="product_cont1"></textarea>
+					 <textarea class="form-control" name="product_cont1" id="product_cont1">${pcdto.product_cont1 }</textarea>
 					</div>
 				</div>
 
 				<div class="form-group row border-bottom py-2">
 					<label for="product_file2" class="col-sm-4 col-form-label">상품사진2</label>
 					<div class="col-sm-8">
-						<img width="300px;" id="preview3" />
-						<input type="file" class="thumbnailInput" name="product_file1"
-							id="product_file2" onchange="readURL3(this);" required /> 
+						<input type="file" class="thumbnailInput" name="product_file2"
+							id="product_file2" onchange="readURL3(this);" value="${pcdto.product_file2 }"/> 
+						<img width="300px;" id="preview3"
+							<c:if test="${!empty pcdto.product_file2  }" >
+							src = "resources/upload/${pcdto.product_file2 }"
+							</c:if>
+							<c:if test="${empty pcdto.product_file2  }" >
+							</c:if>
+						 />
 					</div>
 				</div>
 
@@ -252,16 +342,22 @@
 				<div class="form-group row border-bottom py-2">
 					<label for="product_cont2" class="col-sm-4 col-form-label">상품설명2</label>
 					<div class="col-sm-8">
-						<textarea class="form-control" name="product_cont2" id="product_cont2"></textarea>
+						<textarea class="form-control" name="product_cont2" id="product_cont2">${pcdto.product_cont2 }</textarea>
 					</div>
 				</div>
 
 				<div class="form-group row border-bottom py-2">
 					<label for="product_file3" class="col-sm-4 col-form-label">상품사진3</label>
 					<div class="col-sm-8">
-						<img width="300px;" id="preview4" />
 						<input type="file" class="thumbnailInput" name="product_file3"
-							id="product_file1" onchange="readURL4(this);" required />
+							id="product_file1" onchange="readURL4(this);" value="${pcdto.product_file3 }"/>
+						<img width="300px;" id="preview4"
+							<c:if test="${!empty pcdto.product_file3  }" >
+							src = "resources/upload/${pcdto.product_file3 }"
+							</c:if>
+							<c:if test="${empty pcdto.product_file3  }" >
+							</c:if>
+						 />
 					</div>
 				</div>
 
@@ -269,7 +365,7 @@
 				<div class="form-group row border-bottom py-2">
 					<label for="product_cont3" class="col-sm-4 col-form-label">상품설명3</label>
 					<div class="col-sm-8">
-						<textarea class="form-control" name="product_cont3" id="product_cont3"></textarea>
+						<textarea class="form-control" name="product_cont3" id="product_cont3">${pcdto.product_cont3 }</textarea>
 					</div>
 				</div>
 				<br>

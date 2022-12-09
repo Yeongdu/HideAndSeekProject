@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="Admin_productDAO">
+  	<update id="adminProductUpdate" parameterType="ProductDTO">
+  		update product set product_name = #{product_name}, 
+  		product_category = #{product_category}, 
+  		product_introduce1 = #{product_introduce1}, 
+  		product_introduce2 = #{product_introduce2}, 
+  		product_company = #{product_company}, 
+  		product_alcohol = #{product_alcohol}, 
+  		product_dosu = #{product_dosu}, 
+  		product_sweet = #{product_sweet}, 
+  		product_acidity = #{product_acidity}, 
+  		product_soda = #{product_soda}, 
+  		product_material = #{product_material},
+  		product_price = #{product_price},
+  		product_stock = #{product_stock},
+  		product_point = #{product_point},
+  		product_thumbnail = #{product_thumbnail},
+  		product_status = #{product_status}
+  		where product_no = #{product_no}
+  	</update>
+  
+  
+  </mapper>
