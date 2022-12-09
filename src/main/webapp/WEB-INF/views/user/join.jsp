@@ -38,7 +38,7 @@
 						<div class="join_id">
 						  <label for="user_id">아이디</label>
 						  	<div>
-						       <input type="text" id="user_id" name="user_id" placeholder="아이디를 입력해주세요." required><br>
+						       <input type="text" id="user_id" name="user_id" placeholder="아이디를 입력해주세요."   onblur="idCheck()"     required><br>
 						     		<span id="idcheck"></span>
 						     </div>
 						        
@@ -64,7 +64,7 @@
 						
 						<div class="join_email">
 							<label for="user_email">이메일</label>
-								<input type="email" name="user_email" id="user_email" required><br>
+								<input type="email" name="user_email" id="user_email" onblur="emailCheck()" required><br>
 								<span id="emailcheck"></span>
 							
 						</div>
@@ -225,6 +225,10 @@
                  }
              });
                  
+                 
+     
+		
+
                  <!-- 생년월일로 성인인증 처리 -->
                  // 주민등록상 생일을 현재 날짜와 비교하여 나이계산 (만)
                  function getAge() {
@@ -318,7 +322,7 @@
                  }//getAge() end
                  
 
-                
+                <!-- 성인인증 체크박스 되어있을 시 변화감지되면 입력창 초기화 -->
                  $(document).ready(function(){
                 	 
                 	 jumin1 = document.form1.juminnum.value;
@@ -328,46 +332,253 @@
                      $("#juminnum").change(function(){
                          if($("#chk1").is(":checked")){
                         	 document.form1.juminnum.value = "";
+                        	 document.form1.juminnum2.value = "";
                         	 document.getElementById("chk1").checked = false;
-                             alert("체크박스 체크했음!");
+                             //alert("체크박스 체크했음!");
                              
                          }else{
-                             alert("체크박스 체크 해제!");
+                             //alert("체크박스 체크 해제!");
                          }
                      });
                  });
+                 
+                 
+
+                 $(document).ready(function(){
+                	 
+                	 jumin1 = document.form1.juminnum.value;
+                     
+                     jumin2 = document.form1.juminnum2.value;
+                    
+                     $("#juminnum2").change(function(){
+                         if($("#chk1").is(":checked")){
+                        	 document.form1.juminnum.value = "";
+                        	 document.form1.juminnum2.value = "";
+                        	 document.getElementById("chk1").checked = false;
+                             //alert("체크박스 체크했음!");
+                             
+                         }else{
+                             //alert("체크박스 체크 해제!");
+                         }
+                     });
+                 });
+                 
+                 function idCheck() {
+
+             		const id = document.getElementById('user_id').value;
+             		const checkResult = document.getElementById('idcheck');
+             		const idLength = id.length;
+             		console.log(idLength);
+             		const exp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{4,10}$/;
+             		
+             		if(idLength == 0){
+             	    	checkResult.innerHTML = '필수항목입니다'
+             	    	checkResult.style.color = 'red';
+             	    }else if(!id.match(exp)){
+             	    	checkResult.innerHTML = '4~10자의 영문자와 숫자를 조합해서 입력해주세요'
+             	    	checkResult.style.color = 'red';
+             	    	document.getElementById('user_id').value = '';
+             	    }
+             		
+             	    else if(id.match(exp)) {
+             		$.ajax({
+             			 type:'post',
+             			url:'<%=request.getContextPath() %>/idCheck.do',
+             			data:{user_id:id},
+             			dataType : 'text',
+             			success : function(cnt) {
+             				if (cnt == 1) {				
+             					checkResult.style.color = 'green';
+             					checkResult.innerHTML = '이미 사용중인 아이디';
+             					document.getElementById('user_id').value = '';
+             				} else {
+             					checkResult.style.color = 'red';
+             					checkResult.innerHTML = '멋진아이디';
+             				}
+             			},
+             			error : function() {
+             				console.log('오타 찾으세요')
+             			}
+
+             		});
+             	}
+             	}
+                 
+                 
+                 
+                 function emailCheck() {
+
+              		const email = document.getElementById('user_email').value;
+              		const checkResult = document.getElementById('emailcheck');
+              		const emailLength = email.length;
+              		console.log(emailLength);
+              		const exp = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+              		
+              		if(emailLength == 0){
+              	    	checkResult.innerHTML = '필수항목입니다'
+              	    	checkResult.style.color = 'red';
+              	    }else if(!email.match(exp)){
+              	    	checkResult.innerHTML = '유효한 이메일이 아닙니다.'
+              	    	checkResult.style.color = 'red';
+              	    	document.getElementById('user_email').value = '';
+              	    }
+              		
+              	    else if(email.match(exp)) {
+              		$.ajax({
+              			 type:'post',
+              			url:'<%=request.getContextPath() %>/emailCheck.do',
+              			data:{user_email:email},
+              			dataType : 'text',
+              			success : function(cnt) {
+              				if (cnt == 1) {				
+              					checkResult.style.color = 'green';
+              					checkResult.innerHTML = '이미 사용중인 이메일';
+              					document.getElementById('user_email').value = '';
+              				} else {
+              					checkResult.style.color = 'red';
+              					checkResult.innerHTML = '멋진이메일';
+              				}
+              			},
+              			error : function() {
+              				console.log('오타 찾으세요')
+              			}
+
+              		});
+              	}
+              	}
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 <!-- 아이디, 이메일 중복 검사 -->
+          $(function () {           
+               <%--   //아이디 중복검사
+                 $('#user_id').on('keyup', function(){
+                  
+                
+               var id = $('#user_id').val(); //id값이 "id"인 입력란의 값을 저장
+               	 
+                    console.log(id);
+               	 $.ajax({
+                        url:'<%=request.getContextPath() %>/idCheck.do', //Controller에서 요청 받을 주소
+                        type:'post', //POST 방식으로 전달
+                        async: false,
+                        data:{user_id:id},
+                        datatype : "text",
+                        success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+                       	 
+                       	 if(id == ''){
+                             	 let warningTxt = '<font color="red" size="1.5em">아이디를 입력하세요.</font>';
+                				$("#idcheck").text('');		// span 태그 영역 초기화
+                				
+                				$("#idcheck").append(warningTxt);
+                           }else if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+                           	let warningTxt = '<font color="green" size="1.5em">사용가능한 아이디입니다.</font>';
+                				
+                				$("#idcheck").text('');		// span 태그 영역 초기화
+                				
+                				$("#idcheck").append(warningTxt);
+                            } else if(cnt == 1) { // cnt가 1일 경우 -> 이미 존재하는 아이디
+                           	 let warningTxt = '<font color="red" size="1.5em">중복 아이디입니다.</font>';
+                 				 
+                           	 
+                 				$("#idcheck").text('');		// span 태그 영역 초기화
+                 				
+                 				$("#idcheck").append(warningTxt);
+                 				
+                 				 
+                            }
+                        	
+                            
+                        
+                        },
+                        error:function(request,status,error){
+                            //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+                        }
+                    });
+               	 
+                    });
+                 
+              	//id입력시 - 정규식확인id keyup
+          		$('#user_id').on('keyup', function(){ // keyup -> 입력할 때 
+          		  var idval = $('#user_id').val().trim();
+          			
+          		  var idreg = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{4,10}$/; // [a-zA-Z]한 자리 차지해서 4~12자리
+          			
+          			if(!(idreg.test(idval))){
+          				let warningTxt = '<font color="red" size="1.5em">아이디는 4~10자의 영문자와 숫자를 조합해서 입력해주세요</font>';
+  						
+  						$("#idcheck").text('');		// span 태그 영역 초기화
+  							
+  						$("#idcheck").append(warningTxt);
+  						
+  						$("#idcheck").val('');
+          				//중복검사버튼 비활성 - 속성설정 prop
+          				//$('#idbtn').prop('disabled',true);
+          			}else{
+                          let warningTxt = '<font color="green" size="1.5em">사용가능한 아이디입니다.</font>';
+  						
+  						$("#idcheck").text('');		// span 태그 영역 초기화
+  							
+  						$("#idcheck").append(warningTxt);
+          				
+          			}
+          		});  //id입력시 - id keyup end
+          		 --%>
+                
+                
+            <%--   //이메일 중복검사
+                $('#user_email').on('focusout', function(){
+                  
+             	 var email = $('#user_email').val(); //id값이 "id"인 입력란의 값을 저장
+                  console.log(email);
+             	 $.ajax({
+                      url:'<%=request.getContextPath() %>/emailCheck.do', //Controller에서 요청 받을 주소
+                      type:'post', //POST 방식으로 전달
+                      data:{user_email:email},
+                      datatype : "text",
+                      success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+                   	   if(email == ''){
+                           	 let warningTxt = '<font color="red" size="1.5em">이메일을 입력하세요.</font>';
+              				$("#emailcheck").text('');		// span 태그 영역 초기화
+              				
+              				$("#emailcheck").append(warningTxt);
+                   	   
+                   	   }else if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+                         	let warningTxt = '<font color="green" size="1.5em">사용가능한 이메일입니다.</font>';
+              				
+              				$("#emailcheck").text('');		// span 태그 영역 초기화
+              				
+              				$("#emailcheck").append(warningTxt);
+                          } else if(cnt == 1) { // cnt가 1일 경우 -> 이미 존재하는 아이디
+                         	 let warningTxt = '<font color="red" size="1.5em">중복 이메일입니다.</font>';
+               				
+               				$("#emailcheck").text('');		// span 태그 영역 초기화
+               				
+               				$("#emailcheck").append(warningTxt);
+                          }
+                      },
+                      error:function(request,status,error){
+                          //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+                      }
+                  });
+             	 
+                  }); --%>
+                
+                
+
                 
                  
                  
-                 $(function() {
+                 
+                 <!-- 아이디, 비밀번호, 이메일 정규식 검사 -->
+             
                 	 
                 	 
-                	//id입력시 - 정규식확인id keyup
-                		$('#user_id').on('keyup', function(){ // keyup -> 입력할 때 
-                		  var idval = $('#user_id').val().trim();
-                			
-                		  var idreg = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{4,10}$/; // [a-zA-Z]한 자리 차지해서 4~12자리
-                			
-                			if(!(idreg.test(idval))){
-                				let warningTxt = '<font color="red" size="1.5em">아이디는 4~10자의 영문자와 숫자를 조합해서 입력해주세요</font>';
-        						
-        						$("#idcheck").text('');		// span 태그 영역 초기화
-        							
-        						$("#idcheck").append(warningTxt);
-        						
-        						$("#idcheck").val('');
-                				//중복검사버튼 비활성 - 속성설정 prop
-                				//$('#idbtn').prop('disabled',true);
-                			}else{
-                                let warningTxt = '<font color="green" size="1.5em">사용가능한 아이디입니다.</font>';
-        						
-        						$("#idcheck").text('');		// span 태그 영역 초기화
-        							
-        						$("#idcheck").append(warningTxt);
-                				
-                			}
-                		});  //id입력시 - id keyup end
-                		
+                
                 		
                 		//비밀번호입력시 - 정규식확인 pw
                 		$('#user_pwd').on('keyup', function(){ // keyup -> 입력할 때 
@@ -435,14 +646,14 @@
                 				
                 				$("#pwcheck2").append(warningTxt);
                 				
-                				//$("#signup_pwd_ck_input").val('');
+                				$("#user_pwd_check").val('');
                 				
                 			}
                 		});  //비밀번호확인입력시 - 정규식확인 pwcheck end
                 		
                 		
                 		
-                		//이메일입력시 - 유효성확인 keyup
+                		/* //이메일입력시 - 유효성확인 keyup
                 		$('#user_email').on('keyup', function(){ // keyup -> 입력할 때 
                 		  var email = $('#user_email').val().trim();
                 			
@@ -468,100 +679,16 @@
               				
               			}
                 		});  //id입력시 - id keyup end
-                		 
+                		  */
                    
                  
-                 })
-                 
-                 
-                 <!-- 아이디, 이메일 중복 검사 -->
-                 
-                  //아이디 중복검사
-                   $('#user_id').on('focusout', function(){
-                	   
-                	 var id = $('#user_id').val(); //id값이 "id"인 입력란의 값을 저장
-                	 
-                     console.log(id);
-                	 $.ajax({
-                         url:'<%=request.getContextPath() %>/idCheck.do', //Controller에서 요청 받을 주소
-                         type:'post', //POST 방식으로 전달
-                         data:{user_id:id},
-                         datatype : "text",
-                         success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
-                        	 
-                        	 if(id == ''){
-                              	 let warningTxt = '<font color="red" size="1.5em">아이디를 입력하세요.</font>';
-                 				$("#idcheck").text('');		// span 태그 영역 초기화
-                 				
-                 				$("#idcheck").append(warningTxt);
-                            }else if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
-                            	let warningTxt = '<font color="green" size="1.5em">사용가능한 아이디입니다.</font>';
-                 				
-                 				$("#idcheck").text('');		// span 태그 영역 초기화
-                 				
-                 				$("#idcheck").append(warningTxt);
-                             } else if(cnt == 1) { // cnt가 1일 경우 -> 이미 존재하는 아이디
-                            	 let warningTxt = '<font color="red" size="1.5em">중복 아이디입니다.</font>';
-                  				
-                  				$("#idcheck").text('');		// span 태그 영역 초기화
-                  				
-                  				$("#idcheck").append(warningTxt);
-                             }
-                         	
-                             
-                         
-                         },
-                         error:function(request,status,error){
-                             //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
-                         }
-                     });
-                	 
-                     });
-                 
-                 
-               //이메일 중복검사
-                 $('#user_email').on('focusout', function(){
-                   
-              	 var email = $('#user_email').val(); //id값이 "id"인 입력란의 값을 저장
-                   console.log(email);
-              	 $.ajax({
-                       url:'<%=request.getContextPath() %>/emailCheck.do', //Controller에서 요청 받을 주소
-                       type:'post', //POST 방식으로 전달
-                       data:{user_email:email},
-                       datatype : "text",
-                       success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
-                    	   if(email == ''){
-                            	 let warningTxt = '<font color="red" size="1.5em">이메일을 입력하세요.</font>';
-               				$("#emailcheck").text('');		// span 태그 영역 초기화
-               				
-               				$("#emailcheck").append(warningTxt);
-                    	   
-                    	   }else if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
-                          	let warningTxt = '<font color="green" size="1.5em">사용가능한 이메일입니다.</font>';
-               				
-               				$("#emailcheck").text('');		// span 태그 영역 초기화
-               				
-               				$("#emailcheck").append(warningTxt);
-                           } else if(cnt == 1) { // cnt가 1일 경우 -> 이미 존재하는 아이디
-                          	 let warningTxt = '<font color="red" size="1.5em">중복 이메일입니다.</font>';
-                				
-                				$("#emailcheck").text('');		// span 태그 영역 초기화
-                				
-                				$("#emailcheck").append(warningTxt);
-                           }
-                       },
-                       error:function(request,status,error){
-                           //alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
-                       }
-                   });
-              	 
-                   });
-                 
-                 
-
+             
                  
                  
                  
+                 
+                 
+  	});   
                  
                  
                  
