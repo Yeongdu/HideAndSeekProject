@@ -16,6 +16,13 @@ public class ProductDAOImpl implements ProductDAO{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
+	public List<ProductDTO> getBestList() {
+
+		return this.sqlSession.selectList("getBestList");
+		
+	}
+	
+	@Override
 	public int getListCount() {
 		
 		return this.sqlSession.selectOne("getListCount");

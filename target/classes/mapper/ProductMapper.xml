@@ -35,7 +35,17 @@
   
  	 -->
  	 
- 	 <!-- db에 저장된 상품 정보를 카운트 하는 쿼리문 -->
+ 	<!-- 많이 팔린 상품 정보를 불러오는 쿼리문  -->
+ 	<select id="getBestList" parameterType="Map" resultType="ProductDTO">
+ 		select SEQ,count,pno as product_no, product_name, product_category, product_introduce1,product_introduce2, 
+		product_company, product_alcohol,product_dosu,product_sweet,product_acidity, product_soda, product_material,
+		product_price,product_stock,product_point,product_thumbnail,product_status,product_date from 
+		(SELECT ROW_NUMBER() OVER(ORDER BY b.count desc nulls last, A.product_date desc)AS SEQ, b.*, A.*, a.product_no as pno 
+		FROM product A left join (select product_no, count(*) as count from tb_order group by product_no) 
+		b on a.product_no = b.product_no)where seq >= 1 and seq <![CDATA[<=]]> 4
+ 	</select>
+ 	 
+ 	<!-- db에 저장된 상품 정보를 카운트 하는 쿼리문 -->
 	<select id="getListCount" resultType="int">
 		select count(*) from product
 	</select>

@@ -619,24 +619,19 @@ $(document).on("click", ".b1", function(){
 		
 	});
 	
-function form(){
+	$(document).on("click", ".price_submit_button", function(){
 		
 		let minprice = $(".minprice").val();
 		
 		let maxprice = $(".maxprice").val();
 		
-		var f = document.from;
-		
-		console.log("최소값 >>> " + minprice);
-		console.log("최대값 >>> " + maxprice);
-		
 		if(parseInt(minprice) > parseInt(maxprice)){
 			
 			alert('최소값은 최대값보다 작아야 합니다.')
 			
-			$(".minprice").val("");
+			$(".minprice").focus();
 			
-			$(".maxprice").val("");
+			$(".minprice").val("");
 			
 			status = false;
 			
@@ -661,14 +656,28 @@ function form(){
 			status = false;
 			
 			return;
+			
+		}else if(maxprice > 1000000){
+			
+			alert('최대 입력 가능 금액은 백만원 입니다..');
+			
+			$(".maxprice").focus();
+			
+			$(".maxprice").val("");
+			
+			status = false;
+			
+			return;
+			
+		}else {
+			
+			$("#frm").submit();
 			
 		}
 			
-		f.submit();
+	});
 	
-	}
-	
-function tag(){
+	function tag(){
 		
 		let minprice = $(".minprice").val();
 		
@@ -678,9 +687,9 @@ function tag(){
 			
 			alert('최소값은 최대값보다 작아야 합니다.')
 			
-			$(".minprice").val("");
+			$(".minprice").focus();
 			
-			$(".maxprice").val("");
+			$(".minprice").val("");
 			
 			status = false;
 			
@@ -701,6 +710,18 @@ function tag(){
 			alert('최소값 범위 설정을 해주세요.');
 			
 			$(".minprice").focus();
+			
+			status = false;
+			
+			return;
+			
+		}else if(maxprice > 1000000){
+			
+			alert('최대 입력 가능 금액은 백만원 입니다..');
+			
+			$(".maxprice").focus();
+			
+			$(".maxprice").val("");
 			
 			status = false;
 			
@@ -929,7 +950,7 @@ function tag(){
 		</div>
 		
 		<div class="header_img_wrap">
-			<div class="header_category_cont">
+			<div class="header_category_cont" style="background-color: rgb(244, 244, 244);">
 				<div>
 					<div class="category_title">탁주</div>
 					<div class="category_cont">맛있는 막걸리는 다 있어요</div>
@@ -941,7 +962,7 @@ function tag(){
 		</div>
 		
 		<div class="content_tag_wrap">
-			<form name="form" method="get" action="<%=request.getContextPath()%>/store_list_tag.do">
+			<form id="frm" name="frm" method="get" action="<%=request.getContextPath()%>/store_list_tag.do">
 			<input type="hidden" name="category" value="takju">
 			<div class="content_filter">
 				<div class="content_filter_wrap">
@@ -1298,7 +1319,7 @@ function tag(){
 											<div class="price_info">
 												<input name="minprice" class="minprice" placeholder="0원">
 												&nbsp;~&nbsp;
-												<input name="maxprice" class="maxprice" placeholder="100,000원">
+												<input name="maxprice" class="maxprice" placeholder="1,000,000원">
 												<button type="button" class="price_info_button">확인</button>
 											</div>
 										</div>

@@ -40,8 +40,48 @@ public class ProductController {
 	private int totalRecord = 0;
 	
 	@RequestMapping("/store.do")
-	public String store() {
-
+	public String store(Model model) {
+//		
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		
+//		int page = 1;
+//		
+//		PageDTO dto = new PageDTO(page, rowsize);
+//		
+//		map.put("startNo", dto.getStartNo());
+//		map.put("endNo", dto.getEndNo());
+		
+			
+		List<ProductDTO> list = this.dao.getBestList();
+		
+		for(ProductDTO i : list) {
+			System.out.println("list 값 >>> " + i);
+		}
+		
+		System.out.println("list 값 >>> " + list);
+		
+		List<Integer> count = new ArrayList<Integer>();
+		
+		List<Double> star = new ArrayList<Double>();
+		
+		for(ProductDTO item : list) {
+			
+			int num1 = this.dao.getReviewCount(item.getProduct_no());
+			
+			double num2 = this.dao.getReviewStar(item.getProduct_no());
+			
+			count.add(num1);
+			
+			star.add(num2);
+			
+		}
+		
+		model.addAttribute("count", count);
+		
+		model.addAttribute("star", star);
+			
+		model.addAttribute("list", list);
+		
 		return "store/store_main";
 	}
 
