@@ -54,8 +54,8 @@
  	  <insert id="add" parameterType="UserDTO">
  	  
  	  	insert into tb_user values(#{user_id}, #{user_pwd}, #{user_email}, #{user_name}, #{user_jumin1}, 
- 	  	                           #{user_zipcode}, #{user_addr1}, #{user_phone1}, default, sysdate, 
- 	  	                           default, #{user_jumin2}, #{user_phone2}, #{user_phone3}, #{user_addr2} )
+ 	  	                           #{user_addr1}, #{user_phone1}, default, sysdate, default, #{user_jumin2}, 
+ 	  	                           #{user_phone2}, #{user_phone3}, #{user_addr2},#{user_zipcode1})
  	  
  	  </insert>
  	 

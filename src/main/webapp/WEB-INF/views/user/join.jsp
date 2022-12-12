@@ -38,7 +38,7 @@
 						<div class="join_id">
 						  <label for="user_id">아이디</label>
 						  	<div>
-						       <input type="text" id="user_id" name="user_id" placeholder="아이디를 입력해주세요."   onblur="idCheck()"     required><br>
+						       <input type="text" id="user_id" name="user_id" placeholder="아이디를 입력해주세요."   onblur="idCheck()" required><br>
 						     		<span id="idcheck"></span>
 						     </div>
 						        
@@ -100,13 +100,13 @@
 						
 					    <div class="join_zipcode">
 							<label for="user_zipcode">우편번호</label>
-								<input type="text" class="user_zipcode" name="user_zipcode" id="sample6_postcode" size="7" readonly="readonly">
+								<input type="text" class="user_zipcode" name="user_zipcode1" id="sample6_postcode" size="7" readonly>
 								<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호찾기">
 						</div>
 						
 						<div class="join_user_addr1">
 							<label for="user_addr1">기본주소</label>
-								<input type="text" class="user_addr1"   name="user_addr1" id="sample6_address" readonly="readonly">
+								<input type="text" class="user_addr1"   name="user_addr1" id="sample6_address" readonly>
 						</div>
 						
 						<div class="join_user_addr2">

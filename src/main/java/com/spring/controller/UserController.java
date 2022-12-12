@@ -95,6 +95,7 @@ public class UserController {
 		
 	}
 	
+	//회원가입완료(DB에 값 저장)
 	@RequestMapping("user_join_ok.do")
 	public void insertUser(UserDTO dto,
 	           HttpServletResponse response) throws IOException {
@@ -107,12 +108,22 @@ public class UserController {
         PrintWriter out = response.getWriter();
         
         if(check > 0) {
-        	out.println("<script> alert('회원 가입 성공'); location.href='store.do'; </script>");
+        	out.println("<script> alert('회원 가입 성공'); location.href='user_login.do'; </script>");
         	
         }else {
         	out.println("<script> alert('회원 가입 실패'); history.back(); </script>");
         }
 	}
+	
+	
+	//로그아웃
+	@RequestMapping("user_logout.do")
+	   public String signOut(HttpSession session) {
+	      
+	      session.invalidate();
+	      
+	      return "store/store_main";
+	   }
 
 	
 
