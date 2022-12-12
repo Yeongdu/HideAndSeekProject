@@ -29,9 +29,9 @@ body {
 }
 
 .productContentWrap {
-	display: flex;
-	justify-content: space-evenly;
-	margin-bottom: 5%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5%;
 }
 
 .picture_1 {
@@ -47,6 +47,7 @@ body {
 .product_cont {
 	display: inline-block;
 	margin-top: 2.5%;
+	margin-left: 5%;
 }
 
 .name {
@@ -153,8 +154,21 @@ body {
     line-height: 19px;
     border: 0px;
     background-color: #f7f7f7;
-    text-align: center;
+    text-align: right;
     margin-bottom: 2%;
+    padding-right: 0;
+    margin-left: 7%;
+}
+.won {
+	font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 19px;
+    border: 0px;
+    background-color: #f7f7f7;
+    text-align: left;
+    margin-bottom: 2%;
+    padding-left: 0;
 }
 
 .buybtn {
