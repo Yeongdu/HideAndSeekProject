@@ -9,9 +9,6 @@
     font-style: normal;
 }
 
-input {
-	display: none;
-}
 
 div {
 	display: block;
@@ -35,6 +32,10 @@ a {
 
 a:hover {
 	opacity: 0.8;
+}
+
+input {
+	display: none;
 }
 
 .header_menu {
@@ -234,40 +235,8 @@ span {
 	box-sizing: border-box;
 }
 
-.check_button {
-    margin-left: 15px;
-    box-sizing: border-box;
-}
-
-.check-wrap {
-	box-sizing: border-box;
-}
-
-.check-wrap > button {
-	padding: 0px;
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    width: 20px;
-    height: 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    box-sizing: border-box;
-}
-
-.custom_checkbox {
-	padding: 0px;
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    width: 20px;
-    height: 20px;
-    border-radius: 5px;
-    cursor: pointer;
+.check-box_filter > div {
+	cursor: pointer;
 }
 
 .check-box_filter > div > label > span > img {

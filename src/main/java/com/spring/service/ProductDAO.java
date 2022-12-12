@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
+import com.spring.model.ReviewDTO;
 
 public interface ProductDAO {
 	
@@ -13,6 +14,9 @@ public interface ProductDAO {
 	
 	// 리뷰가 많이 달린 상품 수를 받아오는 메서드
 	List<ProductDTO> getReviewList();
+	
+	// 사진이 포함된 최신 리뷰를 받아오는 메서드
+	List<ReviewDTO> getPhotoReviewList();
 	
 	// DB 상의 전체 상품 수를 받아오는 메서드
     int getListCount();

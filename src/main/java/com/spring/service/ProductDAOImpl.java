@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
+import com.spring.model.ReviewDTO;
 
 @Repository
 public class ProductDAOImpl implements ProductDAO{
@@ -26,6 +27,13 @@ public class ProductDAOImpl implements ProductDAO{
 	public List<ProductDTO> getReviewList() {
 		
 		return this.sqlSession.selectList("getReviewList");
+		
+	}
+	
+	@Override
+	public List<ReviewDTO> getPhotoReviewList() {
+		
+		return this.sqlSession.selectList("getPhotoReviewList");
 		
 	}
 	
@@ -60,18 +68,21 @@ public class ProductDAOImpl implements ProductDAO{
 	@Override
 	public double getReviewStar(int product_no) {
 		
-			return this.sqlSession.selectOne("getReviewStar", product_no);
+		return this.sqlSession.selectOne("getReviewStar", product_no);
 			
 	}
 	
 	@Override
 	public List<ProductDTO> getProductList(PageDTO dto) {
+		
 		return this.sqlSession.selectList("getProductList",dto);
+		
 	}
 
 	
 	@Override
 	public List<ProductDTO> getProductList(Map<String, Object> map, String sort) {
+		
 		return this.sqlSession.selectList(sort,map);
 		
 	}
@@ -85,22 +96,30 @@ public class ProductDAOImpl implements ProductDAO{
 
 	@Override
 	public ProductDTO getProductCont(int product_no) {
+		
 		return this.sqlSession.selectOne("adminProductCont", product_no);
+		
 	}
 
 	@Override
 	public List<ProductDTO> searchProductList(Map<String, Object> map) {
+		
 		return this.sqlSession.selectList("adminProductSearch", map);
+		
 	}
 
 	@Override
 	public int getSearchListCount(String keyword) {
+		
 		return this.sqlSession.selectOne("getSearchListCount", keyword);
+		
 	}
 
 	@Override
 	public int insertProduct(ProductDTO dto) {
+		
 		return this.sqlSession.insert("adminProductInsert", dto);
+		
 	}
 
 	//판매중 -> 판매중지(품절)

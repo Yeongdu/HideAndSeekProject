@@ -10,8 +10,10 @@
     }
 
 </script>
-<div style = "position: fixed; bottom: 20px; right: 20px; display:none;" class = "ontop">
-	<img src = "resources/image/ontop.png" class = "ontop_img" onmouseover = "this.src ='resources/image/ontop_hover.png'" onmouseout = "this.src ='resources/image/ontop.png'">
+<div style = "position: fixed; bottom: 20px; right: 20px; display:none; margin-right: 100px; margin-bottom: 10px;" class = "ontop">
+	<a href="#">
+		<img src = "resources/image/ontop.png" class = "ontop_img" onmouseover = "this.src ='resources/image/ontop_hover.png'">
+	</a>
 </div>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -33,6 +35,45 @@ $(document).ready(function() {
 		$("html").animate({scrollTop : 0},300);
 	});
 });
+
+  (function() {
+    var w = window;
+    if (w.ChannelIO) {
+      return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
+    }
+    var ch = function() {
+      ch.c(arguments);
+    };
+    ch.q = [];
+    ch.c = function(args) {
+      ch.q.push(args);
+    };
+    w.ChannelIO = ch;
+    function l() {
+      if (w.ChannelIOInitialized) {
+        return;
+      }
+      w.ChannelIOInitialized = true;
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+      s.charset = 'UTF-8';
+      var x = document.getElementsByTagName('script')[0];
+      x.parentNode.insertBefore(s, x);
+    }
+    if (document.readyState === 'complete') {
+      l();
+    } else if (window.attachEvent) {
+      window.attachEvent('onload', l);
+    } else {
+      window.addEventListener('DOMContentLoaded', l, false);
+      window.addEventListener('load', l, false);
+    }
+  })();
+  ChannelIO('boot', {
+    "pluginKey": "c28cf7ff-8589-4abc-8a09-fbe66b1d39d4"
+  });
 </script>
     <link href="resources/css/banner/bottom.css" rel="stylesheet" type="text/css">
 <div id = "footer">
