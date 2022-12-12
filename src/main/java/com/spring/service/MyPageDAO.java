@@ -12,6 +12,7 @@ import com.spring.model.UserDTO;
 public interface MyPageDAO {
 	
 	UserDTO getUserCont(String userId);
+	int updateUser(Map<String, Object> map);
 	
 	List<OrderDTO> getOrderCont(Map<String, Object> map);
 	int getOrderCount(String userId);

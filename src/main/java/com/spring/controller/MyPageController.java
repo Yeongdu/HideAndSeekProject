@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,5 +101,58 @@ public class MyPageController {
 		return order_info;
 		
 	}
+	
+	@RequestMapping("mypage_user.do")
+	@ResponseBody
+	public UserDTO mypage_user(Model model, @RequestParam("userId")String userId) {
+		UserDTO dto = this.mypage_dao.getUserCont(userId);
+		
+		return dto;
+	}
+	
+	@RequestMapping("mypage_user_modifyOk")
+	@ResponseBody
+	public int mypage_user_modify(Model model, 
+									@RequestParam("userId")String userId, 
+									@RequestParam("user_name")String user_name, 
+									@RequestParam("user_pwd")String user_pwd, 
+									@RequestParam("user_email")String user_email,
+									@RequestParam("user_phone1")String user_phone1,
+									@RequestParam("user_phone2")String user_phone2,
+									@RequestParam("user_phone3")String user_phone3,
+									@RequestParam("user_dto_pwd")String user_dto_pwd,
+									HttpServletResponse response) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("user_name", user_name);
+		map.put("user_pwd", user_pwd);
+		map.put("user_email", user_email);
+		map.put("user_phone1", user_phone1);
+		map.put("user_phone2", user_phone2);
+		map.put("user_phone3", user_phone3);
+		map.put("user_dto_pwd", user_dto_pwd);
+		
+		int result = 0;
+		UserDTO dto = null;
+		
+		System.out.println("user_dto_pwd >>> " + user_dto_pwd );
+		System.out.println("user_pwd >>> " + user_pwd);
+		
+		if(user_dto_pwd.equals(user_pwd)) {
+			result = this.mypage_dao.updateUser(map);
+		}else {
+			result = -1;
+		}
+		
+		return result;
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 }
