@@ -1,12 +1,8 @@
 package com.spring.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,18 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
-import com.spring.model.Product_contentDTO;
+import com.spring.model.ReviewDTO;
 import com.spring.service.ProductDAO;
-import com.spring.service.Product_contentDAO;
 
 @Controller
 public class ProductController {
 
 	@Autowired
 	private ProductDAO dao;
-
-	@Autowired
-	private Product_contentDAO pcdao;
 
 	// 한 페이지당 보여질 게시물의 수
 	private final int rowsize = 4;
@@ -78,9 +70,13 @@ public class ProductController {
 			
 		}
 		
+		List<ReviewDTO> photoreview = this.dao.getPhotoReviewList();
+		
 		model.addAttribute("bestlist", bestlist);
 		
 		model.addAttribute("reviewlist", reviewlist);
+		
+		model.addAttribute("photoreview", photoreview);
 		
 		return "store/store_main";
 	}
@@ -121,9 +117,7 @@ public class ProductController {
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductList(map, sort);
 		
-		List<Integer> count = new ArrayList<Integer>();
-		
-		List<Double> star = new ArrayList<Double>();
+		int count = 0;
 		
 		for(ProductDTO item : list) {
 			
@@ -131,15 +125,13 @@ public class ProductController {
 			
 			double num2 = this.dao.getReviewStar(item.getProduct_no());
 			
-			count.add(num1);
+			list.get(count).setProduct_review_count(num1);
 			
-			star.add(num2);
+			list.get(count).setProduct_review_star(num2);
+			
+			count += 1;
 			
 		}
-		
-		model.addAttribute("count", count);
-		
-		model.addAttribute("star", star);
 		
 		model.addAttribute("list", list);
 
@@ -185,9 +177,7 @@ public class ProductController {
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductList(map, sort);
 		
-		List<Integer> count = new ArrayList<Integer>();
-		
-		List<Double> star = new ArrayList<Double>();
+		int count = 0;
 		
 		for(ProductDTO item : list) {
 			
@@ -195,15 +185,13 @@ public class ProductController {
 			
 			double num2 = this.dao.getReviewStar(item.getProduct_no());
 			
-			count.add(num1);
+			list.get(count).setProduct_review_count(num1);
 			
-			star.add(num2);
+			list.get(count).setProduct_review_star(num2);
+			
+			count += 1;
 			
 		}
-		
-		model.addAttribute("count", count);
-		
-		model.addAttribute("star", star);
 		
 		model.addAttribute("list", list);
 
@@ -249,9 +237,7 @@ public class ProductController {
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductList(map, sort);
 		
-		List<Integer> count = new ArrayList<Integer>();
-		
-		List<Double> star = new ArrayList<Double>();
+		int count = 0;
 		
 		for(ProductDTO item : list) {
 			
@@ -259,15 +245,13 @@ public class ProductController {
 			
 			double num2 = this.dao.getReviewStar(item.getProduct_no());
 			
-			count.add(num1);
+			list.get(count).setProduct_review_count(num1);
 			
-			star.add(num2);
+			list.get(count).setProduct_review_star(num2);
+			
+			count += 1;
 			
 		}
-		
-		model.addAttribute("count", count);
-		
-		model.addAttribute("star", star);
 		
 		model.addAttribute("list", list);
 
@@ -313,9 +297,7 @@ public class ProductController {
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductList(map, sort);
 		
-		List<Integer> count = new ArrayList<Integer>();
-		
-		List<Double> star = new ArrayList<Double>();
+		int count = 0;
 		
 		for(ProductDTO item : list) {
 			
@@ -323,15 +305,13 @@ public class ProductController {
 			
 			double num2 = this.dao.getReviewStar(item.getProduct_no());
 			
-			count.add(num1);
+			list.get(count).setProduct_review_count(num1);
 			
-			star.add(num2);
+			list.get(count).setProduct_review_star(num2);
+			
+			count += 1;
 			
 		}
-		
-		model.addAttribute("count", count);
-		
-		model.addAttribute("star", star);
 		
 		model.addAttribute("list", list);
 
@@ -399,9 +379,7 @@ public class ProductController {
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductTagList(map, sort);
 		
-		List<Integer> count = new ArrayList<Integer>();
-		
-		List<Double> star = new ArrayList<Double>();
+		int count = 0;
 		
 		for(ProductDTO item : list) {
 			
@@ -409,19 +387,17 @@ public class ProductController {
 			
 			double num2 = this.dao.getReviewStar(item.getProduct_no());
 			
-			count.add(num1);
+			list.get(count).setProduct_review_count(num1);
 			
-			star.add(num2);
+			list.get(count).setProduct_review_star(num2);
+			
+			count += 1;
 			
 		}
 		
 		JSONObject json = new JSONObject(map);
 		
 		model.addAttribute("category", category);
-		
-		model.addAttribute("count", count);
-		
-		model.addAttribute("star", star);
 		
 		model.addAttribute("json", json);
 		

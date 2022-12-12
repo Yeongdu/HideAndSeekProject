@@ -45,15 +45,15 @@
 				</div>
 			</div>
 			
-		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			<span class="visually-hidden">Previous</span>
-		</button>
-		
-		<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-			<span class="carousel-control-next-icon" aria-hidden="true"></span>
-			<span class="visually-hidden">Next</span>
-		</button>
+			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			
+			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
 		</div>
 	
 		<div class="category">
@@ -116,8 +116,7 @@
 				<span class="best_introduse2">&nbsp;&nbsp;이 술은 어때요?</span>
 			</div>
 			
-			<div class="more">
-			</div>
+			<div class="more"></div>
 		</div>
 		
 		<div class="slider_bar">
@@ -396,18 +395,18 @@
 					</div>
 				</div>
 			
-			<button class="carousel-control-prev" type="button" data-bs-target="#bestslide" data-bs-slide="prev" style="left:-200px;">
-				<img alt="button" src="resources/image/slider_left_button.png" style="width:50px; height:50px;" aria-hidden="true"> 
-				<span class="visually-hidden">Previous</span>
-			</button>
-			
-			<button class="carousel-control-next" type="button" data-bs-target="#bestslide" data-bs-slide="next" style="right:-200px;">
-				<img alt="button" src="resources/image/slider_right_button.png" style="width:50px; height:50px;" aria-hidden="true">
-				<span class="visually-hidden">Next</span>
-			</button>
+				<button class="carousel-control-prev" type="button" data-bs-target="#bestslide" data-bs-slide="prev" style="left:-200px;">
+					<img alt="button" src="resources/image/slider_left_button.png" style="width:50px; height:50px;" aria-hidden="true"> 
+					<span class="visually-hidden">Previous</span>
+				</button>
+				
+				<button class="carousel-control-next" type="button" data-bs-target="#bestslide" data-bs-slide="next" style="right:-200px;">
+					<img alt="button" src="resources/image/slider_right_button.png" style="width:50px; height:50px;" aria-hidden="true">
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
 		</div>
 	</div>
-</div>
 		
 	<div class="review_wrap">
 		<div class="review_choice">
@@ -700,18 +699,116 @@
 					</div>
 				</div>
 			
-			<button class="carousel-control-prev" type="button" data-bs-target="#reviewslide" data-bs-slide="prev" style="left:-200px;">
-				<img alt="button" src="resources/image/slider_left_button.png" style="width:50px; height:50px;" aria-hidden="true"> 
-				<span class="visually-hidden">Previous</span>
-			</button>
-			
-			<button class="carousel-control-next" type="button" data-bs-target="#reviewslide" data-bs-slide="next" style="right:-200px;">
-				<img alt="button" src="resources/image/slider_right_button.png" style="width:50px; height:50px;" aria-hidden="true">
-				<span class="visually-hidden">Next</span>
-			</button>
+				<button class="carousel-control-prev" type="button" data-bs-target="#reviewslide" data-bs-slide="prev" style="left:-200px;">
+					<img alt="button" src="resources/image/slider_left_button.png" style="width:50px; height:50px;" aria-hidden="true"> 
+					<span class="visually-hidden">Previous</span>
+				</button>
+				
+				<button class="carousel-control-next" type="button" data-bs-target="#reviewslide" data-bs-slide="next" style="right:-200px;">
+					<img alt="button" src="resources/image/slider_right_button.png" style="width:50px; height:50px;" aria-hidden="true">
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
 		</div>
 	</div>
-</div>
+		
+		<div class="photoreview_wrap">
+			<img alt="speaker" src="resources/image/speaker.png">
+			<div class="review_headtitle">"이 순간 다른 분들은"</div>
+			<p class="review_maintitle">실시간 후기</p>
+			
+			<div class="slider_bar">
+			<div id="photoreviewslide" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<div class="photoreview_list">
+							<c:forEach items="${photoreview }" begin="0" end="2" var="dto">
+							<div class="photoreview_content">
+								<div>
+									<a href="<%=request.getContextPath()%>/product_content_list.do?no=${dto.product_no}">
+										<div class="photoreview_card">	
+											<div style="display: block">
+												<span>
+<%-- 													<img src="resources/upload/${dto.review_file }"> --%>
+													<img src="resources/image/ang.jpg">
+												</span>
+											</div>
+											
+											<div class="photoreview_card_content">
+												<div class="star-ratings">
+													<div class="star-ratings-fill space-x-2 text-lg" style="width: ${dto.review_star}%">
+														<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+													</div>
+													<div class="star-ratings-base space-x-2 text-lg">
+														<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+													</div>
+												</div>
+												
+												<p class="cont">${dto.review_cont }</p>
+											</div>
+											
+											<div class="photoreview_card_footer">
+												<p>${dto.user_id }</p>
+											</div>
+										</div>
+									</a>
+								</div>
+							</div>
+							</c:forEach>
+						</div>
+					</div>
+					
+					<div class="carousel-item">
+						<div class="photoreview_list">
+							<c:forEach items="${photoreview }" begin="3" end="5" var="dto">
+							<div class="photoreview_content">
+								<div>
+									<a href="<%=request.getContextPath()%>/product_content_list.do?no=${dto.product_no}">
+										<div class="photoreview_card">	
+											<div style="display: block">
+												<span>
+<%-- 													<img src="resources/upload/${dto.review_file }"> --%>
+													<img src="resources/image/ang.jpg">
+												</span>
+											</div>
+											
+											<div class="photoreview_card_content">
+												<div class="star-ratings">
+													<div class="star-ratings-fill space-x-2 text-lg" style="width: ${dto.review_star}%">
+														<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+													</div>
+													<div class="star-ratings-base space-x-2 text-lg">
+														<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+													</div>
+												</div>
+												
+												<p class="cont">${dto.review_cont }</p>
+											</div>
+											
+											<div class="photoreview_card_footer">
+												<p>${dto.user_id }</p>
+											</div>
+										</div>
+									</a>
+								</div>
+							</div>
+							</c:forEach>
+						</div>
+					</div>
+				</div>
+			
+				<button class="carousel-control-prev" type="button" data-bs-target="#photoreviewslide" data-bs-slide="prev" style="left:-200px;">
+					<img alt="button" src="resources/image/slider_left_button.png" style="width:50px; height:50px;" aria-hidden="true"> 
+					<span class="visually-hidden">Previous</span>
+				</button>
+				
+				<button class="carousel-control-next" type="button" data-bs-target="#photoreviewslide" data-bs-slide="next" style="right:-200px;">
+					<img alt="button" src="resources/image/slider_right_button.png" style="width:50px; height:50px;" aria-hidden="true">
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
