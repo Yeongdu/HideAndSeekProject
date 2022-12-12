@@ -69,7 +69,7 @@ public class Admin_productDAOImpl implements Admin_productDAO{
 	@Override
 	public int insertProduct(admin_productDTO adto) {
 
-		return this.sqlSession.insert("adminProductInsert", adto);
+		return this.sqlSession.insert("adminProductInsertt", adto);
 	}
 
 	//판매중 -> 판매중지(품절)
@@ -88,6 +88,11 @@ public class Admin_productDAOImpl implements Admin_productDAO{
 	@Override
 	public int productUpdate(ProductDTO dto) {
 		return this.sqlSession.update("adminProductUpdate", dto);
+	}
+
+	@Override
+	public int insertGoods(admin_productDTO adto) {
+		return this.sqlSession.insert("adminProductIns", adto);
 	}
 
 }

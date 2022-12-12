@@ -31,7 +31,8 @@ public class admin_productDTO {
 	private int product_price; // 상품 판매가
 	private int product_stock; // 상품 재고수량
 	private int product_point; // 상품 포인트
-	private MultipartFile product_thumbnail; // 상품 썸네일
+	private MultipartFile product_thumbnailFile; // 상품 썸네일
+	private String product_thumbnail; // 상품 썸네일
 	private String product_status; // 상품 상태 기본값:판매 .. 품절, 종료
 	
 

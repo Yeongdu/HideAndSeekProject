@@ -10,7 +10,7 @@
   		select * from product where product_no = #{no}
   	</select>
   	
-  		<insert id="adminProductInsert" parameterType="ProductDTO">
+  		<insert id="adminProductInsertt" parameterType="ProductDTO">
   		insert into product values(
   		(select max(product_no) from product) +1,
   		#{product_name},

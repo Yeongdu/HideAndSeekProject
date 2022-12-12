@@ -56,17 +56,22 @@
 	    document.getElementById('preview4').src = "";
 	  }
 	}
-
 	
+// 	function printFile()  {
+// 		  const name = document.getElementById('product_thumbnail').value;
+// 		  $('input[name=product_thumbnail_result]').attr('value',name);
+// 		}
+
+
 </script>
 
 
 <div style="width:45em; height:auto; margin: 50px auto; text-align: center;" align="center">
 
 <br><br>
-        <form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/admin_product_insert_ok.do" class="border-top">
-            
-            
+<%--         <form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/admin_product_insert_ok.do" class="border-top"> --%>
+            <form method="post" action="<%=request.getContextPath()%>/file_upload.do" enctype="multipart/form-data">
+           
             <%--상품이름 --%>
             <div class="form-group row border-bottom py-2">
                 <label for="product_name" class="col-sm-4 col-form-label">상품이름</label>
@@ -228,15 +233,19 @@
                 </div>
             </div>
             
-            
+<!--              <form action="file_upload" method="post" enctype="multipart/form-data"> -->
             <%--썸네일 --%>
             <div class="form-group row border-bottom py-2">
                 <label for="product_thumbnail" class="col-sm-4 col-form-label">썸네일</label>
                 <div class="col-sm-8">
-                    <input type="file" class="thumbnailInput" name="product_thumbnail" id="product_thumbnail" onchange="readURL(this);" required />
+                    <input type="file" class="thumbnailInput" name="product_thumbnailFile" id="product_thumbnailFile" onchange="readURL(this);" required />
                 <img width="120px;" id="preview1" />
                 </div>
             </div>
+             <button type="submit">Upload</button>
+            </form>
+            
+            <input type="hidden" name="product_thumbnail_result" value="">
 
 
 			<div class="form-group row mt-4" align="center">
@@ -309,6 +318,6 @@
 <!-- 			</details> -->
 		<!-- 상품 사진, 설명 더 작성하기 end -->
 
-		</form>
+<!-- 		</form> -->
         </div>
 <jsp:include page="../banner/bottom.jsp" />

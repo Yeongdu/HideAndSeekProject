@@ -44,5 +44,7 @@ public interface Admin_productDAO {
     //상품을 수정하는 메서드
     int productUpdate(ProductDTO dto);
 
+	int insertGoods(admin_productDTO adto);
+
 
 }
