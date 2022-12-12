@@ -21,7 +21,7 @@ public interface MyPageDAO {
 	int getDeliveryCount(String userId);
 	int getDeliveryCompleteCount(String userId);
 	
-	List<ReviewDTO> getReviewCont(String userId);
+	List<ReviewDTO> getReviewCont(Map<String, Object> map);
 	int getReviewCount(String userId);
 	
 	List<Subscribe_userDTO> getSubCont(String userId);

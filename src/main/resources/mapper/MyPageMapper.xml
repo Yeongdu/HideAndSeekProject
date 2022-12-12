@@ -62,6 +62,10 @@
  	 	select count(*) as count from tb_order where user_id = #{userId}
  	 </select>
  	 
+ 	 <select id ="count_review" parameterType="String" resultType="int">
+ 	 	select count(*) as count from review where user_id = #{userId}
+ 	 </select>
+ 	 
 	 <select id ="count_refund" parameterType="String" resultType="int">
  	 	select count(*) as count from tb_order where user_id = #{userId} and order_status = '취소'
  	 </select>
@@ -80,9 +84,24 @@
  	 
  	 <!-- 회원정보 수정 -->
  	 <update id="user_update" parameterType="map">
- 	 	update tb_user set user_name = #{user_name}, user_pwd = #{user_pwd}, user_email = #{user_email},
+ 	 	update tb_user set user_name = #{user_name}, user_pwd = #{user_pwd},
  	 	user_phone1 = #{user_phone1}, user_phone2 = #{user_phone2}, user_phone3 = #{user_phone3} where user_id = #{userId}
  	 </update>
+ 	 
+ 	 <!-- 리뷰 리스트 -->
+ 	 <select id="review_cont" parameterType="map" resultType="ReviewDTO">
+ 	 	<![CDATA[
+ 	 	select * 
+		from (select pall.*, row_number() over(order by review_date desc) rnum 
+		from (select * from review re join product p on re.product_no = p.product_no where re.user_id = #{userId}) pall) 
+		where rnum >= #{startNo} and rnum <= #{endNo} order by review_date desc
+ 	 	]]>
+ 	 </select>
+ 	 
+ 	 <!-- 배송지 리스트 -->
+ 	 <select id="delivery_cont" parameterType="String" resultType="DeliveryDTO">
+ 	 	select * from delivery where user_id = #{userId}
+ 	 </select>
  	 
  	 
  	 

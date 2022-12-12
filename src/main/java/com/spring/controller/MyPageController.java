@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.model.DeliveryDTO;
 import com.spring.model.OrderDTO;
 import com.spring.model.PageDTO;
+import com.spring.model.ReviewDTO;
 import com.spring.model.Subscribe_userDTO;
 import com.spring.model.UserDTO;
 import com.spring.service.MyPageDAO;
@@ -84,8 +86,6 @@ public class MyPageController {
 		
 		totalRecord = this.mypage_dao.getOrderCount(userId);
 		
-		System.out.println("totalRecord >>> " + totalRecord);
-		
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -95,8 +95,6 @@ public class MyPageController {
 		map.put("endNo", dto.getEndNo());
 		
 		List<OrderDTO> order_info = this.mypage_dao.getOrderCont(map);
-		
-		System.out.println("order_info >>> " + order_info);
 		
 		return order_info;
 		
@@ -110,12 +108,13 @@ public class MyPageController {
 		return dto;
 	}
 	
-	@RequestMapping("mypage_user_modifyOk")
+	@RequestMapping("mypage_user_modifyOk.do")
 	@ResponseBody
 	public int mypage_user_modify(Model model, 
 									@RequestParam("userId")String userId, 
 									@RequestParam("user_name")String user_name, 
-									@RequestParam("user_pwd")String user_pwd, 
+									@RequestParam("user_pwd_new")String user_pwd_new, 
+									@RequestParam("user_pwd_old")String user_pwd_old, 
 									@RequestParam("user_email")String user_email,
 									@RequestParam("user_phone1")String user_phone1,
 									@RequestParam("user_phone2")String user_phone2,
@@ -126,7 +125,7 @@ public class MyPageController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);
 		map.put("user_name", user_name);
-		map.put("user_pwd", user_pwd);
+		map.put("user_pwd", user_pwd_new);
 		map.put("user_email", user_email);
 		map.put("user_phone1", user_phone1);
 		map.put("user_phone2", user_phone2);
@@ -136,10 +135,7 @@ public class MyPageController {
 		int result = 0;
 		UserDTO dto = null;
 		
-		System.out.println("user_dto_pwd >>> " + user_dto_pwd );
-		System.out.println("user_pwd >>> " + user_pwd);
-		
-		if(user_dto_pwd.equals(user_pwd)) {
+		if(user_dto_pwd.equals(user_pwd_old)) {
 			result = this.mypage_dao.updateUser(map);
 		}else {
 			result = -1;
@@ -147,6 +143,38 @@ public class MyPageController {
 		
 		return result;
 		
+	}
+	
+	@RequestMapping("mypage_review.do")
+	@ResponseBody
+	public List<ReviewDTO> mypage_review(Model model, @RequestParam("userId") String userId, @RequestParam("page") int page){
+
+		int totalRecord;
+		
+		totalRecord = this.mypage_dao.getReviewCount(userId);
+		
+		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("userId", userId);
+		map.put("startNo", dto.getStartNo());
+		map.put("endNo", dto.getEndNo());
+		
+		List<ReviewDTO> review_info = this.mypage_dao.getReviewCont(map);
+	
+		System.out.println("review >>> " + review_info);
+		
+		return review_info;
+		
+	}
+	
+	@RequestMapping("mypage_delivery.do")
+	@ResponseBody
+	public List<DeliveryDTO> mypage_delivery(Model model, @RequestParam("userId") String userId){
+		List<DeliveryDTO> delivery_info = this.mypage_dao.getDeliveryCont(userId);
+		
+		return delivery_info;
 	}
 	
 	

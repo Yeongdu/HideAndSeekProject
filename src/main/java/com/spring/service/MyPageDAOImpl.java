@@ -65,41 +65,23 @@ public class MyPageDAOImpl implements MyPageDAO{
 	}
 
 
-	
-	
-
-	
-	
-	
 	@Override
-	public List<ReviewDTO> getReviewCont(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ReviewDTO> getReviewCont(Map<String, Object> map) {
+		return this.sqlSession.selectList("review_cont", map);
 	}
 	
 	@Override
 	public int getReviewCount(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.sqlSession.selectOne("count_review", userId);
 	}
-	
-	
-	
-	
 
 	@Override
 	public List<Subscribe_userDTO> getSubCont(String userId) {
 		return this.sqlSession.selectList("sub_cont", userId);
 	}
-
-	
-	
-	
-	
 	@Override
 	public List<DeliveryDTO> getDeliveryCont(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.sqlSession.selectList("delivery_cont", userId);
 	}
 	
 	@Override
