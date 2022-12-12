@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="../banner/user_top.jsp"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
+	<c:if test="${empty userId }">
+		<jsp:include page="../banner/none_top.jsp" />
+	</c:if>
+	
+	<c:if test="${!empty userId }">
+		<jsp:include page="../banner/user_top.jsp" />
+	</c:if>
+	
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 <link href="resources/css/sub/sub_main.css" rel="stylesheet" type="text/css">
 

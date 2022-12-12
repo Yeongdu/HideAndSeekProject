@@ -23,9 +23,9 @@
 	
 	<div id = "mypage_wrap" align = "center"> <!-- 컨텐츠 전체 영역 -->
 		<div id = "mypage_category"> <!-- 카테고리 영역 / 이름, 포인트, 카테고리 등 -->
-			<div id = "mypage_user">
-				<div class = "mypage_name">${userId }<span>님</span></div>
-				<div class = "mypage_point">
+			<div id = "mypage_category_user">
+				<div class = "mypage_user_name">${userId }<span>님</span></div>
+				<div class = "mypage_user_point">
 					<span>잔여 포인트</span> 
 					<fmt:formatNumber>
 						${user_dto.getUser_point() }
@@ -46,9 +46,9 @@
 					<img src = "resources/image/order.png" class = "mypage_icon">
 				</div>
 				
-				<div id = "mypage_refund">
-					<span>취소/환불내역</span>
-					<img src = "resources/image/refund.png" class = "mypage_icon">
+				<div id = "mypage_user">
+					<span>회원정보</span>
+					<img src = "resources/image/user.png" class = "mypage_icon">
 				</div>
 				
 				<div id = "mypage_review">
@@ -64,27 +64,28 @@
 			</div>
 		</div>
 		<div id = "mypage_content"> <!-- 컨텐츠 영역 (변경되는 부분) -->
-			<%-- <div class = "user_main_wrap">
-				<div class = "mypage_user_title">${user_dto.getUser_name() }<span>님의 개인 정보</span></div>
-				<div class = "mypage_user_id"><span>아이디 : </span>${user_dto.getUser_id() }</div>
-				<div class = "mypage_user_pw"><span>비밀번호 : </span>${user_dto.getUser_id() }</div>
-				<div class = "mypage_user_email"><span>이메일 : </span>${user_dto.getUser_id() }</div>
-				<div class = "mypage_user_name"><span>이름 : </span>${user_dto.getUser_id() }</div>
-				<div class = "mypage_user_phone">
-					<span>전화번호 : </span>
-					${user_dto.getUser_phone1() }
-					<span> - </span>
-					${user_dto.getUser_phone2() }
-					<span> - </span>
-					${user_dto.getUser_phone3() }
-				</div>
+<!-- 			<div class = "user_main_wrap"> -->
+<%-- 				<div class = "mypage_user_title">${user_dto.getUser_name() }<span>님의 개인 정보</span></div> --%>
+<%-- 				<div class = "mypage_user_id"><span>아이디 : </span>${user_dto.getUser_id() }</div> --%>
+<%-- 				<div class = "mypage_user_pw"><span>비밀번호 : </span>${user_dto.getUser_id() }</div> --%>
+<%-- 				<div class = "mypage_user_email"><span>이메일 : </span>${user_dto.getUser_id() }</div> --%>
+<%-- 				<div class = "mypage_user_name"><span>이름 : </span>${user_dto.getUser_id() }</div> --%>
+<!-- 				<div class = "mypage_user_phone"> -->
+<!-- 					<span>전화번호 : </span> -->
+<%-- 					${user_dto.getUser_phone1() } --%>
+<!-- 					<span> - </span> -->
+<%-- 					${user_dto.getUser_phone2() } --%>
+<!-- 					<span> - </span> -->
+<%-- 					${user_dto.getUser_phone3() } --%>
+<!-- 				</div> -->
 				
-				<div class = "mypage_user_zipcode"><span>우편번호 : </span>${user_dto.getUser_zipcode() }</div>
-				<div class = "mypage_user_addr">
-					<span>상세주소 : </span>
-					${user_dto.getUser_addr1() }&nbsp;
-					${user_dto.getUser_addr2() }</div>
-			</div> --%>
+<%-- 				<div class = "mypage_user_zipcode"><span>우편번호 : </span>${user_dto.getUser_zipcode() }</div> --%>
+<!-- 				<div class = "mypage_user_addr"> -->
+<!-- 					<span>상세주소 : </span> -->
+<%-- 					${user_dto.getUser_addr1() }&nbsp; --%>
+<%-- 					${user_dto.getUser_addr2() } --%>
+<!-- 				</div> -->
+<!-- 			</div> -->
 		</div>
 	</div>
 </div>
@@ -102,6 +103,7 @@ function displayoff(){
 	$(".review_main_wrap").slideUp(500);
 	$(".delivery_main_wrap").slideUp(500);
 	$(".user_main_wrap").slideUp(500);
+	$(".user_modify_wrap").slideUp(500);
 	
 	$("#mypage_sub-active").attr("id","mypage_sub");
 	$("#mypage_order-active").attr("id","mypage_order");
@@ -109,6 +111,7 @@ function displayoff(){
 	$("#mypage_review-active").attr("id","mypage_review");
 	$("#mypage_delivery-active").attr("id","mypage_delivery");
 	$("#mypage_user-active").attr("id","mypage_user");
+	$("#mypage_user_modify-active").attr("id","mypage_user_modify");
 	
 	$("#mypage_content").empty();
 	
@@ -193,6 +196,7 @@ $(document).on("click", "#mypage_sub-active", function(){
 	$("#mypage_sub-active").attr("id","mypage_sub");
 	$(".sub_main_wrap").slideUp(500);
 	$("#mypage_content").empty();
+	$(".user_main_wrap").slideDown(500);
 	loading = false;
 }); // 구독관리 닫기 - onclick 끝
 
@@ -243,6 +247,7 @@ $(document).on("click", "#mypage_order-active", function(){
 	$("#mypage_order-active").attr("id","mypage_order");
 	$(".order_main_wrap").slideUp(500);
 	$("#mypage_content").empty();
+	$(".user_main_wrap").slideDown(500);
 	loading = false;
 	
 }); // 주문내역 닫기 - onclick 끝
@@ -251,8 +256,7 @@ $(document).on("click", "#mypage_order-active", function(){
 $(document).on("scroll", function(){
 	
 		if($(window).scrollTop()+200>=$(document).height() - $(window).height())
-	    {	console.log("스크롤 끝");
-	    	console.log("loading :" + loading );
+	    {	
 	    	
 	        if(!loading)    //실행 가능 상태라면?
 	        {	if(!su){
@@ -331,6 +335,190 @@ function getorder(){
 } // 주문내역 ajax 메서드 끝
 
 
+// 회원 정보 =================================================================================================================
+$(document).on("click", "#mypage_user", function(){
+	
+	// ajax창 전체 종료(초기화)
+	displayoff();
+	
+	$("#mypage_content").append($("<div class = 'user_title'></div>"));
+	$(".user_title").append($("<h3>회원 정보</h3>"));
+
+	$("#mypage_user").attr("id","mypage_user-active");
+	$('.user_main_wrap').slideDown(1000);
+	
+	if(!loading){
+		var id = '<%=(String)session.getAttribute("userId")%>';
+		
+		$.ajax({
+		    type : 'get',           // 타입 (get, post, put 등등)
+		    url : "<%=request.getContextPath() %>/mypage_user.do",          // 요청할 서버url
+		    dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+		    data : {userId : id},
+		    success : function(result) { // 결과 성공 콜백함수
+		    	
+		    	var res = '';
+		    
+		   var pwd_count = result.user_pwd.length;
+		   var count = ""; 
+		   for(var i=1; i<=pwd_count; i++){  
+			   count += "*";
+			}
+		    	 
+			    		res = "<div class = user_main_wrap>" +
+			    				"<div class ='user_info_top'>" +
+				    				"<div class = 'user_name_title'><span>" + result.user_name + "</span>님</div>" +
+				    				"<hr style = 'color:yellow;'>" +
+			    				"</div>" +
+			    				"<div class = 'user_info_middle'>" +
+			    					"<div class = 'user_id'><span>아이디</span>" + result.user_id + "</div>" + 
+			    					"<div class = 'user_name'><span>닉네임</span>" + result.user_name + "</div>" +
+			    					"<div class = 'user_pwd'><span>비밀번호</span>" + count +
+			    					"</div>" +
+			    					"<div class = 'user_email'><span>이메일</span>" + result.user_email + "</div>" +
+			    					"<div class = 'user_phone'><span>전화번호</span>" + result.user_phone1 + "-" + result.user_phone2 + "-" + result.user_phone3 + "</div>" +
+			    				"</div>" +
+			    				"<div class = 'user_info_bottom'>" +
+			    					"<div class = 'user_modify_btn'>수정</div>" +
+			    				"</div>" +
+			    			"</div>";
+
+		    	$('#mypage_content').append(res);
+		    	
+		    	//  수정하기로 이동
+		    	$(document).on("click",".user_modify_btn", function() {
+		    		
+		    		$(".user_main_wrap").empty();
+		    		
+		    		res =
+		    			"<div class = user_main_wrap>" +
+    				"<div class ='user_info_top'>" +
+	    				"<div class = 'user_name_title'>" + result.user_name + "</span>님</div>" +
+	    				"<hr style = 'color:yellow;'>" +
+    				"</div>" +
+    				"<div class = 'user_info_middle'>" +
+    					"<div class = 'user_id'><span>아이디</span>" + result.user_id + "</div>" + 
+    					"<div class = 'user_name'><span>닉네임</span><input class = 'user_name_input' value = '" +result.user_name + "'></div>" +
+    					"<div class = 'user_pwd'><span>비밀번호</span><input type = 'password' class = 'user_pwd_new'></div>" +
+    					"<input type ='hidden' value = '" + ${user_dto.getUser_pwd()} + "' class = 'user_dto_pwd'>" +
+    					"</div>" +
+    					"<div class = 'user_email'><span>이메일</span><input class = 'user_email_input' value = '" +result.user_email + "'></div>" +
+    					"<div class = 'user_phone'><span>전화번호</span>" + 
+    					"<input class = 'user_phone1' value = '"+ result.user_phone1 + "'>" + "-" +  
+    					"<input class = 'user_phone2' value = '"+ result.user_phone2 + "'>" + "-" + 
+    					"<input class = 'user_phone3' value = '"+ result.user_phone3 + "'>" + "</div>" +
+    				"</div>" +
+    				"<div class = 'user_info_bottom'>" +
+    					"<div class = 'user_modifyok_btn'>" +
+    					"수정</div>" +
+    				"</div>" +
+    			"</div>";
+
+				$('#mypage_content').append(res);
+				
+				
+				$(".user_modifyok_btn").on("click", function(){
+					
+					var user_name_input = $(".user_name_input").val();
+					var user_pwd_new = $(".user_pwd_new").val();
+					var user_email_input = $(".user_email_input").val();
+					var user_phone1 = $(".user_phone1").val();
+					var user_phone2 = $(".user_phone2").val();
+					var user_phone3 = $(".user_phone3").val();
+					var user_dto_pwd = $(".user_dto_pwd").val();
+					
+					
+					$.ajax({
+					    type : 'get',           // 타입 (get, post, put 등등)
+					    url : "<%=request.getContextPath() %>/mypage_user_modifyOk.do",          // 요청할 서버url
+					    dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+					    data : {userId : id,
+					    		user_name : user_name_input,
+					    		user_pwd : user_pwd_new,
+					    		user_email : user_email_input,
+					    		user_phone1 : user_phone1,
+					    		user_phone2 : user_phone2,
+					    		user_phone3 : user_phone3,
+					    		user_dto_pwd : user_dto_pwd
+					    		},
+					    success : function(check) { 
+					    	
+					    	if(check>0){
+					    		
+					    		$("#mypage_content").empty();
+					    		
+					    		$.ajax({
+					    			
+					    			 type : 'get',           // 타입 (get, post, put 등등)
+					    			    url : "<%=request.getContextPath() %>/mypage_user.do",          // 요청할 서버url
+					    			    dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+					    			    data : {userId : id},
+					    			    success : function(result) { // 결과 성공 콜백함수
+					    			    	
+					    			    	var res = '';
+					    			    
+					    			   var pwd_count = result.user_pwd.length;
+					    			   var count = ""; 
+					    			   for(var i=1; i<=pwd_count; i++){  
+					    				   count += "*";
+					    				}
+					    			    	 
+					    				    		res = "<div class = user_main_wrap>" +
+					    				    				"<div class ='user_info_top'>" +
+					    					    				"<div class = 'user_name_title'><span>" + result.user_name + "</span>님</div>" +
+					    					    				"<hr style = 'color:yellow;'>" +
+					    				    				"</div>" +
+					    				    				"<div class = 'user_info_middle'>" +
+					    				    					"<div class = 'user_id'><span>아이디</span>" + result.user_id + "</div>" + 
+					    				    					"<div class = 'user_name'><span>닉네임</span>" + result.user_name + "</div>" +
+					    				    					"<div class = 'user_pwd'><span>비밀번호</span>" + count +
+					    				    					"</div>" +
+					    				    					"<div class = 'user_email'><span>이메일</span>" + result.user_email + "</div>" +
+					    				    					"<div class = 'user_phone'><span>전화번호</span>" + result.user_phone1 + "-" + result.user_phone2 + "-" + result.user_phone3 + "</div>" +
+					    				    				"</div>" +
+					    				    				"<div class = 'user_info_bottom'>" +
+					    				    					"<div class = 'user_modify_btn'>수정</div>" +
+					    				    				"</div>" +
+					    				    			"</div>";
+
+					    			    	$('#mypage_content').append(res);
+					    			    }
+					    			
+					    		}); // 수정완료된 유저정보창 ajax end
+					    		
+					    		
+					    	}else if(check == -1){
+					    		alert("비밀번호틀림");
+					    	}
+					    
+					    },
+					    error : function(request, status, error){
+					    }
+					
+				}); // 수정하기 ajax 끝;
+				
+					
+		    	}); // 수정하기 onclick 끝;
+		    	
+		    	}); // 수정창 이동 onclick 끝;
+		    	
+		    },
+		    error : function(request, status, error) { // 결과 에러 콜백함수
+		    	
+		    }
+		    
+		}); // ajax 끝
+		loading = true;
+	}
+	
+}); // 회원정보 열기 - onclick 끝
+
+$(document).on("click", "#mypage_user-active", function(){
+	$("#mypage_user-active").attr("id","mypage_user");
+	$(".user_main_wrap").slideUp(500);
+	$("#mypage_content").empty();
+	loading = false;
+}); // 회원정보 닫기 - onclick 끝
 
 
 

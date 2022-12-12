@@ -22,11 +22,15 @@ public class MyPageDAOImpl implements MyPageDAO{
 	@Override
 	public UserDTO getUserCont(String userId) {
 		return this.sqlSession.selectOne("user_cont", userId);
-		
+	}
+	
+	@Override
+	public int updateUser(Map<String, Object> map) {
+		return this.sqlSession.update("user_update", map);
 	}
 	
 	
-
+	
 	@Override
 	public List<OrderDTO> getOrderCont(Map<String, Object> map) {
 
@@ -102,6 +106,10 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public int getDeliveryAddrCount(String userId) {
 		return this.sqlSession.selectOne("count_order", userId);
 	}
+
+
+
+
 
 
 

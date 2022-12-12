@@ -78,6 +78,12 @@
  	 	select count(*) as count from tb_order where user_id = #{userId} and order_status = '주문 완료'
  	 </select>
  	 
+ 	 <!-- 회원정보 수정 -->
+ 	 <update id="user_update" parameterType="map">
+ 	 	update tb_user set user_name = #{user_name}, user_pwd = #{user_pwd}, user_email = #{user_email},
+ 	 	user_phone1 = #{user_phone1}, user_phone2 = #{user_phone2}, user_phone3 = #{user_phone3} where user_id = #{userId}
+ 	 </update>
+ 	 
  	 
  	 
  	 
