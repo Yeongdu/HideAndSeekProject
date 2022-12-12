@@ -20,6 +20,6 @@ public class Product_contentDAOImpl implements Product_contentDAO{
 
 	@Override
 	public Product_contentDTO getProduct(int product_no) {
-		return this.sqlSession.selectOne("product_cont", product_no);
+		return this.sqlSession.selectOne("all", product_no);
 	}
 }

@@ -20,8 +20,8 @@ public class Admin_product_contentDAOImpl implements Admin_product_contentDAO{
 	}
 
 	@Override
-	public admin_product_contentDTO getProduct(int no) {
-		return this.sqlSession.selectOne("admin_product_content_cont", no);
+	public admin_product_contentDTO getProductOne(int product_no) {
+		return this.sqlSession.selectOne("adminProductContentCont", product_no);
 	}
 
 	@Override
@@ -33,5 +33,6 @@ public class Admin_product_contentDAOImpl implements Admin_product_contentDAO{
 	public int insertProductContent(int no) {
 		return this.sqlSession.insert("adminProductContentInsert", no);
 	}
+
 
 }
