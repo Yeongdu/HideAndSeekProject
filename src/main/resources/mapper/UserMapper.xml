@@ -58,6 +58,11 @@
  	  	                           #{user_phone2}, #{user_phone3}, #{user_addr2},#{user_zipcode1})
  	  
  	  </insert>
+ 	  
+ 	  <!-- 이메일로 아이디찾기 -->
+ 	  <select id="findId" resultType="String">
+ 	  	select user_id from tb_user where user_email = #{user_email}
+ 	  </select>
  	 
  	
   

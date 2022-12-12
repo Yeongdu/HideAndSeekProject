@@ -64,6 +64,13 @@ public class UserDAOImpl implements UserDAO{
 		
 		return this.sqlSession.insert("add", dto);
 	}
+
+
+	@Override
+	public List<String> findId(String email) {
+		// TODO Auto-generated method stub
+		return this.sqlSession.selectList("findId", email);
+	}
 	
 	
 	

@@ -66,7 +66,7 @@
                                 		
                                 		
                                 		<div class="find_id">
-                                			<a class="find_id_a" href="<%=request.getContextPath() %>/find_id.do">아이디 찾기</a>
+                                			<a class="find_id_a"   onclick="location.href = '<%=request.getContextPath() %>/find_id.do'">아이디 찾기</a>
                                 		</div>
                                 		
                                 		<div class="find_pw">
