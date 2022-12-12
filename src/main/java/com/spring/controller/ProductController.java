@@ -41,46 +41,46 @@ public class ProductController {
 	
 	@RequestMapping("/store.do")
 	public String store(Model model) {
-//		
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		
-//		int page = 1;
-//		
-//		PageDTO dto = new PageDTO(page, rowsize);
-//		
-//		map.put("startNo", dto.getStartNo());
-//		map.put("endNo", dto.getEndNo());
 		
-			
-		List<ProductDTO> list = this.dao.getBestList();
+		int count = 0;	
 		
-		for(ProductDTO i : list) {
-			System.out.println("list 값 >>> " + i);
-		}
+		List<ProductDTO> bestlist = this.dao.getBestList();
 		
-		System.out.println("list 값 >>> " + list);
-		
-		List<Integer> count = new ArrayList<Integer>();
-		
-		List<Double> star = new ArrayList<Double>();
-		
-		for(ProductDTO item : list) {
+		for(ProductDTO item : bestlist) {
 			
 			int num1 = this.dao.getReviewCount(item.getProduct_no());
 			
 			double num2 = this.dao.getReviewStar(item.getProduct_no());
 			
-			count.add(num1);
+			bestlist.get(count).setProduct_review_count(num1);
 			
-			star.add(num2);
+			bestlist.get(count).setProduct_review_star(num2);
+			
+			count += 1;
 			
 		}
 		
-		model.addAttribute("count", count);
+		count = 0;
 		
-		model.addAttribute("star", star);
+		List<ProductDTO> reviewlist = this.dao.getReviewList();
+		
+		for(ProductDTO item : reviewlist) {
 			
-		model.addAttribute("list", list);
+			int num1 = this.dao.getReviewCount(item.getProduct_no());
+			
+			double num2 = this.dao.getReviewStar(item.getProduct_no());
+			
+			reviewlist.get(count).setProduct_review_count(num1);
+			
+			reviewlist.get(count).setProduct_review_star(num2);
+			
+			count += 1;
+			
+		}
+		
+		model.addAttribute("bestlist", bestlist);
+		
+		model.addAttribute("reviewlist", reviewlist);
 		
 		return "store/store_main";
 	}
@@ -149,7 +149,7 @@ public class ProductController {
 
 	}
 	
-	// 탁주 페이지 이동 시 처음으로 상품의 정보를 불러오는 메서드
+	// 청주 페이지 이동 시 처음으로 상품의 정보를 불러오는 메서드
 	@RequestMapping("/store_clist.do")
 	public String clist(HttpServletRequest request, Model model) {
 		
@@ -213,7 +213,7 @@ public class ProductController {
 
 	}	
 	
-	// 탁주 페이지 이동 시 처음으로 상품의 정보를 불러오는 메서드
+	// 과실주 페이지 이동 시 처음으로 상품의 정보를 불러오는 메서드
 	@RequestMapping("/store_wlist.do")
 	public String wlist(HttpServletRequest request, Model model) {
 		
@@ -277,7 +277,7 @@ public class ProductController {
 
 	}
 	
-	// 탁주 페이지 이동 시 처음으로 상품의 정보를 불러오는 메서드
+	// 증류주 페이지 이동 시 처음으로 상품의 정보를 불러오는 메서드
 	@RequestMapping("/store_slist.do")
 	public String slist(HttpServletRequest request, Model model) {
 		
@@ -341,7 +341,7 @@ public class ProductController {
 
 	}
 
-	// 탁주 페이지에서 태그 검색 시 상품의 정보를 불러오는 메서드
+	// 태그 검색 시 상품의 정보를 불러오는 메서드
 	@RequestMapping("/store_list_tag.do")
 	public String taglist(@RequestParam(value = "dosu", required = false) List<String> dosu,
 						  @RequestParam(value = "sweet", required = false) List<String> sweet,
@@ -470,7 +470,7 @@ public class ProductController {
 		return list;
 	}
 	
-	// 마지막 스크롤 이동 시 지속적으로 상품 리스트를 불러오는 메서드
+	// 마지막 스크롤 이동 시 지속적으로 필터 처리 된 상품 리스트를 불러오는 메서드
 	@ResponseBody
 	@RequestMapping("/infinite_scroll_tag.do")
 	public Object InfiniteScrollTag(@RequestParam("page") int page,

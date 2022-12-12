@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
     
@@ -17,7 +18,43 @@
 <link href="resources/css/store/store_main.css" rel="stylesheet" type="text/css">
 
 	<div class="main">
-		<img alt="banner" src="resources/image/store_banner.png">
+		<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+				<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			</div>
+			
+			<div class="carousel-inner">
+				<div class="carousel-item active" data-bs-interval="3500">
+					<a href="<%=request.getContextPath()%>/evnet.content.do?event_no=1">
+						<img class="d-block w-100" src="resources/image/055z-1670381772398-PC_MAIN_BANNER2.jpg">
+					</a>
+				</div>
+				
+				<div class="carousel-item" data-bs-interval="3500">
+					<a href="<%=request.getContextPath()%>/sub.do">
+						<img class="d-block w-100" src="resources/image/oTga-1669011693969-damhwabox_12_pc.png">
+					</a>
+				</div>
+				
+				<div class="carousel-item" data-bs-interval="3500">
+					<a href="<%=request.getContextPath() %>/mypage.do">
+						<img class="d-block w-100" src="resources/image/qL5p-1655775957715-main_review.png">
+					</a>
+				</div>
+			</div>
+			
+		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Previous</span>
+		</button>
+		
+		<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Next</span>
+		</button>
+		</div>
 	
 		<div class="category">
 			<ul>
@@ -83,21 +120,34 @@
 			</div>
 		</div>
 		
-		<div class="">
-			<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+		<div class="slider_bar">
+			<div id="bestslide" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-inner">
 					<div class="carousel-item active">
 						<div class="data_wrap">
 							<div class="data_grid">
-								<c:set var="i" value="0"/>
-								<c:forEach items="${list }" var="dto">
+								<c:forEach items="${bestlist }" begin="0" end="3" var="dto">
 									<div class="product">
 										<div class="product_wrap">
 											<a href="<%=request.getContextPath() %>/product_content_list.do?no=${dto.product_no}">
-												<div class="img_wrap" style="height: 68.5%	">
+												<div class="img_wrap" >
+													<c:if test="${dto.product_stock != 0}" >
 													<span>
 														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
 													</span>
+													</c:if>
+													
+													<c:if test="${dto.product_stock == 0}" >
+													<span>
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+													</span>
+													
+													<div class="soldout">
+														<div class="soldout_title">품절</div>
+														<div class="margin_box"></div>
+														<div class="soldout_cont">술 빚는 중이에요</div>
+													</div>
+													</c:if>
 												</div>
 														
 												<div class="content_wrap">
@@ -120,9 +170,9 @@
 																
 														<div class="content_review">
 															<img alt="img" src="resources/image/star.png">
-															<p class="content_score">${star[i] }</p>
+															<p class="content_score">${dto.product_review_star }</p>
 															<div class="content_column_line"></div>
-															<p class="review">리뷰 ${count[i] }</p>
+															<p class="review">리뷰 ${dto.product_review_count }</p>
 														</div>
 													</div>
 															
@@ -136,7 +186,6 @@
 											</a>
 										</div>
 									</div>
-									<c:set var="i" value="${i+1 }"/>
 								</c:forEach>
 							</div>
 						</div>
@@ -145,15 +194,28 @@
 					<div class="carousel-item">
 						<div class="data_wrap">
 							<div class="data_grid">
-								<c:set var="i" value="0"/>
-								<c:forEach items="${list }" var="dto">
+								<c:forEach items="${bestlist }" begin="4" end="7" var="dto">
 									<div class="product">
 										<div class="product_wrap">
 											<a href="<%=request.getContextPath() %>/product_content_list.do?no=${dto.product_no}">
-												<div class="img_wrap">
+												<div class="img_wrap" >
+													<c:if test="${dto.product_stock != 0}" >
 													<span>
 														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
 													</span>
+													</c:if>
+													
+													<c:if test="${dto.product_stock == 0}" >
+													<span>
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+													</span>
+													
+													<div class="soldout">
+														<div class="soldout_title">품절</div>
+														<div class="margin_box"></div>
+														<div class="soldout_cont">술 빚는 중이에요</div>
+													</div>
+													</c:if>
 												</div>
 														
 												<div class="content_wrap">
@@ -176,9 +238,9 @@
 																
 														<div class="content_review">
 															<img alt="img" src="resources/image/star.png">
-															<p class="content_score">${star[i] }</p>
+															<p class="content_score">${dto.product_review_star }</p>
 															<div class="content_column_line"></div>
-															<p class="review">리뷰 ${count[i] }</p>
+															<p class="review">리뷰 ${dto.product_review_count }</p>
 														</div>
 													</div>
 															
@@ -192,7 +254,6 @@
 											</a>
 										</div>
 									</div>
-									<c:set var="i" value="${i+1 }"/>
 								</c:forEach>
 							</div>
 						</div>
@@ -201,15 +262,28 @@
 					<div class="carousel-item">
 						<div class="data_wrap">
 							<div class="data_grid">
-								<c:set var="i" value="0"/>
-								<c:forEach items="${list }" var="dto">
+								<c:forEach items="${bestlist }" begin="8" end="11" var="dto">
 									<div class="product">
 										<div class="product_wrap">
 											<a href="<%=request.getContextPath() %>/product_content_list.do?no=${dto.product_no}">
-												<div class="img_wrap">
+												<div class="img_wrap" >
+													<c:if test="${dto.product_stock != 0}" >
 													<span>
 														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
 													</span>
+													</c:if>
+													
+													<c:if test="${dto.product_stock == 0}" >
+													<span>
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+													</span>
+													
+													<div class="soldout">
+														<div class="soldout_title">품절</div>
+														<div class="margin_box"></div>
+														<div class="soldout_cont">술 빚는 중이에요</div>
+													</div>
+													</c:if>
 												</div>
 														
 												<div class="content_wrap">
@@ -232,9 +306,9 @@
 																
 														<div class="content_review">
 															<img alt="img" src="resources/image/star.png">
-															<p class="content_score">${star[i] }</p>
+															<p class="content_score">${dto.product_review_star }</p>
 															<div class="content_column_line"></div>
-															<p class="review">리뷰 ${count[i] }</p>
+															<p class="review">리뷰 ${dto.product_review_count }</p>
 														</div>
 													</div>
 															
@@ -248,59 +322,93 @@
 											</a>
 										</div>
 									</div>
-									<c:set var="i" value="${i+1 }"/>
+								</c:forEach>
+							</div>
+						</div>
+					</div>
+					
+					<div class="carousel-item">
+						<div class="data_wrap">
+							<div class="data_grid">
+								<c:forEach items="${bestlist }" begin="12" end="15" var="dto">
+									<div class="product">
+										<div class="product_wrap">
+											<a href="<%=request.getContextPath() %>/product_content_list.do?no=${dto.product_no}">
+												<div class="img_wrap" >
+													<c:if test="${dto.product_stock != 0}" >
+													<span>
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+													</span>
+													</c:if>
+													
+													<c:if test="${dto.product_stock == 0}" >
+													<span>
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+													</span>
+													
+													<div class="soldout">
+														<div class="soldout_title">품절</div>
+														<div class="margin_box"></div>
+														<div class="soldout_cont">술 빚는 중이에요</div>
+													</div>
+													</c:if>
+												</div>
+														
+												<div class="content_wrap">
+													<div class="wrapper">
+														<div class="content_title">
+															${dto.product_name }
+														</div>
+													</div>
+															
+													<div class="wrapper">
+														<div class="content_price">
+															<p class="content_price_blank" />
+															<div class="content_price_wrap">
+																<p>
+																	<fmt:formatNumber>${dto.product_price }</fmt:formatNumber>
+																	<span>원</span>
+																</p>
+															</div>
+														</div>
+																
+														<div class="content_review">
+															<img alt="img" src="resources/image/star.png">
+															<p class="content_score">${dto.product_review_star }</p>
+															<div class="content_column_line"></div>
+															<p class="review">리뷰 ${dto.product_review_count }</p>
+														</div>
+													</div>
+															
+													<div class="card_footer">
+														<div class="footer_content">
+															<div>#${dto.product_introduce1 }</div>
+															<div>#${dto.product_introduce2 }</div>
+														</div>
+													</div>
+												</div>
+											</a>
+										</div>
+									</div>
 								</c:forEach>
 							</div>
 						</div>
 					</div>
 				</div>
 			
-			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style="left:-200px;">
+			<button class="carousel-control-prev" type="button" data-bs-target="#bestslide" data-bs-slide="prev" style="left:-200px;">
 				<img alt="button" src="resources/image/slider_left_button.png" style="width:50px; height:50px;" aria-hidden="true"> 
 				<span class="visually-hidden">Previous</span>
 			</button>
 			
-			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style="right:-200px;">
+			<button class="carousel-control-next" type="button" data-bs-target="#bestslide" data-bs-slide="next" style="right:-200px;">
 				<img alt="button" src="resources/image/slider_right_button.png" style="width:50px; height:50px;" aria-hidden="true">
 				<span class="visually-hidden">Next</span>
 			</button>
 		</div>
+	</div>
+</div>
 		
-<!-- 		<div class="best"> -->
-<!-- 			<div class="best_product"> -->
-<!-- 				<div class="best_product_img"> -->
-<!-- 					<img alt="best_img" src="resources/upload/fWO1-1668403134296-1Z7A1584.jpg" style="width: 86.5%; height: 39.7vh"> -->
-<!-- 				</div> -->
-				
-<!-- 				<div class="best_product_content"> -->
-<!-- 					<div class="best_product_wrap"> -->
-<!-- 						<div class="best_product_name"> -->
-<!-- 						제목 -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-					
-<!-- 					<div class="best_product_wrap"> -->
-<!-- 						<div class="best_product_pr"> -->
-<!-- 							<div class="best_product_price"> -->
-<!-- 							00000원 -->
-<!-- 							</div> -->
-<!-- 							<div class="best_product_review"> -->
-<!-- 							별 0.0점 | 리뷰 00 -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-						
-<!-- 						<hr> -->
-<!-- 					</div> -->
-					
-<!-- 					<div class="best_product_coment"> -->
-<!-- 						<div>#일하기싫다</div> -->
-<!-- 						<div>#집가고싶다</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-	
 	<div class="review_wrap">
 		<div class="review_choice">
 			<div class="review_logo">
@@ -316,49 +424,295 @@
 			</div>
 		</div>
 		
-		<div class="review">
-			<div class="review_product">
-				<div class="review_product_img">
-					<img alt="review_img" src="resources/upload/fWO1-1668403134296-1Z7A1584.jpg" style="width: 86.5%; height: 39.7vh">
-				</div>
-				
-				<div class="review_product_content">
-					<div class="review_product_wrap">
-						<div class="review_product_name">
-						제목
+		<div class="slider_bar">
+			<div id="reviewslide" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<div class="data_wrap">
+							<div class="data_grid">
+								<c:forEach items="${reviewlist }" begin="0" end="3" var="dto">
+									<div class="product">
+										<div class="product_wrap">
+											<a href="<%=request.getContextPath() %>/product_content_list.do?no=${dto.product_no}">
+												<div class="img_wrap" >
+													<c:if test="${dto.product_stock != 0}" >
+													<span>
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+													</span>
+													</c:if>
+													
+													<c:if test="${dto.product_stock == 0}" >
+													<span>
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+													</span>
+													
+													<div class="soldout">
+														<div class="soldout_title">품절</div>
+														<div class="margin_box"></div>
+														<div class="soldout_cont">술 빚는 중이에요</div>
+													</div>
+													</c:if>
+												</div>
+														
+												<div class="content_wrap">
+													<div class="wrapper">
+														<div class="content_title">
+															${dto.product_name }
+														</div>
+													</div>
+															
+													<div class="wrapper">
+														<div class="content_price">
+															<p class="content_price_blank" />
+															<div class="content_price_wrap">
+																<p>
+																	<fmt:formatNumber>${dto.product_price }</fmt:formatNumber>
+																	<span>원</span>
+																</p>
+															</div>
+														</div>
+																
+														<div class="content_review">
+															<img alt="img" src="resources/image/star.png">
+															<p class="content_score">${dto.product_review_star }</p>
+															<div class="content_column_line"></div>
+															<p class="review">리뷰 ${dto.product_review_count }</p>
+														</div>
+													</div>
+															
+													<div class="card_footer">
+														<div class="footer_content">
+															<div>#${dto.product_introduce1 }</div>
+															<div>#${dto.product_introduce2 }</div>
+														</div>
+													</div>
+												</div>
+											</a>
+										</div>
+									</div>
+								</c:forEach>
+							</div>
 						</div>
 					</div>
 					
-					<div class="review_product_wrap">
-						<div class="review_product_pr">
-							<div class="review_product_price">
-							00000원
-							</div>
-							<div class="review_product_review">
-							별 0.0점 | 리뷰 00
+					<div class="carousel-item">
+						<div class="data_wrap">
+							<div class="data_grid">
+								<c:forEach items="${reviewlist }" begin="4" end="7" var="dto">
+									<div class="product">
+										<div class="product_wrap">
+											<a href="<%=request.getContextPath() %>/product_content_list.do?no=${dto.product_no}">
+												<div class="img_wrap" >
+													<c:if test="${dto.product_stock != 0}" >
+													<span>
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+													</span>
+													</c:if>
+													
+													<c:if test="${dto.product_stock == 0}" >
+													<span>
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+													</span>
+													
+													<div class="soldout">
+														<div class="soldout_title">품절</div>
+														<div class="margin_box"></div>
+														<div class="soldout_cont">술 빚는 중이에요</div>
+													</div>
+													</c:if>
+												</div>
+														
+												<div class="content_wrap">
+													<div class="wrapper">
+														<div class="content_title">
+															${dto.product_name }
+														</div>
+													</div>
+															
+													<div class="wrapper">
+														<div class="content_price">
+															<p class="content_price_blank" />
+															<div class="content_price_wrap">
+																<p>
+																	<fmt:formatNumber>${dto.product_price }</fmt:formatNumber>
+																	<span>원</span>
+																</p>
+															</div>
+														</div>
+																
+														<div class="content_review">
+															<img alt="img" src="resources/image/star.png">
+															<p class="content_score">${dto.product_review_star }</p>
+															<div class="content_column_line"></div>
+															<p class="review">리뷰 ${dto.product_review_count }</p>
+														</div>
+													</div>
+															
+													<div class="card_footer">
+														<div class="footer_content">
+															<div>#${dto.product_introduce1 }</div>
+															<div>#${dto.product_introduce2 }</div>
+														</div>
+													</div>
+												</div>
+											</a>
+										</div>
+									</div>
+								</c:forEach>
 							</div>
 						</div>
-						
-						<hr>
 					</div>
 					
-					<div class="review_product_coment">
-						<div>#일하기싫다</div>
-						<div>#집가고싶다</div>
+					<div class="carousel-item">
+						<div class="data_wrap">
+							<div class="data_grid">
+								<c:forEach items="${reviewlist }" begin="8" end="11" var="dto">
+									<div class="product">
+										<div class="product_wrap">
+											<a href="<%=request.getContextPath() %>/product_content_list.do?no=${dto.product_no}">
+												<div class="img_wrap" >
+													<c:if test="${dto.product_stock != 0}" >
+													<span>
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+													</span>
+													</c:if>
+													
+													<c:if test="${dto.product_stock == 0}" >
+													<span>
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+													</span>
+													
+													<div class="soldout">
+														<div class="soldout_title">품절</div>
+														<div class="margin_box"></div>
+														<div class="soldout_cont">술 빚는 중이에요</div>
+													</div>
+													</c:if>
+												</div>
+														
+												<div class="content_wrap">
+													<div class="wrapper">
+														<div class="content_title">
+															${dto.product_name }
+														</div>
+													</div>
+															
+													<div class="wrapper">
+														<div class="content_price">
+															<p class="content_price_blank" />
+															<div class="content_price_wrap">
+																<p>
+																	<fmt:formatNumber>${dto.product_price }</fmt:formatNumber>
+																	<span>원</span>
+																</p>
+															</div>
+														</div>
+																
+														<div class="content_review">
+															<img alt="img" src="resources/image/star.png">
+															<p class="content_score">${dto.product_review_star }</p>
+															<div class="content_column_line"></div>
+															<p class="review">리뷰 ${dto.product_review_count }</p>
+														</div>
+													</div>
+															
+													<div class="card_footer">
+														<div class="footer_content">
+															<div>#${dto.product_introduce1 }</div>
+															<div>#${dto.product_introduce2 }</div>
+														</div>
+													</div>
+												</div>
+											</a>
+										</div>
+									</div>
+								</c:forEach>
+							</div>
+						</div>
+					</div>
+					
+					<div class="carousel-item">
+						<div class="data_wrap">
+							<div class="data_grid">
+								<c:forEach items="${reviewlist }" begin="12" end="15" var="dto">
+									<div class="product">
+										<div class="product_wrap">
+											<a href="<%=request.getContextPath() %>/product_content_list.do?no=${dto.product_no}">
+												<div class="img_wrap" >
+													<c:if test="${dto.product_stock != 0}" >
+													<span>
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+													</span>
+													</c:if>
+													
+													<c:if test="${dto.product_stock == 0}" >
+													<span>
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+													</span>
+													
+													<div class="soldout">
+														<div class="soldout_title">품절</div>
+														<div class="margin_box"></div>
+														<div class="soldout_cont">술 빚는 중이에요</div>
+													</div>
+													</c:if>
+												</div>
+														
+												<div class="content_wrap">
+													<div class="wrapper">
+														<div class="content_title">
+															${dto.product_name }
+														</div>
+													</div>
+															
+													<div class="wrapper">
+														<div class="content_price">
+															<p class="content_price_blank" />
+															<div class="content_price_wrap">
+																<p>
+																	<fmt:formatNumber>${dto.product_price }</fmt:formatNumber>
+																	<span>원</span>
+																</p>
+															</div>
+														</div>
+																
+														<div class="content_review">
+															<img alt="img" src="resources/image/star.png">
+															<p class="content_score">${dto.product_review_star }</p>
+															<div class="content_column_line"></div>
+															<p class="review">리뷰 ${dto.product_review_count }</p>
+														</div>
+													</div>
+															
+													<div class="card_footer">
+														<div class="footer_content">
+															<div>#${dto.product_introduce1 }</div>
+															<div>#${dto.product_introduce2 }</div>
+														</div>
+													</div>
+												</div>
+											</a>
+										</div>
+									</div>
+								</c:forEach>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
+			
+			<button class="carousel-control-prev" type="button" data-bs-target="#reviewslide" data-bs-slide="prev" style="left:-200px;">
+				<img alt="button" src="resources/image/slider_left_button.png" style="width:50px; height:50px;" aria-hidden="true"> 
+				<span class="visually-hidden">Previous</span>
+			</button>
+			
+			<button class="carousel-control-next" type="button" data-bs-target="#reviewslide" data-bs-slide="next" style="right:-200px;">
+				<img alt="button" src="resources/image/slider_right_button.png" style="width:50px; height:50px;" aria-hidden="true">
+				<span class="visually-hidden">Next</span>
+			</button>
 		</div>
 	</div>
-	
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	
-	</div>
+</div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 <script type="text/javascript">

@@ -23,6 +23,13 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 	
 	@Override
+	public List<ProductDTO> getReviewList() {
+		
+		return this.sqlSession.selectList("getReviewList");
+		
+	}
+	
+	@Override
 	public int getListCount() {
 		
 		return this.sqlSession.selectOne("getListCount");

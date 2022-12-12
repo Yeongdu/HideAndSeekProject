@@ -813,8 +813,15 @@ $(document).on("click", ".b1", function(){
 					html += "<div class='product'>"
 					html += "<div class='product_wrap'>"
 					html += "<a href='<%=request.getContextPath() %>/product_content_list.do?no="+item.product_no+"'>"
-					html += "<div class='img_wrap'><span>"
-					html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+"' style='width: 100%; height: 39.7vh'></span></div>"
+					if(item.product_stock != 0){
+						html += "<div class='img_wrap'><span>"
+						html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+"' style='width: 100%; height: 39.7vh'></span></div>"
+					}else if(item.product_stock == 0){
+						html += "<div class='img_wrap'><span>"
+						html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+"' style='width: 100%; height: 39.7vh'></span>"
+						html += "<div class='soldout'><div class='soldout_title'>품절</div>"
+						html += "<div class='margin_box'></div><div class='soldout_cont'>술 빚는 중이에요</div></div></div>"
+					}
 					html += "<div class='content_wrap'>"
 					html += "<div class='wrapper'>"
 					html += "<div class='content_title'>"+item.product_name+"</div></div>"
@@ -823,7 +830,7 @@ $(document).on("click", ".b1", function(){
 					html += "<span>원</span></p></div></div>"
 					html += "<div class='content_review'>"
 					html += "<img alt='img' src='resources/image/star.png'>"
-					html += "<p class='content_score'> "+item.product_review_star+"</p>"
+					html += "<p class='content_score'> "+item.product_review_star.toFixed(1)+"</p>"
 					html += "<div class='content_column_line'></div>"
 					html += "<p class='review'>리뷰 "+item.product_review_count+"</p></div></div>"
 					html += "<div class='card_footer'>"
@@ -875,8 +882,15 @@ $(document).on("click", ".b1", function(){
 					html += "<div class='product'>"
 					html += "<div class='product_wrap'>"
 					html += "<a href='<%=request.getContextPath() %>/product_content_list.do?no="+item.product_no+"'>"
-					html += "<div class='img_wrap'><span>"
-					html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+"' style='width: 100%; height: 39.7vh'></span></div>"
+					if(item.product_stock != 0){
+						html += "<div class='img_wrap'><span>"
+						html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+"' style='width: 100%; height: 39.7vh'></span></div>"
+					}else if(item.product_stock == 0){
+						html += "<div class='img_wrap'><span>"
+						html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+"' style='width: 100%; height: 39.7vh'></span>"
+						html += "<div class='soldout'><div class='soldout_title'>품절</div>"
+						html += "<div class='margin_box'></div><div class='soldout_cont'>술 빚는 중이에요</div></div></div>"
+					}
 					html += "<div class='content_wrap'>"
 					html += "<div class='wrapper'>"
 					html += "<div class='content_title'>"+item.product_name+"</div></div>"
@@ -885,7 +899,7 @@ $(document).on("click", ".b1", function(){
 					html += "<span>원</span></p></div></div>"
 					html += "<div class='content_review'>"
 					html += "<img alt='img' src='resources/image/star.png'>"
-					html += "<p class='content_score'> "+item.product_review_star+"</p>"
+					html += "<p class='content_score'> "+item.product_review_star.toFixed(1)+"</p>"
 					html += "<div class='content_column_line'></div>"
 					html += "<p class='review'>리뷰 "+item.product_review_count+"</p></div></div>"
 					html += "<div class='card_footer'>"
@@ -1369,9 +1383,23 @@ $(document).on("click", ".b1", function(){
 											<div class="product_wrap">
 												<a href="<%=request.getContextPath() %>/product_content_list.do?no=${dto.product_no}">
 													<div class="img_wrap">
-														<span>
-															<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
-														</span>
+														<c:if test="${dto.product_stock != 0}" >
+															<span>
+																<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+															</span>
+														</c:if>
+															
+														<c:if test="${dto.product_stock == 0}" >
+															<span>
+																<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+															</span>
+															
+															<div class="soldout">
+																<div class="soldout_title">품절</div>
+																<div class="margin_box"></div>
+																<div class="soldout_cont">술 빚는 중이에요</div>
+															</div>
+														</c:if>
 													</div>
 													
 													<div class="content_wrap">
@@ -1432,3 +1460,5 @@ $(document).on("click", ".b1", function(){
 	}
 
 </script>
+
+<jsp:include page="../banner/bottom.jsp" />
