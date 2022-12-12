@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -124,6 +125,16 @@ public class UserController {
 	      
 	      return "store/store_main";
 	   }
+	
+	//아이디찾기 페이지로 이동
+	@RequestMapping("find_id.do")
+	public String findId() {
+		
+		return "user/find_id";
+	}
+	
+	
+	
 
 	
 

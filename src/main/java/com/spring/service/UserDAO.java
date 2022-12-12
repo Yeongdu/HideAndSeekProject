@@ -20,6 +20,9 @@ public interface UserDAO {
 	 
 	 //회원가입완료(DB에 값 저장)
 	  int insertUser(UserDTO dto);
+	  
+	  //아이디 찾기(이메일 사용)
+	  List<String> findId(String email);
 	
 	
 	
