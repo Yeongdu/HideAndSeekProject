@@ -64,7 +64,7 @@
 <div style="width:45em; height:auto; margin: 50px auto; text-align: center;" align="center">
 
 <br><br>
-        <form method="post" action="<%=request.getContextPath()%>/admin_product_insert_ok.do" class="border-top">
+        <form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/admin_product_insert_ok.do" class="border-top">
             
             
             <%--상품이름 --%>

@@ -32,6 +32,8 @@
         <typeAlias type="com.spring.model.SubscribeDTO" alias="SubscribeDTO"/>
         <typeAlias type="com.spring.model.UserDTO" alias="UserDTO"/>
         <typeAlias type="com.spring.model.PageDTO" alias="PageDTO"/>
+        <typeAlias type="com.spring.model.admin_productDTO" alias="admin_productDTO"/>
+        <typeAlias type="com.spring.model.admin_product_contentDTO" alias="admin_product_contentDTO"/>
         
         <typeAlias type="com.spring.service.CardDAO" alias="CardDAO"/>
         <typeAlias type="com.spring.service.CartDAO" alias="CartDAO"/>
@@ -47,6 +49,8 @@
         <typeAlias type="com.spring.service.SubscribeDAO" alias="SubscribeDAO"/>
         <typeAlias type="com.spring.service.UserDAO" alias="UserDAO"/>
         <typeAlias type="com.spring.service.MyPageDAO" alias = "MyPageDAO"/>
+        <typeAlias type="com.spring.service.Admin_productDAO" alias = "Admin_productDAO"/>
+        <typeAlias type="com.spring.service.Admin_product_contentDAO" alias = "Admin_product_contentDAO"/>
     </typeAliases>
 
 </configuration>

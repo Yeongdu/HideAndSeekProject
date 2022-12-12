@@ -1,19 +1,28 @@
 package com.spring.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.DefaultNamingPolicy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.spring.model.OrderDTO;
 import com.spring.model.PageDTO;
@@ -54,6 +63,9 @@ public class AdminController {
 	// DB 상의 전체 게시물의 수
 	private int totalRecord = 0;
 	
+	private String savePath = "D:\\git\\HideAndSeekProject\\src\\main\\webapp\\resources\\upload";
+	private int sizeLimit = 5 * 1024 * 1024;
+	
 	
 	@RequestMapping("/admin_main.do")
 	public String admin_main(Model model) {
@@ -69,28 +81,175 @@ public class AdminController {
 		return "admin/admin_product_insert";
 	}
 	
-	@RequestMapping("/admin_product_insert_ok.do")
-	public void product_insert_Ok(ProductDTO dto, HttpServletResponse response) throws IOException {
-		
-		if(dto.getProduct_alcohol() <= 7) {
-			dto.setProduct_dosu("low");
-		}else if(dto.getProduct_alcohol() <= 20) {
-			dto.setProduct_dosu("middle");
-		}else if(dto.getProduct_alcohol() <= 35) {
-			dto.setProduct_dosu("high");
-		}else if(dto.getProduct_alcohol() <= 50) {
-			dto.setProduct_dosu("very-high");	
-		}
-		int check = this.pdao.insertProduct(dto);
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		if(check > 0) {
-			this.apcdao.insertProductContent(dto.getProduct_no());
-			out.println("<script> alert('제품 등록 성공'); location.href='admin_product_list.do'; </script>");
-		}else {
-			out.println("<script> alert('제품 등록 실패했습니다.'); history.back(); </script>");
-		}
-	}
+	
+	
+	
+	////////////////////
+	
+		@RequestMapping("/admin_product_insert_ok.do")
+		public void ImgUpLoader(@RequestParam("product_thumbnail") MultipartFile file, HttpServletResponse response,MultipartHttpServletRequest mhsr, admin_productDTO adto) throws Exception {
+			
+			 if(adto.getProduct_alcohol() <= 7) {
+					adto.setProduct_dosu("low");
+				}else if(adto.getProduct_alcohol() <= 20) {
+					adto.setProduct_dosu("middle");
+				}else if(adto.getProduct_alcohol() <= 35) {
+					adto.setProduct_dosu("high");
+				}else if(adto.getProduct_alcohol() <= 50) {
+					adto.setProduct_dosu("very-high");	
+				}
+			 
+			 adto.setProduct_thumbnail(file);
+			 
+			 
+			 	int check = this.apdao.insertProduct(adto);
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				if(check > 0) {
+					this.apcdao.insertProductContent(adto.getProduct_no());
+					out.println("<script> alert('제품 등록 성공'); location.href='admin_product_list.do'; </script>");
+				}else {
+					out.println("<script> alert('제품 등록 실패했습니다.'); history.back(); </script>");
+				}
+				
+			
+				String fileRealName = file.getOriginalFilename(); //파일명을 얻어낼 수 있는 메서드!
+				long size = file.getSize(); //파일 사이즈
+				
+				System.out.println("파일명 : "  + fileRealName);
+				System.out.println("용량크기(byte) : " + size);
+				String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."),fileRealName.length());
+				String uploadFolder = "D:\\git\\HideAndSeekProject\\src\\main\\webapp\\resources\\upload";
+				
+				
+				/*
+				  파일 업로드시 파일명이 동일한 파일이 이미 존재할 수도 있고 사용자가 
+				  업로드 하는 파일명이 언어 이외의 언어로 되어있을 수 있습니다. 
+				  타인어를 지원하지 않는 환경에서는 정산 동작이 되지 않습니다.(리눅스가 대표적인 예시)
+				  고유한 랜던 문자를 통해 db와 서버에 저장할 파일명을 새롭게 만들어 준다.
+				 */
+				
+				UUID uuid = UUID.randomUUID();
+				System.out.println(uuid.toString());
+				String[] uuids = uuid.toString().split("-");
+				
+				String uniqueName = uuids[0];
+				System.out.println("생성된 고유문자열" + uniqueName);
+				System.out.println("확장자명" + fileExtension);
+				
+				// File saveFile = new File(uploadFolder+"\\"+fileRealName); uuid 적용 전
+				
+				File saveFile = new File(uploadFolder+"\\"+uniqueName + fileExtension);  // 적용 후
+				try {
+					file.transferTo(saveFile); // 실제 파일 저장메서드(filewriter 작업을 손쉽게 한방에 처리해준다.)
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+  
+	    }
+	
+	/////////////////
+//		
+//		@RequestMapping("/admin_product_insert_ok.do")
+//		public String ImgUpLoader(HttpServletRequest request, HttpServletResponse response, ProductDTO dto) throws Exception {
+//			
+//			if(dto.getProduct_alcohol() <= 7) {
+//				dto.setProduct_dosu("low");
+//			}else if(dto.getProduct_alcohol() <= 20) {
+//				dto.setProduct_dosu("middle");
+//			}else if(dto.getProduct_alcohol() <= 35) {
+//				dto.setProduct_dosu("high");
+//			}else if(dto.getProduct_alcohol() <= 50) {
+//				dto.setProduct_dosu("very-high");	
+//			}
+//			int check = this.apdao.insertProduct(dto);
+//			response.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = response.getWriter();
+//			if(check > 0) {
+//				this.apcdao.insertProductContent(dto.getProduct_no());
+//				out.println("<script> alert('제품 등록 성공'); location.href='admin_product_list.do'; </script>");
+//				
+//				
+//				
+//				
+//				//////////
+//				
+//				
+//				MultipartRequest multi = (MultipartRequest) request;
+//				MultipartFile file = multi.getFile("product_thumbnail");
+//				String reNameFile = "";
+//				
+//				if (file.isEmpty()) { //파일 유무 검사
+//					return reNameFile;
+//				} else if (file.getSize() > sizeLimit) {
+//					System.out.println("## 용량이 너무 큽니다. \n 3메가 이하로 해주세요.");
+//					return "error";
+//				}
+//				
+//				SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_hhmmss");
+//				Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
+//				
+//				
+//				String uploadDir = savePath + File.separator;
+//				new File(uploadDir).mkdir(); // 해당 경로 폴더 없을 떄 폴더 생성.
+//				String getFileName[] = file.getOriginalFilename().split("\\.");
+//				
+//				// 파일 이름 및 확장자 분리
+//				
+//				reNameFile = getFileName[0] + "_" + sdf.format(c.getTime()) + "." + getFileName[1];
+//				//파일 이름 설정 = 원본 파일 이름_ 년월일분초 .확장자.
+//				
+//				reNameFile = getFileName[0] + "_" + sdf.format(c.getTime()) + "." + getFileName[1];
+//				file.transferTo(new File(savePath + reNameFile));
+//				
+//				/////////
+//				
+//				
+//			}else {
+//				out.println("<script> alert('제품 등록 실패했습니다.'); history.back(); </script>");
+//			}
+//			return savePath;
+//			
+//		}
+//		
+//		/////////////////
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	@RequestMapping("/admin_product_insert_ok.do")
+//	public void product_insert_Ok(ProductDTO dto, HttpServletResponse response) throws IOException {
+//		
+//		if(dto.getProduct_alcohol() <= 7) {
+//			dto.setProduct_dosu("low");
+//		}else if(dto.getProduct_alcohol() <= 20) {
+//			dto.setProduct_dosu("middle");
+//		}else if(dto.getProduct_alcohol() <= 35) {
+//			dto.setProduct_dosu("high");
+//		}else if(dto.getProduct_alcohol() <= 50) {
+//			dto.setProduct_dosu("very-high");	
+//		}
+//		int check = this.apdao.insertProduct(dto);
+//		response.setContentType("text/html; charset=UTF-8");
+//		PrintWriter out = response.getWriter();
+//		if(check > 0) {
+//			this.apcdao.insertProductContent(dto.getProduct_no());
+//			out.println("<script> alert('제품 등록 성공'); location.href='admin_product_list.do'; </script>");
+//		}else {
+//			out.println("<script> alert('제품 등록 실패했습니다.'); history.back(); </script>");
+//		}
+//	}
 	
 	@RequestMapping("/admin_product_list.do")
 	public String admin_product_list(HttpServletRequest request, Model model) {
@@ -161,11 +320,11 @@ public class AdminController {
 	
 	@RequestMapping("admin_product_content.do")
 	public String admin_product_cont(@RequestParam("no") int no,@RequestParam("page") int page , Model model) {
-		admin_productDTO dto = this.apdao.getProductCont(no);
+		ProductDTO dto = this.pdao.getProductCont(no);
 		model.addAttribute("Cont", dto);
 		
-		admin_product_contentDTO pcdto = this.apcdao.getProduct(no);
-		model.addAttribute("PCCont", pcdto);
+		admin_product_contentDTO apdto = this.apcdao.getProductOne(no);
+		model.addAttribute("PCCont", apdto);
 		
 		model.addAttribute("page", page);
 		
@@ -198,6 +357,27 @@ public class AdminController {
 		}
 	}
 	
+	
+	
+	
+	//////////////////////////////////////////////////////////////////
+	
+	
+	
+	
+	//////////////////////////////////////////////////////////////////
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping("admin_product_update.do")
 	public String admin_productUpdate(@RequestParam("page") int page, @RequestParam("no") int no, Model model) {
 		ProductDTO pdto = this.pdao.getProductCont(no);
@@ -210,6 +390,8 @@ public class AdminController {
 		
 		return "admin/admin_product_update";
 	}
+	
+	
 	
 	@RequestMapping("admin_product_update_ok.do")
 	public void admin_product_update_ok(

@@ -16,7 +16,7 @@
   	resultType같은곳에 쓸때 똑같이 쓰시면 됩니다 (CardDAO, CardDTO) -->
   	
   	<!--  예시입니다
-  	
+  	Z
 	<select id="allCard" parameterType="int" resultType="CardDTO">
 		select * from card
 	</select>
@@ -38,9 +38,9 @@
 		select * from product_content where product_no = #{no}
 	</select>
 	
-	<select id="product_cont" parameterType="int" resultType="ProductDTO">
-  		select * from product where product_no = #{no}
-  	</select>
+<!-- 	<select id="product_cont" parameterType="int" resultType="ProductDTO"> -->
+<!--   		select * from product where product_no = #{no} -->
+<!--   	</select> -->
   
   
   

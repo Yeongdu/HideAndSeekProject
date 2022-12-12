@@ -21,6 +21,10 @@
   		product_cont3 = #{product_cont3} 
   		where product_no = #{product_no}
   	</update>
+  	
+  	<select id="adminProductContentCont" parameterType="int" resultType="admin_product_contentDTO">
+		select * from product_content where product_no = #{no}
+	</select>
   
   
   </mapper>

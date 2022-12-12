@@ -34,7 +34,7 @@ public interface Admin_productDAO {
     int getSearchListCount(String keyword);
     
     //상품 추가하는 메서드
-    int insertProduct(ProductDTO dto);
+    int insertProduct(admin_productDTO adto);
     
     //상품의 판매상태를 변경하는 메서드
     int productStatusChange(int product_no);

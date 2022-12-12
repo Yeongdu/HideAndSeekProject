@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.DefaultNamingPolicy;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
@@ -65,8 +67,9 @@ public class Admin_productDAOImpl implements Admin_productDAO{
 	}
 
 	@Override
-	public int insertProduct(ProductDTO dto) {
-		return this.sqlSession.insert("adminProductInsert", dto);
+	public int insertProduct(admin_productDTO adto) {
+
+		return this.sqlSession.insert("adminProductInsert", adto);
 	}
 
 	//판매중 -> 판매중지(품절)
