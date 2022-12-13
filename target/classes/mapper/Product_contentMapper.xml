@@ -39,6 +39,6 @@
 	</select>
 	
 	<select id="RList" parameterType="int" resultType="ReviewDTO">
-  		select * from review where product_no = #{no}
+  		select * from review where product_no = #{product_no}
   	</select>
   </mapper>
