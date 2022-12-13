@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.model.Product_contentDTO;
+import com.spring.model.ReviewDTO;
 
 @Repository
 public class Product_contentDAOImpl implements Product_contentDAO{
@@ -21,5 +22,10 @@ public class Product_contentDAOImpl implements Product_contentDAO{
 	@Override
 	public Product_contentDTO getProduct(int product_no) {
 		return this.sqlSession.selectOne("all", product_no);
+	}
+	
+	@Override
+	public List<ReviewDTO> getReviewList(int product_no) {
+		return this.sqlSession.selectList("RList", product_no);
 	}
 }

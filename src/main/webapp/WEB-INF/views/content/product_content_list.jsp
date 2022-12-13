@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="list" value="${List }" />
 <c:set var="pdto" value="${Cont }" />
+<c:set var="rlist" value="${Rlist }" />
 <!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
@@ -68,14 +69,58 @@
 				</div>
 				<img src="resources/image/${dto.getProduct_file4() }">
 			</div>
-
+		</div>
+	</c:forEach>
 			<!-- 버튼 클릭 시 화면 변경 수정중 -->
-			<div id="btn">
-				<input id="title" class="btn" type='button' value='리뷰'
-					onclick='review()' /> <input id="title1" class="btn1" type='button'
-					value='교환/반품' onclick='change()' />
-			</div>
+			<c:if test="${!empty rlist }">
+				<c:forEach items="${rlist }" var="rdto">
+					<div class="container">
+						<span>${rdto.getReview_title() }</span>
+					</div>
+				</c:forEach>
+			 </c:if>
+			 <c:if test="${empty rlist }">
+	            <tr>
+	               <td colspan="4" align="center">
+	                  <h3>카테고리 코드 목록이 없습니다..</h3>
+	               </td>
+	            </tr>
+	         </c:if>
+				<%-- <div class="container">
+			      <ul id="ac">
+			         <li class="menu1">
+			            <a href="#">${rdto.review_no}</a>
+			            <ul class="menu2">
+			               <li><a href="#">${rdto.review_no}</a></li>
+			               <li><a href="#">Sub-Menu2</a></li>
+			               <li><a href="#">Sub-Menu3</a></li>
+			            </ul>
+			         </li>
+			         <li class="menu1">
+			            <a href="#">Menu2</a>
+			            <ul class="menu2">
+			               <li><a href="#">Sub-Menu1</a></li>
+			               <li><a href="#">Sub-Menu2</a></li>
+			               <li><a href="#">Sub-Menu3</a></li>
+			            </ul>
+			         </li>
+			      </ul>
+			   </div> --%>
+			
 			<script type="text/javascript">
+			function getInnerHTML() {
+				  const element = document.getElementById('my_div');
+				  alert(element.innerHTML);
+				} 
+			
+			
+				function review() {
+					const element = document.getElementById('my_div').value;
+					element.innerHTML = '<div style="color:blue">InnerHTML<div>';
+				}
+				function change() {
+					
+				}
 				const title = document.querySelector("#title");
 				function handleClick() {
 					title.style.backgroundColor = "rgb(0, 151, 243)";
@@ -94,25 +139,8 @@
 				}
 				title1.addEventListener("click", handleClick1);
 			</script>
-			<div id='my_div' align="left">
-				<span class="txt">${dto.getProduct_cont5() }</span>
-			</div>
-			<script type="text/javascript">
-				function review() {
-					const element = document.getElementById('my_div');
-					element.innerHTML = '<div style="color:blue">InnerHTML<div>';
-				}
-				function change() {
-					const element = document.getElementById('my_div');
-					let text = document.getElementsByClassName('txt');
-					/* element.innerHTML = text.value; */
-					/* element.innerHTML = document.getElementById('txt'); */
-					/* let text = document.getElementById("txt").innerHTML; */
-				}
-			</script>
 			<!-- 버튼 클릭 시 화면 변경 수정끝 -->
 		</div>
-	</c:forEach>
 	<a href="#" class="back_to_top"> <img src="resources/image/top.png" />
 	</a>
 	

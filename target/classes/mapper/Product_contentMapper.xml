@@ -38,11 +38,7 @@
 		select * from product_content where product_no = #{no}
 	</select>
 	
-<!-- 	<select id="product_cont" parameterType="int" resultType="ProductDTO"> -->
-<!--   		select * from product where product_no = #{no} -->
-<!--   	</select> -->
-  
-  
-  
-  
+	<select id="RList" parameterType="int" resultType="ReviewDTO">
+  		select * from review where product_no = #{no}
+  	</select>
   </mapper>
