@@ -4,6 +4,7 @@
 
 
 <title>회원가입</title>
+<link href="resources/css/user/join.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
@@ -12,7 +13,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   
   
-  <link href="resources/css/join.css" rel="stylesheet" type="text/css">
+
   
 
 
@@ -28,19 +29,25 @@
 		   <form  name="form1" method="post" action="<%=request.getContextPath() %>/user_join_ok.do">
 			
 			 <fieldset class="join_field">
-				<legend>회원가입</legend>
+				<legend class="join_legend">회원가입</legend>
 				
-					<div class="title_1">
-						<span>기본정보</span>
-						<hr width="45%" align="center">
-					</div>
+					
+						<h3 class="title_1_span">기본정보</h3>
+						<p class="subTx">
+							<strong>* </strong>필수 입력 정보입니다.
+						</p>	
+						<hr style="width: 85%; margin-top: 5px;">
+					
+					
+					
+										
 					
 						<div class="join_id">
-						  <label for="user_id">아이디</label>
-						  	<div>
+						  <label for="user_id"><strong class="join_star">* </strong>아이디</label>
+						  	
 						       <input type="text" id="user_id" name="user_id" placeholder="아이디를 입력해주세요."   onblur="idCheck()" required><br>
 						     		<span id="idcheck"></span>
-						     </div>
+						    
 						        
           
 						</div>
