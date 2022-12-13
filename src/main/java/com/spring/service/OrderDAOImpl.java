@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.model.CartDTO;
 import com.spring.model.OrderDTO;
+import com.spring.model.PageDTO;
+import com.spring.model.ProductDTO;
 import com.spring.model.Product_categoryDTO;
 
 @Repository
@@ -58,6 +60,27 @@ public class OrderDAOImpl implements OrderDAO{
 	@Override
 	public void deleteOrder(int order_no) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public int getOrderListCount() {
+		
+		return this.sqlSession.selectOne("getOrderListCount");
+		
+	}
+
+	@Override
+	public List<OrderDTO> getOrderList(PageDTO dto) {
+		
+		return this.sqlSession.selectList("getOrderList", dto);
+		
+	}
+
+	@Override
+	public List<ProductDTO> getOrderProductList(int product_no) {
+
+		return this.sqlSession.selectList("getOrderProductList", product_no);
 		
 	}
 	

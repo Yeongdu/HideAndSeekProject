@@ -50,6 +50,19 @@
 	<select id="admin_getOrderListCount" resultType="int">
 		select count(*) from tb_order order by order_date desc
 	</select>
+	
+	<select id="getOrderListCount" parameterType="int" resultType="int">
+		select count(*) from review
+	</select>
+		
+	<select id="getOrderList" parameterType="PageDTO" resultType="OrderDTO">
+		<![CDATA[select * from (select p.*, row_number() over(order by order_no desc) rnum from tb_order p) 
+		where rnum >= #{startNo} and rnum <= #{endNo}]]>
+	</select>
+		
+	<select id="getOrderProductList" parameterType="int" resultType="ProductDTO">
+		select * from product where product_no = #{product_no}
+	</select>
   
   
   
