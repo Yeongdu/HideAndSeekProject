@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="list" value="${List }" />
 <c:set var="pdto" value="${Cont }" />
-<c:set var="rlist" value="${Rlist }" />
+<c:set var="rlist" value="${RList }" />
 <!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
@@ -72,72 +72,45 @@
 		</div>
 	</c:forEach>
 			<!-- 버튼 클릭 시 화면 변경 수정중 -->
-			<c:if test="${!empty rlist }">
-				<c:forEach items="${rlist }" var="rdto">
-					<div class="container">
-						<span>${rdto.getReview_title() }</span>
+			<c:forEach items="${rlist }" var="rdto">
+			</c:forEach>
+		<div class="accordion_wrap">
+			   <div class="accordion">
+					<input id="title" class="btn" type='button' value='리뷰'/>
+			   </div>
+					<div class="panel">
+					    <p class="text-light">Text 1</p>
 					</div>
-				</c:forEach>
-			 </c:if>
-			 <c:if test="${empty rlist }">
-	            <tr>
-	               <td colspan="4" align="center">
-	                  <h3>카테고리 코드 목록이 없습니다..</h3>
-	               </td>
-	            </tr>
-	         </c:if>
-				<%-- <div class="container">
-			      <ul id="ac">
-			         <li class="menu1">
-			            <a href="#">${rdto.review_no}</a>
-			            <ul class="menu2">
-			               <li><a href="#">${rdto.review_no}</a></li>
-			               <li><a href="#">Sub-Menu2</a></li>
-			               <li><a href="#">Sub-Menu3</a></li>
-			            </ul>
-			         </li>
-			         <li class="menu1">
-			            <a href="#">Menu2</a>
-			            <ul class="menu2">
-			               <li><a href="#">Sub-Menu1</a></li>
-			               <li><a href="#">Sub-Menu2</a></li>
-			               <li><a href="#">Sub-Menu3</a></li>
-			            </ul>
-			         </li>
-			      </ul>
-			   </div> --%>
-			
+				<div class="accordion">
+					<input id="title1" class="btn1" type='button' value='교환/반품' />
+				</div>
+					<div class="panel">
+				    	<p class="text-light">Text 2</p>
+					</div>
+		</div>
+				
 			<script type="text/javascript">
-			function getInnerHTML() {
-				  const element = document.getElementById('my_div');
-				  alert(element.innerHTML);
-				} 
-			
-			
-				function review() {
-					const element = document.getElementById('my_div').value;
-					element.innerHTML = '<div style="color:blue">InnerHTML<div>';
-				}
-				function change() {
-					
-				}
-				const title = document.querySelector("#title");
-				function handleClick() {
-					title.style.backgroundColor = "rgb(0, 151, 243)";
-					title.style.color = "white";
-					title1.style.backgroundColor = "#efefef";
-					title1.style.color = "black";
-				}
-				title.addEventListener("click", handleClick);
+			var acc = document.getElementsByClassName("accordion");
+			var panel = document.getElementsByClassName('panel');
 
-				const title1 = document.querySelector("#title1");
-				function handleClick1() {
-					title1.style.backgroundColor = "rgb(0, 151, 243)";
-					title1.style.color = "white";
-					title.style.backgroundColor = "#efefef";
-					title.style.color = "black";
-				}
-				title1.addEventListener("click", handleClick1);
+			for (var i = 0; i < acc.length; i++) {
+			    acc[i].onclick = function() {
+			    	var setClasses = !this.classList.contains('active');
+			        setClass(acc, 'active', 'remove');
+			        setClass(panel, 'show', 'remove');
+			        
+			       	if (setClasses) {
+			            this.classList.toggle("active");
+			            this.nextElementSibling.classList.toggle("show");
+			        }
+			    }
+			}
+
+			function setClass(els, className, fnName) {
+			    for (var i = 0; i < els.length; i++) {
+			        els[i].classList[fnName](className);
+			    }
+			}
 			</script>
 			<!-- 버튼 클릭 시 화면 변경 수정끝 -->
 		</div>
@@ -206,6 +179,9 @@
 		    swal('',"${pdto.product_stock -1}개까지 주문 할 수 있습니다",'warning');
 		    hm.value--;
 			sum.value = parseInt(hm.value) * sell_price;
+				if(${pdto.product_stock} == 0 ){
+					swal('',"품절되었습니다",'warning');
+				}
 		} else {
 			sum.value = parseInt(hm.value) * sell_price;
 		}
@@ -242,8 +218,9 @@
     var seconds = today.getSeconds();  // 초
     var milliseconds = today.getMilliseconds();
     var makeMerchantUid = hours +  minutes + seconds + milliseconds;
-        
+     
     function requestPay() {
+    	if (${pdto.product_stock } > 0) {
     	IMP.request_pay({
       	pg : 'kcp',
         pay_method : 'card',
@@ -269,7 +246,10 @@
     		}         
     		alert(msg);       
     		});
-    	}
+    	} else {
+    		swal('',"품절되었습니다",'warning');
+		}
+    }
   	//결제 api 끝
 	</script>
 </div>
