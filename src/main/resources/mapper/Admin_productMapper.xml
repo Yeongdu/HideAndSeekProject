@@ -60,9 +60,18 @@
   	
   	<update id="seq" parameterType="int">
   		<![CDATA[
-  			update product set product_no = product_no where product_no > #{product_no}
+  			update product set product_no = product_no - 1 where product_no > #{product_no}
   		]]>
   	</update>
+  	
+  	<select id="getStopProductList" parameterType="PageDTO" resultType="admin_productDTO">
+  		<![CDATA[select * from (select p.*, row_number() over(order by product_no desc) rnum from product p  where p.product_status='판매중지')
+		where rnum >= #{startNo} and rnum <= #{endNo}]]>
+  	</select>
+  	
+  	<select id="stopProductCount" resultType="int">
+		select count(*) from product where product_status = '판매중지'
+	</select>
 
   
   </mapper>

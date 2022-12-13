@@ -59,9 +59,11 @@
 	
 
 </script>
-
-
+<br><br>
 <div style="width:45em; height:auto; margin: 50px auto; text-align: center;" align="center">
+	<div class="adminProductListTitle" align="center">
+		<h4>새로운 상품 등록</h4>
+	</div>
 
 <br><br>
         <form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/admin_product_insert_ok.do" class="border-top">
@@ -243,6 +245,8 @@
 			<div class="form-group row mt-4" align="center">
                 <div>
                     <button type="submit" class="btn btn-success">등록하기</button>
+                    &nbsp;&nbsp;
+                    <button type="reset" class="btn btn-outline-danger">다시작성</button>
                     &nbsp;&nbsp;
                     <input type="button" class="btn btn-secondary" value="메인화면" onclick="location.href='admin_main.do'">
                 </div>

@@ -450,24 +450,30 @@ public class AdminController {
 	
 	
 	@RequestMapping("admin_product_delete.do")
-	public void admin_product_del(@RequestParam("no") int no, HttpServletResponse response) throws IOException  {
-		System.out.println(no);
-		
-		int check2 = this.apcdao.deleteProductCont(no);
-		int check1 = this.apdao.deleteProduct(no);
+	public void admin_product_del(@RequestParam("no") int no, HttpServletResponse response) throws IOException {
+
+		int product_no = no;
+
+		// 해당 번호 삭제하는 메서드
+		int check1 = this.apcdao.deleteProductCont(no);
+
+		// 번호 재정렬
+
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		if(check1 > 0 && check2 > 0) {
-			this.apcdao.productContUpdateSeq(no);
-			this.apdao.productUpdateSeq(no);
-			out.println("<script> alert('상품이 삭제되었습니다.'); location.href='admin_product_list.do'; </script>");
-		}else {
-			out.println("<script> alert('상품삭제실패'); history.back(); </script>");
+		if (check1 > 0) {
+			this.apcdao.productContUpdateSeq(product_no);
+			int check2 = this.apdao.deleteProduct(no);
+			if (check2 > 0) {
+				this.apdao.productUpdateSeq(product_no);
+				out.println("<script> alert('상품이 삭제되었습니다.'); location.href='admin_product_list.do'; </script>");
+			} else {
+				out.println("<script> alert('상품삭제실패'); history.back(); </script>");
+			}
 		}
-		
-		
-		
+
 	}
+	
 	
 	@RequestMapping("/admin_order_list.do")
 	public String admin_order_list(HttpServletRequest request, Model model) {
@@ -523,9 +529,167 @@ public class AdminController {
 		}
 	}
 	
-	@RequestMapping("admin_order_del.do")
-	public String admin_order_del() {
-		return "admin/admin_order_del";
+	
+	@RequestMapping("admin_order_search.do")
+	public String admin_order_search(HttpServletRequest request, 
+			@RequestParam(value = "keyword", required = false) String keyword,
+			Model model) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		// 페이징 처리 작업
+		int page;	// 현재 페이지 변수
+		int rowsize = 10;
+		int totalRecord;
+		
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}else {
+			// 처음으로 게시물 전체 목록 태그를 클릭한 경우
+			page = 1;
+		}
+		// DB상의 전체 게시물의 수를 확인하는 메서드
+		totalRecord = this.dao.getOrderSearchListCount(keyword);
+		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+		
+		map.put("keyword", keyword);
+		map.put("Page", dto);
+		
+		List<OrderDTO> list = this.dao.getOrderSearchList(map);
+		
+		int count = 0;
+
+		for (OrderDTO item : list) {
+
+			List<ProductDTO> plist = dao.getOrderProductList(list.get(count).getProduct_no());
+
+			list.get(count).setProduct_name(plist.get(0).getProduct_name());
+			list.get(count).setProduct_thumbnail(plist.get(0).getProduct_thumbnail());
+
+			count += 1;
+
+		}
+
+		model.addAttribute("list", list);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("page", dto);
+		
+		return "admin/admin_order_search";
+	}
+	
+	@RequestMapping("/admin_order_del_list.do")
+	public String admin_order_del_list(HttpServletRequest request, Model model) {
+		// 페이징 처리 작업
+		int page; // 현재 페이지 변수
+
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		} else {
+			// 처음으로 게시물 전체 목록 태그를 클릭한 경우
+			page = 1;
+		}
+		// DB상의 전체 게시물의 수를 확인하는 메서드
+		totalRecord = this.dao.getOrderDelListCount();
+		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+
+		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
+		List<OrderDTO> list = this.dao.getOrderDelList(dto);
+
+		int count = 0;
+
+		for (OrderDTO item : list) {
+
+			List<ProductDTO> plist = dao.getOrderProductList(list.get(count).getProduct_no());
+
+			list.get(count).setProduct_name(plist.get(0).getProduct_name());
+			list.get(count).setProduct_thumbnail(plist.get(0).getProduct_thumbnail());
+
+			count += 1;
+
+		}
+
+		model.addAttribute("list", list);
+
+		model.addAttribute("page", dto);
+
+		return "admin/admin_order_del_list";
+
+	}
+	
+	@RequestMapping("admin_order_del_search.do")
+	public String admin_order_del_search(HttpServletRequest request, 
+			@RequestParam(value = "keyword", required = false) String keyword,
+			Model model) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		// 페이징 처리 작업
+		int page;	// 현재 페이지 변수
+		int rowsize = 10;
+		int totalRecord;
+		
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}else {
+			// 처음으로 게시물 전체 목록 태그를 클릭한 경우
+			page = 1;
+		}
+		// DB상의 전체 게시물의 수를 확인하는 메서드
+		totalRecord = this.dao.getOrderDelSearchListCount(keyword);
+		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+		
+		map.put("keyword", keyword);
+		map.put("Page", dto);
+		
+		List<OrderDTO> list = this.dao.getOrderDelSearchList(map);
+		
+		int count = 0;
+
+		for (OrderDTO item : list) {
+
+			List<ProductDTO> plist = dao.getOrderProductList(list.get(count).getProduct_no());
+
+			list.get(count).setProduct_name(plist.get(0).getProduct_name());
+			list.get(count).setProduct_thumbnail(plist.get(0).getProduct_thumbnail());
+
+			count += 1;
+
+		}
+
+		model.addAttribute("list", list);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("page", dto);
+		
+		return "admin/admin_order_del_search_list";
+	}
+	
+	
+	@RequestMapping("admin_product_del_list.do")
+	public String admin_product_del_list(HttpServletRequest request, Model model) {
+		// 페이징 처리 작업
+		int page;	// 현재 페이지 변수
+						
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}else {
+			// 처음으로 게시물 전체 목록 태그를 클릭한 경우
+			page = 1;
+		}
+
+		// DB상의 전체 게시물의 수를 확인하는 메서드
+		totalRecord = this.apdao.getStopProductCount();
+		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+		
+		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
+		List<admin_productDTO> plist = this.apdao.stopProductList(dto);
+		
+
+		model.addAttribute("list", plist);
+		
+		model.addAttribute("page", dto);
+		
+		
+		return "admin/admin_product_del_list";
 	}
 	
 

@@ -51,6 +51,17 @@ public interface Admin_productDAO {
 	
 	//삭제후 번호재정렬
 	void productUpdateSeq(int product_no);
-
+	
+	//판매 중지 상품 리스트 조회
+	List<admin_productDTO> stopProductList(PageDTO dto);
+	
+	//판매 중지 상품 갯수 조회
+	int getStopProductCount();
+	
+	//판매중인 상품 리스트 조회
+	List<admin_productDTO> salProductList(PageDTO dto);
+	
+	//판매중인 상품 갯수 조회
+	int getSalProductCount();
 
 }

@@ -294,6 +294,8 @@
                 <div>
                     <button type="submit" class="btn btn-success">등록하기</button>
                     &nbsp;&nbsp;
+                    <button type="reset" class="btn btn-outline-danger">다시작성</button>
+                    &nbsp;&nbsp;
                     <input type="button" class="btn btn-secondary" value="메인화면" onclick="location.href='admin_main.do'">
                 </div>
             </div>

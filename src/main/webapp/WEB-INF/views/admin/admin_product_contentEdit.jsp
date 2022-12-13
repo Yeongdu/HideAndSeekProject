@@ -15,7 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 <link href="resources/css/banner/admin_banner.css" rel="stylesheet" type="text/css">
 
-<div style="height: 100%">
+<div style="height: auto; min-height: 100%">
 <br>
 <br>
 <br>
@@ -46,7 +46,9 @@
 					<tr>
 						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">${dto.product_no }</td>
 						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">${dto.product_name }</td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">${dto.product_thumbnail }</td>
+						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">
+							<img height="60px" width="auto" src = "resources/upload/${dto.product_thumbnail }">
+						</td>
 						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">${dto.product_category }</td>
 						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">${dto.product_company }</td>
 						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">${dto.product_price }</td>
@@ -82,7 +84,7 @@
 			</c:if>
 
 			<tr>
-				<td colspan="9" align="center">
+				<td colspan="11" align="center">
 				<input type="button"
 					class="btn btn-outline-primary" value="상품추가"
 					onclick="location.href='admin_product_insert.do'">
@@ -147,6 +149,7 @@
 		</div>
 		</div>
 </div>
+<br><br><br>
 
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <jsp:include page="../banner/bottom.jsp" />

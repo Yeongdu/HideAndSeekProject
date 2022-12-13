@@ -32,7 +32,7 @@
   	
   	<update id="seqCont" parameterType="int">
   		<![CDATA[
-  			update product_content set product_no = product_no where product_no > #{product_no}
+  			update product_content set product_no = product_no - 1 where product_no > #{product_no}
   		]]>
   	</update>
   

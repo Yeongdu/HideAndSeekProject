@@ -13,7 +13,7 @@
 <jsp:include page="../banner/admin_top.jsp" />
 
 <title>${dto.product_no }) ${dto.product_name } 상세 </title>
-<div style="height: 100%" align="center">
+<div style="height: auto" align="center">
 <br><br>
 
 <table class="table table-bordered" style="width: 50em">
@@ -104,7 +104,7 @@
 	</tr>
 	
 	<tr>
-		<td colspan="6">
+		<td colspan="6" align="right">
 		<input type="button"
 					class="btn btn-outline-primary" value="기본정보 수정"
 					onclick="location.href='<%=request.getContextPath()%>/admin_product_update.do?no=${dto.product_no }&page=${page}'">
@@ -114,7 +114,7 @@
 					onclick="location.href='<%=request.getContextPath()%>/admin_product_content_update.do?no=${dto.product_no }&page=${page}'">
 		
 		<input type="button" class="btn btn-outline-danger" value="상품 삭제"
-					onclick="if(confirm('상품을 삭제하시겠습니까? 상품은 판매중지로 변경되어 스토어에선 사라지지만 DB에서는 사라지지 않습니다.')){
+					onclick="if(confirm('상품을 삭제하시겠습니까? 되돌릴 수 없습니다.')){
 					location.href='<%=request.getContextPath() %>/admin_product_delete.do?no=${dto.product_no }'} 
 					else{return; }">
 		<input type="button" class="btn btn-outline-secondary" value="전체목록" onclick="location.href='admin_product_list.do'">
@@ -125,6 +125,7 @@
 	
 	
 </table>
+<br><br>
 
 
 </div>

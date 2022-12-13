@@ -5,7 +5,7 @@
 <jsp:include page="../banner/admin_top.jsp" />
 
 <title>관리자 페이지 메인</title>
-<div class="admin_main_Wrab" style="height: 100%">
+<div class="admin_main_Wrab" style="height: auto; min-height: 100%;">
 	<br> <br> <br> <br>
 
 	<div align="center">
