@@ -42,9 +42,15 @@ public interface Admin_productDAO {
     int productStatusChange2(int product_no);
     
     //상품을 수정하는 메서드
-    int productUpdate(ProductDTO dto);
+    int productUpdate(admin_productDTO adto);
 
 	int insertGoods(admin_productDTO adto);
+	
+	//상품을 삭제하는 메서드
+	int deleteProduct(int product_no);
+	
+	//삭제후 번호재정렬
+	void productUpdateSeq(int product_no);
 
 
 }

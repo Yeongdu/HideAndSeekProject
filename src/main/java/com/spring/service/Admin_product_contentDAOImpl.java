@@ -34,5 +34,17 @@ public class Admin_product_contentDAOImpl implements Admin_product_contentDAO{
 		return this.sqlSession.insert("adminProductContentInsert", no);
 	}
 
+	@Override
+	public int deleteProductCont(int product_no) {
+		return this.sqlSession.delete("adminProductContDelete", product_no);
+	}
+
+	@Override
+	public void productContUpdateSeq(int product_no) {
+		this.sqlSession.update("seqCont", product_no);
+		
+	}
+	
+
 
 }

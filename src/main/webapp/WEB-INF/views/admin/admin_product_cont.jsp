@@ -4,6 +4,10 @@
 <c:set var="dto" value="${Cont }" />
 <c:set var="pcdto" value="${PCCont }" />
 <c:set var="page" value="${page }" />
+<c:set var="thumbnail" value="${thumbnail }" />
+<c:set var="DBfile1" value="${file1 }" />
+<c:set var="DBfile2" value="${file2 }" />
+<c:set var="DBfile3" value="${file3 }" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 <jsp:include page="../banner/admin_top.jsp" />
@@ -14,10 +18,11 @@
 
 <table class="table table-bordered" style="width: 50em">
 
+
 	<tr>
 		<td class="admin_table_tdLabel">상품명</td>
 		<td colspan="3">${dto.product_name }</td>
-		<td colspan="2" rowspan="3"><img width="110px;" src = "resources/image/logo.png"></td>
+		<td colspan="2" rowspan="3"><img width="110px;" src = "resources/image/${thumbnail }"></td>
 		
 	</tr>
 	
@@ -59,7 +64,8 @@
 	<tr>
 		<td class="admin_table_tdLabel">사진1</td>
 		<td colspan="5">
-		<c:if test="${!empty pcdto.product_file1  }" > <img width="400px" src = "resources/upload/${pcdto.product_file1 }"> </c:if>
+		<c:if test="${!empty pcdto.product_file1  }" >
+			<img width="400px" src = "resources/upload/${DBfile1 }"> </c:if>
 		<c:if test="${empty pcdto.product_file1  }" > </c:if>
 		</td>
 	</tr>
@@ -72,7 +78,8 @@
 	<tr>
 		<td class="admin_table_tdLabel">사진2</td>
 		<td colspan="5">
-		<c:if test="${!empty pcdto.product_file2  }" > <img width="400px" src = "resources/upload/${pcdto.product_file2 }"> </c:if>
+		<c:if test="${!empty pcdto.product_file2  }" >
+			<img width="400px" src = "resources/upload/${DBfile2 }"> </c:if>
 		<c:if test="${empty pcdto.product_file2  }" > </c:if>
 		</td>
 	</tr>
@@ -86,7 +93,7 @@
 		<td class="admin_table_tdLabel">사진3</td>
 		<td colspan="5">
 		<c:if test="${!empty pcdto.product_file3  }" >
-		<img width="400px" src = "resources/upload/${pcdto.product_file3 }"> </c:if>
+			<img width="400px" src = "resources/upload/${DBfile3 }"> </c:if>
 		<c:if test="${empty pcdto.product_file3  }" > </c:if>
 		</td>
 	</tr>

@@ -57,11 +57,6 @@
 	  }
 	}
 	
-// 	function printFile()  {
-// 		  const name = document.getElementById('product_thumbnail').value;
-// 		  $('input[name=product_thumbnail_result]').attr('value',name);
-// 		}
-
 
 </script>
 
@@ -69,8 +64,8 @@
 <div style="width:45em; height:auto; margin: 50px auto; text-align: center;" align="center">
 
 <br><br>
-<%--         <form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/admin_product_insert_ok.do" class="border-top"> --%>
-            <form method="post" action="<%=request.getContextPath()%>/file_upload.do" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/admin_product_insert_ok.do" class="border-top">
+<%--             <form method="post" action="<%=request.getContextPath()%>/file_upload.do" enctype="multipart/form-data"> --%>
            
             <%--상품이름 --%>
             <div class="form-group row border-bottom py-2">
@@ -142,7 +137,7 @@
 				<label for="product_sweet" class="col-sm-4 col-form-label">단맛</label>
 				<div class="col-sm-8">
 
-					<input class="form-check-input" type="radio" name="product_sweet" id="product_sweet" value="row" required> 
+					<input class="form-check-input" type="radio" name="product_sweet" id="product_sweet" value="low" required> 
 					<label class="form-check-label" for="inlineRadio1">낮음</label>
 					&nbsp;&nbsp;&nbsp;&nbsp; 
 					<input class="form-check-input" type="radio" name="product_sweet" id="product_sweet" value="middle" required>
@@ -158,7 +153,7 @@
             <div class="form-group row border-bottom py-2">
                 <label for="product_acidity" class="col-sm-4 col-form-label">신 맛</label>
                 <div class="col-sm-8">
-					<input class="form-check-input" type="radio" name="product_acidity" id="product_acidity" value="row" required> 
+					<input class="form-check-input" type="radio" name="product_acidity" id="product_acidity" value="low" required> 
 					<label class="form-check-label" for="inlineRadio1">낮음</label>
 					&nbsp;&nbsp;&nbsp;&nbsp; 
 					<input class="form-check-input" type="radio" name="product_acidity" id="product_acidity" value="middle" required>
@@ -177,7 +172,7 @@
 					<input class="form-check-input" type="radio" name="product_soda" id="product_soda" value="nosoda" required>
 					<label class="form-check-label" for="inlineRadio1">탄산없음</label>
                 	&nbsp;&nbsp;&nbsp;&nbsp;
-					<input class="form-check-input" type="radio" name="product_soda" id="product_soda" value="row" required>
+					<input class="form-check-input" type="radio" name="product_soda" id="product_soda" value="low" required>
 					<label class="form-check-label" for="inlineRadio1">적음</label>
                 	&nbsp;&nbsp;&nbsp;&nbsp;
 					<input class="form-check-input" type="radio" name="product_soda" id="product_soda" value="middle" required>
@@ -242,11 +237,8 @@
                 <img width="120px;" id="preview1" />
                 </div>
             </div>
-             <button type="submit">Upload</button>
-            </form>
+             
             
-            <input type="hidden" name="product_thumbnail_result" value="">
-
 
 			<div class="form-group row mt-4" align="center">
                 <div>
@@ -255,6 +247,7 @@
                     <input type="button" class="btn btn-secondary" value="메인화면" onclick="location.href='admin_main.do'">
                 </div>
             </div>
+            </form>
             <br>
 
 		<!-- 상품 사진, 설명 더 작성하기 -->

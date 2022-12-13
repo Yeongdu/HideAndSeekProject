@@ -13,6 +13,8 @@ import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
 import com.spring.model.admin_productDTO;
 
+import oracle.net.aso.r;
+
 @Repository
 public class Admin_productDAOImpl implements Admin_productDAO{
 	@Autowired
@@ -86,13 +88,24 @@ public class Admin_productDAOImpl implements Admin_productDAO{
 
 
 	@Override
-	public int productUpdate(ProductDTO dto) {
-		return this.sqlSession.update("adminProductUpdate", dto);
+	public int productUpdate(admin_productDTO adto) {
+		return this.sqlSession.update("adminProductUpdatee", adto);
 	}
 
 	@Override
 	public int insertGoods(admin_productDTO adto) {
 		return this.sqlSession.insert("adminProductIns", adto);
+	}
+
+	@Override
+	public int deleteProduct(int product_no) {
+		return this.sqlSession.delete("adminProductDelete", product_no);
+	}
+
+	@Override
+	public void productUpdateSeq(int product_no) {
+		this.sqlSession.update("seq", product_no);
+		
 	}
 
 }
