@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.model.ProductDTO;
 import com.spring.model.Product_contentDTO;
+import com.spring.model.ReviewDTO;
 import com.spring.service.ProductDAO;
 import com.spring.service.Product_contentDAO;
+import com.spring.service.ReviewDAO;
 
 @Controller
 public class Product_contentController {
@@ -29,6 +31,11 @@ public class Product_contentController {
 
 	        ProductDTO dto = this.dao.getProductCont(no);
 	        model.addAttribute("Cont", dto);
+	        
+	        List<ReviewDTO> rlist = this.pcdao.getReviewList(no);
+	        model.addAttribute("RList", rlist);
+	       System.out.println("rlist2 : "+rlist);
+	        
 	        return "content/product_content_list";
 	    }
 	 
