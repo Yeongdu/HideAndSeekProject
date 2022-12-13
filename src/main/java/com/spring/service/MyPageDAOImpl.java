@@ -94,23 +94,9 @@ public class MyPageDAOImpl implements MyPageDAO{
 		return this.sqlSession.selectList("order_content", userId);
 	}
 
-
-
-
-
-
-
-
-	
-
-
-
-	
-
-	
-
-	
-	
-	
+	@Override
+	public int reviewInsert(ReviewDTO rdto) {
+		return this.sqlSession.insert("review_insert", rdto);
+	}
 
 }

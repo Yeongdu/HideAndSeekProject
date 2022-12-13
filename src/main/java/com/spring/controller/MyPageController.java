@@ -1,5 +1,8 @@
 package com.spring.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.model.DeliveryDTO;
 import com.spring.model.OrderDTO;
@@ -33,6 +37,8 @@ public class MyPageController {
 
 	// DB 상의 전체 게시물의 수
 	private int totalRecord = 0;
+	
+	private static final String FILE_SERVER_PATH = /*"D:\\git\\HideAndSeekProject\\src\\main\\webapp\\resources\\upload";*/ "C:\\Users\\user1\\git\\HideAndSeekProject\\src\\main\\webapp\\resources\\review_img";
 	
 	
 	@RequestMapping("mypage.do")
@@ -177,7 +183,59 @@ public class MyPageController {
 		return delivery_info;
 	}
 	
-	
+	@RequestMapping("review_insertOk.do")
+	public void review_insertOk(@RequestParam("product_insert_no")int no,
+								@RequestParam("review_insert_cont")String cont,
+								@RequestParam("review_insert_image")MultipartFile file,
+								@RequestParam("reviewStar") String star2,
+								@RequestParam("review_insert_userId")String userId,
+								HttpServletResponse response,
+								ReviewDTO rdto) throws IllegalStateException, IOException {
+		int star = Integer.parseInt(star2);
+		
+		System.out.println("star >>> " + star2);
+		
+		if(file.isEmpty()) {
+			rdto.setReview_file("");
+		}else {
+			rdto.setReview_file(file.getOriginalFilename());
+		}
+		
+		rdto.setReview_cont(cont);
+		rdto.setProduct_no(no);
+		
+		if(star == 0) {
+			rdto.setReview_star(0);
+		}else {
+			rdto.setReview_star(star);
+		}
+		
+		rdto.setUser_id(userId);
+		
+		 int check = this.mypage_dao.reviewInsert(rdto);
+		 
+		 response.setContentType("text/html; charset=UTF-8");
+		 PrintWriter out = response.getWriter();
+		 
+		 if (check > 0 && !file.getOriginalFilename().isEmpty()) {
+				file.transferTo(new File(FILE_SERVER_PATH, file.getOriginalFilename()));
+				out.println("<script>");
+				out.println("location.href='mypage.do'");
+				out.println("</script>");
+			}else if(check > 0 && file.getOriginalFilename().isEmpty()){
+				out.println("<script>");
+				out.println("location.href='mypage.do'");
+				out.println("</script>");
+			}else {
+				out.println("<script> alert('리뷰 등록 실패');</script>");
+			}
+		 
+		 
+		 
+		 
+		 
+		
+	}
 	
 	
 	

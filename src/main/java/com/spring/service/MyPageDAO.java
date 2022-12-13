@@ -24,6 +24,7 @@ public interface MyPageDAO {
 	
 	List<ReviewDTO> getReviewCont(Map<String, Object> map);
 	int getReviewCount(String userId);
+	int reviewInsert(ReviewDTO rdto);
 	
 	List<Subscribe_userDTO> getSubCont(String userId);
 	

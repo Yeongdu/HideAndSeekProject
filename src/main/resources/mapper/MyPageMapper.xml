@@ -107,7 +107,18 @@
  	 	select * from delivery where user_id = #{userId}
  	 </select>
  	 
- 	 
+ 	 <insert id="review_insert" parameterType="ReviewDTO">
+ 	 	insert into review values(
+  		(select max(review_no) from review) +1,
+  		'리뷰',
+  		#{review_cont},
+  		#{review_file},
+  		#{review_star},
+  		sysdate,
+  		#{user_id},
+  		#{product_no}
+  		)
+ 	 </insert>
  	 
  	 
  	 
