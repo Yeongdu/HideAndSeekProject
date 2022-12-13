@@ -52,12 +52,14 @@ public class UserController {
 	@RequestMapping("user_check.do")
     public String signIn(HttpSession session, @RequestParam("id") String id, @RequestParam("pw") String pw, Model model) {
         int result = dao.userCheck(id, pw);
+        
+       
         if (result == 1) {
-            model.addAttribute("id", id);
+            //model.addAttribute("id", id);
 
             session.setAttribute("userId", id);
 
-            return "store/store_main";
+            return "redirect:/store.do";
         }else {
         	return "user/login";
         }
@@ -123,7 +125,7 @@ public class UserController {
 	      
 	      session.invalidate();
 	      
-	      return "store/store_main";
+	      return "redirect:/store.do";
 	   }
 	
 	//아이디찾기 페이지로 이동
