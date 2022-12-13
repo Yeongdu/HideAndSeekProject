@@ -89,6 +89,11 @@ public class MyPageDAOImpl implements MyPageDAO{
 		return this.sqlSession.selectOne("count_order", userId);
 	}
 
+	@Override
+	public List<OrderDTO> orderContent(String userId) {
+		return this.sqlSession.selectList("order_content", userId);
+	}
+
 
 
 

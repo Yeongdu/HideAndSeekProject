@@ -15,6 +15,7 @@ public interface MyPageDAO {
 	int updateUser(Map<String, Object> map);
 	
 	List<OrderDTO> getOrderCont(Map<String, Object> map);
+	List<OrderDTO> orderContent(String userId);
 	int getOrderCount(String userId);
 	int getOrderAllCount(String userId);
 	int getRefundCount(String userId);
