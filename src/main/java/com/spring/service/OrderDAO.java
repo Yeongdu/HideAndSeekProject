@@ -4,32 +4,43 @@ import java.util.List;
 
 import com.spring.model.CartDTO;
 import com.spring.model.OrderDTO;
+import com.spring.model.PageDTO;
+import com.spring.model.ProductDTO;
 import com.spring.model.Product_categoryDTO;
 
 public interface OrderDAO {
 	
-	//цж╠ы аж╧╝ ╦╝╫╨ф╝╦╕ ╨р╥╞©ю╢б ╦ч╪╜╣Е
+	//О©╫ж╠О©╫ О©╫ж╧О©╫ О©╫О©╫О©╫О©╫ф╝О©╫О©╫ О©╫р╥О©╫О©╫О©╫О©╫О©╫ О©╫ч╪О©╫О©╫О©╫
 	List<OrderDTO> getNewOrderList();
 	
-	//аж╧╝ ╦╝╫╨ф╝╦╕ ╨р╥╞©ю╢б ╦ч╪╜╣Е
+	//О©╫ж╧О©╫ О©╫О©╫О©╫О©╫ф╝О©╫О©╫ О©╫р╥О©╫О©╫О©╫О©╫О©╫ О©╫ч╪О©╫О©╫О©╫
 	List<OrderDTO> getOrderList();
 	
-	//д╚ев╟М╦╝ ╦╝╫╨ф╝╦╕ ╨р╥╞©ю╢б ╦ч╪╜╣Е
+	//д╚О©╫в╟О©╫ О©╫О©╫О©╫О©╫ф╝О©╫О©╫ О©╫р╥О©╫О©╫О©╫О©╫О©╫ О©╫ч╪О©╫О©╫О©╫
 	List<Product_categoryDTO> getCategoryList();
 	
-	//юЭц╪ аж╧╝╪Ж ╨р╥╞©ю╢б ╦ч╪╜╣Е
+	//О©╫О©╫ц╪ О©╫ж╧О©╫О©╫О©╫ О©╫р╥О©╫О©╫О©╫О©╫О©╫ О©╫ч╪О©╫О©╫О©╫
 	int getOrderCount();
 	
-	// аж╧╝ а╓╨╦╦╕ DB ©║ Ёж╢б ╦ч╪╜╣Е
+	// О©╫ж╧О©╫ О©╫О©╫О©╫О©╫О©╫О©╫ DB О©╫О©╫ О©╫ж╢О©╫ О©╫ч╪О©╫О©╫О©╫
     void insertOrder(OrderDTO dto);
 
-    // аж╧╝ DB юг а╓╨╦╦╕ ╧ч╬ф©ю╢б ╦ч╪╜╣Е
+    // О©╫ж╧О©╫ DB О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫ О©╫ч╬ф©О©╫О©╫О©╫ О©╫ч╪О©╫О©╫О©╫
     CartDTO getOrderCont(int order_no);
 
-    // аж╧╝ а╓╨╦╦╕ ╨╞╟Фго╢б ╦ч╪╜╣Е
+    // О©╫ж╧О©╫ О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫о╢О©╫ О©╫ч╪О©╫О©╫О©╫
     void updateOrder(OrderDTO dto);
 
-    // аж╧╝ а╓╨╦╦╕ ╩Ха╕го╢б ╦ч╪╜╣Е
+    // О©╫ж╧О©╫ О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫о╢О©╫ О©╫ч╪О©╫О©╫О©╫
     void deleteOrder(int order_no);
+    
+    // DB Л┐│Л²≤ Л═└Л╡╢ Лё╪К╛╦ К╙╘К║² Л┬≤К╔╪ К╟⌡Л∙└Л≤╓К┼■ К╘■Л└°К⌠°
+    int getOrderListCount();
+    
+    // Л≤╓К█■М┘▄Л²╢К╦■Л²≤ К╕╛Л┼╓М┼╦К╔╪ К╟⌡Л∙└Л≤╓К┼■ К╘■Л└°К⌠°
+    List<OrderDTO> getOrderList(PageDTO dto);
+    
+    // Л≤╓К█■К╕╛Л┼╓М┼╦Л≈░ Л┐│М▓┬К╡┬М≤╦Л≈░ М∙╢К▀╧М∙≤К┼■ Л┐│М▓┬ Л═∙КЁ╢К╔╪ К╟⌡Л∙└Л≤╓К┼■ К╘■Л└°К⌠°
+    List<ProductDTO> getOrderProductList(int product_no);
 
 }
