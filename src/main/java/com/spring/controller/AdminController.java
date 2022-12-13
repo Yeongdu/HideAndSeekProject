@@ -449,17 +449,17 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping("admin_product_del.do")
+	@RequestMapping("admin_product_delete.do")
 	public void admin_product_del(@RequestParam("no") int no, HttpServletResponse response) throws IOException  {
 		System.out.println(no);
 		
-		int check1 = this.apdao.deleteProduct(no);
 		int check2 = this.apcdao.deleteProductCont(no);
+		int check1 = this.apdao.deleteProduct(no);
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		if(check1 > 0 && check2 > 0) {
-			this.apdao.productUpdateSeq(no);
 			this.apcdao.productContUpdateSeq(no);
+			this.apdao.productUpdateSeq(no);
 			out.println("<script> alert('상품이 삭제되었습니다.'); location.href='admin_product_list.do'; </script>");
 		}else {
 			out.println("<script> alert('상품삭제실패'); history.back(); </script>");
