@@ -379,6 +379,68 @@ main{
 	margin-bottom: 40px;
 }
 
+/* .review_insert_star input[type=radio]{
+    display: none;
+}
+
+.review_insert_star label{
+    font-size: 3em;
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
+}
+
+.review_insert_star label:hover{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+
+ .review_insert_star label:hover ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+
+.review_insert_star input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+} 
+
+.review_insert_star{
+	text-align: left;
+	direction: rtl;
+} */
+
+.star {
+    position: relative;
+    font-size: 2rem;
+    color: #ddd;
+  }
+  
+  .star input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .star span {
+    width: 0;
+    position: absolute; 
+    left: 0;
+    color: red;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+#reviewContents {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: solid 1.5px #D3D3D3;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: none;
+}
+
 #modal {
 	position: absolute;
     top: 0;
@@ -482,5 +544,10 @@ main{
 
 .review_info_cont{
 	margin-bottom: 20px;
+}
+
+.review_image{
+	width: auto;
+	height: 20%;
 }
 

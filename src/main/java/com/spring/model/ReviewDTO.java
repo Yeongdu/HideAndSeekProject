@@ -2,6 +2,8 @@ package com.spring.model;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
@@ -24,4 +26,6 @@ public class ReviewDTO {
 	private String product_name; // 상품 이름
 	private String product_status; // 상품 상태 기본값:판매 .. 품절, 종료
 	private int product_amount; // 상품 용량
+	
+	private MultipartFile review_insert_image;
 }

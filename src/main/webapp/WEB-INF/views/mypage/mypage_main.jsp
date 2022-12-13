@@ -69,30 +69,41 @@
 	</div>
 </div>
 
+<script type="text/javascript">
+	function drawStar(){
+		var starval = $(".star_range").val();
+		var starvalue = starval * 20; 
+		$(".star span").css("width", starvalue+"%");
+		
+		console.log("starval >>> " + starvalue);
+	}
+	  
+	
+</script>
+
 <!-- 리뷰 등록 모달 -->
 <div id="modal" style = 'display:none; z-index:1;'>
 	<div class="modal_body">
 		<div class="modalClose" align="right">
 			<input type = "button" value = "X">
 		</div>
-		<form method = "post" action ="<%=request.getContextPath() %>/review_insert.do" class = "review_insert_form">
 			<div class = "review_select">
 				<span>리뷰할 상품을 골라주세요.</span>
-				<select id = "order_product">
-					<option value = "">리뷰할 상품</option>
-					<c:set var = "olist" value = "${order_content }"/>
-					<c:forEach items = "${olist }" var = "odto">
-						<option value = "${odto.getOrder_no() }">${odto.getProduct_name() }</option>
-					</c:forEach>
-				</select>
 			</div>
+			<form method = "post" enctype="multipart/form-data" action = "<%=request.getContextPath() %>/review_insertOk.do" id = "review_form">
 			<div class = "review_content">
-				<textarea rows="10" cols="30" name = "review_cont"></textarea>
-				<input type ="file" name = "review_image">
+				<textarea rows="10" cols="30" class = "review_cont" name = "review_insert_cont"></textarea>
+				<input type ="file" class = "review_image" name = "review_insert_image">
+				<input type = "hidden" value = "${userId }" name = "review_insert_userId" class = "review_insert_userId">
+				<div class = "review_insert_star">
+					<span class="text-bold">별점을 선택해주세요</span>
+					<span class="star">★★★★★<span>★★★★★</span>
+		  			<input type="range" oninput="drawStar()" value = "0" step="0.5" min="0" max="5" class = "star_range" name = "reviewStar">
+				</span>
+				</div>
 			</div>
-			
-			<input type = "submit" value = "리뷰 작성하기">
-		</form>
+			<input type = "submit" value = "리뷰 작성하기" class = "review_submit">
+			</form>
 		
 	</div>
 </div> 
@@ -246,8 +257,6 @@ $(document).on("click", "#mypage_order", function(){
 	$("#mypage_order").attr("id","mypage_order-active");
 	$('.order_main_wrap').slideDown(1000)
 	
-	
-	
 	if(!loading){
 		getorder();
 	}
@@ -321,7 +330,9 @@ function getorder(){
 	    			res += 			"<div id = 'order_info_alchol'>도수 : " + item.product_alcohol + "%</div>"
 	    			res += 			"<div id = 'order_info_amount'>수량 : " + item.order_amount + "개</div>"
 	    			res += 			"<div id = 'order_info_price'>" + item.product_price + "원</div>"
+	    			res +=			"<input type = 'hidden' value = '" + item.product_no + "' class = 'product_review_no' name = 'product_review_no'>"
 					res += 		"</div>"
+					res +=		"<input type = 'button' class = 'review_goBtn' value = '리뷰하러가기' onclick = 'review_submit("+item.product_no+")'>"
 					res += "</div>"
 		    		 
 	    	});
@@ -346,6 +357,36 @@ function getorder(){
 	    
 	}); // ajax 끝
 } // 주문내역 ajax 메서드 끝
+
+$(document).on("click", ".review_goBtn", function(){
+	$("#modal").fadeIn(300);
+});
+
+$(document).on("click", ".modalClose", function(){
+	$("#modal").fadeOut(300);
+	$(".review_cont").val('');
+	$("input:radio[id = 'rate1']").prop("checked", true);
+});
+
+
+function review_submit(no){
+	$(".review_content").append($("<input type = 'hidden' value = '" +no+"' name = 'product_insert_no' class = 'product_insert_no'>"));
+}
+
+
+//기본 위치(top)값
+var floatPosition = parseInt($("#modal").css('top'))
+// scroll 인식
+$(window).scroll(function() {
+  
+    // 현재 스크롤 위치
+    var currentTop = $(window).scrollTop();
+    var bannerTop = currentTop + floatPosition + "px";
+    //이동 애니메이션
+    $("#modal").stop().animate({
+      "top" : bannerTop
+    }, 300);
+}).scroll();
 
 
 // 회원 정보 =================================================================================================================
@@ -582,10 +623,6 @@ $(document).on("blur", ".user_pwd_new",function(){
 		$("#mypage_review").attr("id","mypage_review-active");
 		$('.review_main_wrap').slideDown(1000)
 		
-		$("#mypage_content").append($("<div class = 'review_goBtn'></div>"));
-		$(".review_goBtn").append($("<input type = 'button' class = 'review_button' value = '리뷰하러가기'>"));
-		
-		
 		if(!loading){
 			getreview();
 		}
@@ -669,7 +706,11 @@ $(document).on("blur", ".user_pwd_new",function(){
 		    			res += 		"</div>"
 		    			res += 		"<div class = 'review_info_bottom'>"
 		    			res += 			"<div class = 'review_info_cont'>" + item.review_cont + "</div>"
-		    			res += 			"<img src = 'resources/upload/" + item.review_file + "' class = 'review_image'>";
+		    							if(item.review_file == null) {
+		    								res += '';
+		    							}else {
+		    							res += 			"<img src = 'resources/upload/" + item.review_file + "' class = 'review_image'>";					
+		    							}
 						res += 		"</div>"
 						res += 		"</div>"
 						res += "</div>"
@@ -697,16 +738,6 @@ $(document).on("blur", ".user_pwd_new",function(){
 		    
 		}); // ajax 끝
 	} // 리뷰관리 ajax 메서드 끝
-	
-	$(document).on("click", ".review_goBtn", function(){
-		$("#modal").fadeIn(300);
-	});
-	
-	$(document).on("click", ".modalClose", function(){
-		$("#modal").fadeOut(300);
-	});
-	
-	
 	
 	// 배송지 관리 ==============================================================================================================
 	

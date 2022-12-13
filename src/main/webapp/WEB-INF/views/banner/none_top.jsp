@@ -16,7 +16,7 @@
 		<ul class = "header_wrap">
 			<li class = "logo" onclick = "location.href = '<%=request.getContextPath()%>'"><img src = "resources/image/logo.png"></li>
 			<li class = "sub" onclick = "location.href = '<%=request.getContextPath()%>/sub.do'">구 독</li>
-			<li class = "store" onclick = "location.href = '<%=request.getContextPath()%>/store.do'">상 점</li>
+			<li class = "store">상 점</li>
 			<li class = "event" onclick = "location.href = '<%=request.getContextPath()%>/event.do'">이 벤 트</li>
 			<li class = "none"> </li>
 			<li class = "login" onclick = "location.href = '<%=request.getContextPath()%>/user_login.do'">로 그 인</li>
