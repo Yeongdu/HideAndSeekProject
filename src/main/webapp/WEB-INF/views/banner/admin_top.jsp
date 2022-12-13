@@ -30,7 +30,7 @@
 		            <li><a class="admin_navSubMenu" href="<%=request.getContextPath() %>/admin_product_list.do">전체 상품 목록</a></li>
 		            <li><a class="admin_navSubMenu" href="<%=request.getContextPath() %>/admin_product_insert.do">상품 신규 등록</a></li>
 		            <li><a class="admin_navSubMenu" href="<%=request.getContextPath() %>/admin_product_contentEdit.do">등록 상품 관리</a></li>
-		            <li><a class="admin_navSubMenu" href="<%=request.getContextPath() %>/admin_product_del.do">삭제 상품 관리</a></li>
+		            <li><a class="admin_navSubMenu" href="<%=request.getContextPath() %>/admin_product_del_list.do">판매 중지 상품</a></li>
 		        </ul>
 		    </li>
 		

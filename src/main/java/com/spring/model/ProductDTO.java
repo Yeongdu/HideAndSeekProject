@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
-@JsonFormat(pattern = "yyyy-MM-dd")
 @Data
 public class ProductDTO {
 	private int product_no; // 상품 번호
@@ -31,7 +30,7 @@ public class ProductDTO {
 	private String product_thumbnail; // 상품 썸네일
 	private String product_status; // 상품 상태 기본값:판매 .. 품절, 종료
 	
-
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date product_date; // 상품 등록일
 	
 	private int product_review_count; // 상품에 달린 리뷰 개수

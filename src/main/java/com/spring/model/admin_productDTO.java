@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
-@JsonFormat(pattern = "yyyy-MM-dd")
+
 @Data
 public class admin_productDTO {
 	
@@ -35,7 +35,7 @@ public class admin_productDTO {
 	private String product_thumbnail; // 상품 썸네일
 	private String product_status; // 상품 상태 기본값:판매 .. 품절, 종료
 	
-
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date product_date; // 상품 등록일
 
 }

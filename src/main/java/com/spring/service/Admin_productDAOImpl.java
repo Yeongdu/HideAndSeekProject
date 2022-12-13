@@ -105,7 +105,26 @@ public class Admin_productDAOImpl implements Admin_productDAO{
 	@Override
 	public void productUpdateSeq(int product_no) {
 		this.sqlSession.update("seq", product_no);
-		
+	}
+
+	@Override
+	public List<admin_productDTO> stopProductList(PageDTO dto) {
+		return this.sqlSession.selectList("getStopProductList", dto);
+	}
+
+	@Override
+	public int getStopProductCount() {
+		return this.sqlSession.selectOne("stopProductCount");
+	}
+
+	@Override
+	public List<admin_productDTO> salProductList(PageDTO dto) {
+		return this.sqlSession.selectList("getSalProductList", dto);
+	}
+
+	@Override
+	public int getSalProductCount() {
+		return this.sqlSession.selectOne("salProductCount");
 	}
 
 }
