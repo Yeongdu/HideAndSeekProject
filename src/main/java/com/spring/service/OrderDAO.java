@@ -1,6 +1,7 @@
 package com.spring.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.spring.model.CartDTO;
 import com.spring.model.OrderDTO;
@@ -42,5 +43,28 @@ public interface OrderDAO {
     
     // 오더리스트에 상품번호에 해당하는 상품 정보를 받아오는 메서드
     List<ProductDTO> getOrderProductList(int product_no);
+    
+    // 주문번호에 해당하는 주문내역의 주문상태를 변경하는 메서드
+    int orderStatusChange(Map<String, Object> map);
+    
+    // 오더테이블의 검색 리스트의 수를 받아오는 메서드
+    int getOrderSearchListCount(String keyword);
+    
+    // 오더테이블의 검색 리스트를 받아오는 메서드
+    List<OrderDTO> getOrderSearchList(Map<String, Object> map);
+    
+    // DB 상의 전체 주문 목록 수를 받아오는 메서드
+    int getOrderDelListCount();
+    
+    // 오더테이블의 주문이 취소된 리스트를 받아오는 메서드
+    List<OrderDTO> getOrderDelList(PageDTO dto);
+    
+    // 오더테이블의 검색 리스트의 수를 받아오는 메서드
+    int getOrderDelSearchListCount(String keyword);
+    
+    // 오더테이블의 검색 리스트를 받아오는 메서드
+    List<OrderDTO> getOrderDelSearchList(Map<String, Object> map);
+    
+    
 
 }

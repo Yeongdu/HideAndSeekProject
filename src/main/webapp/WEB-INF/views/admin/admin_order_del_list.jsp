@@ -42,36 +42,6 @@
 						<td>${dto.product_name }</td>
 						<td><img style="width: 100%; height: 60px" src="resources/upload/${dto.product_thumbnail }"></td>
 						<td>${dto.order_amount }</td>
-						<c:if test="${dto.order_status =='주문 완료' }">
-							<td>
-								<input type="button" value="주문 완료"
-									onclick="if(confirm('배송중으로 변경 하시겠습니까?')){
-									location.href='<%=request.getContextPath() %>/admin_order_statusChange.do?no=${dto.order_no }&page=${page.page }&key=배송중'} 
-									else{return; }">
-							</td>
-							
-							<td>
-								<input type="button" value="취소"
-									onclick="if(confirm('주문을 취소하시겠습니까?')){
-									location.href='<%=request.getContextPath() %>/admin_order_statusChange.do?no=${dto.order_no }&page=${page.page }&key=취소'} 
-									else{return; }">
-							</td>
-						</c:if>
-						
-						<c:if test="${dto.order_status =='배송중' }">
-							<td colspan="2" align="right">
-								<input type="button" value="배송중"
-									onclick="if(confirm('배송완료로 변경 하시겠습니까?')){
-									location.href='<%=request.getContextPath() %>/admin_order_statusChange.do?no=${dto.order_no }&page=${page.page }&key=배송완료'} 
-									else{return; }">
-							</td>
-						</c:if>
-						
-						<c:if test="${dto.order_status == '배송완료' }">
-							<td colspan="2" align="right">
-								<input type="button" value="배송완료">
-							</td>
-						</c:if>
 						
 						<c:if test="${dto.order_status == '취소' }">
 							<td colspan="2" align="right">
@@ -93,7 +63,7 @@
 			<c:if test="${!empty keyword }">
 				<tr>
 					<td colspan="9" align="center">
-						<input type="button" value="전체목록" onclick="location.href='admin_order_list.do'">
+						<input type="button" value="전체목록" onclick="location.href='admin_order_del_list.do'">
 					</td>
 				</tr>
 			</c:if>
@@ -130,7 +100,7 @@
 <div class="searchWrab" align="center">
 	<div>
 		<form method="post"
-			action="<%=request.getContextPath()%>/admin_order_search.do">
+			action="<%=request.getContextPath()%>/admin_order_del_search.do">
 
 			 <span> <input type="text" name="keyword" value="${keyword}"
 				class="form-control" style="width: 20em; display: inline-block;" placeholder="주문자 검색"/></span>
