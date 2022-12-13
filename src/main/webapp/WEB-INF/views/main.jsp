@@ -7,33 +7,9 @@
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 <script type="text/javascript">
 
-/* $(document).ready(function () {
-    var $title_wrap = $(".title_wrap");
-    var $title = $("#title");
-
-    $("#title").click(function (e) {
-        var output = "";
-        var panel_x = $panel.offset().left;
-        var panel_y = $panel.offset().top;
-
-        output += "클릭한 지역 위치(x, y) = " + e.clientX + ", " + e.clientY + "<br>";
-        output += "문서 기준 위치(x, y) = " + e.pageX + ", " + e.pageY;
-
-        $fish.stop().animate({ // stop()을 넣어주면 애니메이션 도중에 다른 애니메이션을 실행시킬 수 있다.
-            left: e.clientX - panel_x,
-            top: e.clientY - panel_y
-        }, 1000, "easeOutExpo");
-
-        $("#info").html(output);
-    }
-
-    );
-
-}); */
-
 
 	$(document).ready(function(){
-		$("#title").fadeIn(1000, function(){
+		$("#title").fadeIn(500, function(){
 			$("#title").animate({top:"10%"}, function(){
 				$("#btn").fadeIn(500);	
 			});
@@ -43,6 +19,10 @@
 </script>
 </head>
 <body>
+
+	<div id="div_load_image" style="position:absolute; width:100%;height:100%; z-index:9999; background:#FCFCFC; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; text-align:center">
+     	 <img src="resources/image/loading_new.gif" style="width:400px; height:400px; position:relative; top:30%; display:hidden;" class = "loading">
+  	</div>
 
 	<div id = "main" align = "center">
 		<div align = "center" id = "title" style = "display: none" align = "center">
@@ -55,9 +35,27 @@
 		</div>
 
 		<div align = "center" id = "btn" style = "display: none" align = "center">
-			<input type = "button" class = "inputBtn" onclick = "location.href = '<%=request.getContextPath() %>/store.do'" value = "about">
+			<input type = "button" class = "inputBtn" <%-- onclick = "location.href = '<%=request.getContextPath() %>/store.do'" --%> value = "about">
 		</div>
 	</div>
+	
+	<script>
+	// store 진입 시 로딩 
+	$(".inputBtn").on("click", function(){
+		$(".loading").fadeIn(100, function(){
+			$("#div_load_image").fadeIn(300, function(){
+				location.href = "<%=request.getContextPath()%>/store.do";				
+			});
+		});
+	});
+	
+	// 로딩 페이지 종료 이벤트
+    window.onload = function () {
+        $(".loading").fadeOut(100,function(){
+            $("#div_load_image").fadeOut(300);
+        });
+    }
+	</script>
 
 </body>
 

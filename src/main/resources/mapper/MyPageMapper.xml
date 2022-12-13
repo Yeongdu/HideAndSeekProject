@@ -58,6 +58,10 @@
  	 	]]>
 	</select>
 	
+	<select id ="order_content" parameterType="String" resultType="OrderDTO">
+		select * from tb_order tbo join product p on tbo.product_no = p.product_no where user_id = #{userId} and order_status ='배송완료'
+	</select>
+	
 	 <select id ="count_order" parameterType="String" resultType="int">
  	 	select count(*) as count from tb_order where user_id = #{userId}
  	 </select>
@@ -91,7 +95,7 @@
  	 <!-- 리뷰 리스트 -->
  	 <select id="review_cont" parameterType="map" resultType="ReviewDTO">
  	 	<![CDATA[
- 	 	select * 
+ 	 	select review_cont, review_file, (review_star*20) as review_star, review_date, user_id, product_name
 		from (select pall.*, row_number() over(order by review_date desc) rnum 
 		from (select * from review re join product p on re.product_no = p.product_no where re.user_id = #{userId}) pall) 
 		where rnum >= #{startNo} and rnum <= #{endNo} order by review_date desc

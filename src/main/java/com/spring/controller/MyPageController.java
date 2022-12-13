@@ -41,6 +41,7 @@ public class MyPageController {
 		String userId = (String)session.getAttribute("userId");
 		
 		 UserDTO user_info = this.mypage_dao.getUserCont(userId);
+		 List<OrderDTO> olist = this.mypage_dao.orderContent(userId);
 		 int count = this.mypage_dao.getOrderCount(userId);
 		 int order = this.mypage_dao.getOrderAllCount(userId);
 		 int refund = this.mypage_dao.getRefundCount(userId);
@@ -48,6 +49,7 @@ public class MyPageController {
 		 int delivery_complete = this.mypage_dao.getDeliveryCompleteCount(userId);
 		 
 		 model.addAttribute("user_cont", user_info);
+		 model.addAttribute("order_content", olist);
 		 model.addAttribute("count", count);
 		 model.addAttribute("order", order);
 		 model.addAttribute("refund", refund);
@@ -163,8 +165,6 @@ public class MyPageController {
 		
 		List<ReviewDTO> review_info = this.mypage_dao.getReviewCont(map);
 	
-		System.out.println("review >>> " + review_info);
-		
 		return review_info;
 		
 	}
