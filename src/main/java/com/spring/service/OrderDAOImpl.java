@@ -2,6 +2,7 @@ package com.spring.service;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,12 +77,64 @@ public class OrderDAOImpl implements OrderDAO{
 		return this.sqlSession.selectList("getOrderList", dto);
 		
 	}
-
+	
 	@Override
 	public List<ProductDTO> getOrderProductList(int product_no) {
 
 		return this.sqlSession.selectList("getOrderProductList", product_no);
 		
 	}
+
+	@Override
+	public int orderStatusChange(Map<String, Object> map) {
+		
+		return this.sqlSession.update("orderStatusChange", map);
+		
+	}
+
+	@Override
+	public int getOrderSearchListCount(String keyword) {
+
+		return this.sqlSession.selectOne("getOrderSearchListCount", keyword);
+		
+	}
+
+	@Override
+	public List<OrderDTO> getOrderSearchList(Map<String, Object> map) {
+		
+		return this.sqlSession.selectList("getOrderSearchList", map);
+		
+	}
+	
+	@Override
+	public int getOrderDelListCount() {
+
+		return this.sqlSession.selectOne("getOrderDelListCount");
+		
+	}
+
+	@Override
+	public List<OrderDTO> getOrderDelList(PageDTO dto) {
+		
+		return this.sqlSession.selectList("getOrderDelList", dto);
+		
+	}
+
+	@Override
+	public int getOrderDelSearchListCount(String keyword) {
+		
+		return this.sqlSession.selectOne("getOrderDelSearchListCount", keyword);
+		
+	}
+
+	@Override
+	public List<OrderDTO> getOrderDelSearchList(Map<String, Object> map) {
+
+		return this.sqlSession.selectList("getOrderDelSearchList", map);
+		
+	}
+
+
+
 	
 }
