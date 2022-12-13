@@ -280,9 +280,11 @@
             <div class="form-group row border-bottom py-2">
                 <label for="product_thumbnail" class="col-sm-4 col-form-label">썸네일</label>
                 <div class="col-sm-8">
-                    <input type="file" class="thumbnailInput" onchange="readURL(this);"/>
+                 <input type="file" class="thumbnailInput" name="product_thumbnailFile" id="product_thumbnailFile" onchange="readURL(this);"/>
+                <c:if test="${empty product_thumbnailFile}">
                 <img width="120px;" id="preview1" src = "resources/upload/${dto.product_thumbnail }"/>
                 <input type="hidden" name="product_thumbnail" id="product_thumbnail" value="${dto.product_thumbnail }"/>
+                </c:if>
 
                 </div>
             </div>

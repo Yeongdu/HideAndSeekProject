@@ -25,6 +25,16 @@
   	<select id="adminProductContentCont" parameterType="int" resultType="admin_product_contentDTO">
 		select * from product_content where product_no = #{no}
 	</select>
+	
+  	<delete id="adminProductContDelete" parameterType="int">
+  		delete from product_content where product_no = #{product_no}
+  	</delete>
+  	
+  	<update id="seqCont" parameterType="int">
+  		<![CDATA[
+  			update product_content set product_no = product_no where product_no > #{product_no}
+  		]]>
+  	</update>
   
   
   </mapper>

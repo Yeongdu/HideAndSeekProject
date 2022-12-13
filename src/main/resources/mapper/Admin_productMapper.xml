@@ -33,7 +33,7 @@
   	</insert>
   
   
-  	<update id="adminProductUpdate" parameterType="ProductDTO">
+  	<update id="adminProductUpdatee" parameterType="ProductDTO">
   		update product set 
   		product_name = #{product_name}, 
   		product_category = #{product_category}, 
@@ -53,6 +53,16 @@
   		product_status = #{product_status}
   		where product_no = #{product_no}
   	</update>
-  
+  	
+  	<delete id="adminProductDelete" parameterType="int">
+  		delete from product where product_no = #{product_no}
+  	</delete>
+  	
+  	<update id="seq" parameterType="int">
+  		<![CDATA[
+  			update product set product_no = product_no where product_no > #{product_no}
+  		]]>
+  	</update>
+
   
   </mapper>

@@ -4,6 +4,10 @@
 <c:set var="dto" value="${PCont }" />
 <c:set var="pcdto" value="${PCCont }" />
 <c:set var="page" value="${page }" />
+<c:set var="DBfile1" value="${file1 }" />
+<c:set var="DBfile2" value="${file2 }" />
+<c:set var="DBfile3" value="${file3 }" />
+
 <%-- <c:set var="slist" value="${CategoryList }" /> --%>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
@@ -85,14 +89,14 @@
 				<div class="form-group row border-bottom py-2">
 					<label for="product_file1" class="col-sm-4 col-form-label">상품사진1</label>
 					<div class="col-sm-8">
-						<input type="file" class="thumbnailInput" onchange="readURL2(this);"/>
+						<input type="file" name="product_file1file" id="product_file1file"  class="thumbnailInput" onchange="readURL2(this);"/>
 						<img width="300px;" id="preview2" 
 							<c:if test="${!empty pcdto.product_file1 }">
 								src = "resources/upload/${pcdto.product_file1 }"
 							</c:if>
 							<c:if test="${empty pcdto.product_file1 }" > </c:if>
 						/>
-						<input type="hidden" name="product_file1" id="product_file1" value="${pcdto.product_file1 }"/>
+						<input type="hidden" name="product_file1" value="${pcdto.product_file1 }"/>
 					</div>
 				</div>
 
@@ -107,7 +111,7 @@
 				<div class="form-group row border-bottom py-2">
 					<label for="product_file2" class="col-sm-4 col-form-label">상품사진2</label>
 					<div class="col-sm-8">
-						<input type="file" class="thumbnailInput" onchange="readURL3(this);" value="${pcdto.product_file2 }"/> 
+						<input type="file" class="thumbnailInput" name="product_file2file" id="product_file2file" onchange="readURL3(this);" value="${pcdto.product_file2 }"/> 
 						<img width="300px;" id="preview3"
 							<c:if test="${!empty pcdto.product_file2 }" >
 							src = "resources/upload/${pcdto.product_file2 }"
@@ -115,7 +119,7 @@
 							<c:if test="${empty pcdto.product_file2 }" >
 							</c:if>
 						 />
-						 <input type="hidden" name="product_file2" id="product_file2" value="${pcdto.product_file2 }"/>
+						 <input type="hidden" name="product_file2" value="${pcdto.product_file2 }"/>
 					</div>
 				</div>
 
@@ -130,7 +134,7 @@
 				<div class="form-group row border-bottom py-2">
 					<label for="product_file3" class="col-sm-4 col-form-label">상품사진3</label>
 					<div class="col-sm-8">
-						<input type="file" class="thumbnailInput" onchange="readURL4(this);" value="${pcdto.product_file3 }"/>
+						<input type="file" name="product_file3file" id="product_file3file" class="thumbnailInput" onchange="readURL4(this);" value="${pcdto.product_file3 }"/>
 						<img width="300px;" id="preview4"
 							<c:if test="${!empty pcdto.product_file3 }" >
 							src = "resources/upload/${pcdto.product_file3 }"
@@ -138,7 +142,7 @@
 							<c:if test="${empty pcdto.product_file3 }" >
 							</c:if>
 						 />
-						 <input type="hidden" name="product_file3" id="product_file3" value="${pcdto.product_file3 }"/>
+						 <input type="hidden" name="product_file3" value="${pcdto.product_file3 }"/>
 					</div>
 				</div>
 

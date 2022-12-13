@@ -13,5 +13,12 @@ public interface Admin_product_contentDAO {
 	int productContentUpdate(Product_contentDTO dto);
 	
 	int insertProductContent(int product_no);
+	
+	int deleteProductCont(int product_no);
+	
+	void productContUpdateSeq(int product_no);
+	
+	
+
 
 }
