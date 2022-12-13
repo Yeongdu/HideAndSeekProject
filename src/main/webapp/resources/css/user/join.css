@@ -1,9 +1,8 @@
 @charset "UTF-8";
 
 
-
 /*************************/
-/* tag reset_ 모든 CSS파일에 적용하고 시작!
+/* tag reset
 /*************************/
 html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, img { margin: 0; padding: 0; }
 html, body {
@@ -114,6 +113,80 @@ h1, h2, h3, h4, h5 {
 }
 
 /*===============================================================================*/
+
+/* @import url('https://fonts.googleapis.com/css?family=Yydimibang&display=swap'); */
+@font-face {
+    font-family: 'kdg_Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/kdg_Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'ChosunCentennial';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/ChosunCentennial.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+
+.join_field{
+	
+	display: block;
+    border: 1px solid red;
+    margin: 70px;
+    padding: 50px;
+    min-width: fit-content;
+	
+	
+}
+
+.join_legend{
+	
+	
+    display: block;
+    height: 100px;
+    width: 300px;
+    text-indent: inherit;
+    font-size: 70px;
+    font-family: 'kdg_Medium';
+    border-bottom: 0px;
+	
+}
+
+.title_1_span{
+	font-family: 'ChosunCentennial', sans-serif;
+	font-size: 25px;
+    margin-left: 120px;
+    color: #595959;
+    text-align: left;
+}
+
+.subTx strong{
+	color: #ff3333;
+	font-size: 16px;
+}
+
+
+
+.subTx{
+	font-size: 13px;
+    color: #afb0b2;
+    text-align: right;
+    margin-top: -25px;
+    margin-bottom: 10px;
+    margin-right: 130px;
+}
+
+.join_star{
+	color: #ff3333;
+	font-size: 16px;
+}
+
+
 
 
 
