@@ -22,17 +22,17 @@
 		<h4>'${keyword }' 제품 검색 결과</h4>
 	</div>
 	<br>
-	<div align="center">
+	<div align="center">    
 
 		<table class="table table-hover table-bordered" style="margin-left: auto; margin-right: auto; text-align: center; width: 66em;">
 			<tr>
 				<th>상품번호</th>
-				<th>상품이름</th>
+				<th style="width: 120px;">상품이름</th>
 				<th>이미지</th>
 				<th>카테고리</th>
-				<th>제조사</th>
-				<th>판매가</th>
-				<th>재고</th>
+				<th style="width: 110px;">제조사</th>
+				<th style="width: 80px;">판매가</th>
+				<th style="width: 80px;">재고</th>
 				<th>등록일</th>
 				<th>상태</th>
 			</tr>

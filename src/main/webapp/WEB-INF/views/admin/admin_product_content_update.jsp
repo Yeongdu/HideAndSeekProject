@@ -8,15 +8,16 @@
 <c:set var="DBfile2" value="${file2 }" />
 <c:set var="DBfile3" value="${file3 }" />
 
-<%-- <c:set var="slist" value="${CategoryList }" /> --%>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 <jsp:include page="../banner/admin_top.jsp" />
 
 <title>${pcdto.product_no }) ${dto.product_name } 수정</title>
-<div style="width:45em; height:auto; margin: 50px auto; text-align: center;" align="center">
+
 <script type="text/javascript">
+
+$(function() {
 // 	function readURL(input) {
 // 	  if (input.files && input.files[0]) {
 // 	    var reader = new FileReader();
@@ -69,9 +70,42 @@
 	  }
 	}
 
+	function adjustHeight1() {
+		var textEle = $('#admin_product_cont1');
+		textEle[0].style.height = 'auto';
+		var textEleHeight = textEle.prop('scrollHeight');
+		textEle.css('height', textEleHeight+8);
+		};
+	function adjustHeight2() {
+		var textEle = $('#admin_product_cont2');
+		textEle[0].style.height = 'auto';
+		var textEleHeight = textEle.prop('scrollHeight');
+		textEle.css('height', textEleHeight+8);
+		};
+	function adjustHeight3() {
+		var textEle = $('#admin_product_cont3');
+		textEle[0].style.height = 'auto';
+		var textEleHeight = textEle.prop('scrollHeight');
+		textEle.css('height', textEleHeight+8);
+		};
+		
+		
+
+	adjustHeight1();
+	adjustHeight2();
+	adjustHeight3();
 	
+// 	function resize(obj) {
+// 	  obj.style.height = obj.scrollHeight;
+// 	  obj.style.height = (12 + obj.scrollHeight) + "px";
+// 	  obj.style.height = obj.scrollHeight + "px";
+// 	}
+	
+});
 </script>
 <br><br>
+<div style="width:66em; height:auto; margin: 50px auto; text-align: center;" align="center">
+<!-- <div style="width:80em;"> -->
         <form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/admin_product_content_update_ok.do" class="border-top">
             <input type="hidden" name="product_no" value="${dto.product_no }">
             <input type="hidden" name="page" value="${page }">
@@ -87,7 +121,7 @@
 				
 
 				<div class="form-group row border-bottom py-2">
-					<label for="product_file1" class="col-sm-4 col-form-label">상품사진1</label>
+					<label for="product_file1" class="col-sm-2 col-form-label">상품사진1</label>
 					<div class="col-sm-8">
 						<input type="file" name="product_file1file" id="product_file1file"  class="thumbnailInput" onchange="readURL2(this);"/>
 						<img width="300px;" id="preview2" 
@@ -102,14 +136,14 @@
 
 
 				<div class="form-group row border-bottom py-2">
-					<label for="product_cont1" class="col-sm-4 col-form-label">상품설명1</label>
+					<label for="product_cont1" class="col-sm-2 col-form-label">상품설명1</label>
 					<div class="col-sm-8">
-					 <textarea class="form-control" name="product_cont1" id="product_cont1">${pcdto.product_cont1 }</textarea>
+					 <textarea class="form-control" name="product_cont1" id="admin_product_cont1">${pcdto.product_cont1 }</textarea>
 					</div>
 				</div>
 
 				<div class="form-group row border-bottom py-2">
-					<label for="product_file2" class="col-sm-4 col-form-label">상품사진2</label>
+					<label for="product_file2" class="col-sm-2 col-form-label">상품사진2</label>
 					<div class="col-sm-8">
 						<input type="file" class="thumbnailInput" name="product_file2file" id="product_file2file" onchange="readURL3(this);" value="${pcdto.product_file2 }"/> 
 						<img width="300px;" id="preview3"
@@ -125,14 +159,14 @@
 
 
 				<div class="form-group row border-bottom py-2">
-					<label for="product_cont2" class="col-sm-4 col-form-label">상품설명2</label>
+					<label for="product_cont2" class="col-sm-2 col-form-label">상품설명2</label>
 					<div class="col-sm-8">
-						<textarea class="form-control" name="product_cont2" id="product_cont2">${pcdto.product_cont2 }</textarea>
+						<textarea class="form-control" name="product_cont2" id="admin_product_cont2">${pcdto.product_cont2 }</textarea>
 					</div>
 				</div>
 
 				<div class="form-group row border-bottom py-2">
-					<label for="product_file3" class="col-sm-4 col-form-label">상품사진3</label>
+					<label for="product_file3" class="col-sm-2 col-form-label">상품사진3</label>
 					<div class="col-sm-8">
 						<input type="file" name="product_file3file" id="product_file3file" class="thumbnailInput" onchange="readURL4(this);" value="${pcdto.product_file3 }"/>
 						<img width="300px;" id="preview4"
@@ -148,9 +182,9 @@
 
 
 				<div class="form-group row border-bottom py-2">
-					<label for="product_cont3" class="col-sm-4 col-form-label">상품설명3</label>
+					<label for="product_cont3" class="col-sm-2 col-form-label">상품설명3</label>
 					<div class="col-sm-8">
-						<textarea class="form-control" name="product_cont3" id="product_cont3">${pcdto.product_cont3 }</textarea>
+						<textarea class="form-control" name="product_cont3" id="admin_product_cont3">${pcdto.product_cont3 }</textarea>
 					</div>
 				</div>
 				

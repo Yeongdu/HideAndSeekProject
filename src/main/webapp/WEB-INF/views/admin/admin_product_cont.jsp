@@ -13,120 +13,203 @@
 <jsp:include page="../banner/admin_top.jsp" />
 
 <title>${dto.product_no }) ${dto.product_name } 상세 </title>
-<div style="height: auto" align="center">
-<br><br>
+<script type="text/javascript">
 
-<table class="table table-bordered" style="width: 50em">
+//본문 textarea 높이 자동조절 함수
+$(function() {
+
+function adjustHeight1() {
+	var textEle = $('#admin_product_cont1');
+	textEle[0].style.height = 'auto';
+	var textEleHeight = textEle.prop('scrollHeight');
+	textEle.css('height', textEleHeight+8);
+	};
+function adjustHeight2() {
+	var textEle = $('#admin_product_cont2');
+	textEle[0].style.height = 'auto';
+	var textEleHeight = textEle.prop('scrollHeight');
+	textEle.css('height', textEleHeight+8);
+	};
+function adjustHeight3() {
+	var textEle = $('#admin_product_cont3');
+	textEle[0].style.height = 'auto';
+	var textEleHeight = textEle.prop('scrollHeight');
+	textEle.css('height', textEleHeight+8);
+	};
+
+adjustHeight1();
+adjustHeight2();
+adjustHeight3();
 
 
-	<tr>
-		<td class="admin_table_tdLabel">상품명</td>
-		<td colspan="3">${dto.product_name }</td>
-		<td colspan="2" rowspan="3"><img width="110px;" src = "resources/image/${thumbnail }"></td>
-		
-	</tr>
+});
+</script>
+<br><br><br>
+
+	<br>
+<div style="height: auto; min-height: 100%;" align="center">
+	<p class="adminPdContTitle1">기본 정보&nbsp;&nbsp;<input type="button"
+					class="btn btn-primary-2" value="수정"
+					onclick="location.href='<%=request.getContextPath()%>/admin_product_update.do?no=${dto.product_no }&page=${page}'"></p>
+
+	<!-- 첫번째 (썸네일 사진, 상품명, 가격, 판매상태) -->
+	<div class="adminPdContFirstWrab">
+		<div class="adminPdContImgWrab" style="margin-right: 50px;">
+			<img class="img-thumbnail" width="200px;"
+				src="resources/upload/${thumbnail }"
+				alt="${dto.product_name } 썸네일 사진">
+		</div>
+
+		<div class="adminPdContNameWrab">
+			<div class="mb-3 row">
+				<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label-1">상품명</label>
+				<div class="col-sm-10">
+					<span class="form-control" style="width: 300px">${dto.product_name }</span>
+				</div>
+			</div>
+			<div class="mb-3 row">
+				<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label-1">가격</label>
+				<div class="col-sm-10">
+					<span class="form-control" style="width: 300px">${dto.product_price }
+						원</span>
+				</div>
+			</div>
+			<div class="mb-3 row">
+				<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label-1">적립포인트</label>
+				<div class="col-sm-10">
+					<span class="form-control" style="width: 300px">${dto.product_point } 원</span>
+				</div>
+			</div>
+			<div class="mb-3 row">
+				<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label-1">판매상태</label>
+				<div class="col-sm-10">
+					<span class="form-control" style="width: 300px">${dto.product_status }</span>
+				</div>
+			</div>
+			<div class="mb-3 row">
+				<label for="exampleFormControlInput1"
+					class="col-sm-2 col-form-label-1">재고</label>
+				<div class="col-sm-10">
+					<span class="form-control" style="width: 300px">${dto.product_stock } 개</span>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<!-- 첫번째 end -->
+
+
+
+
+
+	<!-- 두번째  -->
+	<div class="adminPdContSecondWrab">
 	
-	<tr>
-		<td class="admin_table_tdLabel">원료</td>
-		<td colspan="3">${dto.product_material }</td>
-	</tr>
+		<div class="mb-3 row">
+			<label for="exampleFormControlInput1" class="col-sm-2 col-form-label-2" style="text-align: right;">당도</label>
+			<div class="col-sm-5">
+				<span class="form-control" style="width: 100px">${dto.product_sweet } </span>
+			</div>
+		</div>
+		<div class="mb-3 row">
+			<label for="exampleFormControlInput1" class="col-sm-2 col-form-label-2" style="text-align: right;">산미</label>
+			<div class="col-sm-5">
+				<span class="form-control" style="width: 100px">${dto.product_acidity } </span>
+			</div>
+		</div>
+		<div class="mb-3 row">
+			<label for="exampleFormControlInput1" class="col-sm-2 col-form-label-2" style="text-align: right;">탄산</label>
+			<div class="col-sm-5">
+				<span class="form-control" style="width: 100px">${dto.product_soda } </span>
+			</div>
+		</div>
+		<div class="mb-3 row">
+			<label for="exampleFormControlInput1" class="col-sm-2 col-form-label-2" style="text-align: right;">도수</label>
+			<div class="col-sm-5">
+				<span class="form-control" style="width: 100px">${dto.product_alcohol } % ( ${dto.product_dosu } ) </span>
+			</div>
+		</div>
+
+	</div>
+	<!-- 두번째 end -->
+
+	<!-- 세번째-->
+	<div class="adminPdContThirdWrab">
+		<div class="mb-3 row">
+			<label for="exampleFormControlInput1" class="col-sm-2 col-form-label-3" style="text-align: right;">상품등록일</label>
+			<div class="col-sm-5">
+				<span class="form-control" style="width: 237px">${dto.product_date } </span>
+			</div>
+		</div>
+		<div class="mb-3 row">
+			<label for="exampleFormControlInput1" class="col-sm-2 col-form-label-3-2" style="text-align: right;">제조사</label>
+			<div class="col-sm-5">
+				<span class="form-control" style="width: 276px">${dto.product_company } </span>
+			</div>
+		</div>
 	
-	<tr>
-		<td class="admin_table_tdLabel">도수</td>
-		<td colspan="3">${dto.product_alcohol } % ( ${dto.product_dosu } )</td>
-	</tr>
-	
-	<tr>
-		<td class="admin_table_tdLabel">당도</td>
-		<td>${dto.product_sweet }</td>
-		<td class="admin_table_tdLabel">산미</td>
-		<td>${dto.product_acidity }</td>
-		<td class="admin_table_tdLabel">탄산</td>
-		<td>${dto.product_soda }</td>
-	</tr>
-	
-	<tr>
-		<td class="admin_table_tdLabel">가격</td>		
-		<td>${dto.product_price }</td>
-		<td class="admin_table_tdLabel">재고</td>		
-		<td>${dto.product_stock }</td>
-		<td class="admin_table_tdLabel">적립포인트</td>		
-		<td>${dto.product_point }</td>
-	</tr>
-	
-	<tr>
-		<td class="admin_table_tdLabel">판매상태</td>
-		<td colspan="2">${dto.product_status }</td>
-		<td class="admin_table_tdLabel">상품등록일</td>
-		<td colspan="3">${dto.product_date }</td>
-	</tr>
-	
-	<tr>
-		<td class="admin_table_tdLabel">사진1</td>
-		<td colspan="5">
-		<c:if test="${!empty pcdto.product_file1  }" >
-			<img width="400px" src = "resources/upload/${DBfile1 }"> </c:if>
-		<c:if test="${empty pcdto.product_file1  }" > </c:if>
-		</td>
-	</tr>
-	
-	<tr>
-		<td class="admin_table_tdLabel">설명1</td>
-		<td colspan="5">${pcdto.product_cont1 }</td>
-	</tr>
-	
-	<tr>
-		<td class="admin_table_tdLabel">사진2</td>
-		<td colspan="5">
-		<c:if test="${!empty pcdto.product_file2  }" >
-			<img width="400px" src = "resources/upload/${DBfile2 }"> </c:if>
-		<c:if test="${empty pcdto.product_file2  }" > </c:if>
-		</td>
-	</tr>
-	
-	<tr>
-		<td class="admin_table_tdLabel">설명2</td>
-		<td colspan="5">${pcdto.product_cont2 }</td>
-	</tr>
-	
-	<tr>
-		<td class="admin_table_tdLabel">사진3</td>
-		<td colspan="5">
-		<c:if test="${!empty pcdto.product_file3  }" >
-			<img width="400px" src = "resources/upload/${DBfile3 }"> </c:if>
-		<c:if test="${empty pcdto.product_file3  }" > </c:if>
-		</td>
-	</tr>
-	
-	<tr>
-		<td class="admin_table_tdLabel">설명3</td>
-		<td colspan="5">${pcdto.product_cont3 }</td>
-	</tr>
-	
-	<tr>
-		<td colspan="6" align="right">
-		<input type="button"
-					class="btn btn-outline-primary" value="기본정보 수정"
-					onclick="location.href='<%=request.getContextPath()%>/admin_product_update.do?no=${dto.product_no }&page=${page}'">
-					
-		<input type="button"
-					class="btn btn-outline-primary" value="상세정보 수정"
+	</div>
+	<!-- 세번째 end -->
+	<br>
+	<br>
+	<p class="adminPdContTitle1">상세 정보&nbsp;&nbsp;<input type="button"
+					class="btn btn-primary-2" value="수정"
 					onclick="location.href='<%=request.getContextPath()%>/admin_product_content_update.do?no=${dto.product_no }&page=${page}'">
-		
-		<input type="button" class="btn btn-outline-danger" value="상품 삭제"
-					onclick="if(confirm('상품을 삭제하시겠습니까? 되돌릴 수 없습니다.')){
-					location.href='<%=request.getContextPath() %>/admin_product_delete.do?no=${dto.product_no }'} 
-					else{return; }">
-		<input type="button" class="btn btn-outline-secondary" value="전체목록" onclick="location.href='admin_product_list.do'">
-					
-		</td>
-	</tr>
+					</p>
+	<hr width="660px;" style="margin-left: 15px;">
+	<br>
 	
-	
-	
-</table>
-<br><br>
+	<!-- 네번째-->
+	<div class="adminPdContFourthWrab">
+		<c:if test="${!empty pcdto.product_file1  }">
+			<img class="img-thumbnail" width="650px;"
+				src="resources/upload/${DBfile1 }"
+				alt="${pcdto.product_file1 } 사진 1">
+		</c:if>
+		<c:if test="${empty pcdto.product_file1  }">
+		</c:if>
+		<textarea class="admin_product_cont" id="admin_product_cont1" spellcheck="false" readonly style="resize: none;"> ${pcdto.product_cont1 } </textarea>
+		<br>
+		<c:if test="${!empty pcdto.product_file2  }">
+			<img class="img-thumbnail" width="650px;"
+				src="resources/upload/${DBfile2 }"
+				alt="${pcdto.product_file2 } 사진 2">
+		</c:if>
+		<c:if test="${empty pcdto.product_file2  }">
+		</c:if>
+		<textarea class="admin_product_cont" id="admin_product_cont2" spellcheck="false" readonly style="resize: none;"> ${pcdto.product_cont2 } </textarea>
+		<br>
+		<c:if test="${!empty pcdto.product_file3  }">
+			<img class="img-thumbnail" width="650px;"
+				src="resources/upload/${DBfile3 }"
+				alt="${pcdto.product_file3 } 사진 3">
+		</c:if>
+		<c:if test="${empty pcdto.product_file3  }">
+		</c:if>
+		<textarea class="admin_product_cont" id="admin_product_cont3" spellcheck="false" readonly style="resize: none;"> ${pcdto.product_cont3 } </textarea>
+
+
+
+	</div>
+	<!-- 네번째 end -->
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+
+
+
+
 
 
 </div>
+<br><br><br>
+
+
+
+
 <jsp:include page="../banner/bottom.jsp" />

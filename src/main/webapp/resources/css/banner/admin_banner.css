@@ -260,7 +260,69 @@ h1, h2, h3, h4, h5 {
     text-align: center;
     }
     
+    #admin_product_cont1, #admin_product_cont2, #admin_product_cont3{
     
+    border: 0px solid white;
+    width: 650px;
+    }
+
+    textarea:focus{
+    color: black;
+    }
+    
+    .adminPdContTitle1{
+    text-align: left;
+    width: 650px;
+    margin-bottom: 10px;
+    }
+    
+    .adminPdContFirstWrab{
+    display: flex;
+    justify-content: center;
+    }
+    
+    .adminPdContSecondWrab{
+    display: flex;
+    justify-content: space-between;
+    width: 680px;
+    margin-top: 15px;
+    }
+    
+    .adminPdContThirdWrab{
+    display: flex;
+    justify-content: space-between;
+    width: 680px;
+    margin-top: 7px;
+    }
+    
+    .col-form-label-1{
+    width: 100px;
+    padding-right: 0px;
+    text-align: right;
+    }
+    .col-form-label-2{
+    width: 50px;
+    padding-right: 0px;
+    }
+    .col-form-label-3{
+    width: 90px;
+    padding-right: 0px;
+    }
+    .col-form-label-3-2{
+    width: 55px;
+    padding-right: 0px;
+    }
+    
+    .btn.btn-primary-2{
+    --bs-btn-padding-y: .30rem;
+    --bs-btn-padding-x: .7rem;
+    --bs-btn-font-size: .75rem;
+    --bs-btn-border-color: gray;
+    }
+    
+    .mb-3.row{
+    flex-wrap: nowrap;
+    }
 
     
     @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
@@ -269,6 +331,7 @@ h1, h2, h3, h4, h5 {
 	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/ChosunCentennial.woff2') format('woff2');
 	    font-weight: normal;
 	    font-style: normal;
+
 	}
 	
 	font-family: 'ChosunCentennial', sans-serif;
