@@ -12,7 +12,7 @@
 
 	<jsp:include page="../banner/user_top.jsp" />
 <title>마이페이지</title>
-<main style = "min-height : 100%;;">
+<main style = "min-height : 100%;">
 
 	<c:set  var = "user_dto" value = "${user_cont }"/>
 	<c:set var = "order_all" value = "${count }" />
@@ -72,7 +72,7 @@
 <script type="text/javascript">
 	function drawStar(){
 		var starval = $(".star_range").val();
-		var starvalue = starval * 20; 
+		var starvalue = starval * 10; 
 		$(".star span").css("width", starvalue+"%");
 	}
 	
@@ -117,7 +117,7 @@
 			<div class = "review_insert_star">
 					<span class="text-bold">이번 술은 어떠셨나요?</span>&nbsp;&nbsp;&nbsp;
 					<span class="star">★★★★★<span>★★★★★</span>
-		  			<input type="range" oninput="drawStar()" value = "0" step="0.5" min="0" max="5" class = "star_range" name = "reviewStar">
+		  			<input type="range" oninput="drawStar()" value = "0" step="1" min="0" max="10" class = "star_range" name = "reviewStar">
 				</span>
 				</div>
 			<div class = "review_content">
@@ -128,7 +128,7 @@
 						<input type ="file" id = "review_image_upload" name = "review_insert_image" onchange="readURL(this);">
 					</div>
 					<div class = "review_preview">
-						<img id="preview"/>
+						<img id="preview" src = "resources/image/camera_default.png" />
 					</div>
 				</div>
 				<input type = "hidden" value = "${userId }" name = "review_insert_userId" class = "review_insert_userId">
@@ -142,32 +142,79 @@
 
 <!-- 회원 삭제 모달 -->
 <div id="user_modal" style = 'display:none; z-index:1;'>
-	<div class="user_modal_body" align = "center"> 
+	<div class="user_modal_body"> 
 		<div class="user_modalClose" align="right">
 			<input type = "button" value = "X">
 		</div>
-				<div class = "user_delete_rule">
-					<div class = "user_delete_title">
-						<span>회원 탈퇴 유의사항</span>
-					</div>
-					<div class = "delete_rule">
-						<span>1. 회원 탈퇴 시 삭제된 데이터에 대해 복구가 불가능하며, 개인정보가 필요한 술담화의 모든 웹서비스 이용이 불가합니다.</span>
-						<span>2. 구독을 이용하고 계신 경우, 회원 탈퇴 진행 시 구독도 함께 취소됩니다.</span>
-						<span>3. 잔여 포인트, 잔여 쿠폰, 회원 등급 등의 정보는 모두 삭제되며 환불되지 않습니다.</span>
-						<span>4. 회원 탈퇴 후 모든 술래잡기 웹서비스 내에서의 계약 또는 청약 철회 등에 관한 기록은 전자상거래 등에서의 소비자 보호에 관한 법률에 따라 5년간 보관되며, 이를 위한 개인정보는 법률에 따른 보유 목적 외에 다른 목적으로는 이용되지 않습니다.</span>
-						<span>5. 회원 탈퇴 후 술래잡기 서비스에 입력하신 상품문의 및 후기(사진 포함)는 삭제되지 않으며, 회원 정보 삭제로 인해 작성자 본인을 확인할 수 없어 편집 및 삭제처리가 원천적으로 불가능합니다. 상품문의 및 후기, 댓글 삭제를 원하시는 경우에는 먼저 해당 게시물을 삭제하신 후 탈퇴를 신청하시기 바랍니다.</span>
+				<div class = "user_delete_title">
+					<span>회원 탈퇴 유의사항</span>
+				</div>
+					
+				<div class = "delete_rule">
+					<div class = "delete_rule_number">1</div>
+					<div class = "delete_rule_cont">
+						회원 탈퇴 시 삭제된 데이터에 대해 복구가 불가능하며,<br>
+						개인정보가 필요한 술담화의 모든 웹서비스 이용이 불가합니다.
 					</div>
 				</div>
-
+					
+				<div class = "delete_rule">	
+					<div class = "delete_rule_number">2</div>
+					<div class = "delete_rule_cont">
+						구독을 이용하고 계신 경우, 회원 탈퇴 진행 시 구독도 함께 취소됩니다.
+					</div>
+				</div>
+				
+				<div class = "delete_rule">	
+					<div class = "delete_rule_number">3</div>
+					<div class = "delete_rule_cont">
+						잔여 포인트, 잔여 쿠폰, 회원 등급 등의 정보는 <br>
+						모두 삭제되며 환불되지 않습니다.
+					</div>
+				</div>
+				
+				<div class = "delete_rule">	
+					<div class = "delete_rule_number">4</div>
+					<div class = "delete_rule_cont">
+						회원 탈퇴 후 모든 술래잡기 웹서비스 내에서의 계약 또는 청약 철회 등에 관한 기록은<br> 
+						전자상거래 등에서의 소비자 보호에 관한 법률에 따라 5년간 보관되며,<br>
+						이를 위한 개인정보는 법률에 따른 보유 목적 외에 다른 목적으로는 이용되지 않습니다.
+					</div>
+				</div>
+				
+				<div class = "delete_rule">		
+					<div class = "delete_rule_number">5</div>
+					<div class = "delete_rule_cont">
+						회원 탈퇴 후 술래잡기 서비스에 입력하신 <br>
+						상품문의 및 후기(사진 포함)는 삭제되지 않으며,<br>
+						회원 정보 삭제로 인해 작성자 본인을 확인할 수 없어<br>
+						편집 및 삭제처리가 원천적으로 불가능합니다.<br>
+						상품문의 및 후기, 댓글 삭제를 원하시는 경우에는<br>
+						먼저 해당 게시물을 삭제하신 후 탈퇴를 신청하시기 바랍니다.
+					</div>
+				</div>
+				
 			<form method = "post" action = "<%=request.getContextPath() %>/user_delete.do" id = "user_delete_form">
 				<input type = "hidden" name = "delete_user_name" value = "${userId }">
 				<label for = "user_check">회원 탈퇴 유의사항을 숙지하였으며 회원 탈퇴를 진행하겠습니다.</label>
 				<input type = "checkbox" id = "user_check" value = "1" name = "user_check">
 				<br>
-				<input type = "submit" value = "회원 탈퇴" class = "user_submit">
+				<input type = "submit" value = "회원 탈퇴" class = "user_submit" disabled = "disabled">
 			</form>
 	</div>
 </div> 
+
+<div id="delivery_modal" style = 'display:none; z-index:1;'>
+	<div class="delivery_modal_body" align = "center"> 
+		<div class="delivery_modalClose" align="right">
+			<input type = "button" value = "X">
+		</div>
+
+			<form method = "post" action = "<%=request.getContextPath() %>/delivery_insert.do" id = "delivery_delete_form">
+			</form>
+	</div>
+</div> 
+
 </main>
     
     
@@ -201,6 +248,7 @@ function displayoff(){
 var loading = false; 
 var su = false;
 var su2 = false;
+var su3 = false;
 
 // 구독관리 ==============================================================================================================
 	
@@ -351,6 +399,8 @@ $(document).on("scroll", function(){
 	    }
 });
 
+var count = 0;
+
 function getorder(){
 	var id = '<%=(String)session.getAttribute("userId")%>';
 	
@@ -376,6 +426,9 @@ function getorder(){
 	    	}else {
 	    			
 	    		$.each(result, function(index, item){
+	    			
+	    			var price = item.product_price * item.order_amount;
+	    			var totalprice = price.toLocaleString('ko-KR');
 			    	
 		    		res += "<div id = 'order_wrap'>";
 	    			res += 		"<div id = 'order_image'>";
@@ -383,16 +436,29 @@ function getorder(){
 	    			res += 		"</div>"
 	    			
 	    			res += 		"<div id = 'order_info'>"
-	    			res += 			"<div id = 'order_info_date'><span>" + item.order_date + "</span><div id = 'order_info_status'>" + item.order_status + "</div>" + "</div>"
+	    			res += 			"<div id = 'order_info_date'><span>" + item.order_date + "</span>"
+	    									if(item.order_status == "취소"){
+	    			res +=						"<div style = 'color:red;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"							
+	    									}else if(item.order_status == "배송중"){
+	    			res +=						"<div style = 'color:#0097F3;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"	    										
+	    									}else if(item.order_status == "배송완료"){
+	    			res +=						"<div style = 'color:#FAAF00;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"
+	    									}else{
+	    			res +=						"<div style = 'color:black;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"
+	    									}
+	    			
+	    			res +=			"</div>"
 	    			res += 			"<div id = 'order_info_title'>" + item.product_name + "</div>"
 	    			res += 			"<div id = 'order_info_alchol'>도수 : " + item.product_alcohol + "%</div>"
 	    			res += 			"<div id = 'order_info_amount'>수량 : " + item.order_amount + "개</div>"
-	    			res += 			"<div id = 'order_info_price'>" + item.product_price + "원</div>"
+	    			res += 			"<div id = 'order_info_price'>" + totalprice + "원</div>"
 	    			res +=			"<input type = 'hidden' value = '" + item.product_no + "' class = 'product_review_no' name = 'product_review_no'>"
 					res += 		"</div>"
 					res +=		"<input type = 'button' class = 'review_goBtn' value = '리뷰하러가기' onclick = 'review_submit("+item.product_no+")'>"
 					res += "</div>"
-		    		 
+					
+	    			count += 1;
+					
 	    	});
 	    
 	    	// 구독페이지로 이동
@@ -507,6 +573,7 @@ $(document).on("click", "#mypage_user", function(){
 				    			"</div>" +
 			    				"<div class = 'user_info_bottom'>" +
 			    					"<div class = 'user_modify_btn'>수정</div>" +
+			    					"<hr>" + 
 			    					"<div class = 'user_delete_btn'>회원 탈퇴</div>" +
 			    				"</div>" +
 			    			"</div>";
@@ -728,9 +795,12 @@ $(document).on("blur", ".user_pwd_new",function(){
 		        if(!loading)    //실행 가능 상태라면?
 		        {	if(!su){
 			        	if(su2){
-			        		loading = true; //실행 불가능 상태로 변경
-				            getreview();
-				            $("#none_review").css("display","none");	
+			        		if(su3){
+			        			loading = true; //실행 불가능 상태로 변경
+					            getreview();
+					            $("#none_review").css("display","none");	
+			        		}
+			        			
 		        		}
 		        	
 		       		}
@@ -754,16 +824,21 @@ $(document).on("blur", ".user_pwd_new",function(){
 		    
 		    	if(result == 0){
 		    		if(su2) {
-		    			res = "<div class = 'review_main_wrap'>" +
-	    				"<div id = 'none_review'>" + 
-	    					"<h3 = 'none_review_title'>작성한 리뷰가 없어요" + "</h3>" +
-	    				"</div>";
+		    			if(su3){
+		    				res = "<div class = 'review_main_wrap'>" +
+		    				"<div id = 'none_review'>" + 
+		    					"<h3 = 'none_review_title'>작성한 리뷰가 없어요" + "</h3>" +
+		    				"</div>";
+		    				su2 = true;
+		    			}
+		    			
 	    				su = true;
 		    		}
 		    	}else {
-		    			
+		    		
 		    		$.each(result, function(index, item){
-				    	
+		    			var int_no = item.review_no;
+		    			var star_num = item.review_star / 20;
 			    		res += "<div class = 'review_wrap'>";
 		    			res += 		"<div class = 'review_info'>"
 		    			res += 		"<div class = 'review_info_top'>"
@@ -784,11 +859,11 @@ $(document).on("blur", ".user_pwd_new",function(){
 		    			res += 			"</div>"
 		    			res += 		"</div>"
 		    			res += 		"<div class = 'review_info_bottom'>"
-		    			res += 			"<div class = 'review_info_cont'>" + item.review_cont + "</div>"
+		    			res += 			"<div class = 'review_info_cont'><pre>"+ item.review_cont + "</pre></div>"
 		    							if(item.review_file == null) {
 		    								res += '';
 		    							}else {
-		    							res += 			"<img src = 'resources/review_img/" + item.review_file + "' class = 'review_image'>";					
+		    								res += 			"<img src = 'resources/review_img/" + item.review_file + "' class = 'review_image"+int_no+"' onmouseover = 'zoomImg("+int_no+")' style = 'height:100px;'>"
 		    							}
 						res += 		"</div>"
 						res += 		"</div>"
@@ -818,28 +893,27 @@ $(document).on("blur", ".user_pwd_new",function(){
 		}); // ajax 끝
 	} // 리뷰관리 ajax 메서드 끝
 	
-	$(document).on("mouseover",".review_image", function(){
-		$(".review_image").css("cursor", "zoom-in")
-	});
-	
-	$(document).on("click",".review_image", function(){
-		$(".review_image").css("width", "auto");
-		$(".review_image").css("height", "80%");
-		$(".review_image").attr("class", "review_image_zoom");
-	});
-	
-	$(document).on("mouseover",".review_image_zoom", function(){
-		$(".review_image_zoom").css("cursor", "zoom-out")
-	});
-	
-	$(document).on("click",".review_image_zoom", function(){
-		$(".review_image_zoom").css("width", "auto");
-		$(".review_image_zoom").css("height", "100px");
-		$(".review_image_zoom").attr("class", "review_image");
-	});
-	
-	
-	
+	function zoomImg(no){
+		$(document).on("click",".review_image"+no, function(){
+			$(".review_image"+no).css("width", "auto");
+			$(".review_image"+no).css("height", "80%");
+			$(".review_image"+no).attr("class", "review_image_zoom"+no);
+		});
+		
+		$(document).on("mouseover", ".review_image"+no, function(){
+			$(".review_image"+no).css("cursor", "zoom-in");
+		});
+		
+		$(document).on("click",".review_image_zoom"+no, function(){
+			$(".review_image_zoom"+no).css("width", "auto");
+			$(".review_image_zoom"+no).css("height", "100px");
+			$(".review_image_zoom"+no).attr("class", "review_image"+no);
+		});
+		
+		$(document).on("mouseover", ".review_image_zoom"+no, function(){
+			$(".review_image_zoom"+no).css("cursor", "zoom-out");
+		});
+	}
 	// 배송지 관리 ==============================================================================================================
 	
 	$(document).on("click", "#mypage_delivery", function(){
@@ -887,12 +961,14 @@ $(document).on("blur", ".user_pwd_new",function(){
 			    	
 			    	// 배송지 등록하기로 이동
 			    	$(document).on("click",".delivery_btn", function() {
-			    		location.href = "<%=request.getContextPath() %>/delivery_insert.do";					
+			    		
 			    	});
 			    	
 			    },error : function(request, status, error) { // 결과 에러 콜백함수
 			    	
 			    }
+			    
+			    //OpenWin_variety('링크url','창이름',width,height,출력좌표X,출력위치Y)
 			    
 			}); // ajax 끝
 			loading = true;

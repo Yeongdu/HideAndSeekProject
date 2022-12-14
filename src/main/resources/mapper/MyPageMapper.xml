@@ -99,7 +99,7 @@
  	 <!-- 리뷰 리스트 -->
  	 <select id="review_cont" parameterType="map" resultType="ReviewDTO">
  	 	<![CDATA[
- 	 	select review_cont, review_file, (review_star*20) as review_star, review_date, user_id, product_name
+ 	 	select review_no, review_cont, review_file, (review_star*10) as review_star, review_date, user_id, product_name, product_amount
 		from (select pall.*, row_number() over(order by review_date desc) rnum 
 		from (select * from review re join product p on re.product_no = p.product_no where re.user_id = #{userId}) pall) 
 		where rnum >= #{startNo} and rnum <= #{endNo} order by review_date desc
@@ -113,7 +113,7 @@
  	 
  	 <insert id="review_insert" parameterType="ReviewDTO">
  	 	insert into review values(
-  		(select max(review_no) from review) +1,
+  		(select nvl(max(review_no), 0) from review) +1,
   		'리뷰',
   		#{review_cont},
   		#{review_file},

@@ -38,8 +38,7 @@ public class MyPageController {
 	// DB 상의 전체 게시물의 수
 	private int totalRecord = 0;
 	
-	private static final String FILE_SERVER_PATH = /*"D:\\git\\HideAndSeekProject\\src\\main\\webapp\\resources\\upload";*/ "C:\\Users\\user1\\git\\HideAndSeekProject\\src\\main\\webapp\\resources\\review_img";
-	
+	private static final String FILE_SERVER_PATH = "D:\\git\\HideAndSeekProject\\src\\main\\webapp\\resources\\review_img";
 	
 	@RequestMapping("mypage.do")
 	public String mypage(Model model, HttpSession session) {
@@ -159,7 +158,7 @@ public class MyPageController {
 		
 		 response.setContentType("text/html; charset=UTF-8");
 		 PrintWriter out = response.getWriter();
-		
+		 
 		if(check == 1) {
 			int user_delete = this.mypage_dao.userDelete(userId);
 			
@@ -227,7 +226,8 @@ public class MyPageController {
 								ReviewDTO rdto) throws IllegalStateException, IOException {
 		int star = Integer.parseInt(star2);
 		
-		System.out.println("star >>> " + star2);
+		System.out.println("star2 >>> " + star2);
+		System.out.println("star >>> " + star);
 		
 		if(file.isEmpty()) {
 			rdto.setReview_file("");
@@ -263,13 +263,18 @@ public class MyPageController {
 			}else {
 				out.println("<script> alert('리뷰 등록 실패');</script>");
 			}
-		 
-		 
-		 
-		 
-		 
-		
+
 	}
+	
+	
+	@RequestMapping("delivery_insert.do")
+	public String mypage_delivery_insert(@RequestParam("user_id")String user_id, Model model) {
+		
+		model.addAttribute("userId", user_id);
+		
+		return "mypage_delivery_insert";
+	}
+	
 	
 	
 	
