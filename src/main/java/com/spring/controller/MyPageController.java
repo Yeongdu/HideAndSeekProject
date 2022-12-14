@@ -153,6 +153,40 @@ public class MyPageController {
 		
 	}
 	
+	@RequestMapping("user_delete.do")
+	public String mypage_user_delete(@RequestParam("user_check")int check, 
+									@RequestParam("delete_user_name")String userId,HttpServletResponse response, HttpSession session) throws IOException {
+		
+		 response.setContentType("text/html; charset=UTF-8");
+		 PrintWriter out = response.getWriter();
+		
+		if(check == 1) {
+			int user_delete = this.mypage_dao.userDelete(userId);
+			
+			if(user_delete < 0) {
+				out.println("<script>");
+				out.println("alert('회원에서 탈퇴되었습니다.')");
+				out.println("<script>");
+				session.invalidate();
+			}else {
+				out.println("<script>");
+				out.println("alert('회원 탈퇴를 실패하였습니다.')");
+				out.println("<script>");
+			}
+			
+			return "redirect:/main.do";
+			
+		}else {
+			out.println("<script>");
+			out.println("alert('회원 탈퇴 실패')");
+			out.println("<script>");
+			
+			return "redirect:/mypage.do";
+		}
+	}
+	
+	
+	
 	@RequestMapping("mypage_review.do")
 	@ResponseBody
 	public List<ReviewDTO> mypage_review(Model model, @RequestParam("userId") String userId, @RequestParam("page") int page){

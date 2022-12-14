@@ -48,6 +48,10 @@
 		where user_id = #{userId}
  	 </select>
  	 
+ 	 <update id="user_delete" parameterType="map">
+ 	 	update tb_user set user_leave = 0 where user_id = #{userId}
+ 	 </update>
+ 	 
  	 <select id="order_cont" parameterType="Map" resultType="orderDTO">
  	 	<![CDATA[
  	 	select * 
