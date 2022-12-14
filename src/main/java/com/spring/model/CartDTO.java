@@ -17,5 +17,8 @@ public class CartDTO {
 	private String product_company; // 상품 제조사
 	private int product_price; // 상품 판매가
 	private String product_thumbnail; // 상품 썸네일
+	private int product_stock; // 상품 재고수량
+	
+	private int totalcart; // 장바구니의 총 수량
 
 }
