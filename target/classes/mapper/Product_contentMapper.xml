@@ -38,7 +38,12 @@
 		select * from product_content where product_no = #{no}
 	</select>
 	
-	<select id="RList" parameterType="int" resultType="ReviewDTO">
-  		select * from review where product_no = #{product_no}
+	<select id="RList" parameterType="map" resultType="ReviewDTO">
+  		<![CDATA[
+ 	 	select review_cont, review_file, (review_star*10) as review_star, review_date, user_id, product_name
+		from (select pall.*, row_number() over(order by review_date desc) rnum 
+		from (select * from review re join product p on re.product_no = p.product_no where p.product_no = #{no}) pall) 
+		where rnum >= #{startNo} and rnum <= #{endNo} order by review_date desc
+ 	 	]]>
   	</select>
   </mapper>

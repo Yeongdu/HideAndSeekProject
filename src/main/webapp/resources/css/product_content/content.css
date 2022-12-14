@@ -143,35 +143,20 @@ body {
 }
 
 .total_price {
-	height: 8%;
-	background: rgba(217, 217, 217, 0.2);
-	border-radius: 10px;
-	padding-top: 2%;
+	height: 42px;
+    background: rgba(217, 217, 217, 0.2);
+    border-radius: 10px;
+    padding-top: 2.5%;
 }
 
-.final_price {
-	font-style: normal;
-	font-weight: 400;
-	font-size: 20px;
-	line-height: 19px;
-	border: 0px;
-	background-color: #f7f7f7;
-	text-align: right;
-	margin-bottom: 2%;
-	padding-right: 0;
-	margin-left: 7%;
-}
-
-.won {
-	font-style: normal;
-	font-weight: 400;
-	font-size: 20px;
-	line-height: 19px;
-	border: 0px;
-	background-color: #f7f7f7;
-	text-align: left;
-	margin-bottom: 2%;
-	padding-left: 0;
+.p_price, .won {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 19px;
+    border: 0px;
+    background-color: #f7f7f7;
+    text-align: right;
 }
 
 .buybtn {
@@ -243,11 +228,15 @@ body {
 	display: block;
 }
 
-.sub_cont {
-	width: 50%;
-	ont-family: 'Noto Sans';
-	font-size: 20px;
-}
+#sub_cont1, #sub_cont2, #sub_cont3{
+    resize: none;
+    border: 0px solid white;
+    width: 700px;
+    }
+    
+    textarea:focus{
+    color: black;
+    }
 
 #my_div span {
 	display: flex;
@@ -339,7 +328,6 @@ color: black;
 
 .tab-contents {
 	margin-top: 1%;
-	margin-right: 46%;
 }
 
 .change_cont {
@@ -368,4 +356,18 @@ color: black;
 	font-size: 15px;
 	font-weight: 700;
 	color: #23abf9;
+}
+
+.review_top {
+	display: flex;
+    justify-content: space-between;
+    width: 55.5%;
+    background-color: #F4F4F4;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.review_info_product_name {
+    font-weight: bold;
+    font-size: 1.2em;
 }

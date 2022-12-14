@@ -45,8 +45,8 @@
 					<span class="total_price_w">총 상품 가격</span>
 					<input type=hidden id="sell_price" name="sell_price" value="${pdto.product_price}">
 					<div class="total_price" align="center">
-						<input type="text" class="final_price" name="sum" size="13" readonly>
-						<input type="text" class="won" size="13" value="원" readonly>
+						<span class="p_price"></span>
+						<span class="won">원</span>
 					</div>
 				</form>
 				
@@ -58,22 +58,43 @@
 		<div class="main_cont">
 			<div class="picture_2">
 				<img src="resources/upload/${dto.getProduct_file1() }"> 
-				<strong class="cont1">${dto.getProduct_cont1() }</strong>
-				<div class="sub_cont">
-					<span>${dto.getProduct_cont2() }</span>
-				</div>
+				<textarea class="sub_cont1" id="sub_cont1" spellcheck="false" readonly> ${dto.getProduct_cont1() } </textarea>
 				<img src="resources/upload/${dto.getProduct_file2() }"> 
-				<strong class="cont1">${dto.getProduct_cont3() }</strong>
-				<div class="sub_cont">
-					<span>${dto.getProduct_cont4() }</span>
-				</div>
+				<textarea class="sub_cont2" id="sub_cont2" spellcheck="false" readonly> ${dto.getProduct_cont2() } </textarea>
 				<img src="resources/upload/${dto.getProduct_file3() }">
+				<textarea class="sub_cont3" id="sub_cont3" spellcheck="false" readonly> ${dto.getProduct_cont3() } </textarea>
 			</div>
 		</div>
+		
+		<script type="text/javascript">
+		//본문 textarea 높이 자동조절 함수
+		$(function() {
+
+		function adjustHeight1() {
+			var textEle = $('#sub_cont1');
+			textEle[0].style.height = 'auto';
+			var textEleHeight = textEle.prop('scrollHeight');
+			textEle.css('height', textEleHeight+8);
+			};
+		function adjustHeight2() {
+			var textEle = $('#sub_cont2');
+			textEle[0].style.height = 'auto';
+			var textEleHeight = textEle.prop('scrollHeight');
+			textEle.css('height', textEleHeight+8);
+			};
+		function adjustHeight3() {
+			var textEle = $('#sub_cont3');
+			textEle[0].style.height = 'auto';
+			var textEleHeight = textEle.prop('scrollHeight');
+			textEle.css('height', textEleHeight+8);
+			};
+			
+		adjustHeight1();
+		adjustHeight2();
+		adjustHeight3();
+		</script>
 	</c:forEach>
 			<!-- 버튼 클릭 시 화면 변경 수정중 -->
-			<c:forEach items="${rlist }" var="rdto">
-			</c:forEach>
 			<div class="tabs">
 				<div class="tab-button-outer">
 					<ul id="tab-button">
@@ -82,9 +103,23 @@
 					</ul>
 				</div>
 				<br>
+				<!-- 리뷰 수정중 -->
 				<div id="tab01" class="tab-contents">
-					<p>리뷰</p>
+				<span>수정수정</span>
+					<c:forEach items="${rlist }" var="rdto">
+						<div class="review_top">
+							<div>
+							<span class="review_info_product_name">${pdto.product_name }</span>
+							[${pdto.product_amount }ml]
+							</div>
+							<div>
+							<span>${rdto.getReview_date() }</span>
+							</div>
+						</div>
+					</c:forEach>
+					
 				</div>
+				<!-- 리뷰 수정끝 -->
 				<div id="tab02" class="tab-contents">
 					<p align="left" class="change_cont">
 						<span class="t">교환/반품 문의</span><br><br>
@@ -137,11 +172,12 @@
 	});
 	var sell_price;
 	var amount;
+	var total;
+	var total_price;
 
 	function init() {
 		sell_price = document.form.sell_price.value;
 		amount = document.form.amount.value;
-		document.form.sum.value = sell_price;
 		change();
 	}
 
@@ -153,14 +189,12 @@
 		if(hm.value >= ${pdto.product_stock}) {
 		    swal('',"${pdto.product_stock -1}개까지 주문 할 수 있습니다",'warning');
 		    hm.value--;
-			sum.value = parseInt(hm.value) * sell_price;
 				if(${pdto.product_stock} == 0 ){
 					swal('',"품절되었습니다",'warning');
 				}
 		} else {
-			sum.value = parseInt(hm.value) * sell_price;
-		}
-		
+			change();
+		}	
 	}
 
 	function del() {
@@ -169,7 +203,7 @@
 
 		if (hm.value > 1) {
 			hm.value--;
-			sum.value = parseInt(hm.value) * sell_price;
+			change();
 		}
 	}
 
@@ -179,7 +213,10 @@
 		if (hm.value < 0) {
 			hm.value = 0;
 		}
-		sum.value = parseInt(hm.value) * sell_price;
+		total = parseInt(hm.value) * sell_price;
+		total_price = total.toLocaleString('ko-KR');
+		$('.p_price').text('');
+		$('.p_price').append(total_price);
 	}
 	//금액, 수량 변동 끝
 	
@@ -201,7 +238,7 @@
         pay_method : 'card',
         merchant_uid: "IMP"+makeMerchantUid, 
         name : '${pdto.product_name }',
-        amount : sum.value,
+        amount : total_price,
         buyer_email : '',
         buyer_name : '${m_name}',
         buyer_tel : '010-5654-0265',
