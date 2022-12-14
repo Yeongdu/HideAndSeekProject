@@ -22,7 +22,7 @@
 	
 	<div align="center">
 
-		<table class="table table-hover table-bordered" style="width: 80em">
+		<table class="table table-hover table-bordered"  style="margin-left: auto; margin-right: auto; text-align: center; width: 80em;">
 			<tr>
 				<th>주문번호</th>
 				<th>주문일</th>

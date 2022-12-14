@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 <link href="resources/css/banner/admin_banner.css" rel="stylesheet" type="text/css">
 
-<div style="height: auto">
+<div style="height: auto; min-height: 100%;">
 <br>
 <br>
 <br>
@@ -22,7 +22,7 @@
 	
 	<div align="center">
 
-		<table class="table table-hover table-bordered" style="width: 80em">
+		<table class="table table-hover table-bordered" style="margin-left: auto; margin-right: auto; text-align: center; width: 80em;">
 			<tr>
 				<th>주문번호</th>
 				<th>주문일</th>

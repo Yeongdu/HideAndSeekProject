@@ -118,13 +118,23 @@ public class Admin_productDAOImpl implements Admin_productDAO{
 	}
 
 	@Override
-	public List<admin_productDTO> salProductList(PageDTO dto) {
-		return this.sqlSession.selectList("getSalProductList", dto);
+	public List<admin_productDTO> IngProductList(PageDTO dto) {
+		return this.sqlSession.selectList("getIngProductList", dto);
 	}
 
 	@Override
-	public int getSalProductCount() {
+	public int getIngProductCount() {
 		return this.sqlSession.selectOne("salProductCount");
+	}
+
+	@Override
+	public int getSearchIngProductCount(String keyword) {
+		return this.sqlSession.selectOne("getSearchIngListCount", keyword);
+	}
+
+	@Override
+	public List<admin_productDTO> searchIngProductList(Map<String, Object> map) {
+		return this.sqlSession.selectList("adminIngProductSearch", map);
 	}
 
 }

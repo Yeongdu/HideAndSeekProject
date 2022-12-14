@@ -70,8 +70,7 @@ public class AdminController {
 	
 	private static final String FILE_SERVER_PATH = "D:\\git\\HideAndSeekProject\\src\\main\\webapp\\resources\\upload";
 
-	
-	
+	//신규 제품 등록
 	@RequestMapping("/admin_product_insert_ok.do")
 	public void insertSubmit(@RequestParam("product_thumbnailFile") MultipartFile file, HttpServletResponse response,
 			ModelAndView mv, Model model, admin_productDTO adto) throws IllegalStateException, IOException {
@@ -101,6 +100,7 @@ public class AdminController {
 
 	}
 
+	//관리자 메인
 	@RequestMapping("/admin_main.do")
 	public String admin_main(Model model) {
 		List<OrderDTO> list = this.dao.getOrderList();
@@ -108,48 +108,23 @@ public class AdminController {
 		return "admin/admin_main";
 	}
 	
+	//신규 제품 등록 페이지
 	@RequestMapping("/admin_product_insert.do")
 	public String product_insert(Model model) {
 		List<Product_categoryDTO> cateList = this.dao.getCategoryList();
 		model.addAttribute("CategoryList", cateList);
 		return "admin/admin_product_insert";
 	}
-
 	
-	
-//	@RequestMapping("/admin_product_insert_ok.do")
-//	public void product_insert_Ok(ProductDTO dto, HttpServletResponse response) throws IOException {
-//		
-//		if(dto.getProduct_alcohol() <= 7) {
-//			dto.setProduct_dosu("low");
-//		}else if(dto.getProduct_alcohol() <= 20) {
-//			dto.setProduct_dosu("middle");
-//		}else if(dto.getProduct_alcohol() <= 35) {
-//			dto.setProduct_dosu("high");
-//		}else if(dto.getProduct_alcohol() <= 50) {
-//			dto.setProduct_dosu("very-high");	
-//		}
-//		int check = this.apdao.insertProduct(dto);
-//		response.setContentType("text/html; charset=UTF-8");
-//		PrintWriter out = response.getWriter();
-//		if(check > 0) {
-//			this.apcdao.insertProductContent(dto.getProduct_no());
-//			out.println("<script> alert('제품 등록 성공'); location.href='admin_product_list.do'; </script>");
-//		}else {
-//			out.println("<script> alert('제품 등록 실패했습니다.'); history.back(); </script>");
-//		}
-//	}
-	
+	//전체 상품 목록
 	@RequestMapping("/admin_product_list.do")
 	public String admin_product_list(HttpServletRequest request, Model model) {
 		// 페이징 처리 작업
 		int page;	// 현재 페이지 변수
-		
 						
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}else {
-			// 처음으로 게시물 전체 목록 태그를 클릭한 경우
 			page = 1;
 		}
 		// DB상의 전체 게시물의 수를 확인하는 메서드
@@ -159,15 +134,13 @@ public class AdminController {
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<admin_productDTO> plist = this.apdao.getProductList(dto);
 		
-
 		model.addAttribute("list", plist);
-		
 		model.addAttribute("page", dto);
 		return "admin/admin_product_list";
 
 	}
 	
-	
+	//전체 상품 검색
 	@RequestMapping("admin_product_search.do")
 	public String admin_product_search(HttpServletRequest request, 
 			@RequestParam(value = "field", required = false) String field,
@@ -176,12 +149,9 @@ public class AdminController {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		
-		// 페이징 처리 작업
-		int page;	// 현재 페이지 변수
+		int page;
 		int rowsize = 10;
 		int totalRecord;
-
 						
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -207,6 +177,45 @@ public class AdminController {
 		return "admin/admin_product_search";
 	}
 	
+	
+	// 판매중인 상품 검색
+	@RequestMapping("admin_product_ing_search.do")
+	public String admin_product_ing_search(HttpServletRequest request,
+			@RequestParam(value = "field", required = false) String field,
+			@RequestParam(value = "keyword", required = false) String keyword, 
+			Model model) {
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		int page;
+		int rowsize = 10;
+		int totalRecord;
+
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		} else {
+			// 처음으로 게시물 전체 목록 태그를 클릭한 경우
+			page = 1;
+		}
+		// DB상의 전체 게시물의 수를 확인하는 메서드
+		totalRecord = this.apdao.getSearchIngProductCount(keyword);
+		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+
+		map.put("field", field);
+		map.put("keyword", keyword);
+		map.put("Page", dto);
+
+		List<admin_productDTO> productSearchList = this.apdao.searchIngProductList(map);
+
+		model.addAttribute("list", productSearchList);
+		model.addAttribute("field", field);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("page", dto);
+
+		return "admin/admin_ing_product_search";
+	}
+	
+	//상품 상세 페이지
 	@RequestMapping("admin_product_content.do")
 	public String admin_product_cont(@RequestParam("no") int no,@RequestParam("page") int page , Model model) {
 		ProductDTO dto = this.pdao.getProductCont(no);
@@ -218,9 +227,6 @@ public class AdminController {
 		model.addAttribute("file1", apdto.getProduct_file1());
 		model.addAttribute("file2", apdto.getProduct_file2());
 		model.addAttribute("file3", apdto.getProduct_file3());
-		
-		
-		
 		model.addAttribute("page", page);
 		
 		return "admin/admin_product_cont";
@@ -251,10 +257,8 @@ public class AdminController {
 			out.println("<script> alert('제품 판매상태 변경을 실패했습니다.'); history.back(); </script>");
 		}
 	}
-	
-	
-	
-	
+
+	//상품 기본정보 수정 페이지
 	@RequestMapping("admin_product_update.do")
 	public String admin_productUpdate(@RequestParam("page") int page, @RequestParam("no") int no, Model model) {
 		ProductDTO pdto = this.pdao.getProductCont(no);
@@ -263,30 +267,22 @@ public class AdminController {
 		model.addAttribute("CategoryList", cateList);
 		model.addAttribute("PCont", pdto);
 //		model.addAttribute("PCCont", pcdto);
-		
-
-		
 		model.addAttribute("page", page);
 		
 		return "admin/admin_product_update";
 	}
 	
-	
+	// 상품 기본정보 수정
 	@RequestMapping("admin_product_update_ok.do")
 	public void admin_product_update_ok(
-			@RequestParam(value="product_thumbnailFile",required = false) MultipartFile upload,
-			@RequestParam("page") int page, 
-			@RequestParam("no") int no, 
-//			ProductDTO pdto, 
-//			Product_contentDTO pccdto, 
-			HttpServletResponse response, 
-			Model model,
-			admin_productDTO adto
-			) throws IllegalStateException, IOException {
-		
+			@RequestParam(value = "product_thumbnailFile", required = false) MultipartFile upload,
+			@RequestParam("page") int page, @RequestParam("no") int no,
+			HttpServletResponse response, Model model, admin_productDTO adto)
+			throws IllegalStateException, IOException {
+
 		String savedfile = adto.getProduct_thumbnail();
 
-		//원래 있던 파일 삭제
+		// 원래 있던 파일 삭제
 		if (savedfile != null) {
 			String fullpath = FILE_SERVER_PATH + "/" + savedfile;
 			File file = new File(fullpath);
@@ -294,92 +290,73 @@ public class AdminController {
 				file.delete();
 			}
 		}
-		 
-		if(upload == null) {
+
+		if (upload == null) {
 			adto.setProduct_thumbnail(savedfile);
 		}
-		
-		 
-		 if (adto.getProduct_alcohol() <= 7) {
-				adto.setProduct_dosu("low");
-				} else if (adto.getProduct_alcohol() <= 20) {
-					adto.setProduct_dosu("middle");
-				} else if (adto.getProduct_alcohol() <= 35) {
-					adto.setProduct_dosu("high");
-				} else if (adto.getProduct_alcohol() <= 50) {
-					adto.setProduct_dosu("very-high");
-				}
-			
-		 adto.setProduct_thumbnail(upload.getOriginalFilename());
-		
-		 int check = this.apdao.productUpdate(adto);
-		 
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			response.setContentType("text/html; charset=UTF-8");
-			model.addAttribute("page", page);
-			if(check > 0 && !upload.getOriginalFilename().isEmpty()) {
-				upload.transferTo(new File(FILE_SERVER_PATH, upload.getOriginalFilename()));
-				out.println("<script> alert('상품수정성공'); location.href='admin_product_content.do?no="+no+"&page="+page+"'; </script>");
-			}else {
-				out.println("<script> alert('상품수정실패'); history.back(); </script>");
-			}
+
+		if (adto.getProduct_alcohol() <= 7) {
+			adto.setProduct_dosu("low");
+		} else if (adto.getProduct_alcohol() <= 20) {
+			adto.setProduct_dosu("middle");
+		} else if (adto.getProduct_alcohol() <= 35) {
+			adto.setProduct_dosu("high");
+		} else if (adto.getProduct_alcohol() <= 50) {
+			adto.setProduct_dosu("very-high");
+		}
+
+		adto.setProduct_thumbnail(upload.getOriginalFilename());
+
+		int check = this.apdao.productUpdate(adto);
+
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		response.setContentType("text/html; charset=UTF-8");
+		model.addAttribute("page", page);
+		if (check > 0 && !upload.getOriginalFilename().isEmpty()) {
+			upload.transferTo(new File(FILE_SERVER_PATH, upload.getOriginalFilename()));
+			out.println("<script> alert('상품수정성공'); location.href='admin_product_content.do?no=" + no + "&page=" + page
+					+ "'; </script>");
+		} else {
+			out.println("<script> alert('상품수정실패'); history.back(); </script>");
+		}
 	}
 	
-	
-	
-	
-	//////////////////////////////////////////////////////////////////
-	
-	
-	
-	
-	//////////////////////////////////////////////////////////////////
-	
-
-	@RequestMapping("admin_product_contentEdit.do")
+	//판매중인 상품 목록
+	@RequestMapping("admin_product_ing.do")
 	public String admin_product_edit(HttpServletRequest request, Model model) {
-		// 페이징 처리 작업
-		int page;	// 현재 페이지 변수
-		
-						
+		int page;
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}else {
 			page = 1;
 		}
-		
-		totalRecord = this.pdao.getListCount();
+		totalRecord = this.apdao.getIngProductCount();
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
 		
-		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
-		List<ProductDTO> plist = this.pdao.getProductList(dto);
-		
+		List<admin_productDTO> plist = this.apdao.IngProductList(dto);
 
 		model.addAttribute("list", plist);
-		
 		model.addAttribute("page", dto);
-		return "admin/admin_product_contentEdit";
+		return "admin/admin_product_ing";
 	}
 	
+	//상품 상세정보 수정 페이지
 	@RequestMapping("admin_product_content_update.do")
 	public String admin_productContentUpdate(@RequestParam("page") int page, @RequestParam("no") int no, Model model) {
 		ProductDTO pdto = this.pdao.getProductCont(no);
 		admin_product_contentDTO pcdto = this.apcdao.getProductOne(no);
-//		List<Product_categoryDTO> cateList = this.dao.getCategoryList();
 		
 		model.addAttribute("file1", pcdto.getProduct_file1());
 		model.addAttribute("file2", pcdto.getProduct_file2());
 		model.addAttribute("file3", pcdto.getProduct_file3());
-//		model.addAttribute("CategoryList", cateList);
 		model.addAttribute("PCont", pdto);
 		model.addAttribute("PCCont", pcdto);
 		model.addAttribute("page", page);
 		return "admin/admin_product_content_update";
 	}
 	
-	
-	
+	//상품 상세정보 수정
 	@RequestMapping("admin_product_content_update_ok.do")
 	public void admin_product_content_update_ok(
 			@RequestParam("product_file1file") MultipartFile file1,
@@ -391,7 +368,6 @@ public class AdminController {
 			Product_contentDTO pccdto, 
 			HttpServletResponse response, 
 			Model model) throws IOException {
-		
 		
 		String savedfile1 = pccdto.getProduct_file1();
 		String savedfile2 = pccdto.getProduct_file2();
@@ -409,7 +385,7 @@ public class AdminController {
 			String fullpath = FILE_SERVER_PATH + "/" + savedfile2;
 			File file = new File(fullpath);
 			if (file.isFile()) {
-				file.delete();
+				file.delete(); 
 			}
 		}
 		if (savedfile3 != null) {
@@ -419,8 +395,6 @@ public class AdminController {
 				file.delete();
 			}
 		}
-
-		
 		
 		pccdto.setProduct_file1(file1.getOriginalFilename());
 		pccdto.setProduct_file2(file2.getOriginalFilename());
@@ -431,7 +405,7 @@ public class AdminController {
 		PrintWriter out = response.getWriter();
 		model.addAttribute("page", page);
 		
-		if(check2 > 0) { //&page="+page+"
+		if(check2 > 0) {
 			file1.transferTo(new File(FILE_SERVER_PATH, file1.getOriginalFilename()));
 			file2.transferTo(new File(FILE_SERVER_PATH, file2.getOriginalFilename()));
 			file3.transferTo(new File(FILE_SERVER_PATH, file3.getOriginalFilename()));
@@ -440,41 +414,30 @@ public class AdminController {
 		}else {
 			out.println("<script> alert('상품수정실패'); history.back(); </script>");
 		}
-//		ProductDTO dto = this.pdao.getProductCont(no);
-//		model.addAttribute("Cont", dto);
-//		
-//		Product_contentDTO pcdto = this.pcdao.getProduct(no);
-//		model.addAttribute("PCCont", pcdto);
-//		return "admin/admin_product_cont";
 	}
 	
-	
+	//상품 삭제(product, product_content 같은 번호 동시 삭제)
 	@RequestMapping("admin_product_delete.do")
 	public void admin_product_del(@RequestParam("no") int no, HttpServletResponse response) throws IOException {
 
-		int product_no = no;
-
-		// 해당 번호 삭제하는 메서드
-		int check1 = this.apcdao.deleteProductCont(no);
-
-		// 번호 재정렬
-
+		int product_no = no;	
+		int check1 = this.apcdao.deleteProductCont(no); // 해당 번호 product_content삭제
+		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		if (check1 > 0) {
-			this.apcdao.productContUpdateSeq(product_no);
-			int check2 = this.apdao.deleteProduct(no);
+			this.apcdao.productContUpdateSeq(product_no); // product_content 번호 재정렬
+			int check2 = this.apdao.deleteProduct(no); // 해당 번호 product삭제
 			if (check2 > 0) {
-				this.apdao.productUpdateSeq(product_no);
+				this.apdao.productUpdateSeq(product_no); // product 번호 재정렬
 				out.println("<script> alert('상품이 삭제되었습니다.'); location.href='admin_product_list.do'; </script>");
 			} else {
 				out.println("<script> alert('상품삭제실패'); history.back(); </script>");
 			}
 		}
-
 	}
 	
-	
+	//주문 리스트
 	@RequestMapping("/admin_order_list.do")
 	public String admin_order_list(HttpServletRequest request, Model model) {
 		// 페이징 처리 작업
@@ -509,13 +472,12 @@ public class AdminController {
 		}
 
 		model.addAttribute("list", list);
-
 		model.addAttribute("page", dto);
 
 		return "admin/admin_order_list";
-
 	}
-
+	
+	//주문 상태 변경
 	@RequestMapping("admin_order_statusChange.do")
 	public void admin_order_statusChange(HttpServletResponse response, @RequestParam("no") int no,
 			@RequestParam("key") String key) throws IOException {
@@ -529,7 +491,7 @@ public class AdminController {
 		}
 	}
 	
-	
+	//주문 검색
 	@RequestMapping("admin_order_search.do")
 	public String admin_order_search(HttpServletRequest request, 
 			@RequestParam(value = "keyword", required = false) String keyword,
@@ -577,7 +539,8 @@ public class AdminController {
 		return "admin/admin_order_search";
 	}
 	
-	@RequestMapping("/admin_order_del_list.do")
+	//주문 취소 리스트
+	@RequestMapping("/admin_order_del.do")
 	public String admin_order_del_list(HttpServletRequest request, Model model) {
 		// 페이징 처리 작업
 		int page; // 현재 페이지 변수
@@ -609,13 +572,12 @@ public class AdminController {
 		}
 
 		model.addAttribute("list", list);
-
 		model.addAttribute("page", dto);
 
 		return "admin/admin_order_del_list";
-
 	}
 	
+	//주문 취소 검색
 	@RequestMapping("admin_order_del_search.do")
 	public String admin_order_del_search(HttpServletRequest request, 
 			@RequestParam(value = "keyword", required = false) String keyword,
@@ -663,7 +625,7 @@ public class AdminController {
 		return "admin/admin_order_del_search_list";
 	}
 	
-	
+	//판매중지 상품 리스트
 	@RequestMapping("admin_product_del_list.do")
 	public String admin_product_del_list(HttpServletRequest request, Model model) {
 		// 페이징 처리 작업

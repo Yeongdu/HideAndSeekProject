@@ -26,7 +26,7 @@
 	<br>
 	<div align="center">
 
-		<table class="table table-hover table-bordered" style="width: 66em">
+		<table class="table table-hover table-bordered" style="margin-left: auto; margin-right: auto; text-align: center; width: 66em;">
 			<tr>
 				<th>상품번호</th>
 				<th>상품이름</th>
