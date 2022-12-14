@@ -57,91 +57,66 @@
 
 		<div class="main_cont">
 			<div class="picture_2">
-				<img src="resources/image/${dto.getProduct_file1() }">
+				<img src="resources/upload/${dto.getProduct_file1() }"> 
 				<strong class="cont1">${dto.getProduct_cont1() }</strong>
 				<div class="sub_cont">
 					<span>${dto.getProduct_cont2() }</span>
 				</div>
-				<img src="resources/image/${dto.getProduct_file3() }"> 
+				<img src="resources/upload/${dto.getProduct_file2() }"> 
 				<strong class="cont1">${dto.getProduct_cont3() }</strong>
 				<div class="sub_cont">
 					<span>${dto.getProduct_cont4() }</span>
 				</div>
-				<img src="resources/image/${dto.getProduct_file4() }">
+				<img src="resources/upload/${dto.getProduct_file3() }">
 			</div>
 		</div>
 	</c:forEach>
 			<!-- 버튼 클릭 시 화면 변경 수정중 -->
 			<c:forEach items="${rlist }" var="rdto">
 			</c:forEach>
-		<div class="accordion_wrap">
-			   <div class="accordion">
-					<input id="title" class="btn" type='button' value='리뷰'/>
-			   </div>
-					<div class="panel">
-					    <p class="text-light">Text 1</p>
-					</div>
-				<div class="accordion">
-					<input id="title1" class="btn1" type='button' value='교환/반품' />
+			<div class="tabs">
+				<div class="tab-button-outer">
+					<ul id="tab-button">
+						<li><a href="#tab01">리뷰</a></li>
+						<li><a href="#tab02">교환/반품</a></li>
+					</ul>
 				</div>
-					<div class="panel">
-				    	<p class="text-light">Text 2</p>
-					</div>
-		</div>
-				
-			<script type="text/javascript">
-			var acc = document.getElementsByClassName("accordion");
-			var panel = document.getElementsByClassName('panel');
-
-			for (var i = 0; i < acc.length; i++) {
-			    acc[i].onclick = function() {
-			    	var setClasses = !this.classList.contains('active');
-			        setClass(acc, 'active', 'remove');
-			        setClass(panel, 'show', 'remove');
-			        
-			       	if (setClasses) {
-			            this.classList.toggle("active");
-			            this.nextElementSibling.classList.toggle("show");
-			        }
-			    }
-			}
-
-			function setClass(els, className, fnName) {
-			    for (var i = 0; i < els.length; i++) {
-			        els[i].classList[fnName](className);
-			    }
-			}
-			</script>
+				<br>
+				<div id="tab01" class="tab-contents">
+					<p>리뷰</p>
+				</div>
+				<div id="tab02" class="tab-contents">
+					<p align="left" class="change_cont">
+						<span class="t">교환/반품 문의</span><br><br>
+						<span class="st">01.<br>
+						상품의 파손 및 하자, 변질 등 문제가 있는 경우</span><br>
+						- 성함, 연락처, 상품의 사진과 함께 술래잡기 고객센터<br>
+						 로 문의 부탁드립니다.<br><br>
+						<span class="st">02.<br>
+						수령하신 상품의 불량, 파손, 오배송의 경우</span><br>
+						- 교환/반품이 가능하며 배송비는 판매자가 부담합니다.<br><br>
+						<span class="st">03.<br>
+						교환 / 반품 / 환불이 제한되는 경우</span><br>
+						- 배송완료 후 7일이 지나 자동으로 수령확인 처리가 되거나,<br>
+						 상품을 확인하고 직접 수령확인하신 이후<br><br>
+						<span class="b">※ 식품 특성상, 아래와 같은 경우 교환/반품/환불이<br>
+						제한될 수 있습니다.</span><br>
+						- 제품이 개봉되었거나 포장이 훼손된 경우<br>
+						 (단, 상품의 내용을 확인하기 위하여 포장 등을 훼손한 경우는 제외)<br>
+						- 사전 연락없이 임의 반송된 경우<br>
+						- 주소의 오기재, 잘못된 주문, 주소 불명, 수취인 부재의 경우<br>
+						- 단순 변심에 의한 경우<br>
+						- 잘못된 방법으로 보관하거나 고객님의 부주의로 인한<br>
+						 오염, 파손, 변질된 제품<br>
+					</p>
+				</div>
+			</div>
 			<!-- 버튼 클릭 시 화면 변경 수정끝 -->
 		</div>
-	<a href="#" class="back_to_top"> <img src="resources/image/top.png" />
-	</a>
 	
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.1.0.js%22%3E"></script>
 	<script type="text/javascript">
-	//맨위로
-	jQuery(document).ready(function() {
-			var offset = 720;
-			var duration = 100;
-			jQuery(window).scroll(function() {
-				if (jQuery(this).scrollTop() > offset) {
-					jQuery('.back_to_top').fadeIn(duration);
-				} else {
-					jQuery('.back_to_top').fadeOut(duration);
-				}
-			});
-
-			jQuery('.back_to_top').click(function(event) {
-				event.preventDefault();
-				jQuery('html, body').animate({
-					scrollTop : 0
-				}, duration);
-				return false;
-			})
-		});
-	//맨위로 끝	
-	
 	//로딩
 	window.onload = function() {
 		$(".loading").fadeOut(100, function() {
@@ -251,5 +226,40 @@
 		}
     }
   	//결제 api 끝
+  	
+  	//리뷰, 교환/환불 버튼
+  	$(document).ready(function() {
+  		var $tabButtonItem = $('#tab-button li'),
+  		$tabSelect = $('#tab-select'),
+  		$tabContents = $('.tab-contents'),
+  		activeClass = 'is-active';
+
+  		$tabButtonItem.first().addClass(activeClass);
+  		$tabContents.not(':first').hide();
+
+  		// button
+  		$tabButtonItem.find('a').on('click', function(e) {
+  	  		var target = $(this).attr('href');
+
+  	  		$tabButtonItem.removeClass(activeClass);
+  	  		$(this).parent().addClass(activeClass);
+  	  		$tabSelect.val(target);
+  	  		$tabContents.hide();
+  	  		$(target).show();
+  	  		e.preventDefault();
+  	  		});
+
+  		// select
+  		$tabSelect.on('change', function() {
+  	  		var target = $(this).val(),
+  	  		targetSelectNum = $(this).prop('selectedIndex');
+
+  	  		$tabButtonItem.removeClass(activeClass);
+  	  		$tabButtonItem.eq(targetSelectNum).addClass(activeClass);
+  	  		$tabContents.hide();
+  	  		$(target).show();
+  	  		});
+  		});
+  	//리뷰, 교환/환불 버튼 끝
 	</script>
-</div>
+<jsp:include page="../banner/bottom.jsp" />

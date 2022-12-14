@@ -29,9 +29,9 @@ body {
 }
 
 .productContentWrap {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 5%;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 5%;
 }
 
 .picture_1 {
@@ -39,9 +39,11 @@ body {
 }
 
 .picture_1 img {
-	width: 400px;
-	height: 520px;
+	max-width: 400px;
+	max-height: 520px;
 	margin-top: 10%;
+	display: table-cell;
+	vertical-align: middle;
 }
 
 .product_cont {
@@ -108,15 +110,15 @@ body {
 }
 
 .price {
-	width: 94px;
+	width: 100%;
 	color: rgba(0, 0, 0, 1);
 	font-family: Noto Sans;
-	font-weight: Regular;
+	font-weight: 700;
 	font-size: 23px;
 	opacity: 1;
 	line-height: 31px;
 	display: block;
-	margin-left: 5%;
+	letter-spacing: 1px;
 }
 
 .first {
@@ -149,26 +151,27 @@ body {
 
 .final_price {
 	font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 19px;
-    border: 0px;
-    background-color: #f7f7f7;
-    text-align: right;
-    margin-bottom: 2%;
-    padding-right: 0;
-    margin-left: 7%;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 19px;
+	border: 0px;
+	background-color: #f7f7f7;
+	text-align: right;
+	margin-bottom: 2%;
+	padding-right: 0;
+	margin-left: 7%;
 }
+
 .won {
 	font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 19px;
-    border: 0px;
-    background-color: #f7f7f7;
-    text-align: left;
-    margin-bottom: 2%;
-    padding-left: 0;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 19px;
+	border: 0px;
+	background-color: #f7f7f7;
+	text-align: left;
+	margin-bottom: 2%;
+	padding-left: 0;
 }
 
 .buybtn {
@@ -221,9 +224,16 @@ body {
 	margin-top: 3%;
 }
 
+.picture_2 {
+	text-align: center;
+	display: table;
+	display: table-cell;
+	vertical-align: middle;
+}
+
 .picture_2 img {
-	width: 800px;
-	height: 500px;
+	max-width: 800px;
+	max-height: 500px;
 	margin: 2%;
 	display: block;
 }
@@ -257,32 +267,18 @@ body {
 }
 
 .btn1 {
-    padding: 0;
-    width: 75px;
-    height: 30px;
-    border-radius: 10px;
-    border: 1px solid rgb(178, 178, 178);
-    background-color: #efefef;
-    font-family: 'Noto Sans';
-    font-style: normal;
-    font-size: 12px;
+	padding: 0;
+	width: 75px;
+	height: 30px;
+	border-radius: 10px;
+	border: 1px solid rgb(178, 178, 178);
+	background-color: #efefef;
+	font-family: 'Noto Sans';
+	font-style: normal;
+	font-size: 12px;
 }
 
-.back_to_top {
-	position: fixed;
-	bottom: 0;
-	left: 50%;
-	margin-left: 32%;
-	text-decoration: none;
-	padding: 1em;
-	display: none;
-}
-
-.back_to_top img {
-	width: 50%;
-}
-
-.minus{
+.minus {
 	width: 50px;
 	height: 35px;
 	background: rgba(217, 217, 217, 0.5);
@@ -315,10 +311,61 @@ body {
 	margin-bottom: 2%;
 }
 
-div.panel {
-    display: none;
+.tabs {
+	margin-bottom: 3%;
 }
 
-div.panel.show {
-    display: block;
+.tabs ul li {
+	float: left;
+	padding-top: 0.4%;
+	width: 75px;
+	height: 30px;
+	border-radius: 10px;
+	border: 1px solid rgb(178, 178, 178);
+	background-color: #efefef;
+	font-family: 'Noto Sans';
+	font-style: normal;
+	font-size: 12px;
+	margin-left: 3%;
+}
+
+.tabs li a:hover:not(.tab-button-outer) {
+color: black;
+}
+
+#tab-button {
+	margin-left: 20%;
+}
+
+.tab-contents {
+	margin-top: 1%;
+	margin-right: 46%;
+}
+
+.change_cont {
+	margin-left: 76%;
+	width: 100%;
+	margin-top: 7%;
+}
+
+.t {
+	font-family: 'Noto Sans';
+	font-style: normal;
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.st {
+	font-family: 'Noto Sans';
+	font-style: normal;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.b {
+	font-family: 'Noto Sans';
+	font-style: normal;
+	font-size: 15px;
+	font-weight: 700;
+	color: #23abf9;
 }
