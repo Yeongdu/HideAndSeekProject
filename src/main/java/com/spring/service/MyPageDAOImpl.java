@@ -29,6 +29,11 @@ public class MyPageDAOImpl implements MyPageDAO{
 		return this.sqlSession.update("user_update", map);
 	}
 	
+	@Override
+	public int userDelete(String userId) {
+		return this.sqlSession.update("user_delete", userId);
+	}
+	
 	
 	
 	@Override

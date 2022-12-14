@@ -74,10 +74,33 @@
 		var starval = $(".star_range").val();
 		var starvalue = starval * 20; 
 		$(".star span").css("width", starvalue+"%");
-		
-		console.log("starval >>> " + starvalue);
 	}
+	
+	function readURL(input) {
+		  if (input.files && input.files[0]) {
+		    var reader = new FileReader();
+		    reader.onload = function(e) {
+		      document.getElementById('preview').src = e.target.result;
+		    };
+		    reader.readAsDataURL(input.files[0]);
+		  } else {
+		    document.getElementById('preview').src = null;
+		  }
+		}
 	  
+	// 체크하지않으면 버튼 활성화 x
+	$(document).ready(function(){
+		$("#user_check").change(function(){
+	        if($("#user_check").is(":checked")){
+	        	$(".user_submit").prop("disabled", false);
+				$(".user_submit").removeAttr("disabled");
+	        }else{
+	        	$(".user_submit").prop("disabled", true);
+				$(".user_submit").attr("disabled","disabled");
+	        }
+	   	});
+	});
+	
 	
 </script>
 
@@ -88,28 +111,63 @@
 			<input type = "button" value = "X">
 		</div>
 			<div class = "review_select">
-				<span>리뷰할 상품을 골라주세요.</span>
+				<span>리뷰 작성하기</span>
 			</div>
 			<form method = "post" enctype="multipart/form-data" action = "<%=request.getContextPath() %>/review_insertOk.do" id = "review_form">
-			<div class = "review_content">
-				<textarea rows="10" cols="30" class = "review_cont" name = "review_insert_cont"></textarea>
-				<input type ="file" class = "review_image" name = "review_insert_image">
-				<input type = "hidden" value = "${userId }" name = "review_insert_userId" class = "review_insert_userId">
-				<div class = "review_insert_star">
-					<span class="text-bold">별점을 선택해주세요</span>
+			<div class = "review_insert_star">
+					<span class="text-bold">이번 술은 어떠셨나요?</span>&nbsp;&nbsp;&nbsp;
 					<span class="star">★★★★★<span>★★★★★</span>
 		  			<input type="range" oninput="drawStar()" value = "0" step="0.5" min="0" max="5" class = "star_range" name = "reviewStar">
 				</span>
 				</div>
+			<div class = "review_content">
+				<textarea rows="10" cols="80" class = "review_cont" name = "review_insert_cont" placeholder = "솔직한 후기를 남겨주세요."></textarea>
+				<div class = "review_files">
+					<div class = "review_file">
+						<label class = "filebox" for="review_image_upload">업로드</label>
+						<input type ="file" id = "review_image_upload" name = "review_insert_image" onchange="readURL(this);">
+					</div>
+					<div class = "review_preview">
+						<img id="preview"/>
+					</div>
+				</div>
+				<input type = "hidden" value = "${userId }" name = "review_insert_userId" class = "review_insert_userId">
+				
+				
+				<input type = "submit" value = "리뷰 작성하기" class = "review_submit">
 			</div>
-			<input type = "submit" value = "리뷰 작성하기" class = "review_submit">
 			</form>
-		
 	</div>
 </div> 
 
+<!-- 회원 삭제 모달 -->
+<div id="user_modal" style = 'display:none; z-index:1;'>
+	<div class="user_modal_body" align = "center"> 
+		<div class="user_modalClose" align="right">
+			<input type = "button" value = "X">
+		</div>
+				<div class = "user_delete_rule">
+					<div class = "user_delete_title">
+						<span>회원 탈퇴 유의사항</span>
+					</div>
+					<div class = "delete_rule">
+						<span>1. 회원 탈퇴 시 삭제된 데이터에 대해 복구가 불가능하며, 개인정보가 필요한 술담화의 모든 웹서비스 이용이 불가합니다.</span>
+						<span>2. 구독을 이용하고 계신 경우, 회원 탈퇴 진행 시 구독도 함께 취소됩니다.</span>
+						<span>3. 잔여 포인트, 잔여 쿠폰, 회원 등급 등의 정보는 모두 삭제되며 환불되지 않습니다.</span>
+						<span>4. 회원 탈퇴 후 모든 술래잡기 웹서비스 내에서의 계약 또는 청약 철회 등에 관한 기록은 전자상거래 등에서의 소비자 보호에 관한 법률에 따라 5년간 보관되며, 이를 위한 개인정보는 법률에 따른 보유 목적 외에 다른 목적으로는 이용되지 않습니다.</span>
+						<span>5. 회원 탈퇴 후 술래잡기 서비스에 입력하신 상품문의 및 후기(사진 포함)는 삭제되지 않으며, 회원 정보 삭제로 인해 작성자 본인을 확인할 수 없어 편집 및 삭제처리가 원천적으로 불가능합니다. 상품문의 및 후기, 댓글 삭제를 원하시는 경우에는 먼저 해당 게시물을 삭제하신 후 탈퇴를 신청하시기 바랍니다.</span>
+					</div>
+				</div>
 
-
+			<form method = "post" action = "<%=request.getContextPath() %>/user_delete.do" id = "user_delete_form">
+				<input type = "hidden" name = "delete_user_name" value = "${userId }">
+				<label for = "user_check">회원 탈퇴 유의사항을 숙지하였으며 회원 탈퇴를 진행하겠습니다.</label>
+				<input type = "checkbox" id = "user_check" value = "1" name = "user_check">
+				<br>
+				<input type = "submit" value = "회원 탈퇴" class = "user_submit">
+			</form>
+	</div>
+</div> 
 </main>
     
     
@@ -365,7 +423,6 @@ $(document).on("click", ".review_goBtn", function(){
 $(document).on("click", ".modalClose", function(){
 	$("#modal").fadeOut(300);
 	$(".review_cont").val('');
-	$("input:radio[id = 'rate1']").prop("checked", true);
 });
 
 
@@ -381,10 +438,10 @@ $(window).scroll(function() {
   
     // 현재 스크롤 위치
     var currentTop = $(window).scrollTop();
-    var bannerTop = currentTop + floatPosition + "px";
+    var modalTop = currentTop + floatPosition + "px";
     //이동 애니메이션
     $("#modal").stop().animate({
-      "top" : bannerTop
+      "top" : modalTop
     }, 300);
 }).scroll();
 
@@ -450,6 +507,7 @@ $(document).on("click", "#mypage_user", function(){
 				    			"</div>" +
 			    				"<div class = 'user_info_bottom'>" +
 			    					"<div class = 'user_modify_btn'>수정</div>" +
+			    					"<div class = 'user_delete_btn'>회원 탈퇴</div>" +
 			    				"</div>" +
 			    			"</div>";
 
@@ -576,6 +634,29 @@ $(document).on("click", ".user_modifyCancle_btn", function(){
 	getUser();
 });
 
+$(document).on("click", ".user_delete_btn", function(){
+	$("#user_modal").fadeIn(300);
+});
+
+$(document).on("click", ".user_modalClose", function(){
+	$("#user_modal").fadeOut(300);
+});
+
+
+//기본 위치(top)값
+var floatPosition = parseInt($("#user_modal").css('top'))
+// scroll 인식
+$(window).scroll(function() {
+  
+    // 현재 스크롤 위치
+    var currentTop = $(window).scrollTop();
+    var modalTop = currentTop + floatPosition + "px";
+    //이동 애니메이션
+    $("#user_modal").stop().animate({
+      "top" : modalTop
+    }, 300);
+}).scroll();
+
 //비밀번호입력시 - 정규식확인 pw
 $(document).on("blur", ".user_pwd_new",function(){
 	  var pwd = $('.user_pwd_new').val().trim();
@@ -588,7 +669,7 @@ $(document).on("blur", ".user_pwd_new",function(){
 		let warningTxt = "<font class = 'checkpwd' color='red' size='1.5em'>8자리 ~ 20자리 이내로 입력해주세요.</font>";
 		$(".checkpwd").text('');		// span 태그 영역 초기화
 		$(".user_pwd_modify").prepend(warningTxt);
-		$(".user_pwd_new").text('');
+		$(".user_pwd_new").val(null);
 		swal('비밀번호 오류',"8자리 ~ 20자리 이내로 입력해주세요.",'warning');
 		
 	 }else if(num < 0 || eng < 0 || spe < 0 ){
@@ -596,7 +677,7 @@ $(document).on("blur", ".user_pwd_new",function(){
 	  	let warningTxt = "<font class = 'checkpwd' color='red' size='1.5em'>영문, 숫자, 특수문자를 혼합하여 입력해주세요.</font>";
 		$(".checkpwd").text('');		// span 태그 영역 초기화
 		$(".user_pwd_modify").prepend(warningTxt);
-		$(".user_pwd_new").text('');
+		$(".user_pwd_new").val(null);
 		swal('비밀번호 오류',"영문, 숫자, 특수문자를 혼합하여 입력해주세요.",'warning');
 		
 	 }else {
@@ -634,7 +715,6 @@ $(document).on("blur", ".user_pwd_new",function(){
 		$("#mypage_review-active").attr("id","mypage_review");
 		$(".review_main_wrap").slideUp(500);
 		$("#mypage_content").empty();
-		$(".review_main_wrap").slideDown(500);
 		loading = false;
 		
 	}); // 리뷰관리 닫기 - onclick 끝
@@ -647,13 +727,13 @@ $(document).on("blur", ".user_pwd_new",function(){
 		    	
 		        if(!loading)    //실행 가능 상태라면?
 		        {	if(!su){
-		        	if(su2){
-		        		loading = true; //실행 불가능 상태로 변경
-			            getreview();
-			            $("#none_review").css("display","none");	
-		        	}
+			        	if(su2){
+			        		loading = true; //실행 불가능 상태로 변경
+				            getreview();
+				            $("#none_review").css("display","none");	
+		        		}
 		        	
-		        }
+		       		}
 		            
 		        }
 		    }
@@ -673,11 +753,10 @@ $(document).on("blur", ".user_pwd_new",function(){
 		    	var res = '';
 		    
 		    	if(result == 0){
-		    		if(review_su) {
+		    		if(su2) {
 		    			res = "<div class = 'review_main_wrap'>" +
 	    				"<div id = 'none_review'>" + 
-	    				"<h3 = 'none_review_title'>작성한 리뷰가 없어요" + "</h3>" +
-	    				"<input type = 'button' value = '리뷰 쓰기' class = 'review_btn'>" +
+	    					"<h3 = 'none_review_title'>작성한 리뷰가 없어요" + "</h3>" +
 	    				"</div>";
 	    				su = true;
 		    		}
@@ -689,8 +768,8 @@ $(document).on("blur", ".user_pwd_new",function(){
 		    			res += 		"<div class = 'review_info'>"
 		    			res += 		"<div class = 'review_info_top'>"
 		    			res += 			"<div class = 'review_info_top_left'>"
-		    			res += 				"<div class = 'review_info_userId'><span>" + item.user_id + "</span></div>"
 		    			res += 				"<div class = 'review_info_product_name'>" + item.product_name + "</div>"
+		    			res += 				"<div class = 'review_info_product_amount'>&nbsp;[<span>" + item.product_amount + "</span>ml]</div>"
 		    			res += 		"</div>"
 		    			res +=			"<div class = 'review_info_top_right'>"
 		    			res += 			"<div class = 'review_info_star-rating'>"
@@ -709,7 +788,7 @@ $(document).on("blur", ".user_pwd_new",function(){
 		    							if(item.review_file == null) {
 		    								res += '';
 		    							}else {
-		    							res += 			"<img src = 'resources/upload/" + item.review_file + "' class = 'review_image'>";					
+		    							res += 			"<img src = 'resources/review_img/" + item.review_file + "' class = 'review_image'>";					
 		    							}
 						res += 		"</div>"
 						res += 		"</div>"
@@ -738,6 +817,28 @@ $(document).on("blur", ".user_pwd_new",function(){
 		    
 		}); // ajax 끝
 	} // 리뷰관리 ajax 메서드 끝
+	
+	$(document).on("mouseover",".review_image", function(){
+		$(".review_image").css("cursor", "zoom-in")
+	});
+	
+	$(document).on("click",".review_image", function(){
+		$(".review_image").css("width", "auto");
+		$(".review_image").css("height", "80%");
+		$(".review_image").attr("class", "review_image_zoom");
+	});
+	
+	$(document).on("mouseover",".review_image_zoom", function(){
+		$(".review_image_zoom").css("cursor", "zoom-out")
+	});
+	
+	$(document).on("click",".review_image_zoom", function(){
+		$(".review_image_zoom").css("width", "auto");
+		$(".review_image_zoom").css("height", "100px");
+		$(".review_image_zoom").attr("class", "review_image");
+	});
+	
+	
 	
 	// 배송지 관리 ==============================================================================================================
 	

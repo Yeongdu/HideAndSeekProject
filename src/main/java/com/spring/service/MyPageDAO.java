@@ -13,6 +13,7 @@ public interface MyPageDAO {
 	
 	UserDTO getUserCont(String userId);
 	int updateUser(Map<String, Object> map);
+	int userDelete(String userId);
 	
 	List<OrderDTO> getOrderCont(Map<String, Object> map);
 	List<OrderDTO> orderContent(String userId);
