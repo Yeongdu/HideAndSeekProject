@@ -3,7 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <title>술래잡기 약청주 리스트</title>
-<jsp:include page="../banner/none_top.jsp" />
+	<c:if test="${empty userId }">
+		<jsp:include page="../banner/none_top.jsp" />
+	</c:if>
+	
+	<c:if test="${!empty userId }">
+		<jsp:include page="../banner/user_top.jsp" />
+	</c:if>
 <link href="resources/css/store/store_category.css" rel="stylesheet" type="text/css"/>
 <c:set var="list" value="${list }" />
 <c:set var="page" value="${page }"/>

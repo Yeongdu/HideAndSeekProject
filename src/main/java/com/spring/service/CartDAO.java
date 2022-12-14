@@ -1,19 +1,25 @@
 package com.spring.service;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import com.spring.model.CartDTO;
+import com.spring.model.ProductDTO;
 
 
 public interface CartDAO {
-	// Àå¹Ù±¸´Ï Á¤º¸¸¦ DB ¿¡ ³Ö´Â ¸Ş¼­µå
-    void insertCart(CartDTO dto);
 
-    // Àå¹Ù±¸´Ï DB ÀÇ Á¤º¸¸¦ ¹Ş¾Æ¿À´Â ¸Ş¼­µå
-    CartDTO getCartCont(int cart_no);
-
-    // Àå¹Ù±¸´ÏÀÇ Á¤º¸¸¦ º¯°æÇÏ´Â ¸Ş¼­µå
-    void updateCart(CartDTO dto);
-
-    // Àå¹Ù±¸´ÏÀÇ Á¤º¸¸¦ »èÁ¦ÇÏ´Â ¸Ş¼­µå
-    void deleteCart(int cart_no);
-
+	// ìœ ì € ID ì— í•´ë‹¹í•˜ëŠ” ì¥ë°”êµ¬ë‹ˆ ìˆ˜ë¥¼ ë°›ì•„ì˜¤ëŠ” ë©”ì„œë“œ
+	int getCartCount(String userId);
+	
+	// ìœ ì € ID ì— í•´ë‹¹í•˜ëŠ” ì¥ë°”êµ¬ë‹ˆ ì •ë³´ë¥¼ ë°›ì•„ì˜¤ëŠ” ë©”ì„œë“œ
+	List<CartDTO> getCartList(String userId);
+	
+	// ìƒí’ˆ ë²ˆí˜¸ì— í•´ë‹¹í•˜ëŠ” ìƒí’ˆ ì •ë³´ë¥¼ ë°›ì•„ì˜¤ëŠ” ë©”ì„œë“œ
+	List<ProductDTO> getCartProductList(int product_no);
+	
+	// ì¹´íŠ¸ ë²ˆí˜¸ì— í•´ë‹¹í•˜ëŠ” ì¥ë°”êµ¬ë‹ˆ ì •ë³´ë¥¼ ì‚­ì œí•˜ëŠ” ë©”ì„œë“œ
+	void deleteCartList(int cart_no);
+	
 }

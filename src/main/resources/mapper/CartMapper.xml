@@ -36,7 +36,21 @@
   
  	 -->
   
-  
+  	<select id="getCartCount" resultType="int">
+		select count(*) from cart where user_id = #{userId}
+	</select>
+	
+	<select id="getCartList" parameterType="String" resultType="CartDTO">
+		select * from cart where user_id = #{userId}
+	</select>
+	
+	<select id="getCartProductList" resultType="ProductDTO">
+		select * from product where product_no = #{product_no}
+	</select>
+	
+	<delete id="deleteCartList">
+		delete from cart where cart_no = #{cart_no}
+	</delete>
   
   
   

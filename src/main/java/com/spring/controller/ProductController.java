@@ -52,8 +52,6 @@ public class ProductController {
 			
 		}
 		
-		count = 0;
-		
 		List<ProductDTO> reviewlist = this.dao.getReviewList();
 		
 		for(ProductDTO item : reviewlist) {
@@ -62,11 +60,9 @@ public class ProductController {
 			
 			double num2 = this.dao.getReviewStar(item.getProduct_no());
 			
-			reviewlist.get(count).setProduct_review_count(num1);
+			item.setProduct_review_count(num1);
 			
-			reviewlist.get(count).setProduct_review_star(num2);
-			
-			count += 1;
+			item.setProduct_review_star(num2);
 			
 		}
 		
@@ -117,19 +113,15 @@ public class ProductController {
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductList(map, sort);
 		
-		int count = 0;
-		
 		for(ProductDTO item : list) {
 			
 			int num1 = this.dao.getReviewCount(item.getProduct_no());
 			
 			double num2 = this.dao.getReviewStar(item.getProduct_no());
 			
-			list.get(count).setProduct_review_count(num1);
+			item.setProduct_review_count(num1);
 			
-			list.get(count).setProduct_review_star(num2);
-			
-			count += 1;
+			item.setProduct_review_star(num2);
 			
 		}
 		
@@ -177,19 +169,15 @@ public class ProductController {
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductList(map, sort);
 		
-		int count = 0;
-		
 		for(ProductDTO item : list) {
 			
 			int num1 = this.dao.getReviewCount(item.getProduct_no());
 			
 			double num2 = this.dao.getReviewStar(item.getProduct_no());
 			
-			list.get(count).setProduct_review_count(num1);
+			item.setProduct_review_count(num1);
 			
-			list.get(count).setProduct_review_star(num2);
-			
-			count += 1;
+			item.setProduct_review_star(num2);
 			
 		}
 		
@@ -237,19 +225,15 @@ public class ProductController {
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductList(map, sort);
 		
-		int count = 0;
-		
 		for(ProductDTO item : list) {
 			
 			int num1 = this.dao.getReviewCount(item.getProduct_no());
 			
 			double num2 = this.dao.getReviewStar(item.getProduct_no());
 			
-			list.get(count).setProduct_review_count(num1);
+			item.setProduct_review_count(num1);
 			
-			list.get(count).setProduct_review_star(num2);
-			
-			count += 1;
+			item.setProduct_review_star(num2);
 			
 		}
 		
@@ -297,7 +281,6 @@ public class ProductController {
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductList(map, sort);
 		
-		int count = 0;
 		
 		for(ProductDTO item : list) {
 			
@@ -305,11 +288,9 @@ public class ProductController {
 			
 			double num2 = this.dao.getReviewStar(item.getProduct_no());
 			
-			list.get(count).setProduct_review_count(num1);
+			item.setProduct_review_count(num1);
 			
-			list.get(count).setProduct_review_star(num2);
-			
-			count += 1;
+			item.setProduct_review_star(num2);
 			
 		}
 		
@@ -379,19 +360,15 @@ public class ProductController {
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductTagList(map, sort);
 		
-		int count = 0;
-		
 		for(ProductDTO item : list) {
 			
 			int num1 = this.dao.getReviewCount(item.getProduct_no());
 			
 			double num2 = this.dao.getReviewStar(item.getProduct_no());
 			
-			list.get(count).setProduct_review_count(num1);
+			item.setProduct_review_count(num1);
 			
-			list.get(count).setProduct_review_star(num2);
-			
-			count += 1;
+			item.setProduct_review_star(num2);
 			
 		}
 		
@@ -425,8 +402,6 @@ public class ProductController {
 		map.put("endNo", dto.getEndNo());
 		map.put("category", category);
 		
-		int count = 0;
-		
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductList(map, sort);
 		
@@ -436,11 +411,10 @@ public class ProductController {
 			
 			double num2 = this.dao.getReviewStar(item.getProduct_no());
 			
-			list.get(count).setProduct_review_count(num1);
+			item.setProduct_review_count(num1);
 			
-			list.get(count).setProduct_review_star(num2);
+			item.setProduct_review_star(num2);
 			
-			count += 1;
 		}
 		
 		return list;
@@ -500,19 +474,16 @@ public class ProductController {
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
 		List<ProductDTO> list = this.dao.getProductTagList(map, sort);
 		
-		int count = 0;
-		
 		for(ProductDTO item : list) {
 			
 			int num1 = this.dao.getReviewCount(item.getProduct_no());
 			
 			double num2 = this.dao.getReviewStar(item.getProduct_no());
 			
-			list.get(count).setProduct_review_count(num1);
+			item.setProduct_review_count(num1);
 			
-			list.get(count).setProduct_review_star(num2);
+			item.setProduct_review_star(num2);
 			
-			count += 1;
 		}
 
 		return list;

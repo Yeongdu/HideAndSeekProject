@@ -1,31 +1,13 @@
 package com.spring.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.model.CartDTO;
 import com.spring.model.ProductDTO;
-
-/*
- * < ¿¹ ½Ã >
-
-@Override
-public List<EmpDTO> getEmpList() {
-	return this.sqlSession.selectList("list");
-}
-	
-@Override
-public int insertEmp(EmpDTO dto) {
-	return this.sqlSession.insert("add", dto);
-}
-
-@Override
-public EmpDTO getEmp(int no) {
-	return this.sqlSession.selectOne("cont", no);
-}
-	
-*/
 
 @Repository
 public class CartDAOImpl implements CartDAO{
@@ -34,28 +16,33 @@ public class CartDAOImpl implements CartDAO{
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public void insertCart(CartDTO dto) {
-		// TODO Auto-generated method stub
+	public int getCartCount(String userId) {
+
+		return this.sqlSession.selectOne("getCartCount", userId);
+		
+	}
+	
+	@Override
+	public List<CartDTO> getCartList(String userId) {
+
+		return this.sqlSession.selectList("getCartList", userId);
 		
 	}
 
 	@Override
-	public CartDTO getCartCont(int cart_no) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateCart(CartDTO dto) {
-		// TODO Auto-generated method stub
+	public List<ProductDTO> getCartProductList(int product_no) {
+		
+		return this.sqlSession.selectList("getCartProductList", product_no);
 		
 	}
 
 	@Override
-	public void deleteCart(int cart_no) {
-		// TODO Auto-generated method stub
+	public void deleteCartList(int cart_no) {
+		
+		this.sqlSession.delete("deleteCartList", cart_no);
 		
 	}
+
 
 
 
