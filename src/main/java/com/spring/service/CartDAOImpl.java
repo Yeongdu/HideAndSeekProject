@@ -43,6 +43,20 @@ public class CartDAOImpl implements CartDAO{
 		
 	}
 
+	@Override
+	public void minusCartAmonut(int cart_no) {
+		
+		this.sqlSession.update("minusCartAmonut", cart_no);
+		
+	}
+
+	@Override
+	public void plusCartAmonut(int cart_no) {
+
+		this.sqlSession.update("plusCartAmonut", cart_no);
+		
+	}
+
 
 
 

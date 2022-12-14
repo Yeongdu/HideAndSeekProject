@@ -174,7 +174,7 @@ div {
     color: rgb(62, 62, 62);
 }
 
-.product_remove_button {
+.product_remove {
 	padding: 0px;
     display: flex;
     height: 12px;
@@ -186,7 +186,7 @@ div {
     cursor: pointer;
 }
 
-.product_remove_button > img {
+.product_remove > img {
 	width: 16px;
 	height: 16px;
 }
@@ -463,4 +463,20 @@ div {
     transition: all 0.3s ease 0s;
     box-shadow: none !important;
     text-shadow: none !important;
+}
+
+.above {
+	padding: 80px 20px;
+    border-radius: 10px;
+    border: 0.5px solid rgb(224, 224, 224);
+    font-size: 16px;
+	background-color: white;
+}
+
+.guide {
+	height: 21px;
+    line-height: 21px;
+    color: rgb(112, 112, 112);
+    font-weight: bold;
+    font-size: 1.2rem;
 }

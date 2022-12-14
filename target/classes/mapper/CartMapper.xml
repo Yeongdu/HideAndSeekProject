@@ -37,7 +37,7 @@
  	 -->
   
   	<select id="getCartCount" resultType="int">
-		select count(*) from cart where user_id = #{userId}
+		select nvl(count(*),0) from cart where user_id = #{userId}
 	</select>
 	
 	<select id="getCartList" parameterType="String" resultType="CartDTO">
@@ -51,6 +51,14 @@
 	<delete id="deleteCartList">
 		delete from cart where cart_no = #{cart_no}
 	</delete>
+	
+	<update id="minusCartAmonut">
+		update cart set cart_amount = cart_amount - 1 where cart_no = #{cart_no}
+	</update>
+	
+	<update id="plusCartAmonut">
+		update cart set cart_amount = cart_amount + 1 where cart_no = #{cart_no}
+	</update>
   
   
   
