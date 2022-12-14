@@ -27,7 +27,7 @@ public interface Admin_productDAO {
     // 상품의 상세정보를 받아오는 메서드
     admin_productDTO getProductCont(int product_no);
     
-  //상품 검색하는 메서드
+    //상품 검색하는 메서드
     List<admin_productDTO> searchProductList(Map<String, Object> map);
     
     // 검색된 상품의 수를 받아오는 메서드
@@ -59,9 +59,16 @@ public interface Admin_productDAO {
 	int getStopProductCount();
 	
 	//판매중인 상품 리스트 조회
-	List<admin_productDTO> salProductList(PageDTO dto);
+	List<admin_productDTO> IngProductList(PageDTO dto);
 	
 	//판매중인 상품 갯수 조회
-	int getSalProductCount();
+	int getIngProductCount();
+	
+	//판매중인 상품 검색 결과 갯수
+	int getSearchIngProductCount(String keyword);
+	
+	//판매중인 상품 검색하는 메서드
+    List<admin_productDTO> searchIngProductList(Map<String, Object> map);
+	
 
 }

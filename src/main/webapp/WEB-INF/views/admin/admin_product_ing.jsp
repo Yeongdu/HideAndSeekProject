@@ -21,12 +21,12 @@
 <br>
 
 	<div class="adminProductEditListTitle" align="center">
-		<h4>등록 상품 관리</h4>
+		<h4>상점 등록 상품 관리</h4>
 	</div>
 	<br>
 	<div align="center">
 
-		<table class="table table-hover table-bordered" style="width: 66em">
+		<table class="table table-hover table-bordered" style="margin-left: auto; margin-right: auto; text-align: center; width: 66em;">
 			<tr>
 				<th>상품번호</th>
 				<th>상품이름</th>
@@ -99,23 +99,23 @@
 
 	<%-- 페이징 처리 --%>
 		<div class="page-paging">
-		    <c:if test="${page.startBlock > 1}"><span><a href="admin_product_list.do?page=1"><i class="fa fa-angle-double-left"></i></a></span></c:if>
+		    <c:if test="${page.startBlock > 1}"><span><a href="admin_product_ing.do?page=1"><i class="fa fa-angle-double-left"></i></a></span></c:if>
 		    <c:if test="${page.startBlock <= 1}"><span class="nolink"><i class="fa fa-angle-double-left"></i></span></c:if>
 		
-		    <c:if test="${page.page > 1}"><span><a href="admin_product_list.do?page=${page.page - 1}"><i class="fa fa-angle-left"></i></a></span></c:if>
+		    <c:if test="${page.page > 1}"><span><a href="admin_product_ing.do?page=${page.page - 1}"><i class="fa fa-angle-left"></i></a></span></c:if>
 		    <c:if test="${page.page <= 1}"><span class="nolink"><i class="fa fa-angle-left"></i></span></c:if>
 		
 		    <ol class="paging_1">
 		        <c:forEach begin="${page.startBlock}" end="${page.endBlock}" var="i">
 		        <c:if test="${i == page.page}"><li class="now">${i}</li></c:if>
-		        <c:if test="${i != page.page}"><li><a href="admin_product_list.do?page=${i}">${i}</a></li></c:if>
+		        <c:if test="${i != page.page}"><li><a href="admin_product_ing.do?page=${i}">${i}</a></li></c:if>
 		        </c:forEach>
 		    </ol>
 		
-		    <c:if test="${page.page < page.allPage}"><span><a href="admin_product_list.do?page=${page.page + 1}"><i class="fa fa-angle-right"></i></a></span></c:if>
+		    <c:if test="${page.page < page.allPage}"><span><a href="admin_product_ing.do?page=${page.page + 1}"><i class="fa fa-angle-right"></i></a></span></c:if>
 		    <c:if test="${page.page >= page.allPage}"><span class="nolink"><i class="fa fa-angle-right"></i></span></c:if>
 		
-		    <c:if test="${page.endBlock < page.allPage}"><span><a href="admin_product_list.do?page=${page.allPage}"><i class="fa fa-angle-double-right"></i></a></span></c:if>
+		    <c:if test="${page.endBlock < page.allPage}"><span><a href="admin_product_ing.do?page=${page.allPage}"><i class="fa fa-angle-double-right"></i></a></span></c:if>
 		    <c:if test="${page.endBlock >= page.allPage}"><span class="nolink"><i class="fa fa-angle-double-right"></i></span></c:if>
 		</div>
 	<%-- 페이징 처리 end --%>
@@ -125,7 +125,7 @@
 		<div class="searchWrab" align="center">
 		<div>
 			<form method="post"
-				action="<%=request.getContextPath()%>/admin_product_search.do">
+				action="<%=request.getContextPath()%>/admin_product_ing_search.do">
 
 				<span> <select name="field" class="form-select"
 					style="width: 8em; display: inline-block;">

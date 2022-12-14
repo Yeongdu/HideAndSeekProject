@@ -69,8 +69,39 @@
 		where rnum >= #{startNo} and rnum <= #{endNo}]]>
   	</select>
   	
+  	<select id="getIngProductList" parameterType="PageDTO" resultType="admin_productDTO">
+  		<![CDATA[select * from (select p.*, row_number() over(order by product_no desc) rnum from product p  where p.product_status='판매')
+		where rnum >= #{startNo} and rnum <= #{endNo}]]>
+  	</select>
+  	
   	<select id="stopProductCount" resultType="int">
 		select count(*) from product where product_status = '판매중지'
+	</select>
+	
+  	<select id="salProductCount" resultType="int">
+		select count(*) from product where product_status = '판매'
+	</select>
+	
+	<select id="getSearchIngListCount" parameterType="String" resultType="int">
+		select count(*) from product where (((product_name like '%' || #{keyword} || '%') or (product_company like '%' || #{keyword} || '%') or (product_no like '%' || #{keyword} || '%')) and product_status='판매') order by product_no desc
+	</select>
+	
+	<select id="adminIngProductSearch" parameterType="hashmap" resultType="admin_productDTO">
+		<if test='field == "allSearch"'>
+			<![CDATA[select * from (select p.*, row_number() over(order by product_no desc) rnum from product p where (((product_name like '%' || #{keyword} || '%') or (product_company like '%' || #{keyword} || '%') or (product_no like '%' || #{keyword} || '%')))and product_status='판매') 
+			where rnum >= ((#{Page.page} * #{Page.rowsize}) - (#{Page.rowsize} - 1)) and rnum <= #{Page.page} * #{Page.rowsize}]]>
+		</if>
+	
+		<if test='field == "name"'>
+			<![CDATA[select * from (select p.*, row_number() over(order by product_no desc) rnum from product p where (product_name like '%' || #{keyword} || '%') and product_status='판매')
+ 			where rnum >= ((#{Page.page} * #{Page.rowsize}) - (#{Page.rowsize} - 1)) and rnum <= #{Page.page} * #{Page.rowsize}]]>
+		</if>
+	
+		<if test='field == "company"'>
+			<![CDATA[select * from (select p.*, row_number() over(order by product_no desc) rnum from product p where ((product_company like '%' || #{keyword} || '%'))and product_status='판매')
+ 			where rnum >= ((#{Page.page} * #{Page.rowsize}) - (#{Page.rowsize} - 1)) and rnum <= #{Page.page} * #{Page.rowsize}]]>
+		</if>
+		
 	</select>
 
   
