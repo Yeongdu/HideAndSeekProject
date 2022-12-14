@@ -202,12 +202,20 @@ main{
 	width: 100%;
 }
 
-#order_info_date > span{
-	display: inline-block;
-	margin-right: 80%;
+#order_info_alchol{
+	margin-left: 10px;
 }
 
-#order_info_status{
+#order_info_amount{
+	margin-left: 10px;
+}
+
+#order_info_date > span{
+	display: inline-block;
+	margin-right: 70%;
+}
+
+.order_info_status{
 	display: inline-block;
 	text-align: right;
 }
@@ -256,6 +264,8 @@ main{
     align-items: flex-start;
     margin-left: 10px;
     width: 100%;
+    padding: 20px;
+    line-height: 30px;
 }
 
 #order_image {
@@ -362,13 +372,13 @@ main{
 	display: flex;
     justify-content: flex-end;
     width: 60%;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .user_info_bottom > div {
-	width: 5%;
     font-size: 1.2em;
     text-align: right;
-    width: 5%;
     color: #FFDEA8;
     font-weight: bold;
 }
@@ -384,11 +394,16 @@ main{
 }
 
 .user_modal_body{
-	width: 60%;
-	background-color: white;
-	position: relative;
-    left: 20%;
-    top: 20%;
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  width: 40%;
+	  padding: 20px;
+	  text-align: center;
+	  background-color: rgb(255, 255, 255);
+	  border-radius: 10px;
+	  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	  transform: translateX(-50%) translateY(-50%);
 }
 
 .user_delete_title{
@@ -400,13 +415,29 @@ main{
 .user_delete_rule{
 	display: flex;
     flex-direction: column;
-    width: 60%;
     background-color: white;
     padding: 20px;
 }
 
-.user_delete_form{
-	padding: 30px;
+.delete_rule{
+	display: flex;
+    justify-content: center;
+    -webkit-box-pack: center;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.delete_rule_number{
+	margin-right: 5px;
+}
+
+.delete_rule_cont{
+	text-align: left;
+	width: 80%;
+}
+
+#user_delete_form{
+	margin: 20px;
 }
 
 .user_check{
@@ -418,10 +449,23 @@ main{
 	margin-top: 20px;
 }
 
+.user_submit{
+	margin-top: 25px;
+}
+
+.user_submit:disabled {
+	background-color: red;
+	color: white;
+}
+
 /* 리뷰 css ===============================================================================================*/
 
 .review_goBtn{
-	margin-bottom: 40px;
+	border-radius: 10px;
+    background-color: #0097F3;
+    color: white;
+    cursor: pointer;
+	margin-top: 10%;
 }
 
 .star {
@@ -543,17 +587,21 @@ main{
   border: 0;
 }
 
-.review_preview > img {
+.review_preview{
 	width: 50px;
-	height: 50px;
+    height: 50px;
+}
+
+#preview {
+	width: 100%; 
+	height: 100%;
 }
 
 .modal_body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 800px;
-  height: 600px;
+  width: 40%;
   padding: 20px;
   text-align: center;
   background-color: rgb(255, 255, 255);
@@ -561,7 +609,6 @@ main{
   box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
   transform: translateX(-50%) translateY(-50%);
 }
-
 
 .review_info_star-rating {
 	margin: 0px auto;
@@ -615,7 +662,7 @@ main{
 	justify-content: space-between;
     width: 85%;
     background-color: #F4F4F4;
-    padding: 15px;
+    padding: 15px 20px;
     border-radius: 10px;
 }
 
@@ -636,7 +683,11 @@ main{
 }
 
 .review_info_cont{
-	margin-bottom: 20px;
+	padding: 20 0;
+}
+
+.review_info_cont > textarea{
+	border: 0;
 }
 
 .review_image{
