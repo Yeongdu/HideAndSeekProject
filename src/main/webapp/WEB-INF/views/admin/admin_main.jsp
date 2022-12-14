@@ -25,7 +25,7 @@
 			<c:set var="olist" value="${orderList }" />
 			<c:if test="${!empty olist }">
 				<c:forEach items="${olist }" var="dto">
-					<tr onClick="location.href='<%=request.getContextPath() %>/order_content.do?no=${dto.order_no }'">
+					<tr>
 						<td>${dto.order_no }</td>
 						<td>${dto.order_status }</td>
 						<td>${dto.user_id }</td>
