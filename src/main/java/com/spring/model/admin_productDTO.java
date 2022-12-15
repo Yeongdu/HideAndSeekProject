@@ -37,5 +37,6 @@ public class admin_productDTO {
 	
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date product_date; // 상품 등록일
+	private int product_amount; // 상품 용량
 
 }

@@ -103,6 +103,11 @@
 		<![CDATA[select * from (select p.*, row_number() over(order by order_no desc) rnum from tb_order p where order_status = '취소' and user_id like '%' || #{keyword} || '%') 
 			where rnum >= ((#{Page.page} * #{Page.rowsize}) - (#{Page.rowsize} - 1)) and rnum <= #{Page.page} * #{Page.rowsize}]]>
 	</select>
+	
+	<!-- 오더테이블의 같은 주문 패키지에서 주문한 제품 갯수 받아오는 메서드 -->
+	<select id="getOrderSamePackageCount" parameterType="int" resultType="int">
+		select count(order_package) from tb_order where order_package = ?;
+	</select>
   
   
   

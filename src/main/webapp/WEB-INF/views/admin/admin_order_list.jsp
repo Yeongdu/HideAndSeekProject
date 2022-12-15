@@ -25,6 +25,7 @@
 		<table class="table table-hover table-bordered" style="margin-left: auto; margin-right: auto; text-align: center; width: 80em;">
 			<tr>
 				<th>주문번호</th>
+				<th>주문패키지</th>
 				<th>주문일</th>
 				<th>주문자</th>
 				<th>주문상품</th>
@@ -37,6 +38,7 @@
 				<c:forEach items="${list }" var="dto">
 					<tr>
 						<td>${dto.order_no }</td>
+						<td>${dto.order_package }</td>
 						<td>${dto.order_date }</td>
 						<td>${dto.user_id }</td>
 						<td>${dto.product_name }</td>
@@ -44,7 +46,7 @@
 						<td>${dto.order_amount }</td>
 						<c:if test="${dto.order_status =='주문 완료' }">
 							<td>
-								<input type="button" value="주문 완료"
+								<input type="button" class="btn btn-outline-success" value="주문 완료"
 									onclick="if(confirm('배송중으로 변경 하시겠습니까?')){
 									location.href='<%=request.getContextPath() %>/admin_order_statusChange.do?no=${dto.order_no }&page=${page.page }&key=배송중'} 
 									else{return; }">

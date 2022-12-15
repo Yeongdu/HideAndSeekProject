@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="dto" value="${Cont }" />
 <c:set var="pcdto" value="${PCCont }" />
 <c:set var="page" value="${page }" />
@@ -48,9 +49,24 @@ adjustHeight3();
 
 	<br>
 <div style="height: auto; min-height: 100%;" align="center">
-	<p class="adminPdContTitle1">기본 정보&nbsp;&nbsp;<input type="button"
+<!-- 	<p class="adminPdContTitle1"> -->
+
+	<div class="adminPdContTopWrab">
+	<div>
+	기본 정보&nbsp;&nbsp;<input type="button"
 					class="btn btn-primary-2" value="수정"
-					onclick="location.href='<%=request.getContextPath()%>/admin_product_update.do?no=${dto.product_no }&page=${page}'"></p>
+					onclick="location.href='<%=request.getContextPath()%>/admin_product_update.do?no=${dto.product_no }&page=${page}'">
+					</div>
+					
+					<div>
+					<input type="button" class="btn btn-primary-2" value="상품 삭제"
+					onclick="if(confirm('상품을 삭제하시겠습니까? 되돌릴 수 없습니다.')){
+					location.href='<%=request.getContextPath() %>/admin_product_delete.do?no=${dto.product_no }'} 
+					else{return; }">
+		<input type="button" class="btn btn-primary-2" value="전체목록" onclick="location.href='admin_product_list.do'">
+					</div>
+					</div>
+<!-- 					</p> -->
 
 	<!-- 첫번째 (썸네일 사진, 상품명, 가격, 판매상태) -->
 	<div class="adminPdContFirstWrab">
@@ -112,37 +128,48 @@ adjustHeight3();
 		<div class="mb-3 row">
 			<label for="exampleFormControlInput1" class="col-sm-2 col-form-label-2" style="text-align: right;">당도</label>
 			<div class="col-sm-5">
-				<span class="form-control" style="width: 100px">${dto.product_sweet } </span>
+				<span class="form-control" style="width: 150px">${dto.product_sweet } </span>
 			</div>
 		</div>
 		<div class="mb-3 row">
 			<label for="exampleFormControlInput1" class="col-sm-2 col-form-label-2" style="text-align: right;">산미</label>
 			<div class="col-sm-5">
-				<span class="form-control" style="width: 100px">${dto.product_acidity } </span>
+				<span class="form-control" style="width: 150px">${dto.product_acidity } </span>
 			</div>
 		</div>
 		<div class="mb-3 row">
 			<label for="exampleFormControlInput1" class="col-sm-2 col-form-label-2" style="text-align: right;">탄산</label>
 			<div class="col-sm-5">
-				<span class="form-control" style="width: 100px">${dto.product_soda } </span>
-			</div>
-		</div>
-		<div class="mb-3 row">
-			<label for="exampleFormControlInput1" class="col-sm-2 col-form-label-2" style="text-align: right;">도수</label>
-			<div class="col-sm-5">
-				<span class="form-control" style="width: 100px">${dto.product_alcohol } % ( ${dto.product_dosu } ) </span>
+				<span class="form-control" style="width: 150px">${dto.product_soda } </span>
 			</div>
 		</div>
 
 	</div>
 	<!-- 두번째 end -->
+	
+	
+	
+	<div class="adminPdContSecondWrab">
+		<div class="mb-3 row">
+			<label for="exampleFormControlInput1" class="col-sm-2 col-form-label-2" style="text-align: right;">용량</label>
+			<div class="col-sm-5">
+				<span class="form-control" style="width: 150px">${dto.product_amount } ml </span>
+			</div>
+		</div>
+		<div class="mb-3 row">
+			<label for="exampleFormControlInput1" class="col-sm-2 col-form-label-2" style="text-align: right;">도수</label>
+			<div class="col-sm-5">
+				<span class="form-control" style="width: 150px">${dto.product_alcohol } % ( ${dto.product_dosu } ) </span>
+			</div>
+		</div>
+	</div>
 
 	<!-- 세번째-->
 	<div class="adminPdContThirdWrab">
 		<div class="mb-3 row">
 			<label for="exampleFormControlInput1" class="col-sm-2 col-form-label-3" style="text-align: right;">상품등록일</label>
 			<div class="col-sm-5">
-				<span class="form-control" style="width: 237px">${dto.product_date } </span>
+				<span class="form-control" style="width: 237px"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.product_date }" /></span>
 			</div>
 		</div>
 		<div class="mb-3 row">
@@ -196,6 +223,11 @@ adjustHeight3();
 
 	</div>
 	<!-- 네번째 end -->
+	<input type="button" class="btn btn-primary-2" value="상품 삭제"
+					onclick="if(confirm('상품을 삭제하시겠습니까? 되돌릴 수 없습니다.')){
+					location.href='<%=request.getContextPath() %>/admin_product_delete.do?no=${dto.product_no }'} 
+					else{return; }">
+		<input type="button" class="btn btn-primary-2" value="전체목록" onclick="location.href='admin_product_list.do'">
 <div></div>
 <div></div>
 <div></div>

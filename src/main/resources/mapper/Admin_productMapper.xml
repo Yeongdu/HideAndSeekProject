@@ -29,7 +29,9 @@
   		#{product_price}*0.01,
   		#{product_thumbnail},
   		default,
-  		sysdate)
+  		sysdate,
+  		#{product_amount}
+  		)
   	</insert>
   
   
@@ -50,7 +52,8 @@
   		product_stock = #{product_stock},
   		product_point = #{product_point},
   		product_thumbnail = #{product_thumbnail},
-  		product_status = #{product_status}
+  		product_status = #{product_status},
+  		product_amount = #{product_amount}
   		where product_no = #{product_no}
   	</update>
   	
