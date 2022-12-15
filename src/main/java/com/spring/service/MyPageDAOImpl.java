@@ -111,6 +111,11 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public int deliveryInsert(Map<String, Object> map) {
 		return this.sqlSession.insert("delivery_insert", map);
 	}
+
+	@Override
+	public void updateDeliveryDefault(String userId) {
+		this.sqlSession.update("default_update", userId);
+	}
 	
 	
 

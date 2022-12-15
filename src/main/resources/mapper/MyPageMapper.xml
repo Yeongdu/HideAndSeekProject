@@ -128,4 +128,8 @@
  	 	insert into delivery values(#{zipcode}, #{addr}, #{extraAddr}, #{user_id}, #{check}, #{name})
  	 </insert>
  	 
+ 	 <update id="default_update" parameterType="String">
+ 	 	update delivery set deli_default = 0 where user_id = #{userId}
+ 	 </update>
+ 	 
   </mapper>
