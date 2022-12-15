@@ -3,10 +3,13 @@ package com.spring.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -30,6 +33,7 @@ public class UserDAOImpl implements UserDAO{
 	
 	@Autowired
 	private JavaMailSender mailSender;
+	
 	
 	UserDTO dto;
 
@@ -74,7 +78,7 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 
-	//통합 이메일 확인해서 메일보내기
+	//이메일 확인해서 메일보내기
 	@Override
 	public int findId(String email) {
 		// TODO Auto-generated method stub
@@ -130,16 +134,64 @@ public class UserDAOImpl implements UserDAO{
 			return resultCode;
 		}
 
-		@Override
-		public int findPw(Map<String, Object> map) {
-			return this.sqlSession.update("findPw",map);
-		}
+		
 
 
 		//배송지 설정
 		@Override
 		public void insertDelivery(DeliveryDTO dto) {
 			this.sqlSession.insert("insert_delivery", dto);
+		}
+
+
+		@Override
+		public int findPw(Map<String, Object> map) {
+			
+				int resultCode = 0;
+				
+				
+			String list = this.sqlSession.selectOne("findPw", map);
+			
+			String mail = (String)map.get("tomail");
+			
+			System.out.println("mail >>> " + mail);
+			System.out.println("list >>> " + list);
+			
+			if(list != null) {
+					MailDTO mdto = new MailDTO();
+					//UserDTO udto = new UserDTO();
+					
+					mdto.setTomail((String)map.get("tomail"));
+					
+					mdto.setTitle("술래잡기 임시비밀번호 입니다.");
+					//임시비밀번호 생성
+					String updatePw = UUID.randomUUID().toString().replace("-", "");//-를 제거
+		            updatePw = updatePw.substring(0,10);// 앞에서부터 10자리 잘라줌
+		            mdto.setContent("임시 비밀번호는 " + updatePw + " 입니다.");
+		            
+		            resultCode = this.mailSending(mdto);
+		            
+					/*
+					 * resultPw = this.updatePw(updatePw);
+					 * 
+					 * udto.setUser_pwd(updatePw);
+					 * 
+					 * System.out.println(updatePw); this.updatePw(udto);
+					 */
+					
+				              
+				  
+			}else {
+				resultCode = 2; //확인되는 아이디 없음
+			}
+			 return resultCode;
+		}
+
+
+		@Override
+		public int updatePw(UserDTO dto) {
+			// TODO Auto-generated method stub
+			return this.sqlSession.update("updatePw",dto);
 		}
 
 

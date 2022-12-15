@@ -21,5 +21,5 @@ public class UserDTO {
 	private String user_phone3;
 	private String user_addr2;
 	private String user_zipcode1;//우편번호
-	
+	private int user_no;
 }
