@@ -65,6 +65,7 @@ public class Product_contentController {
 	        model.addAttribute("RList", rlist);
 	        model.addAttribute("Paging", page_dto);
 	        System.out.println("리뷰 : "+rlist);
+	        System.out.println("페이지 : "+page_dto);
 	        
 	        return "content/product_content_list";
 	    }
