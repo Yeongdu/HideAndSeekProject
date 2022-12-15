@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.model.DeliveryDTO;
+import com.spring.model.MailDTO;
 import com.spring.model.UserDTO;
 import com.spring.service.UserDAO;
 
@@ -114,6 +115,8 @@ public class UserController {
 		
 		int check = this.dao.insertUser(dto);
 		
+		System.out.println("회원가입 dto >>>" + dto);
+		
 		if(!dto.getUser_zipcode1().equals("null")) {
 			
 			ddto.setDeli_zipcode(dto.getUser_zipcode1());
@@ -173,18 +176,32 @@ public class UserController {
 	}
 	
 	//비밀번호 찾기 메일 관련
-	@RequestMapping("findPwMail.do")
-	@ResponseBody
-	public int findPwMail(@RequestParam("tomail") String tomail, @RequestParam("id") String user_id) {
-		
+	   @RequestMapping("findPwMail.do")
+	   @ResponseBody
+	   public int findPwMail(@RequestParam("tomail") String tomail, @RequestParam("id") String id) {
+	      
 
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("tomail", tomail);
-        map.put("id", user_id);
+	        Map<String, Object> map = new HashMap<String, Object>();
+	        map.put("tomail", tomail);
+	        map.put("id", id);
 
-        int resultCode = dao.findPw(map);
+	        int resultCode = dao.findPw(map);
+	        
+	        
+	        
+	        System.out.println("map확인 >>>" + map);
+	        System.out.println("tomail확인 >>>" + tomail);
+	        System.out.println("id확인 >>>" + id);
+	        
+	        return resultCode;
+	      
+	      
+	   }
+	   
         
-        return resultCode;
+        
+        
+        
 		
 		
 	}
@@ -192,6 +209,4 @@ public class UserController {
 	
 	
 
-	
 
-}

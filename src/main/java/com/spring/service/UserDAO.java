@@ -1,9 +1,11 @@
 package com.spring.service;
 
+import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.spring.model.DeliveryDTO;
@@ -37,7 +39,8 @@ public interface UserDAO {
 	  //배송지 등록용
 	  void insertDelivery(DeliveryDTO dto);
 	
-	
+	   //임시비밀번호로 변경
+	   int updatePw(UserDTO dto);
 	
 	
 	

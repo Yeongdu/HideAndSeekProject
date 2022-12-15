@@ -55,7 +55,7 @@
  	  
  	  	insert into tb_user values(#{user_id}, #{user_pwd}, #{user_email}, #{user_name}, #{user_jumin1}, 
  	  	                           #{user_addr1}, #{user_phone1}, default, sysdate, default, #{user_jumin2}, 
- 	  	                           #{user_phone2}, #{user_phone3}, #{user_addr2},#{user_zipcode1})
+ 	  	                           #{user_phone2}, #{user_phone3}, #{user_addr2},#{user_zipcode1}, (select max(user_no) from tb_user) +1)
  	  
  	  </insert>
  	  
@@ -64,10 +64,16 @@
  	  	select user_id from tb_user where user_email = #{user_email}
  	  </select>
  	  
- 	  <!-- 이메일, 비밀번호로  비번 변경 -->
- 	  <update id="findPw">
- 	  	update tb_user set USER_PWD = #{USER_PWD} where user_email = #{user_email} and 
- 	  </update>
+ 	  <!-- 이메일, 아이디로 비번 찾기 -->
+ 	  <select id="findPw" resultType="String" parameterType="map">
+ 	  	select user_pwd from tb_user where user_email = #{tomail} and user_id = #{id}
+ 	  </select>
+ 	  
+ 	  <!-- 임시 비밀번호로 업뎃 하기 -->
+ 	  	<update id="updatePw">
+ 	  		update tb_user set user_pwd = #{user_pwd} where user_id = #{user_id} and user_email = #{user_email}
+ 	  	</update>
+ 	  
  	  
  	  <insert id="insert_delivery" parameterType="DeliveryDTO">
  	  	insert into delivery values(#{deli_zipcode}, #{deli_addr1}, #{deli_addr2}, #{user_id}, 1, '')
