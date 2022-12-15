@@ -56,7 +56,7 @@
  	</select>
  	
  	<select id="getPhotoReviewList" resultType="ReviewDTO">
- 		select review_no, review_title, review_cont, review_file, (review_star * 20) as review_star , review_date, user_id, product_no from review order by review_date desc
+ 		select review_no, review_title, review_cont, review_file, (review_star * 10) as review_star , review_date, user_id, product_no from review order by review_date desc
  	</select>
  	 
  	<!-- db에 저장된 상품 정보를 카운트 하는 쿼리문 -->

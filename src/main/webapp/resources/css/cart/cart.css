@@ -397,6 +397,11 @@ div {
     color: rgb(62, 62, 62);
 }
 
+.bill_delivery {
+	font-weight: bold;
+    color: rgb(62, 62, 62);
+}
+
 .bill_info {
 	display: flex;
     color: rgb(178, 178, 178);

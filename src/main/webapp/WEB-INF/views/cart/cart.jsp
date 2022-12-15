@@ -14,6 +14,106 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
 
+		function total(){
+			
+ 			let count = $(".cart_check").length;
+			
+			let ckcount = $("input:checkbox[name=price]:checked").length;
+			
+			let price = 0;
+			
+			let tamount = 0;
+			
+			let sum = 0;
+			
+			for(let i=0; i<count; i++){
+				
+				if($(".cart_check")[i].checked == true){
+					
+					price = parseInt($(".cart_check")[i].value);
+					
+					tamount = parseInt($('.amount_info'+i).text());
+					
+					sum += price * tamount;
+					
+				}
+				
+			}
+			
+			$(".bill_price").empty();
+			
+			$(".bill_delivery").empty();
+			
+			$(".bill_footer_price").empty();
+			
+			$(".text").empty();
+			
+			$(".bill_price").append(sum.toLocaleString('ko-KR')+"원");
+			
+			$(".bill_delivery").append((ckcount * 3000).toLocaleString('ko-KR')+"원");
+			
+			let total = (sum + (ckcount * 3000)).toLocaleString('ko-KR');
+			
+			$(".text").append("모두 선택 ("+ckcount+"/${totalcart })");
+			
+			$(".bill_footer_price").append((sum + (ckcount * 3000)).toLocaleString('ko-KR') +"원");
+			
+			
+		}
+		
+		$(document).on("click", ".total_ckbox", function(){
+			
+			let count = $(".cart_check").length;
+			
+			if(document.getElementById("total_aomount").checked == true){
+				
+				$(".total_ckbox").attr({src:"resources/image/checkbox.png"});
+				
+				document.getElementById("total_aomount").checked = false;
+				
+				for(let i = 0; i<count; i++){
+					
+					if($(".cart_check")[i].checked == true){
+					
+						$(".cart_check")[i].checked = false;
+						
+						$(".checkbox_button"+i+" > img").attr({src:"resources/image/checkbox.png"});
+					
+					}
+					
+				};
+				
+				total();
+				
+			}else if(document.getElementById("total_aomount").checked == false){
+				
+				$(".total_ckbox").attr({src:"resources/image/checkbox-active.png"});
+				
+				document.getElementById("total_aomount").checked = true;
+				
+				for(let i = 0; i<count; i++){
+					
+					if($(".cart_check")[i].checked == false){
+						
+						$(".cart_check")[i].checked = true;
+						
+						$(".checkbox_button"+i+" > img").attr({src:"resources/image/checkbox-active.png"});
+					
+					}
+					
+				};
+				
+				total();
+			}
+			
+		});
+		
+		$(function(){
+			
+			total();
+			
+		});
+
 		var id = '<%=(String)session.getAttribute("userId")%>';
 		
 		var size = ${list.size()};
@@ -22,6 +122,44 @@
 			
 			(function(j) {
 				
+				$(document).on('click', '.checkbox_button' + j, function() {
+					
+					let count = $(".cart_check").length;
+					
+					if($(".cart_check")[j].checked == true){
+						
+						$(".cart_check")[j].checked = false;
+						
+						$('.checkbox_button'+j+" > img").attr({src:"resources/image/checkbox.png"});
+						
+						$(".total_ckbox").attr({src:"resources/image/checkbox.png"});
+						
+						document.getElementById("total_aomount").checked = false;
+						
+						total();
+						
+					}else if($(".cart_check")[j].checked == false){
+						
+						$(".cart_check")[j].checked = true;
+						
+						$('.checkbox_button'+j+" > img").attr({src:"resources/image/checkbox-active.png"});
+						
+						let ckcount = $("input:checkbox[name=price]:checked").length;
+						
+						if(count == ckcount){
+							
+							$(".total_ckbox").attr({src:"resources/image/checkbox-active.png"});
+							
+							document.getElementById("total_aomount").checked = true;
+							
+						}
+						
+						total();
+						
+					}
+					
+				});
+				
 			    $(document).on('click','.minusbutton' + j, function() {
 			    	
 			    	let cart_no = $('input[name=cartno'+j+']').val();
@@ -29,6 +167,7 @@
 			    	let amount = $('.amount_info'+j).text();
 			    	
 			    	if(amount != 1){
+			    		
 			    		$.ajax({
 							url:"<%=request.getContextPath()%>/cart_amount_minus.do",
 							method:"post",
@@ -55,7 +194,7 @@
 	 								html += "<div class='content content"+index+"'>"
 	 								html += "<div class='product_wrap product_wrap"+index+"'>"
 	 								html += "<div class='checkbox_wrap checkbox_wrap"+index+"'>"
-	 								html += "<input type='checkbox' id='cart_check' name='cart_no' value='"+item.cart_no+"' checked='checked' style='display: none;'>"
+	 								html += "<input type='checkbox' class='cart_check' name='price' value='"+item.product_price+"' checked='checked' >"
 	 								html += "<button type='button' class='checkbox_button checkbox_button"+index+"'>"
 	 								html += "<img alt='checkbox' src='resources/image/checkbox-active.png'></button></div>"
 	 								html += "<div class='product_info_top product_info_top"+index+"'>"
@@ -96,7 +235,11 @@
 	 								html += "<div class='total_price total_price"+index+"'>"+total+"원</div></div></div></div>"
 									
 	 								$(".cart_content_wrap").append(html);
+	 								
+	 								
 								});
+								
+								total();
 								
 							},
 							
@@ -148,7 +291,7 @@
 	 								html += "<div class='content content"+index+"'>"
 	 								html += "<div class='product_wrap product_wrap"+index+"'>"
 	 								html += "<div class='checkbox_wrap checkbox_wrap"+index+"'>"
-	 								html += "<input type='checkbox' id='cart_check' name='cart_no' value='"+item.cart_no+"' checked='checked' style='display: none;'>"
+	 								html += "<input type='checkbox' class='cart_check' name='price' value='"+item.product_price+"' checked='checked' >"
 	 								html += "<button type='button' class='checkbox_button checkbox_button"+index+"'>"
 	 								html += "<img alt='checkbox' src='resources/image/checkbox-active.png'></button></div>"
 	 								html += "<div class='product_info_top product_info_top"+index+"'>"
@@ -190,6 +333,8 @@
 									
 	 								$(".cart_content_wrap").append(html);
 								});
+								
+								total();
 								
 							},
 							
@@ -257,7 +402,7 @@
 								$.each(data, function(index, item){			// 데이터 = item
 										
 									html += "<div class='cart_content cart_content"+index+"'>"
-	 								html += "<input type='hidden' name='cartno"+index+"' value='"+item.cart_no+"'>"
+	 								html += "<input type='hidden' name='cartno"+index+"' value='"+item.product_price+"'>"
 		 							html += "<input type='hidden' name='stock"+index+"' value='"+item.product_stock+"'>"
 	 								html += "<div class='head head"+index+"'>"
 	 								html += "<div class='company_name company_name"+index+"'>"+item.product_company+"</div></div>"
@@ -265,7 +410,7 @@
 	 								html += "<div class='content content"+index+"'>"
 	 								html += "<div class='product_wrap product_wrap"+index+"'>"
 	 								html += "<div class='checkbox_wrap checkbox_wrap"+index+"'>"
-	 								html += "<input type='checkbox' id='cart_check' name='cart_no' value='"+item.cart_no+"' checked='checked' style='display: none;'>"
+	 								html += "<input type='checkbox' class='cart_check' name='cart_no' value='"+item.product_price+"' checked='checked' >"
 	 								html += "<button type='button' class='checkbox_button checkbox_button"+index+"'>"
 	 								html += "<img alt='checkbox' src='resources/image/checkbox-active.png'></button></div>"
 	 								html += "<div class='product_info_top product_info_top"+index+"'>"
@@ -324,7 +469,7 @@
 							html += "<div class='bill_content_row'><div>총 상품금액</div>"
 							html += "<div class='bill_price'>13,000원</div></div>"
 							html += "<div class='bill_content_row'>"
-							html += "<div>총 배송비</div><div class='bill_price'>3,000원</div></div>"
+							html += "<div>총 배송비</div><div class='bill_delivery'>3,000원</div></div>"
 							html += "<div class='bill_info'><div class='icon'>"
 							html += "<img src='resources/image/icon_circle_info.png'></div>"
 							html += "<div class='bill_text'>제주도 및 도서산간의 경우 배송비가 추가될 수 있습니다.</div></div></div>"
@@ -361,10 +506,11 @@
 					<div class="item_wrap">
 						<div class="checkbox_wrap">
 							<button type="button" class="checkbox_button">
-								<img alt="checkbox" src="resources/image/checkbox-active.png">
+								<img class="total_ckbox" alt="checkbox" src="resources/image/checkbox-active.png">
 							</button>
 						</div>
-						<div class="text">모두 선택 (0/${totalcart })</div>
+						<input type="checkbox" id="total_aomount" checked="checked">
+						<div class="text"></div>
 					</div>
 					
 					<button type="button" class="delete_button" disabled>선택삭제</button>
@@ -389,7 +535,7 @@
 					<div class="content content${status.index}">
 						<div class="product_wrap product_wrap${status.index}">
 							<div class="checkbox_wrap checkbox_wrap${status.index}">
-								<input type="checkbox" id="cart_check" name="cart_no" value="${dto.cart_no }" checked="checked" style="display: none;">
+								<input type="checkbox" class="cart_check" name="price" value="${dto.product_price }" checked="checked" >
 								<button type="button" class="checkbox_button checkbox_button${status.index}">
 									<img alt="checkbox" src="resources/image/checkbox-active.png">
 								</button>
@@ -470,11 +616,11 @@
 					<div class="bill_content">
 						<div class="bill_content_row">
 							<div>총 상품금액</div>
-							<div class="bill_price">13,000원</div>
+							<div class="bill_price"></div>
 						</div>
 						<div class="bill_content_row">
 							<div>총 배송비</div>
-							<div class="bill_price">3,000원</div>
+							<div class="bill_delivery"></div>
 						</div>
 						<div class="bill_info">
 							<div class="icon">
@@ -487,7 +633,7 @@
 					<div class="solid_bottom"></div>
 					<div class="bill_footer">
 						<div class="bill_footer_text">총 결제 예상 금액</div>
-						<div class="bill_footer_price">16,000원</div>
+						<div class="bill_footer_price"></div>
 					</div>
 				</div>
 				

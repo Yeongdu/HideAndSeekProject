@@ -13,7 +13,7 @@
 <link href="resources/css/store/store_category.css" rel="stylesheet" type="text/css"/>
 <c:set var="list" value="${list }" />
 <c:set var="page" value="${page }"/>
-<jsp:include page="store_chungju_js.jsp" />
+<jsp:include page="store_chungju_script.jsp" />
 
 	<div class="main">
 		<div class="header_menu">
