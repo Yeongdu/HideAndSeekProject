@@ -44,6 +44,10 @@
 		select * from cart where user_id = #{userId}
 	</select>
 	
+	<select id="getCartDTO" resultType="CartDTO">
+		select * from cart where cart_no = #{cart_no}
+	</select>
+	
 	<select id="getCartProductList" resultType="ProductDTO">
 		select * from product where product_no = #{product_no}
 	</select>
@@ -59,6 +63,16 @@
 	<update id="plusCartAmonut">
 		update cart set cart_amount = cart_amount + 1 where cart_no = #{cart_no}
 	</update>
+	
+	<select id="getCartAmount" resultType="String">
+		select cart_amount from cart where cart_no = #{cart_no}
+	</select>
+	
+	<select id="getCartMaxNo" parameterType="int" resultType="CartDTO">
+		select (cart_no)as maxno from cart where cart_no > #{cart_no}
+	</select>
+	
+	
   
   
   

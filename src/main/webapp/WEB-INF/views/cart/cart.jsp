@@ -14,6 +14,8 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
 
+	let totalcart = 0;
+
 		function total(){
 			
  			let count = $(".cart_check").length;
@@ -52,9 +54,7 @@
 			
 			$(".bill_delivery").append((ckcount * 3000).toLocaleString('ko-KR')+"원");
 			
-			let total = (sum + (ckcount * 3000)).toLocaleString('ko-KR');
-			
-			$(".text").append("모두 선택 ("+ckcount+"/${totalcart })");
+			$(".text").append("모두 선택 ("+ckcount+"/"+count+")");
 			
 			$(".bill_footer_price").append((sum + (ckcount * 3000)).toLocaleString('ko-KR') +"원");
 			
@@ -64,6 +64,8 @@
 		$(document).on("click", ".total_ckbox", function(){
 			
 			let count = $(".cart_check").length;
+			
+			console.log("count 값 >>> "+ count);
 			
 			if(document.getElementById("total_aomount").checked == true){
 				
@@ -118,6 +120,8 @@
 		
 		var size = ${list.size()};
 		
+		let html = "";
+		
 		for(var i=0; i<size; i++){
 			
 			(function(j) {
@@ -162,7 +166,7 @@
 				
 			    $(document).on('click','.minusbutton' + j, function() {
 			    	
-			    	let cart_no = $('input[name=cartno'+j+']').val();
+			    	let cart_no = $('.cartno'+j).val();
 			    	
 			    	let amount = $('.amount_info'+j).text();
 			    	
@@ -173,74 +177,71 @@
 							method:"post",
 							async: false,
 							data: {
-								userId : id,
-	 							cart_no : cart_no
-								},
+								cart_no : cart_no,
+								userId : id},
 							datatype: "json",
 							success:function(data){
 								
-	 							$(".cart_content_wrap").empty();
+								$(".cart_content"+j).empty();
 								
-								$.each(data, function(index, item){			// 데이터 = item
+								$.each(data, function(index, item){
 									
-	 								html = "";
+									html = "";
 								
-	 								html += "<div class='cart_content cart_content"+index+"'>"
-	 								html += "<input type='hidden' name='cartno"+index+"' value='"+item.cart_no+"'>"
-		 							html += "<input type='hidden' name='stock"+index+"' value='"+item.product_stock+"'>"
-	 								html += "<div class='head head"+index+"'>"
-	 								html += "<div class='company_name company_name"+index+"'>"+item.product_company+"</div></div>"
-	 								html += "<div class='none_block none_block"+index+"'></div>"
-	 								html += "<div class='content content"+index+"'>"
-	 								html += "<div class='product_wrap product_wrap"+index+"'>"
-	 								html += "<div class='checkbox_wrap checkbox_wrap"+index+"'>"
+									html += "<input type='hidden' class='cartno"+j+"' name='cartno' value='"+item.cart_no+"'>"
+		 							html += "<input type='hidden' class='stock"+j+"' name='stock' value='"+item.product_stock+"'>"
+	 								html += "<div class='head head'>"
+	 								html += "<div class='company_name'>"+item.product_company+"</div></div>"
+	 								html += "<div class='none_block'></div>"
+	 								html += "<div class='content'>"
+	 								html += "<div class='product_wrap'>"
+	 								html += "<div class='checkbox_wrap'>"
 	 								html += "<input type='checkbox' class='cart_check' name='price' value='"+item.product_price+"' checked='checked' >"
-	 								html += "<button type='button' class='checkbox_button checkbox_button"+index+"'>"
+	 								html += "<button type='button' class='checkbox_button checkbox_button"+j+"'>"
 	 								html += "<img alt='checkbox' src='resources/image/checkbox-active.png'></button></div>"
-	 								html += "<div class='product_info_top product_info_top"+index+"'>"
+	 								html += "<div class='product_info_top'>"
 	 								html += "<div class='thumbnail'>"
 									html += "<a href='<%=request.getContextPath()%>/product_content_list.do?no="+item.product_no+"'>"
 									html += "<img src='resources/upload/"+item.product_thumbnail+"'></a></div>"
-	 								html += "<div class='product_name product_name"+index+"'>"+item.product_name+"</div>"
-	 								html += "<button type='button' class='product_remove product_remove"+index+"'>"
+	 								html += "<div class='product_name'>"+item.product_name+"</div>"
+	 								html += "<button type='button' class='product_remove product_remove"+j+"'>"
 									html += "<img src='resources/image/remove_button.png'></button></div><div></div>"
-									html += "<div class='product_info_bottom product_info_bottom"+index+"'>"
-	 								html += "<div class='amount_control amount_control"+index+"'>"
-	 								html += "<div class='minus_wrap minus_wrap"+index+"'>"
-	 								html += "<button type='button' class='minusbutton"+index+"'>"
+									html += "<div class='product_info_bottom'>"
+	 								html += "<div class='amount_control'>"
+	 								html += "<div class='minus_wrap'>"
+	 								html += "<button type='button' class='minusbutton"+j+"'>"
 	 								html += "<img src='resources/image/icon_minus.png'></button></div>"
-		 							html += "<div class='amount amount"+index+"'>"
-		 							html += "<div class='amount_info"+index+"'>"+item.cart_amount+"</div></div>"
-	 								html += "<div class='plus_wrap plus_wrap"+index+"'>"
-	 								html += "<button type='button' class='plusbutton"+index+"'>"
+		 							html += "<div class='amount'>"
+		 							html += "<div class='amount_info"+j+"'>"+item.cart_amount+"</div></div>"
+	 								html += "<div class='plus_wrap'>"
+	 								html += "<button type='button' class='plusbutton"+j+"'>"
 	 								html += "<img src='resources/image/icon_plus.png'></button></div></div>"
-	 								html += "<div class='price price"+index+"'>"
-	 								html += "<div class='product_price product_price"+index+"'>"
-	 								
-	 								let price = (item.product_price * item.cart_amount).toLocaleString('ko-KR');
-	 								
-	 								html += price+"원</div></div></div><div class='solid'></div></div></div>"
-									html += "<div class='footer footer"+index+"'>"
-	 								html += "<div class='footer_product_price footer_product_price"+index+"'>"
-	 								html += "<div class='title title"+index+"'>상품금액</div>"
-	 								html += "<div class='price price"+index+"'>"+price+"원</div></div>"
-	 								html += "<div class='footer_delivery_price footer_delivery_price"+index+"'>"
-	 								html += "<div class='title title"+index+"'>배송비</div>"
-	 								html += "<div class='price price"+index+"'>3,000원</div></div>"
-	 								html += "<div class='footer_total_price footer_total_price"+index+"'>"
-	 										
-	 								let total = ((item.product_price * item.cart_amount) + 3000).toLocaleString('ko-KR');
-	 								
-	 								html += "<div class='total_title total_title"+index+"'>총 금액</div>"
-	 								html += "<div class='total_price total_price"+index+"'>"+total+"원</div></div></div></div>"
+	 								html += "<div class='price'>"
+	 								html += "<div class='product_price'>"
 									
-	 								$(".cart_content_wrap").append(html);
-	 								
-	 								
+	 								let price = (item.product_price * item.cart_amount).toLocaleString('ko-KR');
+									
+	 								html += price+"원</div></div></div><div class='solid'></div></div></div>"
+									html += "<div class='footer'>"
+	 								html += "<div class='footer_product_price'>"
+	 								html += "<div class='titlee'>상품금액</div>"
+	 								html += "<div class='price'>"+price+"원</div></div>"
+	 								html += "<div class='footer_delivery_price'>"
+	 								html += "<div class='title'>배송비</div>"
+	 								html += "<div class='price'>3,000원</div></div>"
+	 								html += "<div class='footer_total_price'>"
+											
+	 								let totalprice = ((item.product_price * item.cart_amount) + 3000).toLocaleString('ko-KR');
+									
+	 								html += "<div class='total_title'>총 금액</div>"
+	 								html += "<div class='total_price'>"+totalprice+"원</div></div></div>"
+								
 								});
 								
-								total();
-								
+	 							$(".cart_content"+j).append(html);
+	 							
+	 							total();
+	 								
 							},
 							
 							error:function(data){
@@ -258,83 +259,83 @@
 			    
 				$(document).on('click','.plusbutton' + j, function() {
 			    	
-			    	let cart_no = $('input[name=cartno'+j+']').val();
+			    	let cart_no = $('.cartno'+j).val();
 			    	
-			    	let stock = $('input[name=stock'+j+']').val();
+			    	let stock = $('.stock'+j).val();
 			    	
 			    	let amount = $('.amount_info'+j).text();
 			    	
 			    	if(amount != stock){
+			    		
 			    		$.ajax({
 							url:"<%=request.getContextPath()%>/cart_amount_plus.do",
 							method:"post",
 							async: false,
 							data: {
-								userId : id,
-	 							cart_no : cart_no
-								},
+								cart_no : cart_no,
+								userId : id},
 							datatype: "json",
 							success:function(data){
 								
-	 							$(".cart_content_wrap").empty();
+								$(".cart_content"+j).empty();
 								
-								$.each(data, function(index, item){			// 데이터 = item
-									
+								$.each(data, function(index, item){
+								
 	 								html = "";
-								
-	 								html += "<div class='cart_content cart_content"+index+"'>"
-	 								html += "<input type='hidden' name='cartno"+index+"' value='"+item.cart_no+"'>"
-		 							html += "<input type='hidden' name='stock"+index+"' value='"+item.product_stock+"'>"
-	 								html += "<div class='head head"+index+"'>"
-	 								html += "<div class='company_name company_name"+index+"'>"+item.product_company+"</div></div>"
-	 								html += "<div class='none_block none_block"+index+"'></div>"
-	 								html += "<div class='content content"+index+"'>"
-	 								html += "<div class='product_wrap product_wrap"+index+"'>"
-	 								html += "<div class='checkbox_wrap checkbox_wrap"+index+"'>"
+	 								
+	 								html += "<input type='hidden' class='cartno"+j+"' name='cartno' value='"+item.cart_no+"'>"
+		 							html += "<input type='hidden' class='stock"+j+"' name='stock' value='"+item.product_stock+"'>"
+	 								html += "<div class='head head'>"
+	 								html += "<div class='company_name'>"+item.product_company+"</div></div>"
+	 								html += "<div class='none_block'></div>"
+	 								html += "<div class='content'>"
+	 								html += "<div class='product_wrap'>"
+	 								html += "<div class='checkbox_wrap'>"
 	 								html += "<input type='checkbox' class='cart_check' name='price' value='"+item.product_price+"' checked='checked' >"
-	 								html += "<button type='button' class='checkbox_button checkbox_button"+index+"'>"
+	 								html += "<button type='button' class='checkbox_button checkbox_button"+j+"'>"
 	 								html += "<img alt='checkbox' src='resources/image/checkbox-active.png'></button></div>"
-	 								html += "<div class='product_info_top product_info_top"+index+"'>"
+	 								html += "<div class='product_info_top'>"
 	 								html += "<div class='thumbnail'>"
 									html += "<a href='<%=request.getContextPath()%>/product_content_list.do?no="+item.product_no+"'>"
 									html += "<img src='resources/upload/"+item.product_thumbnail+"'></a></div>"
-	 								html += "<div class='product_name product_name"+index+"'>"+item.product_name+"</div>"
-	 								html += "<button type='button' class='product_remove product_remove"+index+"'>"
+	 								html += "<div class='product_name'>"+item.product_name+"</div>"
+	 								html += "<button type='button' class='product_remove product_remove"+j+"'>"
 									html += "<img src='resources/image/remove_button.png'></button></div><div></div>"
-									html += "<div class='product_info_bottom product_info_bottom"+index+"'>"
-	 								html += "<div class='amount_control amount_control"+index+"'>"
-	 								html += "<div class='minus_wrap minus_wrap"+index+"'>"
-	 								html += "<button type='button' class='minusbutton"+index+"'>"
+									html += "<div class='product_info_bottom'>"
+	 								html += "<div class='amount_control'>"
+	 								html += "<div class='minus_wrap'>"
+	 								html += "<button type='button' class='minusbutton"+j+"'>"
 	 								html += "<img src='resources/image/icon_minus.png'></button></div>"
-	 								html += "<div class='amount amount"+index+"'>"
-	 								html += "<div class='amount_info"+index+"'>"+item.cart_amount+"</div></div>"
-	 								html += "<div class='plus_wrap plus_wrap"+index+"'>"
-	 								html += "<button type='button' class='plusbutton"+index+"'>"
+		 							html += "<div class='amount'>"
+		 							html += "<div class='amount_info"+j+"'>"+item.cart_amount+"</div></div>"
+	 								html += "<div class='plus_wrap'>"
+	 								html += "<button type='button' class='plusbutton"+j+"'>"
 	 								html += "<img src='resources/image/icon_plus.png'></button></div></div>"
-	 								html += "<div class='price price"+index+"'>"
-	 								html += "<div class='product_price product_price"+index+"'>"
-	 								
-	 								let price = (item.product_price * item.cart_amount).toLocaleString('ko-KR');
-	 								
-	 								html += price+"원</div></div></div><div class='solid'></div></div></div>"
-									html += "<div class='footer footer"+index+"'>"
-	 								html += "<div class='footer_product_price footer_product_price"+index+"'>"
-	 								html += "<div class='title title"+index+"'>상품금액</div>"
-	 								html += "<div class='price price"+index+"'>"+price+"원</div></div>"
-	 								html += "<div class='footer_delivery_price footer_delivery_price"+index+"'>"
-	 								html += "<div class='title title"+index+"'>배송비</div>"
-	 								html += "<div class='price price"+index+"'>3,000원</div></div>"
-	 								html += "<div class='footer_total_price footer_total_price"+index+"'>"
-	 										
-	 								let total = ((item.product_price * item.cart_amount) + 3000).toLocaleString('ko-KR');
-	 								
-	 								html += "<div class='total_title total_title"+index+"'>총 금액</div>"
-	 								html += "<div class='total_price total_price"+index+"'>"+total+"원</div></div></div></div>"
+	 								html += "<div class='price'>"
+	 								html += "<div class='product_price'>"
 									
-	 								$(".cart_content_wrap").append(html);
+	 								let price = (item.product_price * item.cart_amount).toLocaleString('ko-KR');
+									
+	 								html += price+"원</div></div></div><div class='solid'></div></div></div>"
+									html += "<div class='footer'>"
+	 								html += "<div class='footer_product_price'>"
+	 								html += "<div class='title'>상품금액</div>"
+	 								html += "<div class='price'>"+price+"원</div></div>"
+	 								html += "<div class='footer_delivery_price'>"
+	 								html += "<div class='title'>배송비</div>"
+	 								html += "<div class='price'>3,000원</div></div>"
+	 								html += "<div class='footer_total_price'>"
+											
+	 								let totalprice = ((item.product_price * item.cart_amount) + 3000).toLocaleString('ko-KR');
+									
+	 								html += "<div class='total_title'>총 금액</div>"
+	 								html += "<div class='total_price'>"+totalprice+"원</div></div></div>"
+								
 								});
 								
-								total();
+	 							$(".cart_content"+j).append(html);
+	 							
+	 							total();
 								
 							},
 							
@@ -353,11 +354,9 @@
 				
 				$(document).on('click','.product_remove' + j, function() {
 			    	
-			    	let cart_no = $('input[name=cartno'+j+']').val();
+			    	let cart_no = $('.cartno'+j).val();
 			    	
-			    	let total = 0;
-			    	
-			    	$.ajax({
+		    		$.ajax({
 						url:"<%=request.getContextPath()%>/cart_delete.do",
 						method:"post",
 						async: false,
@@ -368,129 +367,67 @@
 						datatype: "json",
 						success:function(data){
 							
-							let check = false;
-							
-							$.each(data, function(index, item){	
+							$.ajax({
+								url:"<%=request.getContextPath()%>/cart_delete_count.do",
+								method:"post",
+								async: false,
+								data: {
+									userId : id,
+									},
+								datatype: "text",
+								success:function(data){
+									
+									totalcart = parseInt(data);
+									
+								},
 								
-								if(item.totalcart != 'null' && !check){
-									
-									total = item.totalcart;
-									
-									check = true;
-									
+								error:function(data){
+									alert("통신 실패");
 								}
-								
 							});
 							
-	 						$(".cart_wrap").empty();
-	 						
-	 						html = "";
+							$(".cart_content"+j).remove();
 							
- 							html += "<div class='cart_head_wrap'>"
- 							html += "<div class='top_item_wrap'>"
- 							html += "<div class='item_wrap'>"
- 							html += "<div class='checkbox_wrap'>"
- 							html += "<button type='button' class='checkbox_button'>"
- 							html += "<img alt='checkbox' src='resources/image/checkbox-active.png'></button></div>"
- 							html += "<div class='text'>모두 선택 (0/"+total+")</div></div>"
-							html += "<button type='button' class='delete_button' disabled>선택삭제</button></div></div><span></span>"
+							let jset = j;
 							
-							if(total != '0'){
+							j += 1;
 							
-							html += "<div class='cart_content_wrap'>";
+							if(totalcart != 0){
 							
-								$.each(data, function(index, item){			// 데이터 = item
-										
-									html += "<div class='cart_content cart_content"+index+"'>"
-	 								html += "<input type='hidden' name='cartno"+index+"' value='"+item.product_price+"'>"
-		 							html += "<input type='hidden' name='stock"+index+"' value='"+item.product_stock+"'>"
-	 								html += "<div class='head head"+index+"'>"
-	 								html += "<div class='company_name company_name"+index+"'>"+item.product_company+"</div></div>"
-	 								html += "<div class='none_block none_block"+index+"'></div>"
-	 								html += "<div class='content content"+index+"'>"
-	 								html += "<div class='product_wrap product_wrap"+index+"'>"
-	 								html += "<div class='checkbox_wrap checkbox_wrap"+index+"'>"
-	 								html += "<input type='checkbox' class='cart_check' name='cart_no' value='"+item.product_price+"' checked='checked' >"
-	 								html += "<button type='button' class='checkbox_button checkbox_button"+index+"'>"
-	 								html += "<img alt='checkbox' src='resources/image/checkbox-active.png'></button></div>"
-	 								html += "<div class='product_info_top product_info_top"+index+"'>"
-	 								html += "<div class='thumbnail'>"
-									html += "<a href='<%=request.getContextPath()%>/product_content_list.do?no="+item.product_no+"'>"
-									html += "<img src='resources/upload/"+item.product_thumbnail+"'></a></div>"
-	 								html += "<div class='product_name product_name"+index+"'>"+item.product_name+"</div>"
-	 								html += "<button type='button' class='product_remove product_remove"+index+"'>"
-									html += "<img src='resources/image/remove_button.png'></button></div><div></div>"
-									html += "<div class='product_info_bottom product_info_bottom"+index+"'>"
-	 								html += "<div class='amount_control amount_control"+index+"'>"
-	 								html += "<div class='minus_wrap minus_wrap"+index+"'>"
-	 								html += "<button type='button' class='minusbutton"+index+"'>"
-	 								html += "<img src='resources/image/icon_minus.png'></button></div>"
-	 								html += "<div class='amount amount"+index+"'>"
-	 								html += "<div class='amount_info"+index+"'>"+item.cart_amount+"</div></div>"
-	 								html += "<div class='plus_wrap plus_wrap"+index+"'>"
-	 								html += "<button type='button' class='plusbutton"+index+"'>"
-	 								html += "<img src='resources/image/icon_plus.png'></button></div></div>"
-	 								html += "<div class='price price"+index+"'>"
-	 								html += "<div class='product_price product_price"+index+"'>"
-	 								
-	 								let price = (item.product_price * item.cart_amount).toLocaleString('ko-KR');
-	 								
-	 								html += price+"원</div></div></div><div class='solid'></div></div></div>"
-									html += "<div class='footer footer"+index+"'>"
-	 								html += "<div class='footer_product_price footer_product_price"+index+"'>"
-	 								html += "<div class='title title"+index+"'>상품금액</div>"
-	 								html += "<div class='price price"+index+"'>"+price+"원</div></div>"
-	 								html += "<div class='footer_delivery_price footer_delivery_price"+index+"'>"
-	 								html += "<div class='title title"+index+"'>배송비</div>"
-	 								html += "<div class='price price"+index+"'>3,000원</div></div>"
-	 								html += "<div class='footer_total_price footer_total_price"+index+"'>"
-	 										
-	 								let total = ((item.product_price * item.cart_amount) + 3000).toLocaleString('ko-KR');
-	 								
-	 								html += "<div class='total_title total_title"+index+"'>총 금액</div>"
-	 								html += "<div class='total_price total_price"+index+"'>"+total+"원</div></div></div></div>"
-		 							
-										
+								$.each(data, function(index, item){
+									
+									$(".cart_content"+j).attr("class","cart_content cart_content"+(j - 1));
+									$(".cartno"+j).attr("class","cartno"+(j - 1));
+									$(".stock"+j).attr("class","stock"+(j - 1));
+									$(".checkbox_button"+j).attr("class","checkbox_button checkbox_button"+(j - 1));
+									$(".product_remove"+j).attr("class","product_remove product_remove"+(j - 1));
+									$(".minusbutton"+j).attr("class","minusbutton"+(j - 1));
+									$(".amount_info"+j).attr("class","amount_info"+(j - 1));
+									$(".plusbutton"+j).attr("class","plusbutton"+(j - 1));
+									
+									j += 1;
+									
 								});
+							
+							}else if(totalcart == 0){
 								
-								html += "</div>"
+								let html = "<div class='above'><div class='guide'>지금 장바구니가 비어 있어요.</div></div>"
 								
-							}else if(total == '0'){
-								
-								html += "<div class='above'><div class='guide'>지금 장바구니가 비어 있어요.</div></div>"
+								$(".cart_content_wrap").append(html);
 								
 							}
 							
-							html += "<div class='cart_bill_wrap'>"
-							html += "<div class='bill'>"
-							html += "<div class='bill_title'>계산서</div>"
-							html += "<div class='solid_top'></div>"
-							html += "<div class='bill_content'>"
-							html += "<div class='bill_content_row'><div>총 상품금액</div>"
-							html += "<div class='bill_price'>13,000원</div></div>"
-							html += "<div class='bill_content_row'>"
-							html += "<div>총 배송비</div><div class='bill_delivery'>3,000원</div></div>"
-							html += "<div class='bill_info'><div class='icon'>"
-							html += "<img src='resources/image/icon_circle_info.png'></div>"
-							html += "<div class='bill_text'>제주도 및 도서산간의 경우 배송비가 추가될 수 있습니다.</div></div></div>"
-							html += "<div class='solid_bottom'></div>"
-							html += "<div class='bill_footer'>"
-							html += "<div class='bill_footer_text'>총 결제 예상 금액</div>"
-							html += "<div class='bill_footer_price'>16,000원</div></div></div>"
-							html += "<div class='action_button_wrap'>"
-							html += "<button type='button'>구매하기</button></div></div>"
+							j = jset;
 							
-							
-							
-							$(".cart_wrap").append(html);
-								
+							total();							
 						},
-							
+						
 						error:function(data){
 							alert("통신 실패");
 						}
+						
 					});
-			    		
+		    		
 			    });
 			    
 			  })(i);
@@ -522,57 +459,57 @@
 			<div class="cart_content_wrap">
 				<c:forEach items="${list }" var="dto" varStatus="status">
 				<div class="cart_content cart_content${status.index}">
-				<input type="hidden" name="cartno${status.index}" value="${dto.cart_no }">
-				<input type="hidden" name="stock${status.index}" value="${dto.product_stock }">
-					<div class="head head${status.index}">
-						<div class="company_name company_name${status.index}">
+				<input type="hidden" class="cartno${status.index}" name="cartno" value="${dto.cart_no }">
+				<input type="hidden" class="stock${status.index}"name="stock" value="${dto.product_stock }">
+					<div class="head">
+						<div class="company_name">
 							${dto.product_company }
 						</div>
 					</div>
 			
-					<div class="none_block none_block${status.index}"></div>
+					<div class="none_block"></div>
 					
-					<div class="content content${status.index}">
-						<div class="product_wrap product_wrap${status.index}">
-							<div class="checkbox_wrap checkbox_wrap${status.index}">
+					<div class="content">
+						<div class="product_wrap">
+							<div class="checkbox_wrap">
 								<input type="checkbox" class="cart_check" name="price" value="${dto.product_price }" checked="checked" >
 								<button type="button" class="checkbox_button checkbox_button${status.index}">
 									<img alt="checkbox" src="resources/image/checkbox-active.png">
 								</button>
 							</div>
 							
-							<div class="product_info_top product_info_top${status.index}">
+							<div class="product_info_top">
 								<div class="thumbnail">
 									<a href="<%=request.getContextPath()%>/product_content_list.do?no=${dto.product_no}">
 										<img src="resources/upload/${dto.product_thumbnail }">
 									</a>
 								</div>
-								<div class="product_name product_name${status.index}">${dto.product_name }</div>
+								<div class="product_name">${dto.product_name }</div>
 								<button type="button" class="product_remove product_remove${status.index}">
 									<img src="resources/image/remove_button.png">
 								</button>
 							</div>
 							<div></div>
-							<div class="product_info_bottom product_info_bottom${status.index}">
-								<div class="amount_control amount_control${status.index}">
-									<div class="minus_wrap minus_wrap${status.index}">
+							<div class="product_info_bottom">
+								<div class="amount_control">
+									<div class="minus_wrap">
 										<button type="button" class="minusbutton${status.index}">
 											<img src="resources/image/icon_minus.png">
 										</button>
 									</div>
 									
-									<div class="amount amount${status.index}">
+									<div class="amount">
 										<div class="amount_info${status.index}">${dto.cart_amount}</div>
 									</div>
 									
-									<div class="plus_wrap plus_wrap${status.index}">
+									<div class="plus_wrap">
 										<button type="button" class="plusbutton${status.index}">
 											<img src="resources/image/icon_plus.png">
 										</button>
 									</div>
 								</div>
-								<div class="price price${status.index}">
-									<div class="product_price product_price${status.index}">
+								<div class="price">
+									<div class="product_price">
 										<c:set value="${dto.product_price * dto.cart_amount}" var="price" />
 										<fmt:formatNumber>${price }</fmt:formatNumber>원
 									</div>
@@ -583,19 +520,19 @@
 						</div>
 					</div>
 					
-					<div class="footer footer${status.index}">
-						<div class="footer_product_price footer_product_price${status.index}">
-							<div class="title title${status.index}">상품금액</div>
-							<div class="price price${status.index}"><fmt:formatNumber>${price }</fmt:formatNumber>원</div>
+					<div class="footer">
+						<div class="footer_product_price">
+							<div class="title">상품금액</div>
+							<div class="price"><fmt:formatNumber>${price }</fmt:formatNumber>원</div>
 						</div>
-						<div class="footer_delivery_price footer_delivery_price${status.index}">
-							<div class="title title${status.index}">배송비</div>
-							<div class="price price${status.index}">3,000원</div>
+						<div class="footer_delivery_price">
+							<div class="title">배송비</div>
+							<div class="price">3,000원</div>
 						</div>
-						<div class="footer_total_price footer_total_price${status.index}">
+						<div class="footer_total_price">
 							<c:set value="${price + 3000}" var="total" />
-							<div class="total_title total_title${status.index}">총 금액</div>
-							<div class="total_price total_price${status.index}"><fmt:formatNumber>${total }</fmt:formatNumber>원</div>
+							<div class="total_title">총 금액</div>
+							<div class="total_price"><fmt:formatNumber>${total }</fmt:formatNumber>원</div>
 						</div>
 					</div>
 				</div>
