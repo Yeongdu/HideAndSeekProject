@@ -55,18 +55,18 @@
 						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">${dto.product_price }</td>
 						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">${dto.product_stock }</td>
 						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.product_date }" /></td>
-						<td><input type="button" value="기본정보 수정" onclick="location.href='<%=request.getContextPath()%>/admin_product_update.do?no=${dto.product_no }&page=${page.page}'"></td>
-						<td><input type="button" value="상세정보 수정" onclick="location.href='<%=request.getContextPath()%>/admin_product_content_update.do?no=${dto.product_no }&page=${page.page}'"></td>
+						<td><input type="button" class="btn btn-light" value="기본정보 수정" onclick="location.href='<%=request.getContextPath()%>/admin_product_update.do?no=${dto.product_no }&page=${page.page}'"></td>
+						<td><input type="button" class="btn btn-light" value="상세정보 수정" onclick="location.href='<%=request.getContextPath()%>/admin_product_content_update.do?no=${dto.product_no }&page=${page.page}'"></td>
 						
 						<td>
 						<c:if test="${dto.product_status eq '판매' }">
-						<input type="button" value="${dto.product_status}"
+						<input type="button" class="btn btn-light" value="${dto.product_status}"
 							onclick="if(confirm('판매상태를 판매 중지로 변경하시겠습니까?')){
 							location.href='<%=request.getContextPath() %>/admin_product_statusChange.do?no=${dto.product_no }&page=${page.page }'} 
 							else{return; }">
 						</c:if>
 						<c:if test="${dto.product_status ne '판매' }">
-						<input type="button" value="${dto.product_status}"
+						<input type="button" class="btn btn-light" value="${dto.product_status}"
 							onclick="if(confirm('판매상태를 판매중으로 변경하시겠습니까?')){
 							location.href='<%=request.getContextPath() %>/admin_product_statusChange2.do?no=${dto.product_no }&page=${page.page }'} 
 							else{return; }">

@@ -33,10 +33,12 @@ import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
 import com.spring.model.Product_categoryDTO;
 import com.spring.model.Product_contentDTO;
+import com.spring.model.UserDTO;
 import com.spring.model.admin_productDTO;
 import com.spring.model.admin_product_contentDTO;
 import com.spring.service.Admin_productDAO;
 import com.spring.service.Admin_product_contentDAO;
+import com.spring.service.Admin_userDAO;
 import com.spring.service.OrderDAO;
 import com.spring.service.ProductDAO;
 import com.spring.service.Product_contentDAO;
@@ -59,6 +61,9 @@ public class AdminController {
 	
 	@Autowired
 	private Admin_product_contentDAO apcdao;
+	
+	@Autowired
+	private Admin_userDAO audao;
 	
 	// 한 페이지당 보여질 게시물의 수
 	private final int rowsize = 10;
@@ -657,6 +662,37 @@ public class AdminController {
 		
 		
 		return "admin/admin_product_del_list";
+	}
+	
+	//전체 유저 리스트
+	@RequestMapping("admin_user_list.do")
+	public String admin_user_list(HttpServletRequest request, Model model) {
+			// 페이징 처리 작업
+			int page;	// 현재 페이지 변수
+							
+			if(request.getParameter("page") != null) {
+				page = Integer.parseInt(request.getParameter("page"));
+			}else {
+				page = 1;
+			}
+			// DB상의 전체 게시물의 수를 확인하는 메서드
+			totalRecord = this.audao.getUserCount();
+			PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+			
+			// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
+			List<UserDTO> plist = this.audao.getUserList(dto);
+			
+			model.addAttribute("list", plist);
+			model.addAttribute("page", dto);
+			return "admin/admin_user_list";
+	}
+	
+	@RequestMapping("admin_user_content.do")
+	public String admin_user_cont(@RequestParam("no") int no,@RequestParam("page") int page , Model model) {
+		UserDTO udto = this.audao.getUserCont(no);
+		model.addAttribute("udto", udto);
+		model.addAttribute("page", page);
+		return "admin/admin_user_cont";
 	}
 	
 

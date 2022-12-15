@@ -45,7 +45,7 @@
 						
 						<c:if test="${dto.order_status == '취소' }">
 							<td colspan="2" align="right">
-								<input type="button" value="주문취소">
+								<input type="button" class="btn btn-outline-danger" value="주문취소" disabled>
 							</td>
 						</c:if>
 					</tr>

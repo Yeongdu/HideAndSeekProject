@@ -63,7 +63,7 @@
 							else{return; }">
 						</c:if>
 						<c:if test="${dto.product_status ne '판매' }">
-						<input type="button" value="${dto.product_status}"
+						<input type="button" class="btn btn-outline-danger" value="${dto.product_status}"
 							onclick="if(confirm('판매상태를 판매중으로 변경하시겠습니까?')){
 							location.href='<%=request.getContextPath() %>/admin_product_statusChange2.do?no=${dto.product_no }&page=${page.page }'} 
 							else{return; }">

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="Admin_userDAO">
+  
+  
+ 	<select id="getUserCount" resultType="int">
+		select count(*) from tb_user
+	</select>
+	
+	<select id="getUserList" parameterType="PageDTO" resultType="UserDTO">
+  		<![CDATA[select * from (select u.*, row_number() over(order by user_no desc) rnum from tb_user u)
+		where rnum >= #{startNo} and rnum <= #{endNo}]]>
+  	</select>
+	
+	<select id="adminUserCont" parameterType="int" resultType="UserDTO">
+  		select * from tb_user where user_no = #{no}
+  	</select>
+	
+  
+  
+  
+  
+  </mapper>
