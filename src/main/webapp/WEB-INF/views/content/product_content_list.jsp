@@ -5,6 +5,7 @@
 <c:set var="list" value="${List }" />
 <c:set var="pdto" value="${Cont }" />
 <c:set var="rlist" value="${RList }" />
+<c:set var="paging" value="${Paging }" />
 <!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
@@ -58,42 +59,15 @@
 		<div class="main_cont">
 			<div class="picture_2">
 				<img src="resources/upload/${dto.getProduct_file1() }"> 
-				<textarea class="sub_cont1" id="sub_cont1" spellcheck="false" readonly> ${dto.getProduct_cont1() } </textarea>
+				<textarea class="sub_cont" id="sub_cont1" spellcheck="false" readonly> ${dto.getProduct_cont1() } </textarea>
 				<img src="resources/upload/${dto.getProduct_file2() }"> 
-				<textarea class="sub_cont2" id="sub_cont2" spellcheck="false" readonly> ${dto.getProduct_cont2() } </textarea>
+				<textarea class="sub_cont" id="sub_cont2" spellcheck="false" readonly> ${dto.getProduct_cont2() } </textarea>
 				<img src="resources/upload/${dto.getProduct_file3() }">
-				<textarea class="sub_cont3" id="sub_cont3" spellcheck="false" readonly> ${dto.getProduct_cont3() } </textarea>
+				<textarea class="sub_cont" id="sub_cont3" spellcheck="false" readonly> ${dto.getProduct_cont3() } </textarea>
 			</div>
 		</div>
-		
-		<script type="text/javascript">
-		//본문 textarea 높이 자동조절 함수
-		$(function() {
-
-		function adjustHeight1() {
-			var textEle = $('#sub_cont1');
-			textEle[0].style.height = 'auto';
-			var textEleHeight = textEle.prop('scrollHeight');
-			textEle.css('height', textEleHeight+8);
-			};
-		function adjustHeight2() {
-			var textEle = $('#sub_cont2');
-			textEle[0].style.height = 'auto';
-			var textEleHeight = textEle.prop('scrollHeight');
-			textEle.css('height', textEleHeight+8);
-			};
-		function adjustHeight3() {
-			var textEle = $('#sub_cont3');
-			textEle[0].style.height = 'auto';
-			var textEleHeight = textEle.prop('scrollHeight');
-			textEle.css('height', textEleHeight+8);
-			};
-			
-		adjustHeight1();
-		adjustHeight2();
-		adjustHeight3();
-		</script>
 	</c:forEach>
+	
 			<!-- 버튼 클릭 시 화면 변경 수정중 -->
 			<div class="tabs">
 				<div class="tab-button-outer">
@@ -109,14 +83,38 @@
 					<c:forEach items="${rlist }" var="rdto">
 						<div class="review_top">
 							<div>
-							<span class="review_info_product_name">${pdto.product_name }</span>
-							[${pdto.product_amount }ml]
+							<span class="review_info_product_name">${rdto.getUser_id() }</span>
 							</div>
 							<div>
-							<span>${rdto.getReview_date() }</span>
+								${pdto.product_name }[${pdto.product_amount }ml]
+								<fmt:formatDate pattern="yyyy년 MM월 dd일" value="${rdto.getReview_date() }" />
 							</div>
 						</div>
+						<div class="review_main" align="left">
+							<div class="review_cont">
+								<pre>${rdto.getReview_cont() }</pre>
+							</div>
+							<img src="resources/review_img/${rdto.getReview_file() }" onmouseover="zoomImg(3)" style="height: 100px; cursor: zoom-in;">
+						</div>
 					</c:forEach>
+					
+				<%-- 페이징 처리 부분 --%>
+				<c:if test="${paging.getPage() > paging.getBlock()}">
+					<a href="product_content_list.do?page=1">[처음으로]</a>
+					<a href="product_content_list.do?page=${paging.getStartBlock() - 1 }">◀︎</a>
+				</c:if>
+				<c:forEach begin="${paging.getStartBlock() }" end="${paging.getEndBlock() }" var ="i">
+					<c:if test="${i == paging.getPage() }">
+						<b><a href="product_content_list.do?page=${i }">[${i }]</a></b>
+					</c:if>
+					<c:if test="${i != paging.getPage() }">
+						<a href="product_content_list.do?page=${i }">[${i }]</a>
+					</c:if>
+				</c:forEach>
+					<c:if test="${paging.getEndBlock() < paging.getAllPage()}">
+						<a href="product_content_list.do?page=${paging.getEndBlock() + 1 }">▶︎</a>
+						<a href="product_content_list.do?page=${paging.getAllPage() }">[마지막으로]︎</a>
+					</c:if>
 					
 				</div>
 				<!-- 리뷰 수정끝 -->
@@ -256,7 +254,7 @@
     			msg += '에러내용 : ' + rsp.error_msg;
     			window.history.go(-2);
     		}         
-    		alert(msg);       
+    		swal('',msg,'warning');
     		});
     	} else {
     		swal('',"품절되었습니다",'warning');
@@ -298,5 +296,34 @@
   	  		});
   		});
   	//리뷰, 교환/환불 버튼 끝
+  	
+  	//본문 textarea 높이 자동조절 함수
+	$(function() {
+
+		function adjustHeight1() {
+			var textEle = $('#sub_cont1');
+			textEle[0].style.height = 'auto';
+			var textEleHeight = textEle.prop('scrollHeight');
+			textEle.css('height', textEleHeight+8);
+			};
+		function adjustHeight2() {
+			var textEle = $('#sub_cont2');
+			textEle[0].style.height = 'auto';
+			var textEleHeight = textEle.prop('scrollHeight');
+			textEle.css('height', textEleHeight+8);
+			};
+		function adjustHeight3() {
+			var textEle = $('#sub_cont3');
+			textEle[0].style.height = 'auto';
+			var textEleHeight = textEle.prop('scrollHeight');
+			textEle.css('height', textEleHeight+8);
+			};
+			
+		adjustHeight1();
+		adjustHeight2();
+		adjustHeight3();
+		
+		});
+		//본문 textarea 높이 자동조절 함수 끝
 	</script>
 <jsp:include page="../banner/bottom.jsp" />

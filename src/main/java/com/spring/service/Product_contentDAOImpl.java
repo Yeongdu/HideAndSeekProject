@@ -1,6 +1,7 @@
 package com.spring.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,12 @@ public class Product_contentDAOImpl implements Product_contentDAO{
 	}
 	
 	@Override
-	public List<ReviewDTO> getReviewList(int product_no) {
-		return this.sqlSession.selectList("RList", product_no);
+	public List<ReviewDTO> getReviewList(Map<String, Object> map) {
+		return this.sqlSession.selectList("RList", map);
+	}
+
+	@Override
+	public int getReviewCount(int product_no) {
+		return this.sqlSession.selectOne("RCount", product_no);
 	}
 }
