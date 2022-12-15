@@ -34,6 +34,11 @@ public class MyPageDAOImpl implements MyPageDAO{
 		return this.sqlSession.update("user_delete", userId);
 	}
 	
+	@Override
+	public List<Subscribe_userDTO> getSubCont(String userId) {
+		return this.sqlSession.selectList("sub_cont", userId);
+	}
+	
 	
 	
 	@Override
@@ -42,6 +47,11 @@ public class MyPageDAOImpl implements MyPageDAO{
 		System.out.println("map >>> " + map);
 		return this.sqlSession.selectList("order_cont", map);
 		
+	}
+	
+	@Override
+	public List<OrderDTO> orderContent(String userId) {
+		return this.sqlSession.selectList("order_content", userId);
 	}
 	
 	@Override
@@ -79,11 +89,14 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public int getReviewCount(String userId) {
 		return this.sqlSession.selectOne("count_review", userId);
 	}
-
+	
 	@Override
-	public List<Subscribe_userDTO> getSubCont(String userId) {
-		return this.sqlSession.selectList("sub_cont", userId);
+	public int reviewInsert(ReviewDTO rdto) {
+		return this.sqlSession.insert("review_insert", rdto);
 	}
+
+
+	
 	@Override
 	public List<DeliveryDTO> getDeliveryCont(String userId) {
 		return this.sqlSession.selectList("delivery_cont", userId);
@@ -91,17 +104,19 @@ public class MyPageDAOImpl implements MyPageDAO{
 	
 	@Override
 	public int getDeliveryAddrCount(String userId) {
-		return this.sqlSession.selectOne("count_order", userId);
+		return 0;
 	}
-
+	
 	@Override
-	public List<OrderDTO> orderContent(String userId) {
-		return this.sqlSession.selectList("order_content", userId);
+	public int deliveryInsert(Map<String, Object> map) {
+		return this.sqlSession.insert("delivery_insert", map);
 	}
+	
+	
 
-	@Override
-	public int reviewInsert(ReviewDTO rdto) {
-		return this.sqlSession.insert("review_insert", rdto);
-	}
+	
+
+
+	
 
 }

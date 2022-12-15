@@ -268,11 +268,30 @@ public class MyPageController {
 	
 	
 	@RequestMapping("delivery_insert.do")
-	public String mypage_delivery_insert(@RequestParam("user_id")String user_id, Model model) {
+	public void mypage_delivery_insert(@RequestParam("user_id")String user_id,
+										 @RequestParam("delivery_name")String delivery_name,
+										 @RequestParam("delivery_zipcode")String delivery_zipcode,
+										 @RequestParam("delivery_addr")String delivery_addr,
+										 @RequestParam("delivery_extraAddr")String delivery_extraAddr,
+										 @RequestParam("delivery_check")int delivery_check, 
+										 HttpServletResponse response) {
 		
-		model.addAttribute("userId", user_id);
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		return "mypage_delivery_insert";
+		map.put("user_id", user_id);
+		map.put("name", delivery_name);
+		map.put("zipcode", delivery_zipcode);
+		map.put("addr", delivery_addr);
+		map.put("extraAddr", delivery_extraAddr);
+		map.put("check", delivery_check);
+		
+		int count = 0;
+		
+		List<DeliveryDTO> ddto = this.mypage_dao.getDeliveryCont(user_id);
+		for(int i = 0; i<=ddto.size(); i++) {
+//			count += ddto.get(i).getDeli_default();
+		}
+		System.out.println("count >>> " + count);
 	}
 	
 	
