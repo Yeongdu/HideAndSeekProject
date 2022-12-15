@@ -302,9 +302,9 @@ textarea:focus {
 	margin-bottom: 3%;
 }
 
-.tabs ul li {
+.tabs ul li a {
 	float: left;
-	padding-top: 0.4%;
+	padding-top: 0.5%;
 	width: 75px;
 	height: 30px;
 	border-radius: 10px;
@@ -312,8 +312,25 @@ textarea:focus {
 	background-color: #efefef;
 	font-family: 'Noto Sans';
 	font-style: normal;
+	font-weight: 600;
 	font-size: 12px;
 	margin-left: 3%;
+}
+
+.tabs .tab01 {
+	float: left;
+	padding-top: 0.5%;
+	width: 75px;
+	height: 30px;
+	border-radius: 10px;
+	border: 1px solid #4295ec;
+	background-color: #4295ec;
+	font-family: 'Noto Sans';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 12px;
+	margin-left: 3%;
+	color: white;
 }
 
 #tab-button {
@@ -324,8 +341,8 @@ textarea:focus {
 	margin-top: 1%;
 }
 
-.tabs li a:hover:not(.tab-button-outer) {
-color: black;
+.tabs li a:hover:not (.tab-button-outer ) {
+	color: black;
 }
 
 .change_cont {
@@ -363,6 +380,7 @@ color: black;
 	background-color: #F4F4F4;
 	border-radius: 10px;
 	padding: 1% 4% 1% 4%;
+	margin-top: 2%;
 }
 
 .review_info_product_name {
@@ -375,7 +393,36 @@ color: black;
 }
 
 .review_main {
-    width: 80%;
-    margin-left: 25%;
-    margin-top: 1.5%;
+	width: 80%;
+	margin-left: 25%;
+	margin-top: 1.5%;
+}
+
+.review_main_cont {
+	display: flex;
+	width: 43%;
+}
+
+.review_info_star-rating {
+	margin: 0px auto;
+	color: #ddd;
+	position: relative;
+	unicode-bidi: bidi-override;
+	width: max-content;
+	-webkit-text-fill-color: transparent;
+	-webkit-text-stroke-width: 1.3px;
+	-webkit-text-stroke-color: rgb(254, 185, 74);
+	display: block;
+}
+
+.star-ratings-fill {
+	color: red;
+	padding: 0;
+	z-index: 1;
+	display: flex;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	position: absolute;
+	-webkit-text-fill-color: rgb(254, 185, 74);
 }

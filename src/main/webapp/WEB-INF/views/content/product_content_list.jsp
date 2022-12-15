@@ -58,11 +58,11 @@
 
 		<div class="main_cont">
 			<div class="picture_2">
-				<img src="resources/upload/${dto.getProduct_file1() }"> 
+				<img src="resources/upload/${dto.getProduct_file1() }" onerror="this.style.display='none'"> 
 				<textarea class="sub_cont" id="sub_cont1" spellcheck="false" readonly> ${dto.getProduct_cont1() } </textarea>
-				<img src="resources/upload/${dto.getProduct_file2() }"> 
+				<img src="resources/upload/${dto.getProduct_file2() }" onerror="this.style.display='none'"> 
 				<textarea class="sub_cont" id="sub_cont2" spellcheck="false" readonly> ${dto.getProduct_cont2() } </textarea>
-				<img src="resources/upload/${dto.getProduct_file3() }">
+				<img src="resources/upload/${dto.getProduct_file3() }" onerror="this.style.display='none'">
 				<textarea class="sub_cont" id="sub_cont3" spellcheck="false" readonly> ${dto.getProduct_cont3() } </textarea>
 			</div>
 		</div>
@@ -72,49 +72,75 @@
 			<div class="tabs">
 				<div class="tab-button-outer">
 					<ul id="tab-button">
-						<li><a href="#tab01">리뷰</a></li>
-						<li><a href="#tab02">교환/반품</a></li>
+						<li>
+							<a class="tab01" href="#tab01">리뷰</a>
+						</li>
+					</ul>
+					<ul id="tab-button">
+						<li>
+							<a class="tab02" href="#tab02">교환/반품</a>
+						</li>
 					</ul>
 				</div>
 				<br>
 				<!-- 리뷰 수정중 -->
 				<div id="tab01" class="tab-contents">
 				<span>수정수정</span>
+				<c:if test="${!empty rlist}">
 					<c:forEach items="${rlist }" var="rdto">
+					<div id="review">
 						<div class="review_top">
 							<div>
 							<span class="review_info_product_name">${rdto.getUser_id() }</span>
 							</div>
-							<div>
-								${pdto.product_name }[${pdto.product_amount }ml]
+							<div class="review_main_cont">
+								[${pdto.product_amount }ml] ${pdto.product_name }
+								<div class="review_info_star-rating">
+		    						<div class="star-ratings-fill space-x-2 text-lg" style="width:${rdto.getReview_star() }%">
+		    							<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+		    						</div>
+		    						<div class="star-ratings-base space-x-2 text-lg">
+		    							<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+		    						</div>
+		    					</div>
 								<fmt:formatDate pattern="yyyy년 MM월 dd일" value="${rdto.getReview_date() }" />
 							</div>
 						</div>
 						<div class="review_main" align="left">
 							<div class="review_cont">
-								<pre>${rdto.getReview_cont() }</pre>
+								<pre style="margin-bottom: 1%">${rdto.getReview_cont() }</pre>
 							</div>
-							<img src="resources/review_img/${rdto.getReview_file() }" onmouseover="zoomImg(3)" style="height: 100px; cursor: zoom-in;">
+							<img src="resources/review_img/${rdto.getReview_file() }" class="review_image${pdto.product_no}" onmouseover="zoomImg(${pdto.product_no})" style="height: 100px; cursor: zoom-in;" onerror="this.style.display='none'">
 						</div>
+					</div>
 					</c:forEach>
+				</c:if>
+				<div class="more-btn-wrap">
+				  <button type="button" id="btnResultMore">더보기</button>
+				</div>
+				
+				
+				<c:if test="${empty rlist}">
+					<h3>d</h3>
+				</c:if>
 					
 				<%-- 페이징 처리 부분 --%>
 				<c:if test="${paging.getPage() > paging.getBlock()}">
-					<a href="product_content_list.do?page=1">[처음으로]</a>
-					<a href="product_content_list.do?page=${paging.getStartBlock() - 1 }">◀︎</a>
+					<a href="product_content_list.do?no=${pdto.product_no }&page=1">[처음으로]</a>
+					<a href="product_content_list.do?no=${pdto.product_no }&page=${paging.getStartBlock() - 1 }">◀︎</a>
 				</c:if>
 				<c:forEach begin="${paging.getStartBlock() }" end="${paging.getEndBlock() }" var ="i">
 					<c:if test="${i == paging.getPage() }">
-						<b><a href="product_content_list.do?page=${i }">[${i }]</a></b>
+						<b><a href="product_content_list.do?no=${pdto.product_no }&page=${i }">[${i }]</a></b>
 					</c:if>
 					<c:if test="${i != paging.getPage() }">
-						<a href="product_content_list.do?page=${i }">[${i }]</a>
+						<a href="product_content_list.do?no=${pdto.product_no }&page=${i }">[${i }]</a>
 					</c:if>
 				</c:forEach>
 					<c:if test="${paging.getEndBlock() < paging.getAllPage()}">
-						<a href="product_content_list.do?page=${paging.getEndBlock() + 1 }">▶︎</a>
-						<a href="product_content_list.do?page=${paging.getAllPage() }">[마지막으로]︎</a>
-					</c:if>
+						<a href="product_content_list.do?no=${pdto.product_no }&page=${paging.getEndBlock() + 1 }">▶︎</a>
+						<a href="product_content_list.do?no=${pdto.product_no }&page=${paging.getAllPage() }">[마지막으로]︎</a>
+					</c:if>	
 					
 				</div>
 				<!-- 리뷰 수정끝 -->
@@ -150,6 +176,28 @@
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.1.0.js%22%3E"></script>
 	<script type="text/javascript">
+	//리뷰, 교환/환불 버튼 색 변경
+	var first = document.querySelector('.tab01');
+	var second = document.querySelector('.tab02');
+	
+	first.onclick = function() {
+		first.style.backgroundColor = '#4295ec';
+		first.style.color = "white";
+		first.style.borderColor = '#4295ec';
+		second.style.backgroundColor = '#efefef';
+		second.style.color = "black";
+		second.style.borderColor = 'rgb(178, 178, 178)';
+	}
+	second.onclick = function() {
+		second.style.backgroundColor = '#4295ec';
+		second.style.color = "white";
+		second.style.borderColor = '#4295ec';
+		first.style.backgroundColor = '#efefef';
+		first.style.color = "black";
+		first.style.borderColor = 'rgb(178, 178, 178)';
+	}
+	//리뷰, 교환/환불 버튼 색 변경	 끝	
+	
 	//로딩
 	window.onload = function() {
 		$(".loading").fadeOut(100, function() {
@@ -275,7 +323,7 @@
   		// button
   		$tabButtonItem.find('a').on('click', function(e) {
   	  		var target = $(this).attr('href');
-
+  	  		
   	  		$tabButtonItem.removeClass(activeClass);
   	  		$(this).parent().addClass(activeClass);
   	  		$tabSelect.val(target);
@@ -325,5 +373,29 @@
 		
 		});
 		//본문 textarea 높이 자동조절 함수 끝
+		
+		//리뷰이미지 확대/축소
+		function zoomImg(no){
+			$(document).on("click",".review_image"+no, function(){
+				$(".review_image"+no).css("width", "auto");
+				$(".review_image"+no).css("height", "80%");
+				$(".review_image"+no).attr("class", "review_image_zoom"+no);
+			});
+						
+			$(document).on("mouseover", ".review_image"+no, function(){
+				$(".review_image"+no).css("cursor", "zoom-in");
+			});			
+						
+			$(document).on("click",".review_image_zoom"+no, function(){
+				$(".review_image_zoom"+no).css("width", "auto");
+				$(".review_image_zoom"+no).css("height", "100px");
+				$(".review_image_zoom"+no).attr("class", "review_image"+no);
+			});
+						
+			$(document).on("mouseover", ".review_image_zoom"+no, function(){
+				$(".review_image_zoom"+no).css("cursor", "zoom-out");
+			});
+		}
+		//리뷰이미지 확대/축소 끝
 	</script>
 <jsp:include page="../banner/bottom.jsp" />
