@@ -20,5 +20,6 @@ public class CartDTO {
 	private int product_stock; // 상품 재고수량
 	
 	private int totalcart; // 장바구니의 총 수량
+	private int maxno; // 장바구니의 총 수량
 
 }

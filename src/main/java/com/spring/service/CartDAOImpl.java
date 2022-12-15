@@ -28,6 +28,13 @@ public class CartDAOImpl implements CartDAO{
 		return this.sqlSession.selectList("getCartList", userId);
 		
 	}
+	
+	@Override
+	public List<CartDTO> getCartDTO(int cart_no) {
+		
+		return this.sqlSession.selectList("getCartDTO", cart_no);
+		
+	}
 
 	@Override
 	public List<ProductDTO> getCartProductList(int product_no) {
@@ -57,6 +64,19 @@ public class CartDAOImpl implements CartDAO{
 		
 	}
 
+	@Override
+	public String getCartAmount(int cart_no) {
+		
+		return this.sqlSession.selectOne("getCartAmount", cart_no);
+		
+	}
+
+	@Override
+	public List<CartDTO> getCartMaxNo(int cart_no) {
+		
+		return this.sqlSession.selectList("getCartMaxNo", cart_no);
+		
+	}
 
 
 
