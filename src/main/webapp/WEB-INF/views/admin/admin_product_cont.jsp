@@ -88,15 +88,18 @@ adjustHeight3();
 				<label for="exampleFormControlInput1"
 					class="col-sm-2 col-form-label-1">가격</label>
 				<div class="col-sm-10">
-					<span class="form-control" style="width: 300px">${dto.product_price }
-						원</span>
+					<span class="form-control" style="width: 300px">
+					<fmt:formatNumber value="${dto.product_price }" pattern="#,### 원"/> 
+					</span>
 				</div>
 			</div>
 			<div class="mb-3 row">
 				<label for="exampleFormControlInput1"
 					class="col-sm-2 col-form-label-1">적립포인트</label>
 				<div class="col-sm-10">
-					<span class="form-control" style="width: 300px">${dto.product_point } 원</span>
+					<span class="form-control" style="width: 300px">
+					<fmt:formatNumber value="${dto.product_point }" pattern="#,### 원"/> 
+					</span>
 				</div>
 			</div>
 			<div class="mb-3 row">
@@ -110,7 +113,9 @@ adjustHeight3();
 				<label for="exampleFormControlInput1"
 					class="col-sm-2 col-form-label-1">재고</label>
 				<div class="col-sm-10">
-					<span class="form-control" style="width: 300px">${dto.product_stock } 개</span>
+					<span class="form-control" style="width: 300px">
+					<fmt:formatNumber value="${dto.product_stock }" pattern="#,### 개"/> 
+					</span>
 				</div>
 			</div>
 			
@@ -153,7 +158,9 @@ adjustHeight3();
 		<div class="mb-3 row">
 			<label for="exampleFormControlInput1" class="col-sm-2 col-form-label-2" style="text-align: right;">용량</label>
 			<div class="col-sm-5">
-				<span class="form-control" style="width: 150px">${dto.product_amount } ml </span>
+				<span class="form-control" style="width: 150px">
+				<fmt:formatNumber value="${dto.product_amount }" pattern="#,### ml"/> 
+				</span>
 			</div>
 		</div>
 		<div class="mb-3 row">
