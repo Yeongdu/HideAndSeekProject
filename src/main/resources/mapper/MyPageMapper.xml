@@ -124,6 +124,8 @@
   		)
  	 </insert>
  	 
- 	 
+ 	 <insert id = "delivery_insert" parameterType="map">
+ 	 	insert into delivery values(#{zipcode}, #{addr}, #{extraAddr}, #{user_id}, #{check}, #{name})
+ 	 </insert>
  	 
   </mapper>

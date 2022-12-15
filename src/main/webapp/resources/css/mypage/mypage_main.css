@@ -456,6 +456,7 @@ main{
 .user_submit:disabled {
 	background-color: red;
 	color: white;
+	cursor: not-allowed;
 }
 
 /* 리뷰 css ===============================================================================================*/
@@ -697,4 +698,29 @@ main{
 .review_info_product_name{
 	font-weight: bold;
     font-size: 1.2em;
+}
+
+/* 배송지 등록 css ======================================================================================================*/
+
+#delivery_modal{
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#delivery_modal_body{
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  width: 40%;
+	  padding: 20px;
+	  text-align: center;
+	  background-color: rgb(255, 255, 255);
+	  border-radius: 10px;
+	  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	  transform: translateX(-50%) translateY(-50%);
 }
