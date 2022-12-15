@@ -4,15 +4,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디찾기</title>
+<title>비밀번호찾기</title>
 </head>
 <body>
 
-	<h4>아이디 찾기</h4>
+<h4>아이디 찾기</h4>
     <form action="findIdMail.do" method="post">
+    
+    	<div>
+    		<input type="text" name="user_id" id="user_id" size="120" style="width: 80%"
+    		placeholder="아이디를 입력해주세요" class="form-control">
+    	</div>
+    
+    
+    
       <div>
         <input type="text" name="tomail"  id="tomail" size="120"
-        style="width: 100%" placeholder="회원가입 시 입력했던 아이디를 기재해주세요"
+        style="width: 100%" placeholder="회원가입 시 입력했던 이메일을 기재해주세요"
         class="form-control">
       </div>
 
@@ -20,7 +28,7 @@
      
        
       <div align="center">
-        <input type="button" value="메일 보내기"   onclick="findIdCheck()"    class="btn btn-warning">
+        <input type="button" value="메일 보내기"   onclick="findPwCheck()"    class="btn btn-warning">
       </div>
     </form>
     
@@ -28,21 +36,23 @@
     <script type="text/javascript">
     
     
-    var findIdCheck = function() {
+    var findPwCheck = function() {
     	
     	var email = document.getElementById('tomail').value;
+    	var id = document.getElementById('user_id').value;
 		
     	$.ajax({
     		type: 'post',
-    		url: '<%=request.getContextPath() %>/findIdMail.do',
-    		data : {'tomail':email},
+    		url: '<%=request.getContextPath() %>/findPwMail.do',
+    		data : {'tomail':email,
+    			     'id':id},
     		dataType: 'text',
     		success :function(result){
     			if(result == 1){
-    				alert('해당 이메일로 아이디를 보냈습니다.');
+    				alert('해당 이메일로 임시 비밀번호를 보냈습니다.');
     				location.href = "store.do";
     			}else{
-    				alert('해당 이메일로 확인되는 아이디가 없습니다.');
+    				alert('입력하신 정보를 확인해주세요.'');
     				
     			}
     		}
@@ -51,6 +61,7 @@
     
     
     </script>
+
 
 
 </body>
