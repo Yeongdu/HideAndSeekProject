@@ -17,6 +17,7 @@ public class OrderDTO {
 	private String user_id; // 유저 아이디 FK
 	private int product_no; // 상품 번호 FK
 	private int order_amount; // 주문 갯수
+	private int order_package; // 주문패키지
 	
 	private int count;
 	

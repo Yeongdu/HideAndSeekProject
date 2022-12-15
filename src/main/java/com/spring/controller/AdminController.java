@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
 
@@ -481,7 +482,11 @@ public class AdminController {
 	@RequestMapping("admin_order_statusChange.do")
 	public void admin_order_statusChange(HttpServletResponse response, @RequestParam("no") int no,
 			@RequestParam("key") String key) throws IOException {
-		int check = this.pdao.productStatusChange(no);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("key", key);
+		map.put("no", no);
+
+		int check = this.dao.orderStatusChange(map);
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		if (check > 0) {
@@ -491,7 +496,7 @@ public class AdminController {
 		}
 	}
 	
-	//주문 검색
+	//주문 검색 
 	@RequestMapping("admin_order_search.do")
 	public String admin_order_search(HttpServletRequest request, 
 			@RequestParam(value = "keyword", required = false) String keyword,

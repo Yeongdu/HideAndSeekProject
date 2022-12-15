@@ -211,7 +211,13 @@
             </div>
             
             
-            
+            <%--용량 --%>
+            <div class="form-group row border-bottom py-2">
+                <label for="product_price" class="col-sm-4 col-form-label">용량 [ ml ]</label>
+                <div class="col-sm-8">
+                    <input type="number" min="0" name="product_amount" id="product_amount" class="form-control-plaintext" required />
+                </div>
+            </div>
             
             
             <%--판매가 --%>
@@ -244,7 +250,7 @@
 
 			<div class="form-group row mt-4" align="center">
                 <div>
-                    <button type="submit" class="btn btn-success">등록하기</button>
+                    <button type="submit" class="btn btn-primary">등록하기</button>
                     &nbsp;&nbsp;
                     <button type="reset" class="btn btn-outline-danger">다시작성</button>
                     &nbsp;&nbsp;

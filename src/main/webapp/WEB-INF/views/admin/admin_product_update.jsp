@@ -237,6 +237,14 @@
             
             
             
+            <%--용량 --%>
+            <div class="form-group row border-bottom py-2">
+                <label for="product_price" class="col-sm-4 col-form-label">용량</label>
+                <div class="col-sm-8">
+                    <input type="number" min="0" name="product_amount" id="product_amount" class="form-control-plaintext" value="${dto.product_amount }" required />
+                </div>
+            </div>
+            
             <%--판매가 --%>
             <div class="form-group row border-bottom py-2">
                 <label for="product_price" class="col-sm-4 col-form-label">판매가</label>

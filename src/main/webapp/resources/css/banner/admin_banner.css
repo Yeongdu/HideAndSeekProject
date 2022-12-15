@@ -276,6 +276,14 @@ h1, h2, h3, h4, h5 {
     margin-bottom: 10px;
     }
     
+    .adminPdContTopWrab{
+    display: flex;
+    justify-content: space-between;
+    width: 660px;
+    margin-left: 19px;
+    margin-bottom: 10px;
+    }
+    
     .adminPdContFirstWrab{
     display: flex;
     justify-content: center;
