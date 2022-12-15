@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.model.DeliveryDTO;
 import com.spring.model.UserDTO;
 import com.spring.service.UserDAO;
 
@@ -49,22 +51,28 @@ public class UserController {
 
 
 	//로그인
-	@RequestMapping("user_check.do")
+    @RequestMapping("user_check.do")
     public String signIn(HttpSession session, @RequestParam("id") String id, @RequestParam("pw") String pw, Model model) {
-        int result = dao.userCheck(id, pw);
-        
-       
+
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("user_id", id);
+        map.put("user_pwd", pw);
+
+        int result = dao.userCheck(map);
+
         if (result == 1) {
             //model.addAttribute("id", id);
 
             session.setAttribute("userId", id);
 
+
             return "redirect:/store.do";
         }else {
-        	return "user/login";
+
+            return "user/login";
         }
     }
-	
 	
 	//회원가입_아이디 중복체크
 	@ResponseBody
@@ -101,10 +109,21 @@ public class UserController {
 	//회원가입완료(DB에 값 저장)
 	@RequestMapping("user_join_ok.do")
 	public void insertUser(UserDTO dto,
-	           HttpServletResponse response) throws IOException {
-	
+	           HttpServletResponse response, DeliveryDTO ddto) throws IOException {
+		
 		
 		int check = this.dao.insertUser(dto);
+		
+		if(!dto.getUser_zipcode1().equals("null")) {
+			
+			ddto.setDeli_zipcode(dto.getUser_zipcode1());
+			ddto.setDeli_addr1(dto.getUser_addr1());
+			ddto.setDeli_addr2(dto.getUser_addr2());
+			ddto.setUser_id(dto.getUser_id());
+			
+			this.dao.insertDelivery(ddto);
+		}
+		
 		
 		response.setContentType("text/html; charset=UTF-8");
 		
@@ -133,6 +152,41 @@ public class UserController {
 	public String findId() {
 		
 		return "user/find_id";
+	}
+	
+	//아이디찾기 메일 관련 
+	@RequestMapping("findIdMail.do")
+	@ResponseBody
+	public int findIdMail(@RequestParam("tomail") String tomail) {
+		
+		int resultCode = dao.findId(tomail);
+		
+		return resultCode;
+	}
+	
+	
+	//비밀번호찾기 페이지로 이동
+	@RequestMapping("find_pw.do")
+	public String findPw() {
+		
+		return "user/find_pw";
+	}
+	
+	//비밀번호 찾기 메일 관련
+	@RequestMapping("findPwMail.do")
+	@ResponseBody
+	public int findPwMail(@RequestParam("tomail") String tomail, @RequestParam("id") String user_id) {
+		
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("tomail", tomail);
+        map.put("id", user_id);
+
+        int resultCode = dao.findPw(map);
+        
+        return resultCode;
+		
+		
 	}
 	
 	
