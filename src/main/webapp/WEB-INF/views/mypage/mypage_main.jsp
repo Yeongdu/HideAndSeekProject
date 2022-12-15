@@ -165,7 +165,7 @@
 				<label for = "user_check">회원 탈퇴 유의사항을 숙지하였으며 회원 탈퇴를 진행하겠습니다.</label>
 				<input type = "checkbox" id = "user_check" value = "1" name = "user_check">
 				<br>
-				<input type = "submit" value = "회원 탈퇴" class = "user_submit" disabled = "disabled">
+				<input type = "submit" value = "회원 탈퇴" class = "user_submit" disabled = "disabled" value = "0">
 			</form>
 	</div>
 </div> 
@@ -175,27 +175,28 @@
 		<div class="delivery_modalClose" align="right">
 			<input type = "button" value = "X">
 		</div>
+		
+			<h3>배송지 등록</h3>
+			
 			<form method = "post" action = "<%=request.getContextPath() %>/delivery_insert.do" id = "delivery_insert_form">
 				<input type = "hidden" value = "${userId }" name = "user_id">
+				
+				<span>배송지 별명</span>
 				<div class = "delivery_nickname">
-					<span>배송지의 이름을 정해주세요.</span>
 					<input name = "delivery_name">
 				</div>
+				<hr>
+				<span>주소</span>
 				<div class = "delivery_postcode">
 					<input name = "delivery_zipcode" id = "delivery_zipcode">
-					<input type = "button" value = "우편번호 찾기" onclick = "sample6_execDaumPostcode();">
+					<input type = "button" value = "우편번호 찾기" onclick = "sample6_execDaumPostcode();" id = "zipcodebtn">
 				</div>
 				
 				<div class = "delivery_addrAll">
-					<input name = "delivery_addr" id = "delivery_addr">
-					<input name = "delivery_extraAddr" id = "delivery_extraAddr">
+					<input name = "delivery_addr" id = "delivery_addr" placeholder = "기본 주소를 입력하세요.">
+					<input name = "delivery_extraAddr" id = "delivery_extraAddr" placeholder = "상세 주소를 입력하세요.">
 				</div>
-				
-				<div class = "delivery_default">
-					<label for = "delivery_check">기본 배송지로 설정</label>
-					<input type = "checkbox" id = "delivery_check" name = "delivery_check">
-				</div>
-				
+				<input type = "hidden" value = "1" name = "notice" id = "notice">
 				<input type = "button" value = "등록하기" class = "delivery_submit">
 				
 			</form>
@@ -238,47 +239,36 @@
 	
 // 배송지 등록 ========================================================
 	
-	if ($("input:checkbox[name=delivery_check]").is(":checked")) {
-		$("#delivery_check").val(1);
-	}else {
-		$("#delivery_check").val(0);
-	}
-                 
 	
 	$(document).on("click",".delivery_submit", function(){
 		
-			$(".delivery_insert_form").submit(function(){
-				swal("배송지 등록 완료", "등록된 배송지는 마이페이지의 '배송지 관리'에서 확인하실 수 있습니다.", "success");		
-			});	
+		swal({
+			  title: "기본 배송지 등록하시겠습니까?",
+			  text: "작성하신 배송지가 기본 배송지로 등록됩니다.",
+			  icon: "success",
+			  buttons: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+			    swal("기본 배송지로 등록되었습니다.", {
+			      icon: "success",
+			    });
+			    $("#delivery_insert_form").submit();
+			  } else {
+			    swal("배송지가 등록되었습니다.", "success");
+			    $("#notice").val(0);
+			      
+			    $("#delivery_insert_form").submit();
+			  }
+			});
 		
 		
+// 		swal("배송지 등록 완료", "등록된 배송지는 마이페이지의 '배송지 관리'에서 확인하실 수 있습니다.", "success")
+// 		.then((value) => {
+// 			$("#delivery_insert_form").submit();
+// 			$(".loading").fadeIn(300);
+// 		});
 		
-// 		swal(" 해당 배송지를 기본 배송지로 설정하시겠습니까?", {
-// 			  buttons: {
-// 				  cancel : "아니오",
-// 			      catch: {
-// 			    	text : "등록",
-// 			    	value : "ok"
-// 			    },
-// 			  },
-// 			})
-// 			.then((value) => {
-				
-// 				switch (value) {
-			 
-// 			    case "ok":
-// 			      swal("배송지 설정", "기본 배송지로 설정되었습니다.", "success");
-// 			      deli_default = 0;
-// 			      break;
-			 
-// 			    default:
-// 			      swal("배송지 설정", "배송지가 등록되었습니다.", "success");
-// 			  } // swal 끝
-			  
-// 			});
-		
-<%-- 		location.href = "<%=request.getContextPath()%>/delivery_insert.do"; --%>
-			  
 	}); // delivery_submit onclick 끝
 	
 	

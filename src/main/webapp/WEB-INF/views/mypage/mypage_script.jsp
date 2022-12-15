@@ -718,34 +718,37 @@ $(document).on("blur", ".user_pwd_new",function(){
 			    	if(result == 0){
 			    		res = "<div class = delivery_main_wrap>" + 
 			    				"<div id = 'none_delivery'>" + 
-			    				"<h3 = 'none_delivery_title'>등록된 배송지가 없어요" + "</h3>" +
-			    				"<input type = 'button' value = '등록하기' class = 'delivery_btn'>" +
-			    				"</div>" + "</div>";
+			    					"<h3 = 'none_delivery_title'>등록된 배송지가 없어요" + "</h3>" +
+			    					"<input type = 'button' value = '등록하기' class = 'delivery_btn'>" +
+			    				"</div>" + 
+			    			  "</div>";
 			    	}else {
 			    		$.each(result, function(index, item){
-					    	
-				    		res += "<div id = 'delivery_wrap'>"
-			    			res += 		"<div id = 'delivery_user_id'>"
-			    			res += 			item.user_id;
-			    			res += 		"</div>"
 			    			
-			    			res += 		"<div id = 'delivery_info'>"
-			    			res += 			"<div id = 'delivery_info_zipcode'>" + item.deli_zipcode + "</div>"
-			    			res += 			"<div id = 'delivery_info_addr1'>" + item.deli_addr1 + "</div>"
-			    			res += 			"<div id = 'delivery_info_addr2'>" + item.deli_addr1 + "</div>"
+			    			var de = item.deli_default;
+			    			
+				    		res += "<div class = 'delivery_main_wrap'>"
+				    		res += 		"<div class = 'delivery_title'>"
+				    		res += 			"<div class = 'delivery_name'>" + item.deli_name + "</div>"
+		    						if(de == 1){
+					    	res +=			"<input type = 'button' value = '기본 배송지' disabled>"
+					    				}
+				    		res += 		"</div>"
+			    			res += 		"<div class = 'delivery_info'>"
+			    			res += 			"<div class = 'delivery_info_zipcode'>" + item.deli_zipcode + "</div>"
+			    			res += 			"<div class = 'delivery_info_addr1'>" + item.deli_addr1 + "</div>"
+			    			res += 			"<div class = 'delivery_info_addr2'>" + item.deli_addr2 + "</div>"
 							res += 		"</div>"
 							res += "</div>"
 			    	});
+			    			res += "<input type = 'button' value = '등록하기' class = 'delivery_btn'>";
 			    	}
 			    	
-			    	res += "</div>";
 			    	$('#mypage_content').append(res);
 			    	
 			    },error : function(request, status, error) { // 결과 에러 콜백함수
 			    	
 			    }
-			    
-			    //OpenWin_variety('링크url','창이름',width,height,출력좌표X,출력위치Y)
 			    
 			}); // ajax 끝
 			loading = true;

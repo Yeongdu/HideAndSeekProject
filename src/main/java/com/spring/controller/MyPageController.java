@@ -268,13 +268,16 @@ public class MyPageController {
 	
 	
 	@RequestMapping("delivery_insert.do")
-	public void mypage_delivery_insert(@RequestParam("user_id")String user_id,
+	public String mypage_delivery_insert(@RequestParam("user_id")String user_id,
 										 @RequestParam("delivery_name")String delivery_name,
 										 @RequestParam("delivery_zipcode")String delivery_zipcode,
 										 @RequestParam("delivery_addr")String delivery_addr,
 										 @RequestParam("delivery_extraAddr")String delivery_extraAddr,
-										 @RequestParam("delivery_check")int delivery_check, 
-										 HttpServletResponse response) {
+										 @RequestParam("notice")int notice, 
+										 HttpServletResponse response) throws IOException {
+		
+		
+		System.out.println("check >>> " + notice);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -283,15 +286,40 @@ public class MyPageController {
 		map.put("zipcode", delivery_zipcode);
 		map.put("addr", delivery_addr);
 		map.put("extraAddr", delivery_extraAddr);
-		map.put("check", delivery_check);
+		map.put("check", notice);
 		
 		int count = 0;
 		
 		List<DeliveryDTO> ddto = this.mypage_dao.getDeliveryCont(user_id);
-		for(int i = 0; i<=ddto.size(); i++) {
-//			count += ddto.get(i).getDeli_default();
+		if(ddto != null) {
+			for(DeliveryDTO item : ddto) {
+				count += item.getDeli_default();
+				System.out.println("count >>> " + count);
+				
+				if(notice == 1) { // 추가하는 배송지가 기본 배송지 일 때
+					if(count == 1) { // 이미 기본 배송지가 있을 때
+						this.mypage_dao.updateDeliveryDefault(user_id); // 원래 있던 기본 배송지 상태 변경
+						System.out.println("배송지 상태변경 완료");
+					}
+					
+				}
+				
+			}
 		}
-		System.out.println("count >>> " + count);
+		
+		int result = this.mypage_dao.deliveryInsert(map);
+		
+		if(result > 0) {
+			System.out.println("성공");
+			return "redirect:/mypage.do";
+			
+		}else {
+			System.out.println("실패");
+			return "redirect:/mypage.do";
+		}
+		
+		
+		
 	}
 	
 	
