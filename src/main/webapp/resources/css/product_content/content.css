@@ -144,19 +144,19 @@ body {
 
 .total_price {
 	height: 42px;
-    background: rgba(217, 217, 217, 0.2);
-    border-radius: 10px;
-    padding-top: 2.5%;
+	background: rgba(217, 217, 217, 0.2);
+	border-radius: 10px;
+	padding-top: 2.5%;
 }
 
 .p_price, .won {
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 19px;
-    border: 0px;
-    background-color: #f7f7f7;
-    text-align: right;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 19px;
+	border: 0px;
+	background-color: #f7f7f7;
+	text-align: right;
 }
 
 .buybtn {
@@ -228,19 +228,17 @@ body {
 	display: block;
 }
 
-#sub_cont1, #sub_cont2, #sub_cont3{
-    resize: none;
-    border: 0px solid white;
-    width: 700px;
-    }
-    
-    textarea:focus{
-    color: black;
-    }
+#sub_cont1, #sub_cont2, #sub_cont3 {
+	resize: none;
+	border: 0px solid white;
+	width: 700px;
+	font-family: 'Noto Sans';
+	font-style: normal;
+	font-size: 12px;
+}
 
-#my_div span {
-	display: flex;
-	justify-content: center;
+textarea:focus {
+	color: black;
 }
 
 .btn {
@@ -318,10 +316,6 @@ body {
 	margin-left: 3%;
 }
 
-.tabs li a:hover:not(.tab-button-outer) {
-color: black;
-}
-
 #tab-button {
 	margin-left: 20%;
 }
@@ -330,10 +324,14 @@ color: black;
 	margin-top: 1%;
 }
 
+.tabs li a:hover:not(.tab-button-outer) {
+color: black;
+}
+
 .change_cont {
-	margin-left: 76%;
+	margin-left: 40%;
 	width: 100%;
-	margin-top: 7%;
+	margin-top: 4%;
 }
 
 .t {
@@ -360,14 +358,24 @@ color: black;
 
 .review_top {
 	display: flex;
-    justify-content: space-between;
-    width: 55.5%;
-    background-color: #F4F4F4;
-    padding: 15px;
-    border-radius: 10px;
+	justify-content: space-between;
+	width: 55.5%;
+	background-color: #F4F4F4;
+	border-radius: 10px;
+	padding: 1% 4% 1% 4%;
 }
 
 .review_info_product_name {
-    font-weight: bold;
-    font-size: 1.2em;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+.review_cont {
+	padding: 20 0;
+}
+
+.review_main {
+    width: 80%;
+    margin-left: 25%;
+    margin-top: 1.5%;
 }

@@ -40,10 +40,14 @@
 	
 	<select id="RList" parameterType="map" resultType="ReviewDTO">
   		<![CDATA[
- 	 	select review_cont, review_file, (review_star*10) as review_star, review_date, user_id, product_name
+ 	 	select review_title, review_no, review_cont, review_file, (review_star*10) as review_star, review_date, user_id
 		from (select pall.*, row_number() over(order by review_date desc) rnum 
-		from (select * from review re join product p on re.product_no = p.product_no where p.product_no = #{no}) pall) 
+		from (select * from review re join product p on re.product_no = p.product_no where p.product_no = #{product_no} ) pall) 
 		where rnum >= #{startNo} and rnum <= #{endNo} order by review_date desc
  	 	]]>
+  	</select>
+  	
+  	<select id="RCount" parameterType="int" resultType="int">
+  		select count(*) as count from review where product_no = #{no}
   	</select>
   </mapper>
