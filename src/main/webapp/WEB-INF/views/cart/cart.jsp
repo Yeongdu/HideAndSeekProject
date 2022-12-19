@@ -15,6 +15,12 @@
 <script type="text/javascript">
 
 	let totalcart = 0;
+	
+	var id = '<%=(String)session.getAttribute("userId")%>';
+	
+	var size = ${list.size()};
+	
+	let html = "";
 
 		function total(){
 			
@@ -61,66 +67,189 @@
 			
 		}
 		
-		$(document).on("click", ".total_ckbox", function(){
+		$(function(){
+			
+			total();
 			
 			let count = $(".cart_check").length;
 			
-			console.log("count 값 >>> "+ count);
-			
-			if(document.getElementById("total_aomount").checked == true){
+			if(count != 0){
+				
+				total();
+				
+			}else {
 				
 				$(".total_ckbox").attr({src:"resources/image/checkbox.png"});
 				
 				document.getElementById("total_aomount").checked = false;
 				
-				for(let i = 0; i<count; i++){
-					
-					if($(".cart_check")[i].checked == true){
-					
-						$(".cart_check")[i].checked = false;
-						
-						$(".checkbox_button"+i+" > img").attr({src:"resources/image/checkbox.png"});
-					
-					}
-					
-				};
-				
-				total();
-				
-			}else if(document.getElementById("total_aomount").checked == false){
-				
-				$(".total_ckbox").attr({src:"resources/image/checkbox-active.png"});
-				
-				document.getElementById("total_aomount").checked = true;
-				
-				for(let i = 0; i<count; i++){
-					
-					if($(".cart_check")[i].checked == false){
-						
-						$(".cart_check")[i].checked = true;
-						
-						$(".checkbox_button"+i+" > img").attr({src:"resources/image/checkbox-active.png"});
-					
-					}
-					
-				};
-				
-				total();
 			}
 			
 		});
 		
-		$(function(){
+		$(document).on("click", ".delete_button", function(){
 			
-			total();
+			let count = $(".cart_check").length;
+			
+			for(let i=0; i<count; i++){
+				
+				if($(".cart_check")[i].checked == true){
+					
+					let cart_no = $('.cartno'+i).val();
+			    	
+		    		$.ajax({
+						url:"<%=request.getContextPath()%>/cart_delete.do",
+						method:"post",
+						async: false,
+						data: {
+							userId : id,
+	 						cart_no : cart_no
+							},
+						datatype: "json",
+						success:function(data){
+							
+							$.ajax({
+								url:"<%=request.getContextPath()%>/cart_delete_count.do",
+								method:"post",
+								async: false,
+								data: {
+									userId : id,
+									},
+								datatype: "text",
+								success:function(data){
+									
+									totalcart = parseInt(data);
+									
+								},
+								
+								error:function(data){
+									alert("통신 실패");
+								}
+							});
+							
+							$(".cart_content"+i).remove();
+							
+							let iset = i;
+							
+							i += 1;
+							
+							if(totalcart != 0){
+							
+								$.each(data, function(index, item){
+									
+									$(".cart_content"+i).attr("class","cart_content cart_content"+(i - 1));
+									$(".cartno"+i).attr("class","cartno"+(i - 1));
+									$(".stock"+i).attr("class","stock"+(i - 1));
+									$(".checkbox_button"+i).attr("class","checkbox_button checkbox_button"+(i - 1));
+									$(".product_remove"+i).attr("class","product_remove product_remove"+(i - 1));
+									$(".minusbutton"+i).attr("class","minusbutton"+(i - 1));
+									$(".amount_info"+i).attr("class","amount_info"+(i - 1));
+									$(".plusbutton"+i).attr("class","plusbutton"+(i - 1));
+									
+									i += 1;
+									
+								});
+							
+							}else if(totalcart == 0){
+								
+								let html = "<div class='above'><div class='guide'>지금 장바구니가 비어 있어요.</div></div>"
+								
+								$(".cart_content_wrap").append(html);
+								
+								$(".total_ckbox").attr({src:"resources/image/checkbox.png"});
+								
+								document.getElementById("total_aomount").checked = false;
+								
+							}
+							
+							i = iset;
+							
+							i -= 1;
+							
+							count -= 1;
+							
+							total();							
+						},
+						
+						error:function(data){
+							alert("통신 실패");
+						}
+						
+					});
+					
+				}
+				
+			}
 			
 		});
-
-		var id = '<%=(String)session.getAttribute("userId")%>';
 		
-		var size = ${list.size()};
+		$(document).on("click", ".insert_button", function(){
+			
+			let count = $(".cart_check").length;
+			
+			for(let i=0; i<count; i++){
+				
+				if($(".cart_check")[i].checked == true){
+					
+					let cart_no = $('.cartno'+i).val();
+			    	
+				}
+				
+			}
 		
-		let html = "";
+		})
+		
+		
+		$(document).on("click", ".total_ckbox", function(){
+			
+			let count = $(".cart_check").length;
+			
+			if(count != 0){
+				
+				if(document.getElementById("total_aomount").checked == true){
+					
+					$(".total_ckbox").attr({src:"resources/image/checkbox.png"});
+					
+					document.getElementById("total_aomount").checked = false;
+					
+					for(let i = 0; i<count; i++){
+						
+						if($(".cart_check")[i].checked == true){
+						
+							$(".cart_check")[i].checked = false;
+							
+							$(".checkbox_button"+i+" > img").attr({src:"resources/image/checkbox.png"});
+						
+						}
+						
+					};
+					
+					total();
+					
+				}else if(document.getElementById("total_aomount").checked == false){
+					
+					$(".total_ckbox").attr({src:"resources/image/checkbox-active.png"});
+					
+					document.getElementById("total_aomount").checked = true;
+					
+					for(let i = 0; i<count; i++){
+						
+						if($(".cart_check")[i].checked == false){
+							
+							$(".cart_check")[i].checked = true;
+							
+							$(".checkbox_button"+i+" > img").attr({src:"resources/image/checkbox-active.png"});
+						
+						}
+						
+					};
+					
+					total();
+				}
+				
+			}
+			
+		});
 		
 		for(var i=0; i<size; i++){
 			
@@ -415,6 +544,10 @@
 								
 								$(".cart_content_wrap").append(html);
 								
+								$(".total_ckbox").attr({src:"resources/image/checkbox.png"});
+								
+								document.getElementById("total_aomount").checked = false;
+								
 							}
 							
 							j = jset;
@@ -450,7 +583,7 @@
 						<div class="text"></div>
 					</div>
 					
-					<button type="button" class="delete_button" disabled>선택삭제</button>
+					<button type="button" class="delete_button" >선택삭제</button>
 				</div>			
 			</div>
 			<span></span>
@@ -575,7 +708,7 @@
 				</div>
 				
 				<div class="action_button_wrap">
-					<button type="button">구매하기</button>
+					<button type="button" class="insert_button">구매하기</button>
 				</div>
 			</div>
 		</div>

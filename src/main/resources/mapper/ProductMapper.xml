@@ -55,8 +55,9 @@
 		b on a.product_no = b.product_no where product_status = '판매') where SEQ >= 1 and SEQ <![CDATA[<=]]> 16
  	</select>
  	
+ 	<!-- 포토리뷰만 받아오는 쿼리문 -->
  	<select id="getPhotoReviewList" resultType="ReviewDTO">
- 		select review_no, review_title, review_cont, review_file, (review_star * 10) as review_star , review_date, user_id, product_no from review order by review_date desc
+ 		select review_no, review_title, review_cont, review_file, (review_star * 10) as review_star , review_date, user_id, product_no from review where review_file != 'null' order by review_date desc
  	</select>
  	 
  	<!-- db에 저장된 상품 정보를 카운트 하는 쿼리문 -->
@@ -76,7 +77,7 @@
 	
 	<!-- 상품번호에 해당하는 별점 받아오는 메서드 -->
 	<select id="getReviewStar" parameterType="int" resultType="double">
-		select nvl(ROUND((sum(review_star)/count(product_no)), 1),0) from review where product_no = #{product_no}
+		select nvl(ROUND((sum(review_star/2)/count(product_no)), 1),0) from review where product_no = #{product_no}
 	</select>
 	
  	 <!-- 최신순으로 정렬된 상품들을 불러오는 메서드 -->
@@ -127,7 +128,7 @@
 		where rnum >= #{startNo} and rnum <![CDATA[<=]]> #{endNo}
 	</select>
 	
-	<!-- takju 카테고리에 필터값에 해당하는 상품 정보를 카운트 하는 쿼리문 -->
+	<!-- 카테고리 필터값에 해당하는 상품 정보를 카운트 하는 쿼리문 -->
 	<select id="getListTagCount" parameterType="Map" resultType="int">
 		select count(*) from product where product_status = '판매' and product_category = #{category}
 			

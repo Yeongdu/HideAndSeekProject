@@ -730,8 +730,7 @@
 										<div class="photoreview_card">	
 											<div style="display: block">
 												<span>
-<%-- 													<img src="resources/upload/${dto.review_file }"> --%>
-													<img src="resources/image/ang.jpg">
+													<img src="resources/review_img/${dto.review_file }">
 												</span>
 											</div>
 											
@@ -768,8 +767,7 @@
 										<div class="photoreview_card">	
 											<div style="display: block">
 												<span>
-<%-- 													<img src="resources/upload/${dto.review_file }"> --%>
-													<img src="resources/image/ang.jpg">
+													<img src="resources/review_img/${dto.review_file }" >
 												</span>
 											</div>
 											
