@@ -38,5 +38,20 @@ public interface Admin_userDAO {
 	//유저 삭제 후 번호재정렬
 	void userUpdateSeq(int user_no);
 
+	//유저 상태 변경 하는 메서드(회원 -> 탈퇴)
+	int updateUserStatus(int user_no);
+	
+	//탈퇴 회원 제외 현재 회원수 세는 메서드
+	int getIngUserCount();
+	
+	//탈퇴 회원 제외 현재 회원 리스트
+	List<UserDTO> getIngUserList(PageDTO dto);
+	
+	//탈퇴 회원 수 세는 메서드
+	int getDelUserCount();
+	
+	//탈퇴 회원 리스트
+	List<UserDTO> getDelUserList(PageDTO dto);
+	
 	
 }

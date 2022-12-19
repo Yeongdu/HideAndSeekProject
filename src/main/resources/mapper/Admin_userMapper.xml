@@ -48,8 +48,29 @@
 		(user_name like '%' || #{keyword} || '%') or 
 		(user_email like '%' || #{keyword} || '%') or 
 		(user_no like '%' || #{keyword} || '%')))
-
 		where rnum >= ((#{Page.page} * #{Page.rowsize}) - (#{Page.rowsize} - 1)) and rnum <= #{Page.page} * #{Page.rowsize}]]>
+  	</select>
+  	
+  	<update id="adminUserStatusChange" parameterType="int">
+  		update tb_user set user_leave = 0 where user_no = #{no}
+    </update>
+    
+    <select id="adminIngUserCount" resultType="int">
+		select count(*) from tb_user where user_leave = 1
+	</select>
+	
+    <select id="adminDelUserCount" resultType="int">
+		select count(*) from tb_user where user_leave = 0
+	</select>
+	
+	<select id="getIngUserList" parameterType="PageDTO" resultType="UserDTO">
+  		<![CDATA[select * from (select u.*, row_number() over(order by user_no desc) rnum from tb_user u where user_leave=1)
+		where rnum >= #{startNo} and rnum <= #{endNo}]]>
+  	</select>
+  	
+  	<select id="getDelUserList" parameterType="PageDTO" resultType="UserDTO">
+  		<![CDATA[select * from (select u.*, row_number() over(order by user_no desc) rnum from tb_user u where user_leave=0)
+		where rnum >= #{startNo} and rnum <= #{endNo}]]>
   	</select>
   
   

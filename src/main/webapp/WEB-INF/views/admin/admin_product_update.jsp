@@ -5,6 +5,7 @@
 <c:set var="pcdto" value="${PCCont }" />
 <c:set var="page" value="${page }" />
 <c:set var="slist" value="${CategoryList }" />
+<c:set var="thumbnailFileDB" value="${thumbnailFileDB }" />
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
@@ -291,7 +292,9 @@
                  <input type="file" class="thumbnailInput" name="product_thumbnailFile" id="product_thumbnailFile" onchange="readURL(this);"/>
                 <c:if test="${empty product_thumbnailFile}">
                 <img width="120px;" id="preview1" src = "resources/upload/${dto.product_thumbnail }"/>
-                <input type="hidden" name="product_thumbnail" id="product_thumbnail" value="${dto.product_thumbnail }"/>
+<%--                 <input type="hidden" name="product_thumbnail" id="product_thumbnail" value="${dto.product_thumbnail }"/> --%>
+				<input type="hidden" name="product_thumbnailDB" id="product_thumbnailDB" value="${thumbnailFileDB}" />
+
                 </c:if>
 
                 </div>

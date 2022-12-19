@@ -85,7 +85,7 @@
 			</c:if>
 
 			<tr>
-				<td colspan="11" align="center">
+				<td colspan="11" align="right">
 				<input type="button"
 					class="btn btn-outline-primary" value="상품추가"
 					onclick="location.href='admin_product_insert.do'">

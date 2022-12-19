@@ -69,6 +69,9 @@ public interface Admin_productDAO {
 	
 	//판매중인 상품 검색하는 메서드
     List<admin_productDTO> searchIngProductList(Map<String, Object> map);
+    
+    //썸네일 포함하지 않은 상품수정
+    int productUpdateWithoutThumbnail(admin_productDTO adto);
 	
 
 }

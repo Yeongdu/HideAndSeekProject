@@ -75,12 +75,13 @@
 			</c:if>
 
 			<tr>
-				<td colspan="9" align="center">
+				<td colspan="9" align="right">
 				<input type="button"
 					class="btn btn-outline-primary" value="상품추가"
 					onclick="location.href='admin_product_insert.do'">
 					<c:if test="${!empty keyword }">
-						<input type="button" value="전체목록" onclick="location.href='admin_product_list.do'">
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="button" class="btn btn-light" value="전체목록" onclick="location.href='admin_product_list.do'">
 					</c:if>
 				</td>
 			</tr>

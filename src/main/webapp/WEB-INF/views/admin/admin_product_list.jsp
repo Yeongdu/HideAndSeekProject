@@ -64,12 +64,16 @@
 							location.href='<%=request.getContextPath() %>/admin_product_statusChange.do?no=${dto.product_no }&page=${page.page }'} 
 							else{return; }">
 						</c:if>
-						<c:if test="${dto.product_status ne '판매' }">
+						<c:if test="${dto.product_status eq '판매중지' }">
 						<input type="button" class="btn btn-outline-danger" value="${dto.product_status}"
 							onclick="if(confirm('판매상태를 판매중으로 변경하시겠습니까?')){
 							location.href='<%=request.getContextPath() %>/admin_product_statusChange2.do?no=${dto.product_no }&page=${page.page }'} 
 							else{return; }">
 						</c:if>
+						<c:if test="${dto.product_status eq '품절' }">
+						<input type="button" class="btn btn-secondary" value="${dto.product_status}" disabled>
+						</c:if>
+						
 						</td>
 					</tr>
 				</c:forEach>
@@ -84,12 +88,13 @@
 			</c:if>
 
 			<tr>
-				<td colspan="9" align="center">
+				<td colspan="9" align="right">
 				<input type="button"
 					class="btn btn-outline-primary" value="상품추가"
 					onclick="location.href='admin_product_insert.do'">
 					<c:if test="${!empty keyword }">
-						<input type="button" value="전체목록" onclick="location.href='admin_product_list.do'">
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="button" class="btn btn-light" value="전체목록" onclick="location.href='admin_product_list.do'">
 					</c:if>
 				</td>
 			</tr>

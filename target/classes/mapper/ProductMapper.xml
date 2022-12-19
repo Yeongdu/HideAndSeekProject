@@ -473,12 +473,12 @@
   		)
   	</insert>
   
-  	<!-- 판매중 > 품절 -->
+  	<!-- 판매 > 판매중지 -->
   	<update id="productStatusChange" parameterType="int">
-  		update product set product_status = '품절' where product_no = #{no}
+  		update product set product_status = '판매중지' where product_no = #{no}
     </update>
   
-  	<!-- 품절 > 판매중 -->
+  	<!-- 판매중지 > 판매 -->
   	<update id="productStatusChange2" parameterType="int">
   		update product set product_status = '판매' where product_no = #{no}
     </update>

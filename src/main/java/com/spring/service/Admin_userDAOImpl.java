@@ -61,4 +61,29 @@ public class Admin_userDAOImpl implements Admin_userDAO{
 	public void userUpdateSeq(int user_no) {
 		this.sqlSession.update("adminUserUpdateSeq", user_no);
 	}
+
+	@Override
+	public int updateUserStatus(int user_no) {
+		return this.sqlSession.update("adminUserStatusChange", user_no);
+	}
+
+	@Override
+	public int getIngUserCount() {
+		return this.sqlSession.selectOne("adminIngUserCount");
+	}
+
+	@Override
+	public List<UserDTO> getIngUserList(PageDTO dto) {
+		return this.sqlSession.selectList("getIngUserList", dto);
+	}
+
+	@Override
+	public int getDelUserCount() {
+		return this.sqlSession.selectOne("adminDelUserCount");
+	}
+
+	@Override
+	public List<UserDTO> getDelUserList(PageDTO dto) {
+		return this.sqlSession.selectList("getDelUserList", dto);
+	}
 }
