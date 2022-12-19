@@ -1,13 +1,10 @@
 package com.spring.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.reflection.SystemMetaObject;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +22,7 @@ public class CartController {
 	@Autowired
 	private CartDAO dao;
 	
+	// 장바구니 진입 시 userId 와 일치하는 장바구니 정보를 불러오는 메서드
 	@RequestMapping("/cart.do")
 	public String cart(Model model, HttpServletRequest request) {
 		
@@ -37,7 +35,6 @@ public class CartController {
 		for(CartDTO item : list) {
 			
 			List<ProductDTO> plist = this.dao.getCartProductList(item.getProduct_no());
-			
 			
 			item.setProduct_company(plist.get(0).getProduct_company());
 			item.setProduct_name(plist.get(0).getProduct_name());
@@ -55,20 +52,25 @@ public class CartController {
 		
 	}
 	
+	// 장바구니 삭제 시 userId 와 일치하는 장바구니 수를 카운트하는 메서드
 	@RequestMapping("/cart_delete_count.do")
 	@ResponseBody
-	public Integer cartdeletecount( @RequestParam("userId") String userId){
+	public Integer cartdeletecount(HttpSession session,
+								   @RequestParam("userId") String userId){
 		
 		int count = this.dao.getCartCount(userId);
+		
+		session.setAttribute("rcount", count);
 		
 		return count;
 		
 	}
 	
+	// 장바구니 삭제 시 userId 와 일치하는 장바구니 정보를 삭제하는 메서드
 	@RequestMapping("/cart_delete.do")
 	@ResponseBody
 	public List<CartDTO> cartdelete(@RequestParam("cart_no") int cart_no,
-							 @RequestParam("userId") String userId){
+									@RequestParam("userId") String userId){
 		
 		this.dao.deleteCartList(cart_no);
 		
@@ -78,10 +80,11 @@ public class CartController {
 		
 	}
 	
+	// 해당 상품에 해당하는 수량을 - 하는 메서드
 	@RequestMapping("/cart_amount_minus.do")
 	@ResponseBody
 	public List<CartDTO> minuscart(@RequestParam("cart_no") int cart_no,
-							 @RequestParam("userId") String userId){
+								   @RequestParam("userId") String userId){
 		
 		this.dao.minusCartAmonut(cart_no);
 		
@@ -99,10 +102,11 @@ public class CartController {
 		
 	}
 	
+	// 해당 상품에 해당하는 수량을 + 하는 메서드
 	@RequestMapping("/cart_amount_plus.do")
 	@ResponseBody
 	public List<CartDTO> pluscart(@RequestParam("cart_no") int cart_no,
-							 @RequestParam("userId") String userId){
+							 	  @RequestParam("userId") String userId){
 		
 		this.dao.plusCartAmonut(cart_no);
 		

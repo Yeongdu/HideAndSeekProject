@@ -144,6 +144,14 @@ div {
     text-align: left;
 }
 
+.cart_check {
+	display: none;
+}
+
+#total_amount {
+	display: none;
+}
+
 .product_info_top {
 	display: grid;
     grid-template-rows: 1fr auto;
