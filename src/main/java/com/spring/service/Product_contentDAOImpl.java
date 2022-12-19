@@ -27,8 +27,13 @@ public class Product_contentDAOImpl implements Product_contentDAO{
 	}
 	
 	@Override
-	public List<ReviewDTO> getReviewList(Map<String, Object> map, String sort) {
-		return this.sqlSession.selectList(sort, map);
+	public List<ReviewDTO> getReviewList(int product_no, String sort) {
+		return this.sqlSession.selectList(sort, product_no);
+	}
+	
+	@Override
+	public List<ReviewDTO> getReviewListMore(int product_no, String sort) {
+		return this.sqlSession.selectList(sort+"_more", product_no);
 	}
 
 	@Override

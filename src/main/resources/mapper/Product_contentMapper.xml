@@ -38,31 +38,28 @@
 		select * from product_content where product_no = #{no}
 	</select>
 	
-	<select id="released" parameterType="map" resultType="ReviewDTO">
-  		<![CDATA[
- 	 	select review_title, review_no, review_cont, review_file, (review_star*10) as review_star, review_date, user_id
-		from (select pall.*, row_number() over(order by review_date desc) rnum 
-		from (select * from review re join product p on re.product_no = p.product_no where p.product_no = #{product_no} ) pall) 
-		where rnum >= #{startNo} and rnum <= #{endNo} order by review_date desc
- 	 	]]>
+	<select id="release" parameterType="int" resultType="ReviewDTO">
+  		select review_no, review_title, review_cont, review_file, (review_star*10) as review_star, review_date, user_id, product_no from (select r.*, row_number() over(order by review_date desc) rnum from review r where product_no = #{no}) where rnum <![CDATA[<=]]> 5
   	</select>
   	
-  	<select id="rating_high" parameterType="map" resultType="ReviewDTO">
-  		<![CDATA[
- 	 	select review_title, review_no, review_cont, review_file, (review_star*10) as review_star, review_date, user_id
-		from (select pall.*, row_number() over(order by review_date desc) rnum 
-		from (select * from review re join product p on re.product_no = p.product_no where p.product_no = #{product_no} ) pall) 
-		where rnum >= #{startNo} and rnum <= #{endNo} order by review_date desc
- 	 	]]>
+  	<select id="rating_high" parameterType="int" resultType="ReviewDTO">
+  		select review_no, review_title, review_cont, review_file, (review_star*10) as review_star, review_date, user_id, product_no from (select r.*, row_number() over(order by review_star desc, review_date desc) rnum from review r where product_no = #{no}) where rnum <![CDATA[<=]]> 5
   	</select>
   	
-  	<select id="RList" parameterType="map" resultType="ReviewDTO">
-  		<![CDATA[
- 	 	select review_title, review_no, review_cont, review_file, (review_star*10) as review_star, review_date, user_id
-		from (select pall.*, row_number() over(order by review_date desc) rnum 
-		from (select * from review re join product p on re.product_no = p.product_no where p.product_no = #{product_no} ) pall) 
-		where rnum >= #{startNo} and rnum <= #{endNo} order by review_date desc
- 	 	]]>
+  	<select id="rating_low" parameterType="int" resultType="ReviewDTO">
+  		select review_no, review_title, review_cont, review_file, (review_star*10) as review_star, review_date, user_id, product_no from (select r.*, row_number() over(order by review_star, review_date desc) rnum from review r where product_no = #{no}) where rnum <![CDATA[<=]]> 5
+  	</select>
+  	
+  	<select id="release_more" parameterType="int" resultType="ReviewDTO">
+  		select review_no, review_title, review_cont, review_file, (review_star*10) as review_star, review_date, user_id, product_no from review where product_no = #{no} order by review_date desc
+  	</select>
+  	
+  	<select id="rating_high_more" parameterType="int" resultType="ReviewDTO">
+  		select review_no, review_title, review_cont, review_file, (review_star*10) as review_star, review_date, user_id, product_no from review where product_no = #{no} order by review_star desc, review_date desc
+  	</select>
+  	
+  	<select id="rating_low_more" parameterType="int" resultType="ReviewDTO">
+  		select review_no, review_title, review_cont, review_file, (review_star*10) as review_star, review_date, user_id, product_no from review where product_no = #{no} order by review_star, review_date desc
   	</select>
   	
   	<select id="RCount" parameterType="int" resultType="int">
@@ -75,7 +72,7 @@
 	        ON (product_no = #{product_no})
 	    WHEN NOT MATCHED THEN
 	        INSERT (cart_no, cart_amount, cart_date, user_id, product_no)
-	        VALUES ((select max(#{cart_no}) from cart) +1, #{cart_amount}, sysdate, #{user_id}, #{product_no})
+	        VALUES ((select nvl(max(#{cart_no}),0) from cart) +1, #{cart_amount}, sysdate, #{user_id}, #{product_no})
 	    WHEN MATCHED THEN
 	        UPDATE SET
 	            cart_amount=  NVL(cart_amount, 0)+ #{cart_amount},
