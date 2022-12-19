@@ -28,7 +28,7 @@
 			<li class = "cart" onclick = "location.href='<%=request.getContextPath()%>/cart.do'">
 				<div class="cart_icon">
 						<div class="cart_circle" align = "right">
-							<span class="cart_count">0</span>
+							<span class="cart_count">${RCount }</span>
 						</div>
 				</div>
 			</li>

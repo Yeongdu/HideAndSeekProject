@@ -3,6 +3,7 @@ package com.spring.service;
 import java.util.List;
 import java.util.Map;
 
+import com.spring.model.CartDTO;
 import com.spring.model.Product_contentDTO;
 import com.spring.model.ReviewDTO;
 
@@ -11,7 +12,9 @@ public interface Product_contentDAO {
 	
 	Product_contentDTO getProduct(int product_no);	
 	
-	List<ReviewDTO> getReviewList(Map<String, Object> map);
+	List<ReviewDTO> getReviewList(Map<String, Object> map, String sort);
 	
 	int getReviewCount(int product_no);
+	
+	int insertCart(CartDTO dto);
 }

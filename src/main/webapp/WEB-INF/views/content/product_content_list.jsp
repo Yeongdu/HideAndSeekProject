@@ -12,11 +12,17 @@
 <link href="resources/css/product_content/content.css" rel="stylesheet"
 	type="text/css">
 <title>${pdto.product_name }</title>
+<c:if test="${empty userId }">
+	<jsp:include page="../banner/none_top.jsp" />
+</c:if>
+	
+<c:if test="${!empty userId }">
+	<jsp:include page="../banner/user_top.jsp" />
+</c:if>
 <script src="https://code.jquery.com/jquery-3.1.0.js%22%3E"></script>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
-<jsp:include page="../banner/none_top.jsp" />
 <div id="main" align="center">
 	<c:forEach items="${list }" var="dto">
 		<div class="productContentWrap">
@@ -29,6 +35,14 @@
 
 				<div class="ex_box">
 					<span class="sub_ex">#${pdto.product_introduce1}&nbsp;&nbsp;#${pdto.product_introduce2 }</span>
+					<div class="review_info_star-rating" style="margin: 0%">
+		    			<div class="star-ratings-fill space-x-2 text-lg" style="width:${rdto.getReview_star() }%">
+		    				<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+		    			</div>
+			    		<div class="star-ratings-base space-x-2 text-lg">
+			    			<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+			   			</div>
+		    		</div>
 					<span class="ssub_ex">주종 : ${pdto.product_category }</span>
 					<span class="ssub_ex">도수 : ${pdto.product_alcohol }%</span>
 					<span class="ssub_ex">용량 : ${pdto.product_amount }ml</span>
@@ -51,8 +65,14 @@
 					</div>
 				</form>
 				
-				<input type="button" class="buybtn" onclick="requestPay()" value="바로 구매">
-				<input type="button" class="cartbtn" onclick="location.href='<%=request.getContextPath()%>/product_cart.do'" value="장바구니">
+				<c:if test="${!empty userId}">
+			   		<input type="button" class="buybtn" onclick="requestPay();" value="바로 구매">
+			   		<input type="button" class="cartbtn" onclick="cart()" value="장바구니">
+			   	</c:if>
+				<c:if test="${empty userId}">
+			   		<input type="button" class="buybtn" onclick="login_check();" value="바로 구매">
+			   		<input type="button" class="cartbtn" onclick="login_check();" value="장바구니">
+			   	</c:if>
 			</div>
 		</div>
 
@@ -85,15 +105,36 @@
 				<br>
 				<!-- 리뷰 수정중 -->
 				<div id="tab01" class="tab-contents">
-				<span>수정수정</span>
+					<div class="data_header">
+						<div class="wrapper flex">
+							<div class="search_result flex">
+								<input class="check_pic" type='checkbox' name='animal' value='dog' onclick='getCheckboxValue(event)'/>
+								포토리뷰만 보기
+							</div>
+							<div class="sort-wrapper flex">
+								<div class="sort-box">
+									<select class="sort-menu" name="sort">
+										<option value="released" selected>최신순</option>
+										<option value="rating_high">평점 높은 순</option>
+										<option value="rating_low">평점 낮은 순</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<script type="text/javascript">
+					
+					</script>
+				
+			<div class="review" >
 				<c:if test="${!empty rlist}">
 					<c:forEach items="${rlist }" var="rdto">
-					<div id="review">
+					<div class="review_cont">
 						<div class="review_top">
 							<div>
 							<span class="review_info_product_name">${rdto.getUser_id() }</span>
 							</div>
-							<div class="review_main_cont">
+							<div class="review_main_cont" align="right">
 								[${pdto.product_amount }ml] ${pdto.product_name }
 								<div class="review_info_star-rating">
 		    						<div class="star-ratings-fill space-x-2 text-lg" style="width:${rdto.getReview_star() }%">
@@ -115,14 +156,12 @@
 					</div>
 					</c:forEach>
 				</c:if>
-				<div class="more-btn-wrap">
-				  <button type="button" id="btnResultMore">더보기</button>
-				</div>
-				
-				
+			
+	
 				<c:if test="${empty rlist}">
-					<h3>d</h3>
+					<pre class="no_review">첫 리뷰를 작성해주세요!</pre>
 				</c:if>
+			</div>
 					
 				<%-- 페이징 처리 부분 --%>
 				<c:if test="${paging.getPage() > paging.getBlock()}">
@@ -147,7 +186,7 @@
 				<div id="tab02" class="tab-contents">
 					<p align="left" class="change_cont">
 						<span class="t">교환/반품 문의</span><br><br>
-						<span class="st">01.<br>
+						<span class="s">01.<br>
 						상품의 파손 및 하자, 변질 등 문제가 있는 경우</span><br>
 						- 성함, 연락처, 상품의 사진과 함께 술래잡기 고객센터<br>
 						 로 문의 부탁드립니다.<br><br>
@@ -176,6 +215,61 @@
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.1.0.js%22%3E"></script>
 	<script type="text/javascript">
+	$(document).on("change", ".sort-menu", function(){
+		let sort = $('.sort_menu').val();
+		
+		product_no = ${pdto.product_no};
+		
+		$.ajax({
+			url:"<%=request.getContextPath()%>/product_content_list.do?no=${pdto.product_no }",
+			method:"post",
+			data: {
+				sort : sort,
+				product_no : '${pdto.product_no}'
+			},
+			datatype : "json",
+			success:function(data) {
+				$(".review").empty();
+				$.each(data, function(index, item){
+					html = "";
+					html += <div class="review" >
+					if(${empty rlist}) {
+						html += "<c:forEach items='${rlist }' var='rdto'>"
+						html += "<div class='review_cont'>"
+						html += "<div class='review_top'>"
+						html += "<div>"
+						html += "<span class='review_info_product_name'>${rdto.getUser_id() }</span>"
+						html += "</div>"
+						html += "<div class='review_main_cont' align='right'>"
+						html += "[${pdto.product_amount }ml] ${pdto.product_name }"
+						html += "<div class='review_info_star-rating'>"
+						html += "<div class='star-ratings-fill space-x-2 text-lg' style='width:${rdto.getReview_star() }%'>"
+						html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
+						html += "</div>"
+						html += "<div class='star-ratings-base space-x-2 text-lg'>"
+						html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
+						html += "</div>"
+						html += "</div>"
+						html += "<fmt:formatDate pattern='yyyy년 MM월 dd일' value='${rdto.getReview_date() }' />"
+						html += "</div>"
+						html += "</div>"
+						html += "<div class='review_main' align='left'>"
+						html += "<div class='review_cont'>"
+						html += "<pre style='margin-bottom: 1%'>${rdto.getReview_cont() }</pre>"
+						html += "</div>"
+						html += "<img src='resources/review_img/${rdto.getReview_file() }' class='review_image${pdto.product_no}' onmouseover='zoomImg(${pdto.product_no})' style='height: 100px; cursor: zoom-in;' onerror='this.style.display='none''>"
+						html += "</div>"
+						html += "</div>"
+						html += "</c:forEach>"
+					}else if(${empty rlist}) {
+						html += "<pre class='no_review'>첫 리뷰를 작성해주세요!</pre>"
+						html += "</div>"
+					}
+				})
+			}
+		})
+	});
+	
 	//리뷰, 교환/환불 버튼 색 변경
 	var first = document.querySelector('.tab01');
 	var second = document.querySelector('.tab02');
@@ -266,6 +360,66 @@
 	}
 	//금액, 수량 변동 끝
 	
+	//로그인 확인
+	function login_check() {
+		swal({
+			text : "회원가입 및 로그인 부탁드려요!\n실례지만 민증 검사하겠습니다!",
+			icon: "warning",
+			buttons: ["취소" , "이동"]
+		})
+		.then(function(result){
+			console.log(result);        
+		       if(result){
+		       	location.href = "<%=request.getContextPath() %>/user_login.do";
+		       }
+		})
+	}
+	//로그인 확인 끝
+	
+	//장바구니 확인
+	function cart() {
+		swal({
+			title : "주문내역을 확인해주세요",
+			text : "${pdto.product_name}\n"+hm.value+"개\n"+total_price+"원",
+			icon: "info",
+			buttons: ["취소" , "확인"]
+		})
+		.then(function(cart){
+			console.log(cart);        
+		       if(cart){
+		    	   $.ajax({
+		               type: 'post',
+		               url: '<%=request.getContextPath() %>/cart_ok.do',
+		               data : {cart_amount: hm.value,
+		            	  	   user_id: '${userId}',
+		            	  	   product_no: '${pdto.product_no}'},	               
+		               dataType: 'text',
+		               success :function(result){
+		                   if(result==0){
+		                       swal({
+		               			text : "장바구니로 이동하시겠습니까?",
+		               			icon: "info",
+		               			buttons: ["취소" , "이동"],
+		               			closeOnClickOutside : false
+		               			})
+		               			.then(function(cart_result){
+									if(cart_result==true) {
+										location.href="<%=request.getContextPath() %>/cart.do";
+									} else {
+										
+									} 
+								}) 
+		                   }else{
+		                	   alert("실패:"+result);
+		                   }
+		                  }
+		               }
+		           );
+		       }
+		})
+	}
+	//장바구니 확인 끝
+	
 	//결제 api
 	var IMP = window.IMP; 
     IMP.init("imp68070036"); 
@@ -286,7 +440,7 @@
         name : '${pdto.product_name }',
         amount : total_price,
         buyer_email : '',
-        buyer_name : '${m_name}',
+        buyer_name : '${userId}',
         buyer_tel : '010-5654-0265',
         buyer_addr : '서울특별시 중구',
         buyer_postcode : '123-456'
@@ -294,15 +448,16 @@
     		console.log(rsp);            
     		if (rsp.success) {   
     		var msg = '결제가 완료되었습니다.\n';       
-    		msg += '결제 금액 : ' + rsp.paid_amount+'\n';            
+    		msg += '결제 금액 : ' + rsp.paid_amount+'\n원';            
     		msg += '카드 승인번호 : ' + rsp.apply_num+'\n';
-    		window.location.href = "";
+    		window.location.href = "<%=request.getContextPath() %>/store.do";
     		} else {               
-    			var msg = '결제에 실패하였습니다.\n';           
-    			msg += '에러내용 : ' + rsp.error_msg;
+    			var msg1 = '결제에 실패하였습니다.\n';           
+    			msg1 += '에러내용 : ' + rsp.error_msg;
     			window.history.go(-2);
+    			swal('',msg1,'warning');
     		}         
-    		swal('',msg,'warning');
+    		swal('',msg,'success');
     		});
     	} else {
     		swal('',"품절되었습니다",'warning');
