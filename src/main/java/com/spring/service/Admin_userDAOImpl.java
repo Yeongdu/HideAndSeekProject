@@ -33,14 +33,12 @@ public class Admin_userDAOImpl implements Admin_userDAO{
 
 	@Override
 	public int getSearchUserCount(String keyword) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.sqlSession.selectOne("getSearchUserCount", keyword);
 	}
 
 	@Override
 	public List<UserDTO> searchUserList(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.sqlSession.selectList("getSearchUserList", map);
 	}
 
 	@Override
@@ -51,19 +49,16 @@ public class Admin_userDAOImpl implements Admin_userDAO{
 
 	@Override
 	public int updateUser(UserDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.sqlSession.update("adminUpdateUser", dto);
 	}
 
 	@Override
 	public int deleteUser(int user_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.sqlSession.delete("adminUserDelete", user_no);
 	}
 
 	@Override
 	public void userUpdateSeq(int user_no) {
-		// TODO Auto-generated method stub
-		
+		this.sqlSession.update("adminUserUpdateSeq", user_no);
 	}
 }

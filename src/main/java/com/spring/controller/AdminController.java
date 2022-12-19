@@ -687,8 +687,9 @@ public class AdminController {
 			return "admin/admin_user_list";
 	}
 	
+	//유저 상세정보
 	@RequestMapping("admin_user_content.do")
-	public String admin_user_cont(@RequestParam("no") int no,@RequestParam("page") int page , Model model) {
+	public String admin_user_cont(@RequestParam("no") int no, @RequestParam("page") int page , Model model) {
 		UserDTO udto = this.audao.getUserCont(no);
 		model.addAttribute("udto", udto);
 		model.addAttribute("page", page);
@@ -696,5 +697,90 @@ public class AdminController {
 	}
 	
 
+	//유저 수정
+	@RequestMapping("admin_user_update.do")
+	public String admin_user_update(@RequestParam("no") int no, @RequestParam("page") int page, Model model){
+		UserDTO dto = this.audao.getUserCont(no);
+		model.addAttribute("User", dto);
+		model.addAttribute("page", page);
+		return "admin/admin_user_update";
+	}
+
+	//유저 수정 완료
+	@RequestMapping("admin_user_update_ok.do")
+	public void admin_user_update_ok(@RequestParam("no") int no, 
+			@RequestParam("page") int page, 
+			HttpServletResponse response, 
+			Model model, UserDTO dto) throws Exception {
+		
+		int check = audao.updateUser(dto);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		if (check > 0) {
+			out.println("<script> alert('회원 수정 성공'); location.href='admin_user_cont.do?no="+no+"&page="+page+"'; </script>");
+		} else {
+			out.println("<script> alert('회원 수정 실패.'); history.back(); </script>");
+		}
+	}
+	
+	//유저 삭제
+	@RequestMapping("admin_user_delete.do")
+	public void admin_user_delete(@RequestParam("no") int no, HttpServletResponse response) throws IOException {
+		int check = this.audao.deleteUser(no);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		if (check > 0) {
+			this.audao.userUpdateSeq(no);
+			out.println("<script> alert('회원 삭제 성공'); location.href='admin_user_list.do'; </script>");
+		} else {
+			out.println("<script> alert('회원삭제실패'); history.back(); </script>");
+		}
+	}
+	
+	//유저 검색
+	@RequestMapping("admin_user_search.do")
+	public String admin_user_search(HttpServletRequest request, 
+			@RequestParam(value = "keyword", required = false) String keyword,
+			Model model) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int page;
+		int rowsize = 10;
+		int totalRecord;
+						
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}else {
+			// 처음으로 게시물 전체 목록 태그를 클릭한 경우
+			page = 1;
+		}
+		// DB상의 전체 게시물의 수를 확인하는 메서드
+		totalRecord = this.audao.getSearchUserCount(keyword);
+		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+		
+		map.put("keyword", keyword);
+		map.put("Page", dto);
+		
+		List<UserDTO> userSearchList = this.audao.searchUserList(map);
+
+		model.addAttribute("list", userSearchList);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("page", dto);
+		
+		return "admin/admin_user_search";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
