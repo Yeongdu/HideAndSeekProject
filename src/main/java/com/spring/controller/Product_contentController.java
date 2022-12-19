@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,9 @@ public class Product_contentController {
 	@Autowired
 	private ProductDAO dao;
 	
+	@Autowired
+	private CartDAO cdao;
+	
 	//한 페이지당 보여질 게시물의 수
 	private final int rowsize = 3;
 	
@@ -48,7 +52,7 @@ public class Product_contentController {
 	        ProductDTO dto = this.dao.getProductCont(no);
 	        model.addAttribute("Cont", dto);
 	        
-	        String sort = "released";
+	        String sort = "release";
 	        
 	        int page;
 	        if(request.getParameter("page") != null) {
@@ -68,7 +72,7 @@ public class Product_contentController {
 	        map.put("startNo", page_dto.getStartNo());
 	        map.put("endNo", page_dto.getEndNo());
 	        
-	        List<ReviewDTO> rlist = this.pcdao.getReviewList(map, sort);
+	        List<ReviewDTO> rlist = this.pcdao.getReviewList(no, sort);
 	        model.addAttribute("RList", rlist);
 	        model.addAttribute("Paging", page_dto);
 	        System.out.println("리뷰 : "+rlist);
@@ -80,16 +84,33 @@ public class Product_contentController {
 	 //CartDB에 저장
 	 @RequestMapping("/cart_ok.do")
 	 @ResponseBody
-	 public void insertCart(CartDTO dto, HttpServletResponse response) throws IOException {
+	 public void insertCart(CartDTO dto, HttpServletResponse response, HttpSession session) throws IOException {
 		 int check = this.pcdao.insertCart(dto);
 		 
 		 System.out.println("CartDTO" + dto);
+		 
+		 String userId = (String)session.getAttribute("userId");
+		 session.setAttribute("rcount", cdao.getCartCount(userId));
 	 }
 	 
 	 @RequestMapping("/user_top.jsp")
 	 public void getReviewCount(HttpServletRequest request, Model model, @RequestParam("no") int no) {
 		 int RCount = this.pcdao.getReviewCount(no);
 		 model.addAttribute("RCount", RCount);
+	 }
+	 
+	 @RequestMapping("/product_review.do")
+	 @ResponseBody
+	 public List<ReviewDTO> product_review(@RequestParam("sort") String sort, @RequestParam("product_no") int no) {
+		 List<ReviewDTO> list = this.pcdao.getReviewList(no, sort);
+		 return list;
+	 }
+	 
+	 @RequestMapping("/product_review_more.do")
+	 @ResponseBody
+	 public List<ReviewDTO> product_review_more(@RequestParam("sort") String sort, @RequestParam("product_no") int no) {
+		 List<ReviewDTO> list = this.pcdao.getReviewListMore(no, sort);
+		 return list;
 	 }
 
 }

@@ -12,7 +12,9 @@ public interface Product_contentDAO {
 	
 	Product_contentDTO getProduct(int product_no);	
 	
-	List<ReviewDTO> getReviewList(Map<String, Object> map, String sort);
+	List<ReviewDTO> getReviewList(int product_no, String sort);
+
+	List<ReviewDTO> getReviewListMore(int product_no, String sort);
 	
 	int getReviewCount(int product_no);
 	

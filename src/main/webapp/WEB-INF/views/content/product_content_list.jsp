@@ -114,7 +114,7 @@
 							<div class="sort-wrapper flex">
 								<div class="sort-box">
 									<select class="sort-menu" name="sort">
-										<option value="released" selected>최신순</option>
+										<option value="release" selected>최신순</option>
 										<option value="rating_high">평점 높은 순</option>
 										<option value="rating_low">평점 낮은 순</option>
 									</select>
@@ -122,10 +122,7 @@
 							</div>
 						</div>
 					</div>
-					<script type="text/javascript">
 					
-					</script>
-				
 			<div class="review" >
 				<c:if test="${!empty rlist}">
 					<c:forEach items="${rlist }" var="rdto">
@@ -135,7 +132,6 @@
 							<span class="review_info_product_name">${rdto.getUser_id() }</span>
 							</div>
 							<div class="review_main_cont" align="right">
-								[${pdto.product_amount }ml] ${pdto.product_name }
 								<div class="review_info_star-rating">
 		    						<div class="star-ratings-fill space-x-2 text-lg" style="width:${rdto.getReview_star() }%">
 		    							<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
@@ -155,6 +151,7 @@
 						</div>
 					</div>
 					</c:forEach>
+					<input type="button" value="더 많은 리뷰" onclick="more()">
 				</c:if>
 			
 	
@@ -162,24 +159,6 @@
 					<pre class="no_review">첫 리뷰를 작성해주세요!</pre>
 				</c:if>
 			</div>
-					
-				<%-- 페이징 처리 부분 --%>
-				<c:if test="${paging.getPage() > paging.getBlock()}">
-					<a href="product_content_list.do?no=${pdto.product_no }&page=1">[처음으로]</a>
-					<a href="product_content_list.do?no=${pdto.product_no }&page=${paging.getStartBlock() - 1 }">◀︎</a>
-				</c:if>
-				<c:forEach begin="${paging.getStartBlock() }" end="${paging.getEndBlock() }" var ="i">
-					<c:if test="${i == paging.getPage() }">
-						<b><a href="product_content_list.do?no=${pdto.product_no }&page=${i }">[${i }]</a></b>
-					</c:if>
-					<c:if test="${i != paging.getPage() }">
-						<a href="product_content_list.do?no=${pdto.product_no }&page=${i }">[${i }]</a>
-					</c:if>
-				</c:forEach>
-					<c:if test="${paging.getEndBlock() < paging.getAllPage()}">
-						<a href="product_content_list.do?no=${pdto.product_no }&page=${paging.getEndBlock() + 1 }">▶︎</a>
-						<a href="product_content_list.do?no=${pdto.product_no }&page=${paging.getAllPage() }">[마지막으로]︎</a>
-					</c:if>	
 					
 				</div>
 				<!-- 리뷰 수정끝 -->
@@ -213,62 +192,143 @@
 		</div>
 	
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.1.0.js%22%3E"></script>
+	<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 	<script type="text/javascript">
+	let status = true;
+	
+	//이미지
+	function noImage(){
+        $(".review_img").css('display','none');
+    };
+    //이미지 끝
+	
+    //리뷰
 	$(document).on("change", ".sort-menu", function(){
-		let sort = $('.sort_menu').val();
+		let sort = $(".sort-menu").val();
 		
 		product_no = ${pdto.product_no};
 		
-		$.ajax({
-			url:"<%=request.getContextPath()%>/product_content_list.do?no=${pdto.product_no }",
-			method:"post",
-			data: {
-				sort : sort,
-				product_no : '${pdto.product_no}'
-			},
-			datatype : "json",
-			success:function(data) {
-				$(".review").empty();
-				$.each(data, function(index, item){
-					html = "";
-					html += <div class="review" >
-					if(${empty rlist}) {
-						html += "<c:forEach items='${rlist }' var='rdto'>"
-						html += "<div class='review_cont'>"
-						html += "<div class='review_top'>"
-						html += "<div>"
-						html += "<span class='review_info_product_name'>${rdto.getUser_id() }</span>"
-						html += "</div>"
-						html += "<div class='review_main_cont' align='right'>"
-						html += "[${pdto.product_amount }ml] ${pdto.product_name }"
-						html += "<div class='review_info_star-rating'>"
-						html += "<div class='star-ratings-fill space-x-2 text-lg' style='width:${rdto.getReview_star() }%'>"
-						html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
-						html += "</div>"
-						html += "<div class='star-ratings-base space-x-2 text-lg'>"
-						html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
-						html += "</div>"
-						html += "</div>"
-						html += "<fmt:formatDate pattern='yyyy년 MM월 dd일' value='${rdto.getReview_date() }' />"
-						html += "</div>"
-						html += "</div>"
-						html += "<div class='review_main' align='left'>"
-						html += "<div class='review_cont'>"
-						html += "<pre style='margin-bottom: 1%'>${rdto.getReview_cont() }</pre>"
-						html += "</div>"
-						html += "<img src='resources/review_img/${rdto.getReview_file() }' class='review_image${pdto.product_no}' onmouseover='zoomImg(${pdto.product_no})' style='height: 100px; cursor: zoom-in;' onerror='this.style.display='none''>"
-						html += "</div>"
-						html += "</div>"
-						html += "</c:forEach>"
-					}else if(${empty rlist}) {
-						html += "<pre class='no_review'>첫 리뷰를 작성해주세요!</pre>"
-						html += "</div>"
-					}
-				})
-			}
-		})
+		console.log("버튼 클릭 이벤트");
+		
+		console.log("sort 값 >>> " +sort);
+		
+		console.log("no 값 >>> " +product_no);
+		
+		if(status == true) {
+			$.ajax({
+				url:"<%=request.getContextPath()%>/product_review.do",
+				method:"post",
+				data: {
+					sort : sort,
+					product_no : product_no
+				},
+				datatype : "json",
+				success:function(data) {
+					console.log("ajax");
+					console.log("star");
+					
+					$(".review").empty();
+					$.each(data, function(index, item){
+						
+						html = "";
+						if(item != "null") {
+							html += "<div class='review_cont'>"
+							html += "<div class='review_top'>"
+							html += "<div>"
+							html += "<span class='review_info_product_name'>"+item.user_id+"</span>"
+							html += "</div>"
+							html += "<div class='review_main_cont' align='right'>"
+							html += "<div class='review_info_star-rating'>"
+							html += "<div class='star-ratings-fill space-x-2 text-lg' style='width:"+item.review_star+"%'>"
+							html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
+							html += "</div>"
+							html += "<div class='star-ratings-base space-x-2 text-lg'>"
+							html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
+							html += "</div>"
+							html += "</div>"
+							html += item.review_date
+							html += "</div>"
+							html += "</div>"
+							html += "<div class='review_main' align='left'>"
+							html += "<div class='review_cont'>"
+							html += "<pre style='margin-bottom: 1%'>"+item.review_cont+"</pre>"
+							html += "</div>"
+								if(item.review_file != null) {
+									html += "<img src='resources/review_img/"+item.review_file+"' class='review_image"+item.product_no+"' onmouseover='zoomImg("+item.product_no+")' style='height: 100px; cursor: zoom-in;' onerror='noImage()'>"								
+								} else{
+								}
+							html += "</div>"
+							html += "</div>"
+							html += "<input type='button' value='더 많은 리뷰' onclick='more()'>"
+						}else if(item == "null") {
+							html += "<pre class='no_review'>첫 리뷰를 작성해주세요!</pre>"
+						}
+						$(".review").append(html);
+					});
+				},
+				error:function(request,status,error){
+	                alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+	            }
+			})
+		} else {
+			$.ajax({
+				url:"<%=request.getContextPath()%>/product_review_more.do",
+				method:"post",
+				data: {
+					sort : sort,
+					product_no : product_no
+				},
+				datatype : "json",
+				success:function(data) {
+					console.log("ajax");
+					console.log("star");
+					
+					$(".review").empty();
+					$.each(data, function(index, item){
+						
+						html = "";
+						if(item != "null") {
+							html += "<div class='review_cont'>"
+							html += "<div class='review_top'>"
+							html += "<div>"
+							html += "<span class='review_info_product_name'>"+item.user_id+"</span>"
+							html += "</div>"
+							html += "<div class='review_main_cont' align='right'>"
+							html += "<div class='review_info_star-rating'>"
+							html += "<div class='star-ratings-fill space-x-2 text-lg' style='width:"+item.review_star+"%'>"
+							html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
+							html += "</div>"
+							html += "<div class='star-ratings-base space-x-2 text-lg'>"
+							html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
+							html += "</div>"
+							html += "</div>"
+							html += item.review_date
+							html += "</div>"
+							html += "</div>"
+							html += "<div class='review_main' align='left'>"
+							html += "<div class='review_cont'>"
+							html += "<pre style='margin-bottom: 1%'>"+item.review_cont+"</pre>"
+							html += "</div>"
+								if(item.review_file != null) {
+									html += "<img src='resources/review_img/"+item.review_file+"' class='review_image"+item.product_no+"' onmouseover='zoomImg("+item.product_no+")' style='height: 100px; cursor: zoom-in;' onerror='noImage()'>"								
+								} else{
+								}
+							html += "</div>"
+							html += "</div>"
+							html += "<input type='button' value='더 많은 리뷰' onclick='more()'>"
+						}else if(item == "null") {
+							html += "<pre class='no_review'>첫 리뷰를 작성해주세요!</pre>"
+						}
+						$(".review").append(html);
+					});
+				},
+				error:function(request,status,error){
+	                alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+	            }
+			})
+		}
 	});
+    //리뷰 끝
 	
 	//리뷰, 교환/환불 버튼 색 변경
 	var first = document.querySelector('.tab01');
