@@ -81,7 +81,11 @@
                      <label for="user_idnum" class="user_label"><strong class="join_star">* </strong>주민등록번호</label>
                       <div class="join_idnum_input">
                      <input type="text"  name="user_jumin1" id="user_jumin1"   maxlength="6" required><span> - </span><input type="password"  name="user_jumin2"  id="user_jumin2"  maxlength="7" required>
-                     <input type="checkbox" value="성인인증"  class="chk1" id="chk1"  name="chk1" onclick="getAge();" required>
+                     <!-- <input type="checkbox" value="성인인증"  class="chk1" id="chk1"  name="chk1" onclick="getAge();" required> -->
+                         <!-- <label for="success" class="btn btn-success" style="margin-left: 10px;border-radius: 5px;">성인인증<input type="checkbox" id="success" class="badgebox" onclick="getAge();" required><span class="badge">&check;</span></label> -->
+                         <label for="default" class="btn btn-default" style="margin-left: 10px;border-radius: 5px; height: 43px;"><span style="vertical-align: -webkit-baseline-middle;">성인인증<input type="checkbox" id="default" class="badgebox" onclick="getAge();" required><span class="badge" style="color: black; background-color: white;">&check;</span></span>
+                       
+                         </label>
                         </div>
                            </div>
                   
@@ -93,7 +97,7 @@
                   <div class="join_phone">
                             <label for="user_phone" class="user_label"><strong class="join_star">* </strong>전화번호</label>
                                <div class="join_phone_input">
-                              <select name="user_phone1" id="user_phone1" onchange="user_phone1(this.value)" required>
+                              <select name="user_phone1" id="user_phone1" required>
                                 <option value="" selected>선택하세요.</option>
                                 <option value="010">010</option>
                                 <option value="011">011</option>
@@ -311,6 +315,7 @@
       <!-- 회원가입 페이지 -->
              
            <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+           	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
              <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
                <script type="text/javascript">
                
@@ -356,7 +361,7 @@
                   
                   if(document.form1.user_jumin1.value == ''){
                      
-                     document.getElementById("chk1").checked = false;
+                     document.getElementById("default").checked = false;
                      
                      return false;
                   }
@@ -365,9 +370,11 @@
 
                 if(parseInt(tmpSSN.substring(0, 2))<25 && genType < 3 ){
 
-                 alert("주민등록번호를 다시 확인해주세요.");
+                
+                // alert("주민등록번호를 다시 확인해주세요.");
+                swal('확인필요!',"주민등록번호를 다시 확인해주세요.",'warning');
                  
-                 document.getElementById("chk1").checked = false;
+                 document.getElementById("default").checked = false;
 
                   return false;
 
@@ -376,9 +383,10 @@
 
                 if(parseInt(tmpSSN.substring(0, 2))>25 && genType > 2 ){
 
-                 alert("주민등록번호를 다시 확인해주세요.");
+                 //alert("주민등록번호를 다시 확인해주세요.");
+                 swal('확인필요!',"주민등록번호를 다시 확인해주세요.",'warning');
                  
-                 document.getElementById("chk1").checked = false;
+                 document.getElementById("default").checked = false;
 
                   return false;
 
@@ -403,18 +411,20 @@
                  
                   if(parseInt(tmpAge)>19){
                  
-                  alert ("성인인증 완료")
+                  //alert ("성인인증 완료")
+                swal('성인인증완료!',"성인인증을 완료했습니다.",'success');
                  
                  
                  
                   }else{
-                  alert ("미성년으로 구입할 수 없습니다.")
+                  //alert ("미성년으로 구입할 수 없습니다.")
+                  swal('구매불가!',"미성년으로 구입할 수 없습니다.",'error');
                    
                    document.form1.user_jumin1.value = "";
                   
                    document.form1.user_jumin2.value = "";
                    
-                   document.getElementById("chk1").checked = false;
+                   document.getElementById("default").checked = false;
                   
                     
 
@@ -432,10 +442,10 @@
                      jumin2 = document.form1.user_jumin2.value;
                     
                      $("#user_jumin1").change(function(){
-                         if($("#chk1").is(":checked")){
+                         if($("#default").is(":checked")){
                             document.form1.user_jumin1.value = "";
                             document.form1.user_jumin2.value = "";
-                            document.getElementById("chk1").checked = false;
+                            document.getElementById("default").checked = false;
                              //alert("체크박스 체크했음!");
                              
                          }else{
@@ -453,10 +463,10 @@
                      jumin2 = document.form1.user_jumin2.value;
                     
                      $("#user_jumin2").change(function(){
-                         if($("#chk1").is(":checked")){
+                         if($("#default").is(":checked")){
                             document.form1.user_jumin1.value = "";
                             document.form1.user_jumin2.value = "";
-                            document.getElementById("chk1").checked = false;
+                            document.getElementById("default").checked = false;
                              //alert("체크박스 체크했음!");
                              
                          }else{
