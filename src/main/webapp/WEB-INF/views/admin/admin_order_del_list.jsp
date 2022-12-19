@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="../banner/admin_top.jsp" />
 <c:set var="dto" value="${list }"  />
 
@@ -37,7 +38,7 @@
 				<c:forEach items="${list }" var="dto">
 					<tr>
 						<td>${dto.order_no }</td>
-						<td>${dto.order_date }</td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.order_date }" /></td>
 						<td>${dto.user_id }</td>
 						<td>${dto.product_name }</td>
 						<td><img style="width: 100%; height: 60px" src="resources/upload/${dto.product_thumbnail }"></td>

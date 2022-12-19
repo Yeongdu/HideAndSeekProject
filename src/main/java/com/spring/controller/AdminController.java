@@ -73,7 +73,6 @@ public class AdminController {
 	private int totalRecord = 0;
 	
 	
-	
 	private static final String FILE_SERVER_PATH = "D:\\git\\HideAndSeekProject\\src\\main\\webapp\\resources\\upload";
 
 	//신규 제품 등록
@@ -270,6 +269,7 @@ public class AdminController {
 		ProductDTO pdto = this.pdao.getProductCont(no);
 //		Product_contentDTO pcdto = this.pcdao.getProduct(no);
 		List<Product_categoryDTO> cateList = this.dao.getCategoryList();
+		model.addAttribute("thumbnailFileDB", pdto.getProduct_thumbnail());
 		model.addAttribute("CategoryList", cateList);
 		model.addAttribute("PCont", pdto);
 //		model.addAttribute("PCCont", pcdto);
@@ -282,52 +282,69 @@ public class AdminController {
 	@RequestMapping("admin_product_update_ok.do")
 	public void admin_product_update_ok(
 			@RequestParam(value = "product_thumbnailFile", required = false) MultipartFile upload,
-			@RequestParam("page") int page, @RequestParam("no") int no,
-			HttpServletResponse response, Model model, admin_productDTO adto)
-			throws IllegalStateException, IOException {
+			@RequestParam("page") int page, @RequestParam("no") int no, HttpServletResponse response, Model model,
+			admin_productDTO adto) throws IllegalStateException, IOException {
 
 		String savedfile = adto.getProduct_thumbnail();
 
-		// 원래 있던 파일 삭제
-		if (savedfile != null) {
-			String fullpath = FILE_SERVER_PATH + "/" + savedfile;
-			File file = new File(fullpath);
-			if (file.isFile()) {
-				file.delete();
+		if (upload.isEmpty()) {
+			if (adto.getProduct_alcohol() <= 7) {
+				adto.setProduct_dosu("low");
+			} else if (adto.getProduct_alcohol() <= 20) {
+				adto.setProduct_dosu("middle");
+			} else if (adto.getProduct_alcohol() <= 35) {
+				adto.setProduct_dosu("high");
+			} else if (adto.getProduct_alcohol() <= 50) {
+				adto.setProduct_dosu("very-high");
+			}
+			int check2 = apdao.productUpdateWithoutThumbnail(adto);
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html; charset=UTF-8");
+			if (check2 > 0) {
+				out.println("<script> alert('상품수정성공'); location.href='admin_product_content.do?no=" + no + "&page="
+						+ page + "'; </script>");
+			} else {
+				out.println("<script> alert('상품수정실패'); history.back(); </script>");
+			}
+
+		} else {
+			// 원래 있던 파일 삭제
+			if (savedfile != null) {
+				String fullpath = FILE_SERVER_PATH + "/" + savedfile;
+				File file = new File(fullpath);
+				if (file.isFile()) {
+					file.delete();
+				}
+			}
+
+			if (adto.getProduct_alcohol() <= 7) {
+				adto.setProduct_dosu("low");
+			} else if (adto.getProduct_alcohol() <= 20) {
+				adto.setProduct_dosu("middle");
+			} else if (adto.getProduct_alcohol() <= 35) {
+				adto.setProduct_dosu("high");
+			} else if (adto.getProduct_alcohol() <= 50) {
+				adto.setProduct_dosu("very-high");
+			}
+
+			adto.setProduct_thumbnail(upload.getOriginalFilename());
+
+			int check = this.apdao.productUpdate(adto);
+
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html; charset=UTF-8");
+			model.addAttribute("page", page);
+			if (check > 0 && !upload.getOriginalFilename().isEmpty()) {
+				upload.transferTo(new File(FILE_SERVER_PATH, upload.getOriginalFilename()));
+				out.println("<script> alert('상품수정성공'); location.href='admin_product_content.do?no=" + no + "&page="
+						+ page + "'; </script>");
+			} else {
+				out.println("<script> alert('상품수정실패'); history.back(); </script>");
 			}
 		}
-
-		if (upload == null) {
-			adto.setProduct_thumbnail(savedfile);
-		}
-
-		if (adto.getProduct_alcohol() <= 7) {
-			adto.setProduct_dosu("low");
-		} else if (adto.getProduct_alcohol() <= 20) {
-			adto.setProduct_dosu("middle");
-		} else if (adto.getProduct_alcohol() <= 35) {
-			adto.setProduct_dosu("high");
-		} else if (adto.getProduct_alcohol() <= 50) {
-			adto.setProduct_dosu("very-high");
-		}
-
-		adto.setProduct_thumbnail(upload.getOriginalFilename());
-
-		int check = this.apdao.productUpdate(adto);
-
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		response.setContentType("text/html; charset=UTF-8");
-		model.addAttribute("page", page);
-		if (check > 0 && !upload.getOriginalFilename().isEmpty()) {
-			upload.transferTo(new File(FILE_SERVER_PATH, upload.getOriginalFilename()));
-			out.println("<script> alert('상품수정성공'); location.href='admin_product_content.do?no=" + no + "&page=" + page
-					+ "'; </script>");
-		} else {
-			out.println("<script> alert('상품수정실패'); history.back(); </script>");
-		}
 	}
-	
+
 	//판매중인 상품 목록
 	@RequestMapping("admin_product_ing.do")
 	public String admin_product_edit(HttpServletRequest request, Model model) {
@@ -708,7 +725,7 @@ public class AdminController {
 
 	//유저 수정 완료
 	@RequestMapping("admin_user_update_ok.do")
-	public void admin_user_update_ok(@RequestParam("no") int no, 
+	public void admin_user_update_ok(@RequestParam("user_no") int no, 
 			@RequestParam("page") int page, 
 			HttpServletResponse response, 
 			Model model, UserDTO dto) throws Exception {
@@ -771,7 +788,69 @@ public class AdminController {
 		return "admin/admin_user_search";
 	}
 	
+	//회원 탈퇴처리
+	@RequestMapping("admin_user_statusChange.do")
+	public void admin_user_statusChange(HttpServletResponse response, @RequestParam("no") int no) throws IOException {
+		int check = this.audao.updateUserStatus(no);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		if(check > 0) {
+			out.println("<script> location.href='admin_user_list.do'; </script>");
+		}else {
+			out.println("<script> history.back(); </script>");
+		}
+	}
 	
+	
+	//현재 활동중인 회원 목록
+	@RequestMapping("admin_ing_user_list.do")
+	public String admin_ing_user_list(HttpServletRequest request, Model model) {
+		// 페이징 처리 작업
+		int page;	// 현재 페이지 변수
+						
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}else {
+			page = 1;
+		}
+		// DB상의 전체 게시물의 수를 확인하는 메서드
+		totalRecord = this.audao.getIngUserCount();
+		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+		
+		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
+		List<UserDTO> plist = this.audao.getIngUserList(dto);
+		
+		model.addAttribute("list", plist);
+		model.addAttribute("page", dto);
+		return "admin/admin_ing_user_list";
+	}
+	
+	//현재 활동중인 회원 검색
+	
+	//탈퇴 회원 목록
+	@RequestMapping("admin_del_user_list.do")
+	public String admin_del_user_list(HttpServletRequest request, Model model) {
+		// 페이징 처리 작업
+		int page;	// 현재 페이지 변수
+						
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}else {
+			page = 1;
+		}
+		// DB상의 전체 게시물의 수를 확인하는 메서드
+		totalRecord = this.audao.getDelUserCount();
+		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+		
+		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
+		List<UserDTO> plist = this.audao.getDelUserList(dto);
+		
+		model.addAttribute("list", plist);
+		model.addAttribute("page", dto);
+		return "admin/admin_del_user_list";
+	}
+	
+	//탈퇴 회원 검색
 	
 	
 	

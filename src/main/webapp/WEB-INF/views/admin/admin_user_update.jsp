@@ -8,11 +8,45 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <jsp:include page="../banner/admin_top.jsp" />
 
 <title>${dto.user_no }) ${dto.user_name } 회원 수정 </title>
 <script type="text/javascript">
 
+
+	function swalUserDelete(){
+		swal({
+			text : "회원을 탈퇴처리 하겠습니까?",
+			buttons: ["취소" , "탈퇴"]
+		})
+		.then(function(result){
+			console.log(result);
+	        
+	        if(result){
+	        	location.href = "/";
+	        }
+	        
+		})
+	}
+
+$(document).on("click",".userDeleteBtn", function(){
+	swal({
+		text : "텍스트",
+		closeOnClickOutside : false // 백그라운드 클릭해도 안꺼짐
+	})
+	.then(function(result){ //  창 꺼질때 실행할 함수
+		console.log(result);
+		// background 클릭 => null
+		// 확인버튼 클릭 => true
+	    
+	    if(result) {
+	    	location.href = "/";
+	    }
+	    
+	})
+	
+});
 
 
 
@@ -27,7 +61,7 @@
 	<div align="center" style="width: 60%;">
 	
 			<input type="hidden" name="page" value="${page }">
-            <input type="hidden" name="no" value="${dto.user_no }">
+            <input type="hidden" name="user_no" value="${dto.user_no }">
 		
 			<div class="mb-3 row">
 				<label for="exampleFormControlInput1"
@@ -114,9 +148,10 @@
 	<!-- 네번째 end -->
 
 		<input type="button" type="submit" class="btn btn-primary-2" value="수정" onclick="location.href='admin_user_update.do?no=${dto.user_no }&page=${page}'">
-		<input type="button" class="btn btn-primary-2" value="삭제" onclick="location.href='admin_user_delete.do?no=${dto.user_no }'">
-		<input type="button" class="btn btn-primary-2" value="전체회원목록" onclick="location.href='admin_user_list.do'">
 			</form>
+		<input type="button" class="btn btn-primary-2" class="userDeleteBtn" value="삭제" >
+
+		<input type="button" class="btn btn-primary-2" value="전체회원목록" onclick="location.href='admin_user_list.do'">
 
 <div></div>
 <div></div>

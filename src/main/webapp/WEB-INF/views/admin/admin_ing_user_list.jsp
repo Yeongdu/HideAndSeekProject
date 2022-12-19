@@ -10,7 +10,7 @@
 <jsp:include page="../banner/admin_top.jsp" />
 
 
-<title>전체 유저 목록</title>
+<title>활동중인 유저 목록</title>
 
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
@@ -29,11 +29,11 @@
 	</div>
 	<div align="center">
 	<div class="admin_userTopBtn" align="center">
-	<input type="button" class="btn btn-light" value="탈퇴제외 활동회원" onclick="location.href='<%=request.getContextPath() %>/admin_ing_user_list.do'">
+	<input type="button" class="btn btn-secondary" value="탈퇴제외 활동회원" onclick="location.href='<%=request.getContextPath() %>/admin_ing_user_list.do'" disabled>
 	&nbsp;
 	<input type="button" class="btn btn-light" value="탈퇴회원" onclick="location.href='<%=request.getContextPath() %>/admin_del_user_list.do'">
 	&nbsp;
-	<input type="button" class="btn btn-secondary" value="탈퇴회원 포함 전체" onclick="location.href='<%=request.getContextPath() %>/admin_user_list.do'" disabled>
+	<input type="button" class="btn btn-light" value="탈퇴회원 포함 전체" onclick="location.href='<%=request.getContextPath() %>/admin_user_list.do'">
 	</div>
 	</div>
 	<div align="center">
@@ -91,23 +91,23 @@
 
 	<%-- 페이징 처리 --%>
 		<div class="page-paging">
-		    <c:if test="${page.startBlock > 1}"><span><a href="admin_user_list.do?page=1"><i class="fa fa-angle-double-left"></i></a></span></c:if>
+		    <c:if test="${page.startBlock > 1}"><span><a href="admin_ing_user_list.do?page=1"><i class="fa fa-angle-double-left"></i></a></span></c:if>
 		    <c:if test="${page.startBlock <= 1}"><span class="nolink"><i class="fa fa-angle-double-left"></i></span></c:if>
 		
-		    <c:if test="${page.page > 1}"><span><a href="admin_user_list.do?page=${page.page - 1}"><i class="fa fa-angle-left"></i></a></span></c:if>
+		    <c:if test="${page.page > 1}"><span><a href="admin_ing_user_list.do?page=${page.page - 1}"><i class="fa fa-angle-left"></i></a></span></c:if>
 		    <c:if test="${page.page <= 1}"><span class="nolink"><i class="fa fa-angle-left"></i></span></c:if>
 		
 		    <ol class="paging_1">
 		        <c:forEach begin="${page.startBlock}" end="${page.endBlock}" var="i">
 		        <c:if test="${i == page.page}"><li class="now">${i}</li></c:if>
-		        <c:if test="${i != page.page}"><li><a href="admin_user_list.do?page=${i}">${i}</a></li></c:if>
+		        <c:if test="${i != page.page}"><li><a href="admin_ing_user_list.do?page=${i}">${i}</a></li></c:if>
 		        </c:forEach>
 		    </ol>
 		
-		    <c:if test="${page.page < page.allPage}"><span><a href="admin_user_list.do?page=${page.page + 1}"><i class="fa fa-angle-right"></i></a></span></c:if>
+		    <c:if test="${page.page < page.allPage}"><span><a href="admin_ing_user_list.do?page=${page.page + 1}"><i class="fa fa-angle-right"></i></a></span></c:if>
 		    <c:if test="${page.page >= page.allPage}"><span class="nolink"><i class="fa fa-angle-right"></i></span></c:if>
 		
-		    <c:if test="${page.endBlock < page.allPage}"><span><a href="admin_user_list.do?page=${page.allPage}"><i class="fa fa-angle-double-right"></i></a></span></c:if>
+		    <c:if test="${page.endBlock < page.allPage}"><span><a href="admin_ing_user_list.do?page=${page.allPage}"><i class="fa fa-angle-double-right"></i></a></span></c:if>
 		    <c:if test="${page.endBlock >= page.allPage}"><span class="nolink"><i class="fa fa-angle-double-right"></i></span></c:if>
 		</div>
 	<%-- 페이징 처리 end --%>

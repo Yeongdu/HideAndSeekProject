@@ -137,4 +137,9 @@ public class Admin_productDAOImpl implements Admin_productDAO{
 		return this.sqlSession.selectList("adminIngProductSearch", map);
 	}
 
+	@Override
+	public int productUpdateWithoutThumbnail(admin_productDTO adto) {
+		return this.sqlSession.update("adminProductUpdateWithoutThumbnail", adto);
+	}
+
 }
