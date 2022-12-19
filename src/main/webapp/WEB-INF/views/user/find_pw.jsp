@@ -28,7 +28,7 @@
      
        
       <div align="center">
-        <input type="submit" value="메일 보내기"   onclick="findPwCheck()"    class="btn btn-warning">
+        <input type="button" value="메일 보내기"   onclick="findPwCheck()"    class="btn btn-warning">
       </div>
     </form>
     

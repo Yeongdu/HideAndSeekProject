@@ -144,6 +144,7 @@ public class UserDAOImpl implements UserDAO{
 		}
 
 
+		//비밀번호 찾기(임시비밀번호 생성) 
 		@Override
 		public int findPw(Map<String, Object> map) {
 			
@@ -159,7 +160,7 @@ public class UserDAOImpl implements UserDAO{
 			
 			if(list != null) {
 					MailDTO mdto = new MailDTO();
-					//UserDTO udto = new UserDTO();
+					UserDTO udto = new UserDTO();
 					
 					mdto.setTomail((String)map.get("tomail"));
 					
@@ -170,10 +171,18 @@ public class UserDAOImpl implements UserDAO{
 		            mdto.setContent("임시 비밀번호는 " + updatePw + " 입니다.");
 		            
 		            resultCode = this.mailSending(mdto);
-		            
-					/*
-					 * resultPw = this.updatePw(updatePw);
-					 * 
+		            udto.setUser_pwd(updatePw);
+		            udto.setUser_id((String)map.get("id"));
+		            udto.setUser_email((String)map.get("tomail"));
+					
+					 int resultPw = this.updatePw(udto);
+					 
+					 
+					 System.out.println("updatePw의 값 >>>" +updatePw);
+					 System.out.println("id의 값 >>>" +(String)map.get("id"));
+					 System.out.println("id의 값 >>>" +(String)map.get("tomail"));
+					 
+					/* 
 					 * udto.setUser_pwd(updatePw);
 					 * 
 					 * System.out.println(updatePw); this.updatePw(udto);
@@ -188,6 +197,7 @@ public class UserDAOImpl implements UserDAO{
 		}
 
 
+		//비밀번호 찾기(임시비밀번호) 메일 발송 후 비밀번호 업데이트
 		@Override
 		public int updatePw(UserDTO dto) {
 			// TODO Auto-generated method stub

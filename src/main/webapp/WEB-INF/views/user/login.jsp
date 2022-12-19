@@ -96,6 +96,8 @@
             $("#div_load_image").fadeOut(300);
         });
     }
+    
+    
 
 </script>              
 		
