@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.model.CartDTO;
 import com.spring.model.Product_contentDTO;
 import com.spring.model.ReviewDTO;
 
@@ -26,12 +27,17 @@ public class Product_contentDAOImpl implements Product_contentDAO{
 	}
 	
 	@Override
-	public List<ReviewDTO> getReviewList(Map<String, Object> map) {
-		return this.sqlSession.selectList("RList", map);
+	public List<ReviewDTO> getReviewList(Map<String, Object> map, String sort) {
+		return this.sqlSession.selectList(sort, map);
 	}
 
 	@Override
 	public int getReviewCount(int product_no) {
 		return this.sqlSession.selectOne("RCount", product_no);
+	}
+
+	@Override
+	public int insertCart(CartDTO dto) {
+		return this.sqlSession.insert("add_cart", dto);
 	}
 }
