@@ -5,12 +5,11 @@
 
 <c:set var="list" value="${list }" />
 <c:set var="page" value="${page }"/>
-<c:set var="field" value="${field }"/>
 <c:set var="keyword" value="${keyword }"/>
 <jsp:include page="../banner/admin_top.jsp" />
 
 
-<title>전체 유저 목록</title>
+<title>유저검색목록</title>
 
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
@@ -24,7 +23,7 @@
 
 	<div class="adminProductListTitle" align="center">
 		<br> <br> <br>
-		<h4>전체 유저 목록</h4>
+		<h4>' ${keyword } ' 검색 결과</h4>
 		<br>
 	</div>
 	<div align="center">
@@ -72,7 +71,7 @@
 			<tr>
 				<td colspan="7" align="center">
 					<c:if test="${!empty keyword }">
-						<input type="button" value="전체목록" onclick="location.href='admin_user_list.do'">
+						<input type="button" class="btn btn-light" value="전체회원" onclick="location.href='admin_user_list.do'">
 					</c:if>
 				</td>
 			</tr>
@@ -82,23 +81,23 @@
 
 	<%-- 페이징 처리 --%>
 		<div class="page-paging">
-		    <c:if test="${page.startBlock > 1}"><span><a href="admin_user_list.do?page=1"><i class="fa fa-angle-double-left"></i></a></span></c:if>
+		    <c:if test="${page.startBlock > 1}"><span><a href="admin_user_search.do?page=1"><i class="fa fa-angle-double-left"></i></a></span></c:if>
 		    <c:if test="${page.startBlock <= 1}"><span class="nolink"><i class="fa fa-angle-double-left"></i></span></c:if>
 		
-		    <c:if test="${page.page > 1}"><span><a href="admin_user_list.do?page=${page.page - 1}"><i class="fa fa-angle-left"></i></a></span></c:if>
+		    <c:if test="${page.page > 1}"><span><a href="admin_user_search.do?page=${page.page - 1}"><i class="fa fa-angle-left"></i></a></span></c:if>
 		    <c:if test="${page.page <= 1}"><span class="nolink"><i class="fa fa-angle-left"></i></span></c:if>
 		
 		    <ol class="paging_1">
 		        <c:forEach begin="${page.startBlock}" end="${page.endBlock}" var="i">
 		        <c:if test="${i == page.page}"><li class="now">${i}</li></c:if>
-		        <c:if test="${i != page.page}"><li><a href="admin_user_list.do?page=${i}">${i}</a></li></c:if>
+		        <c:if test="${i != page.page}"><li><a href="admin_user_search.do?page=${i}">${i}</a></li></c:if>
 		        </c:forEach>
 		    </ol>
 		
-		    <c:if test="${page.page < page.allPage}"><span><a href="admin_user_list.do?page=${page.page + 1}"><i class="fa fa-angle-right"></i></a></span></c:if>
+		    <c:if test="${page.page < page.allPage}"><span><a href="admin_user_search.do?page=${page.page + 1}"><i class="fa fa-angle-right"></i></a></span></c:if>
 		    <c:if test="${page.page >= page.allPage}"><span class="nolink"><i class="fa fa-angle-right"></i></span></c:if>
 		
-		    <c:if test="${page.endBlock < page.allPage}"><span><a href="admin_user_list.do?page=${page.allPage}"><i class="fa fa-angle-double-right"></i></a></span></c:if>
+		    <c:if test="${page.endBlock < page.allPage}"><span><a href="admin_user_search.do?page=${page.allPage}"><i class="fa fa-angle-double-right"></i></a></span></c:if>
 		    <c:if test="${page.endBlock >= page.allPage}"><span class="nolink"><i class="fa fa-angle-double-right"></i></span></c:if>
 		</div>
 	<%-- 페이징 처리 end --%>
@@ -109,7 +108,8 @@
 		<div>
 			<form method="post"
 				action="<%=request.getContextPath()%>/admin_user_search.do">
- 				<span> <input type="text" name="keyword" value="${keyword}"
+
+				 <span> <input type="text" name="keyword" value="${keyword}"
 					class="form-control" style="width: 20em; display: inline-block;" /></span>
 				&nbsp;&nbsp;&nbsp;
 

@@ -21,8 +21,36 @@
   		select * from tb_user where user_no = #{no}
   	</select>
 	
+	<update id="adminUpdateUser" parameterType="UserDTO">
+		update tb_user set user_point = #{user_point} where user_no=#{user_no}
+	</update>
+	
+	<delete id="adminUserDelete" parameterType="int">
+		delete from tb_user where user_no = #{no}
+	</delete>
+	
+	<update id="adminUserUpdateSeq" parameterType="int" >
+		<![CDATA[
+  			update tb_user set user_no = user_no - 1 where user_no > #{user_no}
+  		]]>
+	</update>
+	
+	<select id="getSearchUserCount" parameterType="String" resultType="int" >
+		select count(*) from tb_user 
+		where ((user_id like '%' || #{keyword} || '%') or 
+		(user_name like '%' || #{keyword} || '%') or
+		(user_no like '%' || #{keyword} || '%'))
+	</select>
   
-  
+  	<select id="getSearchUserList" parameterType="hashmap" resultType="UserDTO">
+  		<![CDATA[select * from (select t.*, row_number() over(order by user_no desc) rnum from tb_user t 
+  		where ((user_id like '%' || #{keyword} || '%') or 
+		(user_name like '%' || #{keyword} || '%') or 
+		(user_email like '%' || #{keyword} || '%') or 
+		(user_no like '%' || #{keyword} || '%')))
+
+		where rnum >= ((#{Page.page} * #{Page.rowsize}) - (#{Page.rowsize} - 1)) and rnum <= #{Page.page} * #{Page.rowsize}]]>
+  	</select>
   
   
   </mapper>

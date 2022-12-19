@@ -331,6 +331,12 @@ h1, h2, h3, h4, h5 {
     .mb-3.row{
     flex-wrap: nowrap;
     }
+    
+    .adminUserContBtnWrab{
+    width:60%;
+    display: flex;
+    justify-content: space-around;
+    }
 
     
     @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
