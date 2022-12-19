@@ -26,6 +26,7 @@ import com.spring.model.DeliveryDTO;
 import com.spring.model.MailDTO;
 import com.spring.model.UserDTO;
 import com.spring.service.UserDAO;
+import com.sun.jdi.Location;
 
 @Controller
 @RequestMapping
@@ -36,8 +37,12 @@ public class UserController {
 
 	// 로그인페이지이동
 	@RequestMapping("user_login.do")
-	public String loginList() {
+	public String loginList(HttpServletRequest request, HttpSession session) {
 
+		String referer = request.getHeader("Referer");
+		
+		session.setAttribute("referer", referer);
+		
 		return "user/login";
 
 	}
@@ -53,22 +58,32 @@ public class UserController {
 
 	//로그인
     @RequestMapping("user_check.do")
-    public String signIn(HttpSession session, @RequestParam("id") String id, @RequestParam("pw") String pw, Model model) {
+    public String signIn( HttpServletRequest request, HttpSession session, @RequestParam("id") String id, @RequestParam("pw") String pw, Model model) {
 
+    	
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("user_id", id);
         map.put("user_pwd", pw);
 
         int result = dao.userCheck(map);
+        
+        String referer = (String)session.getAttribute("referer");
 
-        if (result == 1) {
+        if (result == 1) { //아이디, 비밀번호 일치 시(로그인 성공)
             //model.addAttribute("id", id);
-
-            session.setAttribute("userId", id);
-
-
-            return "redirect:/store.do";
+        	session.setAttribute("userId", id);
+        	
+        	if(referer != null) {// referer에 값이 있을 때(로그인 전 세션값이 있을 때)
+        		session.setAttribute("userId", id);
+        		 System.out.println("referer값 확인1 >>>" + referer);
+        		 return "redirect:" +referer;
+        		
+        	}//referer값이 없을 때 (로그인 전 세션값이 없을 때)
+        	     session.setAttribute("userId", id);
+        	     
+        		 return "redirect:/store.do";
+                 
         }else {
 
             return "user/login";

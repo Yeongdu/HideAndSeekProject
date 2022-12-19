@@ -134,59 +134,197 @@ h1, h2, h3, h4, h5 {
 
 
 .join_field{
-	
-	display: block;
+   
+   display: block;
     border: 1px solid red;
     margin: 70px;
     padding: 50px;
     min-width: fit-content;
-	
-	
+   
+   
 }
 
 .join_legend{
-	
-	
+   
+   
     display: block;
     height: 100px;
     width: 300px;
     text-indent: inherit;
-    font-size: 70px;
     font-family: 'kdg_Medium';
-    border-bottom: 0px;
-	
+    font-size: 50px;
+    margin-top: 30px;
 }
 
 .title_1_span{
-	font-family: 'ChosunCentennial', sans-serif;
-	font-size: 25px;
-    margin-left: 120px;
+   font-family: 'ChosunCentennial', sans-serif;
+   font-size: 25px;
     color: #595959;
     text-align: left;
 }
 
 .subTx strong{
-	color: #ff3333;
-	font-size: 16px;
+   color: #ff3333;
+   font-size: 16px;
 }
 
 
 
 .subTx{
-	font-size: 13px;
+   font-size: 13px;
     color: #afb0b2;
     text-align: right;
     margin-top: -25px;
     margin-bottom: 10px;
-    margin-right: 130px;
+    font-family: 'ChosunCentennial', sans-serif;
+    
 }
 
 .join_star{
-	color: #ff3333;
-	font-size: 16px;
+   color: #ff3333;
+   font-size: 16px;
+}
+
+.user_label{
+   font-size: 18px;
+    font-family: 'ChosunCentennial', sans-serif;
+    color: #787878;
+    display: flex;
+    align-items: center;
+}
+
+/* input::placeholder{
+   font-family: 'ChosunCentennial', sans-serif;
+}
+ */
+
+.join_id, .join_pwd, .join_pwd_check, .join_name,
+.join_email, .join_phone, .join_idnum, .join_zipcode,
+.join_user_addr1, .join_user_addr2, .agree_all_lable{
+    width: 800px;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+}
+
+.title_2_span{
+   
+   font-family: 'ChosunCentennial', sans-serif;
+    font-size: 25px;
+    color: #595959;
+    text-align: left;
+    margin-bottom: 10px;
 }
 
 
+.user_id{
+   margin-left: 100px;
+    width: 300px;
+}
 
+.user_pwd{
+   margin-left: 85px;
+    width: 300px;
+}
+
+.user_pwd_check{
+   margin-left: 49px;
+    width: 300px;
+}
+
+.user_name{
+   margin-left: 116px;
+    width: 300px;
+
+}
+
+.user_email{
+    margin-left: 100px;
+    width: 300px;
+}
+
+.user_addr1, .user_addr2{
+    margin-left: 100px;
+    width: 400px;
+}
+   
+.join_phone_input{
+   margin-left: 84px;
+}
+
+
+.join_idnum_input{
+   margin-left: 54px;
+}
+
+.join_zipcode_input{
+   margin-left: 100px;
+}
+
+.agree_all_lable{
+   font-size: 18px;
+    font-family: 'ChosunCentennial', sans-serif;
+    color: #787878;
+    display: flex;
+    align-items: center;
+}
+
+.panel-heading{
+   display: flex;
+    font-family: 'ChosunCentennial', sans-serif;
+}
+p{
+   text-align: left;
+}
+
+.panel-body{
+   height: 250px;
+   overflow: scroll;
+   
+}
+
+.join_ok_btn_input{
+	 border-radius: 10px;
+    background-color: #555;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 15px;
+    width: 180px;
+    font-size: 15px;
+}
+
+.idcheck{
+	display: flex;
+    align-items: center;
+    font-size: 12px;
+    margin-left: 10px
+}
+
+.pwcheck{
+	
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.pwcheck2{
+	display: flex;
+    align-items: center;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.emailcheck{
+	display: flex;
+    align-items: center;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+   
+   
+
+    
 
 

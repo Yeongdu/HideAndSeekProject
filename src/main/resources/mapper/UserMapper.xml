@@ -70,7 +70,7 @@
  	  </select>
  	  
  	  <!-- 임시 비밀번호로 업뎃 하기 -->
- 	  	<update id="updatePw">
+ 	  	<update id="updatePw" parameterType="UserDTO">
  	  		update tb_user set user_pwd = #{user_pwd} where user_id = #{user_id} and user_email = #{user_email}
  	  	</update>
  	  
