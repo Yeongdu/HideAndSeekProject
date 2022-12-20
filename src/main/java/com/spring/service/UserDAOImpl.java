@@ -89,7 +89,7 @@ public class UserDAOImpl implements UserDAO{
 				MailDTO dto = new MailDTO();
 				dto.setTomail(email);
 				dto.setTitle("술래잡기 아이디 찾기 메일입니다.");
-				String ctn = "아이디는" + list.get(0) + "입니다.";
+				String ctn = "아이디는 [ " + list.get(0) + " ] 입니다.";
 				dto.setContent(ctn);
 				resultCode = this.mailSending(dto);
 				
@@ -164,11 +164,11 @@ public class UserDAOImpl implements UserDAO{
 					
 					mdto.setTomail((String)map.get("tomail1"));
 					
-					mdto.setTitle("술래잡기 임시비밀번호 입니다.");
+					mdto.setTitle("술래잡기 임시비밀번호입니다.");
 					//임시비밀번호 생성
 					String updatePw = UUID.randomUUID().toString().replace("-", "");//-를 제거
 		            updatePw = updatePw.substring(0,10);// 앞에서부터 10자리 잘라줌
-		            mdto.setContent("임시 비밀번호는 " + updatePw + " 입니다.");
+		            mdto.setContent("임시 비밀번호는 [ " + updatePw + " ] 입니다." + "\n개인정보보호를 위해 로그인 후 비밀번호 변경을 권장드립니다.");
 		            
 		            resultCode = this.mailSending(mdto);
 		            udto.setUser_pwd(updatePw);
@@ -197,6 +197,7 @@ public class UserDAOImpl implements UserDAO{
 		}
 
 
+		
 		//비밀번호 찾기(임시비밀번호) 메일 발송 후 비밀번호 업데이트
 		@Override
 		public int updatePw(UserDTO dto) {

@@ -40,7 +40,7 @@ public class UserController {
 	private CartDAO cdao;
 
 	// 로그인페이지이동
-	@RequestMapping("user_login.do")
+	@RequestMapping("/user_login.do")
 	public String loginList(HttpServletRequest request, HttpSession session) {
 
 		String referer = request.getHeader("Referer");
@@ -58,6 +58,7 @@ public class UserController {
 		return "user/join";
 
 	}
+	
 
 
 	//로그인
@@ -72,29 +73,27 @@ public class UserController {
         
         String referer = (String)session.getAttribute("referer");
 
+        //상품상세페이지 주소
+		/*
+		 * String address = "http://localhost:8787/model/product_content_list.do?no=14";
+		 */
+        
         if (result == 1) { //아이디, 비밀번호 일치 시(로그인 성공)
-            //model.addAttribute("id", id);
-        	session.setAttribute("userId", id);
+            
+        	if(id.equals("admin1")) {//관리자 아이디일때 
+        		return "redirect:/admin_main.do";
+        		
+        	}
         	
+        	//세션값
+        	session.setAttribute("userId", id);
         	// 아이디에 해당하는 장바구니 수량을 가져오는 메서드
         	session.setAttribute("rcount", cdao.getCartCount(id));
-        	
-        	if(referer != null) {// referer에 값이 있을 때(로그인 전 세션값이 있을 때)
-        		session.setAttribute("userId", id);
-        		 System.out.println("referer값 확인1 >>>" + referer);
-        		 
-        		 session.setAttribute("rcount", cdao.getCartCount(id));
-        		 
-        		 return "redirect:" +referer;
-        		
-        	}//referer값이 없을 때 (로그인 전 세션값이 없을 때)
-        	     session.setAttribute("userId", id);
-        	     
-        	     session.setAttribute("rcount", cdao.getCartCount(id));
-        	     
-        		 return "redirect:/store.do";
+      		 return "redirect:/store.do";
                  
-        }else {
+        	
+        	
+        }else {//아이디, 비번 틀렸을 때
 
             return "user/login";
         }
@@ -225,6 +224,67 @@ public class UserController {
 	      
 	      
 	   }
+	   
+	   
+	   
+	   //바로구매 버튼 클릭 시 로그인 버튼 이동
+	   @RequestMapping("/user_login_buy.do")
+		public String loginList1(HttpServletRequest request, HttpSession session) {
+
+			String referer = request.getHeader("Referer");
+			
+			session.setAttribute("referer", referer);
+			
+			return "user/login_buy";
+
+		}
+	   
+	   //바로구매 버튼 클릭 시 로그인 성공
+	   @RequestMapping("user_check_buy.do")
+	    public String signIn1( HttpServletRequest request, HttpSession session, @RequestParam("id") String id, @RequestParam("pw") String pw, Model model) {
+		   Map<String, Object> map = new HashMap<String, Object>();
+	        map.put("user_id", id);
+	        map.put("user_pwd", pw);
+
+	        int result = dao.userCheck(map);
+	        
+	        String referer = (String)session.getAttribute("referer");
+
+	        if (result == 1) { //아이디, 비밀번호 일치 시(로그인 성공)
+	        	
+
+	        	if(id.equals("admin1")) {//관리자 아이디일때 
+	        		return "redirect:/admin_main.do";
+	        		
+	        	}
+	        	
+	        	
+	        	session.setAttribute("userId", id);
+	           
+	           // 아이디에 해당하는 장바구니 수량을 가져오는 메서드
+	           session.setAttribute("rcount", cdao.getCartCount(id));
+	           
+	           if(referer != null) {// referer에 값이 있을 때(로그인 전 세션값이 있을 때)
+	              session.setAttribute("userId", id);
+	               System.out.println("referer값 확인1 >>>" + referer);
+	               
+	               session.setAttribute("rcount", cdao.getCartCount(id));
+	               
+	               return "redirect:" +referer;
+	              
+	           }//referer값이 없을 때 (로그인 전 세션값이 없을 때)
+	                session.setAttribute("userId", id);
+	                
+	                session.setAttribute("rcount", cdao.getCartCount(id));
+	                
+	               return "redirect:/store.do";
+	                 
+	        }else {
+
+	            return "user/login";
+	        }
+	    }
+
 	   
         
         

@@ -29,7 +29,7 @@
    
 		<div class="find_id_main_wrap">
 	      <h4 class="find_id_title">아이디 찾기</h4>
-            <form action="findIdMail.do" method="post">
+            <form action="findIdMail.do" method="post" name="findid_form">
               <div class="find_id_emailinput_wrap">
                 <input type="text" name="tomail"  id="tomail" placeholder="회원가입 시 입력했던 이메일을 기재해주세요." class="find_id_input">
                 </div>
@@ -51,7 +51,7 @@
     		
     		<div class="find_pw_main_wrap">
               <h4 class="find_pw_title">비밀번호 찾기</h4>
-                <form action="<%=request.getContextPath() %>/findPwMail.do" method="post">
+                <form action="<%=request.getContextPath() %>/findPwMail.do" method="post" name="findpw_form">
     
     	          <div class="find_pw_idinput_wrap">
     		        <input type="text" name="id" id="id" placeholder="아이디를 입력해주세요." class="find_pw_idinput">
@@ -78,6 +78,8 @@
     
     
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
     
     <!-- 아이디 찾기 -->
@@ -92,10 +94,25 @@
     		dataType: 'text',
     		success :function(result){
     			if(result == 1){
-    				alert('해당 이메일로 아이디를 보냈습니다.');
-    				location.href = "store.do";
+    				swal({
+    					title: "메일발송완료!",
+               			text : "입력하신 메일로 아이디를 발송했습니다.",
+               			icon: "success",
+               			buttons: ["확인","로그인하러가기"],
+               			closeOnClickOutside : false
+               			})
+               			.then(function(findid_result){
+							if(findid_result==true) {
+								location.href="<%=request.getContextPath() %>/user_login.do";
+							} else {
+								document.findid_form.tomail.value = "";
+							} 
+						}) 
+    				
     			}else{
-    				alert('해당 이메일로 확인되는 아이디가 없습니다.');
+    				//alert('해당 이메일로 확인되는 아이디가 없습니다.');
+    				 swal('확인필요!',"해당 이메일로 확인되는 아이디가 없습니다.",'warning');
+    				 document.findid_form.tomail.value = "";
     				
     			}
     		}
@@ -118,16 +135,32 @@
     		dataType: 'text',
     		success :function(result){
     			 if(result == 1){
-    				 alert('해당 이메일로 임시 비밀번호를 보냈습니다.');
-    				 location.href="store.do";
-    			 }else{
-    				 alert('해당 정보로 확인되는 데이터가 없습니다.');
-    			
-    			}
-    		}
-    	});
-	} 
-    
+    				 swal({
+     					   title: "메일발송완료!",
+                			text : "입력하신 메일로 임시비밀번호를 발송했습니다.",
+                			icon: "success",
+                			buttons: ["확인","로그인하러가기"],
+                			closeOnClickOutside : false
+                			})
+                			.then(function(findpw_result){
+ 							if(findpw_result==true) { //로그인하러가기 클릭 시 
+ 								location.href="<%=request.getContextPath() %>/user_login.do";
+ 							} else {
+ 								document.findpw_form.tomail1.value = "";
+ 								document.findpw_form.id.value = "";
+ 							} 
+ 						}) 
+     				
+     			}else{
+     				//alert('해당 이메일로 확인되는 아이디가 없습니다.');
+     				 swal('확인필요!',"입력하신 정보로 확인되는 데이터가 없습니다.",'warning');
+     				document.findpw_form.tomail1.value = "";
+						document.findpw_form.id.value = "";
+     				
+     			}
+     		}
+     	});
+ 	}
         
     <!-- 로딩 조절-->
     
