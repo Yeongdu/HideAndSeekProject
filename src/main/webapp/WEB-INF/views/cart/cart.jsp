@@ -49,7 +49,7 @@
 					<div class="content">
 						<div class="product_wrap">
 							<div class="checkbox_wrap">
-								<input type="checkbox" class="cart_check" name="price" value="${dto.product_price }" checked="checked" >
+								<input type="checkbox" class="cart_check cart_check${status.index}" name="price" value="${dto.product_price }" checked="checked" >
 								<button type="button" class="checkbox_button checkbox_button${status.index}">
 									<img alt="checkbox" src="resources/image/checkbox-active.png">
 								</button>

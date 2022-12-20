@@ -882,10 +882,10 @@ $(function(){
 					html += "<div class='product'>"
 					html += "<div class='product_wrap'>"
 					html += "<a href='<%=request.getContextPath() %>/product_content_list.do?no="+item.product_no+"'>"
-					if(item.product_stock != 0){
+					if(item.product_status != '품절'){
 						html += "<div class='img_wrap'><span>"
 						html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+"' style='width: 100%; height: 39.7vh'></span></div>"
-					}else if(item.product_stock == 0){
+					}else if(item.product_status == '품절'){
 						html += "<div class='img_wrap'><span>"
 						html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+"' style='width: 100%; height: 39.7vh'></span>"
 						html += "<div class='soldout'><div class='soldout_title'>품절</div>"
@@ -949,10 +949,10 @@ $(function(){
 					html += "<div class='product'>"
 					html += "<div class='product_wrap'>"
 					html += "<a href='<%=request.getContextPath() %>/product_content_list.do?no="+item.product_no+"'>"
-					if(item.product_stock != 0){
+					if(item.product_status != '품절'){
 						html += "<div class='img_wrap'><span>"
 						html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+"' style='width: 100%; height: 39.7vh'></span></div>"
-					}else if(item.product_stock == 0){
+					}else if(item.product_status == '품절'){
 						html += "<div class='img_wrap'><span>"
 						html += "<img alt='img' src='resources/upload/"+item.product_thumbnail+"' style='width: 100%; height: 39.7vh'></span>"
 						html += "<div class='soldout'><div class='soldout_title'>품절</div>"

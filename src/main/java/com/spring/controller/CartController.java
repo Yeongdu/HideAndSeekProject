@@ -22,7 +22,7 @@ public class CartController {
 	@Autowired
 	private CartDAO dao;
 	
-	// 장바구니 진입 시 userId 와 일치하는 장바구니 정보를 불러오는 메서드
+	// 장바구니 테이블에서 userId 와 일치하는 장바구니 정보를 불러오는 메서드
 	@RequestMapping("/cart.do")
 	public String cart(Model model, HttpServletRequest request) {
 		
@@ -52,31 +52,20 @@ public class CartController {
 		
 	}
 	
-	// 장바구니 삭제 시 userId 와 일치하는 장바구니 수를 카운트하는 메서드
-	@RequestMapping("/cart_delete_count.do")
+	// 장바구니 삭제 시 userId 와 일치하는 장바구니 정보를 삭제하는 메서드
+	@RequestMapping("/cart_delete.do")
 	@ResponseBody
 	public Integer cartdeletecount(HttpSession session,
+								   @RequestParam("cart_no") int cart_no,
 								   @RequestParam("userId") String userId){
+		
+		this.dao.deleteCartList(cart_no);
 		
 		int count = this.dao.getCartCount(userId);
 		
 		session.setAttribute("rcount", count);
 		
 		return count;
-		
-	}
-	
-	// 장바구니 삭제 시 userId 와 일치하는 장바구니 정보를 삭제하는 메서드
-	@RequestMapping("/cart_delete.do")
-	@ResponseBody
-	public List<CartDTO> cartdelete(@RequestParam("cart_no") int cart_no,
-									@RequestParam("userId") String userId){
-		
-		this.dao.deleteCartList(cart_no);
-		
-		List<CartDTO> list = this.dao.getCartMaxNo(cart_no);
-		
-		return list;
 		
 	}
 	

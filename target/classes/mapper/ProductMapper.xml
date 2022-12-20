@@ -42,7 +42,7 @@
 		product_price,product_stock,product_point,product_thumbnail,product_status,product_date from 
 		(SELECT ROW_NUMBER() OVER(ORDER BY b.count desc nulls last, A.product_date desc)AS SEQ, b.*, A.*, a.product_no as pno 
 		FROM product A left join (select product_no, count(*) as count from tb_order group by product_no) 
-		b on a.product_no = b.product_no where product_status = '판매')where seq >= 1 and seq <![CDATA[<=]]> 16
+		b on a.product_no = b.product_no where product_status != '판매중지')where seq >= 1 and seq <![CDATA[<=]]> 16
  	</select>
  	
  	<!-- 리뷰가 많이 달린 상품 정보를 불러오는 쿼리문  -->
@@ -52,7 +52,7 @@
 		product_price,product_stock,product_point,product_thumbnail,product_status,product_date from 
 		(SELECT ROW_NUMBER() OVER(ORDER BY b.count desc nulls last, A.product_date desc)AS SEQ, b.*, A.*, a.product_no as pno 
 		FROM product A left join (select product_no, count(*) as count from review group by product_no) 
-		b on a.product_no = b.product_no where product_status = '판매') where SEQ >= 1 and SEQ <![CDATA[<=]]> 16
+		b on a.product_no = b.product_no where product_status != '판매중지') where SEQ >= 1 and SEQ <![CDATA[<=]]> 16
  	</select>
  	
  	<!-- 포토리뷰만 받아오는 쿼리문 -->
@@ -62,12 +62,12 @@
  	 
  	<!-- db에 저장된 상품 정보를 카운트 하는 쿼리문 -->
 	<select id="getListCount" resultType="int">
-		select count(*) from product where product_status = '판매'
+		select count(*) from product where product_status != '판매중지'
 	</select>
  	 
  	<!-- 카테고리에 해당하는 상품 정보를 카운트 하는 쿼리문 -->
 	<select id="getListCategoryCount" parameterType="String" resultType="int">
-		select count(*) from product where product_status = '판매' and product_category = #{category}
+		select count(*) from product where product_status != '판매중지' and product_category = #{category}
 	</select>
 	
 	<!-- 상품번호에 해당하는 리뷰 총 개수를 받아오는 메서드  -->
@@ -82,7 +82,7 @@
 	
  	 <!-- 최신순으로 정렬된 상품들을 불러오는 메서드 -->
  	 <select id="released" parameterType="Map" resultType="ProductDTO">
-		select * from (select p.*, row_number() over(order by product_date desc) rnum from product p where product_status = '판매' and product_category = #{category}) 
+		select * from (select p.*, row_number() over(order by product_date desc) rnum from product p where product_status != '판매중지' and product_category = #{category}) 
 		where rnum >= #{startNo} and rnum <![CDATA[<=]]> #{endNo} order by product_date desc
 	</select>
 	
@@ -93,7 +93,7 @@
 		product_price,product_stock,product_point,product_thumbnail,product_status,product_date from 
 		(SELECT ROW_NUMBER() OVER(ORDER BY b.star desc nulls last, A.product_date desc)AS SEQ, b.*, A.*, a.product_no as pno 
 		FROM product A left join (select product_no, ROUND((sum(review_star)/count(product_no)), 1) as star from review group by product_no)
-		b on a.product_no = b.product_no where product_status = '판매' and product_category = #{category}) where SEQ >= #{startNo} and SEQ <![CDATA[<=]]> #{endNo}
+		b on a.product_no = b.product_no where product_status != '판매중지' and product_category = #{category}) where SEQ >= #{startNo} and SEQ <![CDATA[<=]]> #{endNo}
 	</select>
 	
 	<!-- 리뷰 많은순으로 정렬된 상품들을 불러오는 메서드 -->
@@ -103,7 +103,7 @@
 		product_price,product_stock,product_point,product_thumbnail,product_status,product_date from 
 		(SELECT ROW_NUMBER() OVER(ORDER BY b.count desc nulls last, A.product_date desc)AS SEQ, b.*, A.*, a.product_no as pno 
 		FROM product A left join (select product_no, count(*) as count from review group by product_no) 
-		b on a.product_no = b.product_no where product_status = '판매' and product_category = #{category}) where SEQ >= #{startNo} and SEQ <![CDATA[<=]]> #{endNo}
+		b on a.product_no = b.product_no where product_status != '판매중지' and product_category = #{category}) where SEQ >= #{startNo} and SEQ <![CDATA[<=]]> #{endNo}
 	</select>
 	
 	<!-- 판매순으로 정렬된 상품들을 불러오는 메서드 -->
@@ -113,24 +113,24 @@
 		product_price,product_stock,product_point,product_thumbnail,product_status,product_date from 
 		(SELECT ROW_NUMBER() OVER(ORDER BY b.count desc nulls last, A.product_date desc)AS SEQ, b.*, A.*, a.product_no as pno 
 		FROM product A left join (select product_no, count(*) as count from tb_order group by product_no) 
-		b on a.product_no = b.product_no where product_status = '판매' and product_category = #{category}) where SEQ >= #{startNo} and SEQ <![CDATA[<=]]> #{endNo}
+		b on a.product_no = b.product_no where product_status != '판매중지' and product_category = #{category}) where SEQ >= #{startNo} and SEQ <![CDATA[<=]]> #{endNo}
 	</select>
 	
 	<!-- 높은 가격순으로 정렬된 상품들을 불러오는 메서드 -->
 	<select id="price_high" parameterType="Map" resultType="ProductDTO">
-		select * from (select p.*, row_number() over(order by product_price desc, product_date desc) rnum from product p where product_status = '판매' and product_category = #{category})
+		select * from (select p.*, row_number() over(order by product_price desc, product_date desc) rnum from product p where product_status != '판매중지' and product_category = #{category})
 		where rnum >= #{startNo} and rnum <![CDATA[<=]]> #{endNo}
 	</select>
 	
 	<!-- 낮은 가격순으로 정렬된 상품들을 불러오는 메서드 -->
 	<select id="price_low" parameterType="Map" resultType="ProductDTO">
-		select * from (select p.*, row_number() over(order by product_price, product_date desc) rnum from product p where product_status = '판매' and product_category = #{category})
+		select * from (select p.*, row_number() over(order by product_price, product_date desc) rnum from product p where product_status != '판매중지' and product_category = #{category})
 		where rnum >= #{startNo} and rnum <![CDATA[<=]]> #{endNo}
 	</select>
 	
 	<!-- 카테고리 필터값에 해당하는 상품 정보를 카운트 하는 쿼리문 -->
 	<select id="getListTagCount" parameterType="Map" resultType="int">
-		select count(*) from product where product_status = '판매' and product_category = #{category}
+		select count(*) from product where product_status != '판매중지' and product_category = #{category}
 			
 		<if test="dosu != null">
 			and product_dosu in
@@ -168,7 +168,7 @@
 	
 	<!-- 최신순으로 필터 정렬된 상품들을 불러오는 메서드 -->
 	<select id="released_tag" parameterType="Map" resultType="ProductDTO">
-		select * from (select p.*, row_number() over(order by product_date desc) rnum from product p where product_status = '판매' and product_category = #{category}
+		select * from (select p.*, row_number() over(order by product_date desc) rnum from product p where product_status != '판매중지' and product_category = #{category}
 		
 		<if test="dosu != null">
 			and product_dosu in
@@ -212,7 +212,7 @@
 		product_price,product_stock,product_point,product_thumbnail,product_status,product_date from 
 		(SELECT ROW_NUMBER() OVER(ORDER BY b.star desc nulls last, A.product_date desc)AS SEQ, b.*, A.*, a.product_no as pno 
 		FROM product A left join (select product_no, ROUND((sum(review_star)/count(product_no)), 1) as star from review group by product_no)
-		b on a.product_no = b.product_no where product_status = '판매' and product_category = #{category}
+		b on a.product_no = b.product_no where product_status != '판매중지' and product_category = #{category}
 		<if test="dosu != null">
 			and product_dosu in
 			<foreach collection="dosu" item="item" separator="," open="(" close=")">#{item}</foreach>
@@ -255,7 +255,7 @@
 		product_price,product_stock,product_point,product_thumbnail,product_status,product_date from 
 		(SELECT ROW_NUMBER() OVER(ORDER BY b.count desc nulls last, A.product_date desc)AS SEQ, b.*, A.*, a.product_no as pno 
 		FROM product A left join (select product_no, count(*) as count from review group by product_no) 
-		b on a.product_no = b.product_no where product_status = '판매' and product_category = #{category}
+		b on a.product_no = b.product_no where product_status != '판매중지' and product_category = #{category}
 		<if test="dosu != null">
 			and product_dosu in
 			<foreach collection="dosu" item="item" separator="," open="(" close=")">#{item}</foreach>
@@ -298,7 +298,7 @@
 		product_price,product_stock,product_point,product_thumbnail,product_status,product_date from 
 		(SELECT ROW_NUMBER() OVER(ORDER BY b.count desc nulls last, A.product_date desc)AS SEQ, b.*, A.*, a.product_no as pno 
 		FROM product A left join (select product_no, count(*) as count from tb_order group by product_no) 
-		b on a.product_no = b.product_no where product_status = '판매' and product_category = #{category}
+		b on a.product_no = b.product_no where product_status != '판매중지' and product_category = #{category}
 		<if test="dosu != null">
 			and product_dosu in
 			<foreach collection="dosu" item="item" separator="," open="(" close=")">#{item}</foreach>
@@ -336,7 +336,7 @@
 	
 	<!-- 높은 가격순으로 필터 정렬된 상품들을 불러오는 메서드 -->
 	<select id="price_high_tag" parameterType="Map" resultType="ProductDTO">
-		select * from (select p.*, row_number() over(order by product_price desc, product_date desc) rnum from product p where product_status = '판매' and product_category = #{category}
+		select * from (select p.*, row_number() over(order by product_price desc, product_date desc) rnum from product p where product_status != '판매중지' and product_category = #{category}
 		
 		<if test="dosu != null">
 			and product_dosu in
@@ -376,7 +376,7 @@
 	
 	<!-- 낮은 가격순으로 필터 정렬된 상품들을 불러오는 메서드 -->
 	<select id="price_low_tag" parameterType="Map" resultType="ProductDTO">
-		select * from (select p.*, row_number() over(order by product_price, product_date desc) rnum from product p where product_status = '판매' and product_category = #{category}
+		select * from (select p.*, row_number() over(order by product_price, product_date desc) rnum from product p where product_status != '판매중지' and product_category = #{category}
 		
 		<if test="dosu != null">
 			and product_dosu in

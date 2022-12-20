@@ -472,13 +472,13 @@
 											<div class="product_wrap">
 												<a href="<%=request.getContextPath() %>/product_content_list.do?no=${dto.product_no}">
 													<div class="img_wrap">
-														<c:if test="${dto.product_stock != 0}" >
+														<c:if test="${dto.product_status != '품절'}" >
 															<span>
 																<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
 															</span>
 														</c:if>
 															
-														<c:if test="${dto.product_stock == 0}" >
+														<c:if test="${dto.product_status == '품절'}" >
 															<span>
 																<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
 															</span>
