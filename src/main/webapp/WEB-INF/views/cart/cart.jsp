@@ -37,7 +37,8 @@
 				<c:forEach items="${list }" var="dto" varStatus="status">
 				<div class="cart_content cart_content${status.index}">
 				<input type="hidden" class="cartno${status.index}" name="cartno" value="${dto.cart_no }">
-				<input type="hidden" class="stock${status.index}"name="stock" value="${dto.product_stock }">
+				<input type="hidden" class="stock${status.index}" name="stock" value="${dto.product_stock }">
+				<input type="hidden" class="product_no${status.index}" name="product_no" value="${dto.product_no}">
 					<div class="head">
 						<div class="company_name">
 							${dto.product_company }
@@ -61,7 +62,7 @@
 										<img src="resources/upload/${dto.product_thumbnail }">
 									</a>
 								</div>
-								<div class="product_name">${dto.product_name }</div>
+								<div class="product_name${status.index}">${dto.product_name }</div>
 								<button type="button" class="product_remove product_remove${status.index}">
 									<img src="resources/image/remove_button.png">
 								</button>
