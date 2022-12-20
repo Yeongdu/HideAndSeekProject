@@ -21,7 +21,7 @@
   		select * from tb_user where user_no = #{no}
   	</select>
 	
-	<update id="adminUpdateUser" parameterType="UserDTO">
+	<update id="adminUpdateUser" parameterType="map">
 		update tb_user set user_point = #{user_point} where user_no=#{user_no}
 	</update>
 	

@@ -25,7 +25,7 @@ public class Admin_product_contentDAOImpl implements Admin_product_contentDAO{
 	}
 
 	@Override
-	public int productContentUpdate(Product_contentDTO dto) {
+	public int productContentUpdate(admin_product_contentDTO dto) {
 		return this.sqlSession.update("admin_product_content_update", dto);
 	}
 
@@ -43,6 +43,41 @@ public class Admin_product_contentDAOImpl implements Admin_product_contentDAO{
 	public void productContUpdateSeq(int product_no) {
 		this.sqlSession.update("seqCont", product_no);
 		
+	}
+
+	@Override
+	public int UpdatePCFile1(admin_product_contentDTO dto) {
+		return this.sqlSession.update("admin_productUpdatePCFile1", dto);
+	}
+
+	@Override
+	public int UpdatePCFile2(admin_product_contentDTO dto) {
+		return this.sqlSession.update("admin_productUpdatePCFile2", dto);
+	}
+
+	@Override
+	public int UpdatePCFile3(admin_product_contentDTO dto) {
+		return this.sqlSession.update("admin_productUpdatePCFile3", dto);
+	}
+
+	@Override
+	public int updateWithoutFile1(admin_product_contentDTO dto) {
+		return this.sqlSession.update("admin_productUpdateWithoutFile1", dto);
+	}
+
+	@Override
+	public int updateWithoutFile2(admin_product_contentDTO dto) {
+		return this.sqlSession.update("admin_productUpdateWithoutFile2", dto);
+	}
+
+	@Override
+	public int updateWithoutFile3(admin_product_contentDTO dto) {
+		return this.sqlSession.update("admin_productUpdateWithoutFile3", dto);
+	}
+
+	@Override
+	public int updateWithoutFile(admin_product_contentDTO dto) {
+		return this.sqlSession.update("admin_productUpdateWithoutFile", dto);
 	}
 	
 

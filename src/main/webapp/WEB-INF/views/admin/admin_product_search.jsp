@@ -52,14 +52,20 @@
 						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'">${dto.product_stock }</td>
 						<td onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=${page.page }'"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.product_date }" /></td>
 						<td>
-						<c:if test="${dto.product_status =='판매' }">
-						<input type="button" value="판매중"
+						<c:if test="${dto.product_status eq '판매' }">
+						<input type="button" class="btn btn-outline-dark" value="${dto.product_status}"
 							onclick="if(confirm('판매상태를 판매 중지로 변경하시겠습니까?')){
 							location.href='<%=request.getContextPath() %>/admin_product_statusChange.do?no=${dto.product_no }&page=${page.page }'} 
 							else{return; }">
 						</c:if>
-						<c:if test="${dto.product_status != '판매' }">
-						${dto.product_status }
+						<c:if test="${dto.product_status eq '판매중지' }">
+						<input type="button" class="btn btn-outline-danger" value="${dto.product_status}"
+							onclick="if(confirm('판매상태를 판매중으로 변경하시겠습니까?')){
+							location.href='<%=request.getContextPath() %>/admin_product_statusChange2.do?no=${dto.product_no }&page=${page.page }'} 
+							else{return; }">
+						</c:if>
+						<c:if test="${dto.product_status eq '품절' }">
+						<input type="button" class="btn btn-secondary" value="${dto.product_status}" disabled>
 						</c:if>
 						</td>
 					</tr>

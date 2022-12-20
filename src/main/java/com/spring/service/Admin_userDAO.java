@@ -30,7 +30,7 @@ public interface Admin_userDAO {
 	int insertUser(UserDTO dto);
 	
 	//유저 수정하는 메서드
-	int updateUser(UserDTO dto);
+	int updateUser(Map<String, Object> map);
 	
 	//유저 삭제하는 메서드
 	int deleteUser(int user_no);

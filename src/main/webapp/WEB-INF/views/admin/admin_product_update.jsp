@@ -5,7 +5,7 @@
 <c:set var="pcdto" value="${PCCont }" />
 <c:set var="page" value="${page }" />
 <c:set var="slist" value="${CategoryList }" />
-<c:set var="thumbnailFileDB" value="${thumbnailFileDB }" />
+<%-- <c:set var="thumbnailFileDB" value="${thumbnailFileDB }" /> --%>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
@@ -14,6 +14,7 @@
 <title>${dto.product_no }) ${dto.product_name } 수정</title>
 <div style="width:45em; height:auto; margin: 50px auto; text-align: center;" align="center">
 <script type="text/javascript">
+
 	function readURL(input) {
 	  if (input.files && input.files[0]) {
 	    var reader = new FileReader();
@@ -26,46 +27,6 @@
 	    document.getElementById('preview1').src = "";
 	  }
 	}
-	
-// 	function readURL2(input) {
-// 	  if (input.files && input.files[0]) {
-// 	    var reader = new FileReader();
-// 	    reader.onload = function(e) {
-// 	      document.getElementById('preview2').src = e.target.result;
-// 	      document.getElementById('product_file1').value = e.target.result;
-// 	    };
-// 	    reader.readAsDataURL(input.files[0]);
-// 	  } else {
-// 	    document.getElementById('preview2').src = "";
-// 	  }
-// 	}
-	
-// 	function readURL3(input) {
-// 	  if (input.files && input.files[0]) {
-// 	    var reader = new FileReader();
-// 	    reader.onload = function(e) {
-// 	      document.getElementById('preview3').src = e.target.result;
-// 	      document.getElementById('product_file2').value = e.target.result;
-// 	    };
-// 	    reader.readAsDataURL(input.files[0]);
-// 	  } else {
-// 	    document.getElementById('preview3').src = "";
-// 	  }
-// 	}
-	
-// 	function readURL4(input) {
-// 	  if (input.files && input.files[0]) {
-// 	    var reader = new FileReader();
-// 	    reader.onload = function(e) {
-// 	      document.getElementById('preview4').src = e.target.result;
-// 	      document.getElementById('product_file3').value = e.target.result;
-// 	    };
-// 	    reader.readAsDataURL(input.files[0]);
-// 	  } else {
-// 	    document.getElementById('preview4').src = "";
-// 	  }
-// 	}
-
 	
 </script>
 <br><br>
@@ -264,7 +225,7 @@
             
 			<%--적립 포인트 --%>
             <div class="form-group row border-bottom py-2">
-                <label for="product_point" class="col-sm-4 col-form-label">재고수량</label>
+                <label for="product_point" class="col-sm-4 col-form-label">적립 포인트</label>
                 <div class="col-sm-8">
                     <input type="number" min="0" name="product_point" id="product_point" class="form-control-plaintext" value="${dto.product_point }" required />
                 </div>
@@ -280,8 +241,8 @@
 					<input class="form-check-input" type="radio" name="product_status" id="product_acidity" value="품절" <c:if test="${dto.product_status eq '품절'}">checked</c:if> required>
 					<label class="form-check-label" for="inlineRadio1">품절</label>
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					<input class="form-check-input" type="radio" name="product_status" id="product_acidity" value="종료" <c:if test="${dto.product_status eq '종료'}">checked</c:if> required>
-					<label class="form-check-label" for="inlineRadio1">종료</label>
+					<input class="form-check-input" type="radio" name="product_status" id="product_acidity" value="판매중지" <c:if test="${dto.product_status eq '종료'}">checked</c:if> required>
+					<label class="form-check-label" for="inlineRadio1">판매중지</label>
                 </div>
             </div>
             
@@ -293,7 +254,7 @@
                 <c:if test="${empty product_thumbnailFile}">
                 <img width="120px;" id="preview1" src = "resources/upload/${dto.product_thumbnail }"/>
 <%--                 <input type="hidden" name="product_thumbnail" id="product_thumbnail" value="${dto.product_thumbnail }"/> --%>
-				<input type="hidden" name="product_thumbnailDB" id="product_thumbnailDB" value="${thumbnailFileDB}" />
+<%-- 				<input type="hidden" name="product_thumbnailDB" id="product_thumbnailDB" value="${thumbnailFileDB}" /> --%>
 
                 </c:if>
 

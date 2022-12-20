@@ -38,14 +38,14 @@
   
 		<!-- 최근 5개 주문만 불러오는 sql문 -->
   	<select id="admin_new5order" resultType="OrderDTO">
-  	select * from tb_order
-<!-- 		select * from (select rownum as rownumber, O.* from tb_order O order by order_date desc) where rownum <= 5; -->
+<!--   	select * from tb_order -->
+		<![CDATA[select * from (select rownum as rownumber, O.* from tb_order O order by order_date desc) where rownum <= 5]]>
 	</select>
 	
   	<select id="admin_order" resultType="OrderDTO">
 	select * from tb_order
 	</select>
-
+	
 	<select id="admin_getOrderListCount" resultType="int">
 		select count(*) from tb_order order by order_date desc
 	</select>
@@ -54,7 +54,7 @@
 	<select id="getOrderListCount" parameterType="int" resultType="int">
 		select count(*) from tb_order
 	</select>
-		
+	
 	<!-- 오더테이블의 리스트를 받아오는 쿼리문 -->
 	<select id="getOrderList" parameterType="PageDTO" resultType="OrderDTO">
 		<![CDATA[select * from (select p.*, row_number() over(order by order_no desc) rnum from tb_order p) 
@@ -107,6 +107,13 @@
 	<!-- 오더테이블의 같은 주문 패키지에서 주문한 제품 갯수 받아오는 메서드 -->
 	<select id="getOrderSamePackageCount" parameterType="int" resultType="int">
 		select count(order_package) from tb_order where order_package = ?;
+	</select>
+	
+	<!-- 오더리스트에 패키지번호에 해당하는 주문정보를 받아오는 쿼리문 -->		
+	<select id="getOrderSamePakage" parameterType="int" resultType="OrderDTO">
+		<![CDATA[
+		select * from tb_order where order_package = #{no} order by order_no desc
+		]]>
 	</select>
   
   
