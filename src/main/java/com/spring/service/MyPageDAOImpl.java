@@ -99,6 +99,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 	
 	@Override
 	public List<DeliveryDTO> getDeliveryCont(String userId) {
+		System.out.println("impl >>> " + this.sqlSession.selectList("delivery_cont", userId));
 		return this.sqlSession.selectList("delivery_cont", userId);
 	}
 	
@@ -115,6 +116,12 @@ public class MyPageDAOImpl implements MyPageDAO{
 	@Override
 	public void updateDeliveryDefault(String userId) {
 		this.sqlSession.update("default_update", userId);
+	}
+
+	@Override
+	public DeliveryDTO getDeliveryModify(int deli_no) {
+		
+		return this.sqlSession.selectOne("deli_modify", deli_no);
 	}
 	
 	

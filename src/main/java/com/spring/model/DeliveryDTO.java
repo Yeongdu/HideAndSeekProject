@@ -10,4 +10,8 @@ public class DeliveryDTO {
 	private String user_id; // 유저 아이디 FK
 	private int deli_default; // 기본 배송지 설정
 	private String deli_name; // 배송지 이름 설정
+	private String deli_phone1;
+	private String deli_phone2;
+	private String deli_phone3;
+	private int deli_no;
 }

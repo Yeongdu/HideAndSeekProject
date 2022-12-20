@@ -195,6 +195,10 @@ html{
 	cursor: pointer;
 }
 
+.cart_count{
+	bottom: 7px;
+}
+
 
 #main {
     min-height: calc(100vh - 20px);

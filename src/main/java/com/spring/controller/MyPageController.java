@@ -213,6 +213,8 @@ public class MyPageController {
 	public List<DeliveryDTO> mypage_delivery(Model model, @RequestParam("userId") String userId){
 		List<DeliveryDTO> delivery_info = this.mypage_dao.getDeliveryCont(userId);
 		
+		System.out.println("controller >>> " + delivery_info);
+		
 		return delivery_info;
 	}
 	
@@ -273,6 +275,9 @@ public class MyPageController {
 										 @RequestParam("delivery_zipcode")String delivery_zipcode,
 										 @RequestParam("delivery_addr")String delivery_addr,
 										 @RequestParam("delivery_extraAddr")String delivery_extraAddr,
+										 @RequestParam("deli_phone1")String delivery_phone1,
+										 @RequestParam("deli_phone2")String delivery_phone2,
+										 @RequestParam("deli_phone3")String delivery_phone3,
 										 @RequestParam("notice")int notice, 
 										 HttpServletResponse response) throws IOException {
 		
@@ -286,6 +291,9 @@ public class MyPageController {
 		map.put("zipcode", delivery_zipcode);
 		map.put("addr", delivery_addr);
 		map.put("extraAddr", delivery_extraAddr);
+		map.put("deli_phone1", delivery_phone1);
+		map.put("deli_phone2", delivery_phone2);
+		map.put("deli_phone3", delivery_phone3);
 		map.put("check", notice);
 		
 		int count = 0;
@@ -319,6 +327,18 @@ public class MyPageController {
 		}
 		
 		
+		
+	}
+	
+	@RequestMapping("mypage_delivery_modify.do")
+	@ResponseBody
+	public String delivery_modify(@RequestParam("deli_no")int deli_no, Model model) {
+		
+		DeliveryDTO dlist = this.mypage_dao.getDeliveryModify(deli_no);
+		
+		model.addAttribute("dlist", dlist);
+		
+		return "redirect:/mypage.do";
 		
 	}
 	

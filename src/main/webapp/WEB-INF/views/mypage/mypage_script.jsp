@@ -577,9 +577,9 @@ $(document).on("blur", ".user_pwd_new",function(){
 		        if(!loading)    //실행 가능 상태라면?
 		        {	if(!su){
 			        	if(su2){
+			        		loading = true; //실행 불가능 상태로 변경
+				            getreview();
 			        		if(su3){
-			        			loading = true; //실행 불가능 상태로 변경
-					            getreview();
 					            $("#none_review").css("display","none");	
 			        		}
 			        			
@@ -728,20 +728,34 @@ $(document).on("blur", ".user_pwd_new",function(){
 			    			var de = item.deli_default;
 			    			
 				    		res += "<div class = 'delivery_main_wrap'>"
-				    		res += 		"<div class = 'delivery_title'>"
+				    		res += 		"<div class = 'delivery_title"+item.deli_no+"'" + "onmouseover = 'arcodian("+item.deli_no+")'>"
+				    				if(de == 1){
+							res +=			"<input type = 'button' value = '기본 배송지' class = 'delivery_default_badge' disabled>"
+							    		}
 				    		res += 			"<div class = 'delivery_name'>" + item.deli_name + "</div>"
-		    						if(de == 1){
-					    	res +=			"<input type = 'button' value = '기본 배송지' disabled>"
-					    				}
-				    		res += 		"</div>"
+				    		res += 		"</div>" // delivery_title의 end
+				    		
+				    		if(de == 1) {
+				    			res += 		"<div class = 'delivery_arco" + item.deli_no +"'>"	
+				    		}else {
+				    			res += 		"<div class = 'delivery_arco" + item.deli_no +"'" + "style = 'display:none;'>"
+				    		}
+				    		
+				    		res += 		"<div class = 'delivery_phone'>"
+				    		res += 			item.deli_phone1 + "-" + item.deli_phone2 + "-" + item.deli_phone3
+				    		res += 		"</div>" // delivery_phone의 end
 			    			res += 		"<div class = 'delivery_info'>"
-			    			res += 			"<div class = 'delivery_info_zipcode'>" + item.deli_zipcode + "</div>"
-			    			res += 			"<div class = 'delivery_info_addr1'>" + item.deli_addr1 + "</div>"
-			    			res += 			"<div class = 'delivery_info_addr2'>" + item.deli_addr2 + "</div>"
-							res += 		"</div>"
-							res += "</div>"
+			    			res += 			"<div class = 'delivery_info_addr1'>" + item.deli_addr1 + "</div>&nbsp;"
+			    			res += 			" <div class = 'delivery_info_addr2'>" + item.deli_addr2 + "</div>"
+							res += 		"</div>" // delivery_info의 end
+							res += 		"<div class = 'delivery_modify'>"
+							res +=			"<a class = 'deli_modi_btn' onclick = 'delivery_modify_submit("+item.deli_no+")'>수정</a>"
+							res +=		"</div>"
+			    			res += "</div>" // delivery_arco의 end
+			    			res += "</div>" // delivery_main_wrap의 end
 			    	});
-			    			res += "<input type = 'button' value = '등록하기' class = 'delivery_btn'>";
+			    		res += "<input type = 'button' value = '등록하기' class = 'delivery_btn'>";
+			    			
 			    	}
 			    	
 			    	$('#mypage_content').append(res);
@@ -774,7 +788,35 @@ $(document).on("blur", ".user_pwd_new",function(){
 	$(document).on("click",".delivery_modalClose", function() {
 		$("#delivery_modal").fadeOut(300);
 	});
-
+	
+	// 배송지 아코디언 on/off
+	function arcodian(no){
+		$(document).on("click",".delivery_title"+no, function(){
+			$(".delivery_arco"+no).slideDown(500);
+			$(".delivery_title"+no).attr("class", "delivery_title-active"+no);	
+		});
+		
+			
+		$(document).on("click",".delivery_title-active"+no, function(){
+			$(".delivery_arco"+no).slideUp(500);
+			$(".delivery_title-active"+no).attr("class", "delivery_title"+no);
+		}); 
+	}
+	
+	function delivery_modify_submit(no){
+		
+		$.ajax({
+			type : 'post',           // 타입 (get, post, put 등등)
+		    url : "<%=request.getContextPath() %>/mypage_delivery_modify.do",          // 요청할 서버url
+		    dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
+		    data : {deli_no : no},
+		    success : function(result) { // 결과 성공 콜백함수
+		    	$("#delivery_modify_modal").fadeIn(500);
+		},
+		});
+	}
+	
+	
 
 </script>
 
