@@ -40,9 +40,13 @@
 </script>
 <br><br><br>
 
-	<br>
+
 <div style="height: auto; min-height: 100%;" align="center">
-<!-- 	<p class="adminPdContTitle1"> -->
+	<div class="adminProductListTitle" align="center">
+	<h4>${dto.user_no }) ${dto.user_name } 회원 상세</h4>
+	<br>
+	</div>
+
 
 	<div align="center" style="width: 60%;">
 		
@@ -82,7 +86,7 @@
 				<label for="exampleFormControlInput1"
 					class="col-sm-2 col-form-label-1">전화번호</label>
 				<div class="col-sm-10">
-					<span class="form-control">${dto.user_phone1 }</span>
+					<span class="form-control">${dto.user_phone1 } - ${dto.user_phone2 } - ${dto.user_phone3 }</span>
 				</div>
 			</div>
 			

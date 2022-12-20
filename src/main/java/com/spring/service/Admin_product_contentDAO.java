@@ -10,7 +10,6 @@ public interface Admin_product_contentDAO {
 	
 	admin_product_contentDTO getProductOne(int product_no);
 	
-	int productContentUpdate(Product_contentDTO dto);
 	
 	int insertProductContent(int product_no);
 	
@@ -18,6 +17,31 @@ public interface Admin_product_contentDAO {
 	
 	void productContUpdateSeq(int product_no);
 	
+	
+	
+	//첫번째 파일만 들어왔을 때
+	int UpdatePCFile1(admin_product_contentDTO dto);
+	
+	//두번째 파일만 들어왔을 때
+	int UpdatePCFile2(admin_product_contentDTO dto);
+
+	//세번째 파일만 들어왔을 때
+	int UpdatePCFile3(admin_product_contentDTO dto);
+	
+	//첫번째만 안들어왔을 때
+	int updateWithoutFile1(admin_product_contentDTO dto);
+
+	//두번째만 안들어왔을 때
+	int updateWithoutFile2(admin_product_contentDTO dto);
+
+	//세번째만 안들어왔을 때
+	int updateWithoutFile3(admin_product_contentDTO dto);
+	
+	//다 들어왔을 때
+	int productContentUpdate(admin_product_contentDTO dto);
+	
+	//파일이 하나도 수정되지 않았을 때
+	int updateWithoutFile(admin_product_contentDTO dto);
 	
 
 

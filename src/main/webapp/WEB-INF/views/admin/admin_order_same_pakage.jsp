@@ -16,9 +16,11 @@
 <br>
 <br>
 
+
 	<div class="adminProductListTitle" align="center">
-		<h4>전체 주문 목록</h4>
+		<h4>주문자 : ${list[0].user_id }</h4>
 	</div>
+
 	<br>
 	
 	<div align="center">
@@ -38,13 +40,13 @@
 			<c:if test="${!empty list }">
 				<c:forEach items="${list }" var="dto">
 					<tr>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_order_same_package.do?no=${dto.order_package }'">${dto.order_no }</td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_order_same_package.do?no=${dto.order_package }'">${dto.order_package }</td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_order_same_package.do?no=${dto.order_package }'"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.order_date }" /></td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_order_same_package.do?no=${dto.order_package }'">${dto.user_id }</td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_order_same_package.do?no=${dto.order_package }'">${dto.product_name }</td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_order_same_package.do?no=${dto.order_package }'"><img style="width: 100%; height: 60px" src="resources/upload/${dto.product_thumbnail }"></td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_order_same_package.do?no=${dto.order_package }'">${dto.order_amount }</td>
+						<td>${dto.order_no }</td>
+						<td>${dto.order_package }</td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.order_date }" /></td>
+						<td>${dto.user_id }</td>
+						<td>${dto.product_name }</td>
+						<td><img style="width: 100%; height: 60px" src="resources/upload/${dto.product_thumbnail }"></td>
+						<td>${dto.order_amount }</td>
 						<c:if test="${dto.order_status =='주문 완료' }">
 							<td style="text-align: right;">
 								<input type="button" class="btn btn-outline-success" value="주문 완료"
@@ -104,51 +106,10 @@
 			</c:if>
 		</table>
 		<br>
+		<input type="button" class="btn btn-light" value="주문목록" onclick="location.href='admin_order_list.do'">
+		
 	</div>
 
-	<%-- 페이징 처리 --%>
-		<div class="page-paging">
-		    <c:if test="${page.startBlock > 1}"><span><a href="admin_product_search.do?page=1&field=${field }&keyword=${keyword}"><i class="fa fa-angle-double-left"></i></a></span></c:if>
-		    <c:if test="${page.startBlock <= 1}"><span class="nolink"><i class="fa fa-angle-double-left"></i></span></c:if>
-		
-		    <c:if test="${page.page > 1}"><span><a href="admin_product_search.do?page=${page.page - 1}&field=${field }&keyword=${keyword}"><i class="fa fa-angle-left"></i></a></span></c:if>
-		    <c:if test="${page.page <= 1}"><span class="nolink"><i class="fa fa-angle-left"></i></span></c:if>
-		
-		    <ol class="paging_1">
-		        <c:forEach begin="${page.startBlock}" end="${page.endBlock}" var="i">
-		        <c:if test="${i == page.page}"><li class="now">${i}</li></c:if>
-		        <c:if test="${i != page.page}"><li><a href="admin_product_search.do?page=${i}&field=${field }&keyword=${keyword}">${i}</a></li></c:if>
-		        </c:forEach>
-		    </ol>
-		
-		    <c:if test="${page.page < page.allPage}"><span><a href="admin_product_search.do?page=${page.page + 1}&field=${field }&keyword=${keyword}"><i class="fa fa-angle-right"></i></a></span></c:if>
-		    <c:if test="${page.page >= page.allPage}"><span class="nolink"><i class="fa fa-angle-right"></i></span></c:if>
-		
-		    <c:if test="${page.endBlock < page.allPage}"><span><a href="admin_product_search.do?page=${page.allPage}&field=${field }&keyword=${keyword}"><i class="fa fa-angle-double-right"></i></a></span></c:if>
-		    <c:if test="${page.endBlock >= page.allPage}"><span class="nolink"><i class="fa fa-angle-double-right"></i></span></c:if>
-		</div>
-	<%-- 페이징 처리 end --%>
-		
-		<br>
-		
-<%-- 검색 기능 --%>
-<div class="searchWrab" align="center">
-	<div>
-		<form method="post"
-			action="<%=request.getContextPath()%>/admin_order_search.do">
-
-			 <span> <input type="text" name="keyword" value="${keyword}"
-				class="form-control" style="width: 20em; display: inline-block;" placeholder="주문자 검색"/></span>
-			&nbsp;&nbsp;&nbsp;
-
-			<button type="submit" class="btn btn-secondary ml-1">
-				<i class="fa fa-search"></i> 검색
-			</button>
-
-		</form>
-	</div>
-</div>
-<%-- 검색 기능 end --%>
 
 
 </div>

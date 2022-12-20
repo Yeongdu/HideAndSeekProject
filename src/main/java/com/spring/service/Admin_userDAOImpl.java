@@ -48,8 +48,8 @@ public class Admin_userDAOImpl implements Admin_userDAO{
 	}
 
 	@Override
-	public int updateUser(UserDTO dto) {
-		return this.sqlSession.update("adminUpdateUser", dto);
+	public int updateUser(Map<String, Object> map) {
+		return this.sqlSession.update("adminUpdateUser", map);
 	}
 
 	@Override

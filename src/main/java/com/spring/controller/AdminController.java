@@ -72,8 +72,8 @@ public class AdminController {
 	// DB 상의 전체 게시물의 수
 	private int totalRecord = 0;
 	
-	
 	private static final String FILE_SERVER_PATH = "D:\\git\\HideAndSeekProject\\src\\main\\webapp\\resources\\upload";
+//	private static final String FILE_SERVER_PATH = "/src/main/webapp/resources/upload";
 
 	//신규 제품 등록
 	@RequestMapping("/admin_product_insert_ok.do")
@@ -108,8 +108,29 @@ public class AdminController {
 	//관리자 메인
 	@RequestMapping("/admin_main.do")
 	public String admin_main(Model model) {
-		List<OrderDTO> list = this.dao.getOrderList();
-		model.addAttribute("orderList", list);
+//		List<OrderDTO> list = this.dao.getOrderList();
+//		model.addAttribute("orderList", list);
+		
+		// 페이지에 해당하는 게시물을 가져오는 메서드 호출.
+		List<OrderDTO> list = this.dao.getNewOrderList();
+
+		int count = 0;
+
+		for (OrderDTO item : list) {
+
+			List<ProductDTO> plist = dao.getOrderProductList(list.get(count).getProduct_no());
+
+			list.get(count).setProduct_name(plist.get(0).getProduct_name());
+			list.get(count).setProduct_thumbnail(plist.get(0).getProduct_thumbnail());
+
+			System.out.println("반복문 list 값 >>> " + list.get(count));
+
+			count += 1;
+
+		}
+
+		model.addAttribute("list", list);
+
 		return "admin/admin_main";
 	}
 	
@@ -269,7 +290,7 @@ public class AdminController {
 		ProductDTO pdto = this.pdao.getProductCont(no);
 //		Product_contentDTO pcdto = this.pcdao.getProduct(no);
 		List<Product_categoryDTO> cateList = this.dao.getCategoryList();
-		model.addAttribute("thumbnailFileDB", pdto.getProduct_thumbnail());
+//		model.addAttribute("thumbnailFileDB", pdto.getProduct_thumbnail());
 		model.addAttribute("CategoryList", cateList);
 		model.addAttribute("PCont", pdto);
 //		model.addAttribute("PCCont", pcdto);
@@ -388,56 +409,242 @@ public class AdminController {
 			@RequestParam("page") int page, 
 			@RequestParam("no") int no, 
 			ProductDTO pdto, 
+			admin_product_contentDTO apcdto,
 			Product_contentDTO pccdto, 
 			HttpServletResponse response, 
-			Model model) throws IOException {
+			Model model) throws Exception {
 		
 		String savedfile1 = pccdto.getProduct_file1();
 		String savedfile2 = pccdto.getProduct_file2();
 		String savedfile3 = pccdto.getProduct_file3();
+		
 
-		//원래 있던 파일 삭제
-		if (savedfile1 != null) {
-			String fullpath = FILE_SERVER_PATH + "/" + savedfile1;
-			File file = new File(fullpath);
-			if (file.isFile()) {
-				file.delete();
+		
+		// file 셋다 수정 안한 경우
+		if (file1.isEmpty() && file2.isEmpty() && file3.isEmpty()) {
+			int check1 = this.apcdao.updateWithoutFile(apcdto);
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html; charset=UTF-8");
+			if (check1 > 0) {
+				out.println("<script> alert('상품수정성공'); location.href='admin_product_content.do?no=" + no + "&page="
+						+ page + "'; </script>");
+			} else {
+				out.println("<script> alert('상품수정실패'); history.back(); </script>");
 			}
-		}
-		if (savedfile2 != null) {
-			String fullpath = FILE_SERVER_PATH + "/" + savedfile2;
-			File file = new File(fullpath);
-			if (file.isFile()) {
-				file.delete(); 
+
+		} else if (file2.isEmpty() && file3.isEmpty()) { // file1만 수정한 경우
+			// 원래 있던 파일 삭제
+			if (savedfile1 != null) {
+				String fullpath = FILE_SERVER_PATH + "/" + savedfile1;
+				File file = new File(fullpath);
+				if (file.isFile()) {
+					file.delete();
+				}
 			}
-		}
-		if (savedfile3 != null) {
-			String fullpath = FILE_SERVER_PATH + "/" + savedfile3;
-			File file = new File(fullpath);
-			if (file.isFile()) {
-				file.delete();
+			apcdto.setProduct_file1(file1.getOriginalFilename());
+
+			int check2 = this.apcdao.UpdatePCFile1(apcdto);
+
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html; charset=UTF-8");
+
+			if (check2 > 0 && !file1.getOriginalFilename().isEmpty()) {
+				file1.transferTo(new File(FILE_SERVER_PATH, file1.getOriginalFilename()));
+				out.println("<script> alert('상품수정성공'); location.href='admin_product_content.do?no=" + no + "&page="
+						+ page + "'; </script>");
+			} else {
+				out.println("<script> alert('상품수정실패'); history.back(); </script>");
 			}
-		}
-		
-		pccdto.setProduct_file1(file1.getOriginalFilename());
-		pccdto.setProduct_file2(file2.getOriginalFilename());
-		pccdto.setProduct_file3(file3.getOriginalFilename());
-		
-		int check2 = this.apcdao.productContentUpdate(pccdto);
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		model.addAttribute("page", page);
-		
-		if(check2 > 0) {
-			file1.transferTo(new File(FILE_SERVER_PATH, file1.getOriginalFilename()));
-			file2.transferTo(new File(FILE_SERVER_PATH, file2.getOriginalFilename()));
-			file3.transferTo(new File(FILE_SERVER_PATH, file3.getOriginalFilename()));
-			out.println("<script> alert('상품수정성공'); location.href='admin_product_content.do?no="+no+"&page="+page+"'; </script>");
-		
-		}else {
-			out.println("<script> alert('상품수정실패'); history.back(); </script>");
-		}
+		} else if (file1.isEmpty() && file3.isEmpty()) { // file2만 수정한 경우
+			// 원래 있던 파일 삭제
+			if (savedfile2 != null) {
+				String fullpath = FILE_SERVER_PATH + "/" + savedfile2;
+				File file = new File(fullpath);
+				if (file.isFile()) {
+					file.delete();
+				}
+			}
+			apcdto.setProduct_file2(file2.getOriginalFilename());
+
+			int check2 = this.apcdao.UpdatePCFile2(apcdto);
+
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html; charset=UTF-8");
+
+			if (check2 > 0 && !file2.getOriginalFilename().isEmpty()) {
+				file2.transferTo(new File(FILE_SERVER_PATH, file2.getOriginalFilename()));
+				out.println("<script> alert('상품수정성공'); location.href='admin_product_content.do?no=" + no + "&page="
+						+ page + "'; </script>");
+			} else {
+				out.println("<script> alert('상품수정실패'); history.back(); </script>");
+			}
+		} else if (file1.isEmpty() && file2.isEmpty()) { // file3만 수정한 경우
+			// 원래 있던 파일 삭제
+			if (savedfile3 != null) {
+				String fullpath = FILE_SERVER_PATH + "/" + savedfile3;
+				File file = new File(fullpath);
+				if (file.isFile()) {
+					file.delete();
+				}
+			}
+
+			apcdto.setProduct_file3(file3.getOriginalFilename());
+
+			int check2 = this.apcdao.UpdatePCFile3(apcdto);
+
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html; charset=UTF-8");
+
+			if (check2 > 0 && !file3.getOriginalFilename().isEmpty()) {
+				file3.transferTo(new File(FILE_SERVER_PATH, file3.getOriginalFilename()));
+				out.println("<script> alert('상품수정성공'); location.href='admin_product_content.do?no=" + no + "&page="
+						+ page + "'; </script>");
+			} else {
+				out.println("<script> alert('상품수정실패'); history.back(); </script>");
+			}
+		} else if (file1.isEmpty()) { // file1만 수정 하지 않은 경우
+			// 원래 있던 파일 삭제
+			if (savedfile2 != null) {
+				String fullpath = FILE_SERVER_PATH + "/" + savedfile2;
+				File file = new File(fullpath);
+				if (file.isFile()) {
+					file.delete();
+				}
+			}
+			if (savedfile3 != null) {
+				String fullpath = FILE_SERVER_PATH + "/" + savedfile3;
+				File file = new File(fullpath);
+				if (file.isFile()) {
+					file.delete();
+				}
+			}
+			apcdto.setProduct_file2(file2.getOriginalFilename());
+			apcdto.setProduct_file3(file3.getOriginalFilename());
+
+			int check2 = this.apcdao.updateWithoutFile1(apcdto);
+
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html; charset=UTF-8");
+
+			if (check2 > 0 && !file2.getOriginalFilename().isEmpty() && !file3.getOriginalFilename().isEmpty()) {
+				file2.transferTo(new File(FILE_SERVER_PATH, file2.getOriginalFilename()));
+				file3.transferTo(new File(FILE_SERVER_PATH, file3.getOriginalFilename()));
+				out.println("<script> alert('상품수정성공'); location.href='admin_product_content.do?no=" + no + "&page="
+						+ page + "'; </script>");
+			} else {
+				out.println("<script> alert('상품수정실패'); history.back(); </script>");
+			}
+		} else if (file2.isEmpty()) { // file2만 수정 하지 않은 경우
+				// 원래 있던 파일 삭제
+				if (savedfile1 != null) {
+					String fullpath = FILE_SERVER_PATH + "/" + savedfile1;
+					File file = new File(fullpath);
+					if (file.isFile()) {
+						file.delete();
+					}
+				}
+				if (savedfile3 != null) {
+					String fullpath = FILE_SERVER_PATH + "/" + savedfile3;
+					File file = new File(fullpath);
+					if (file.isFile()) {
+						file.delete();
+					}
+				}
+				apcdto.setProduct_file1(file1.getOriginalFilename());
+				apcdto.setProduct_file3(file3.getOriginalFilename());
+
+				int check2 = this.apcdao.updateWithoutFile2(apcdto);
+
+				PrintWriter out = response.getWriter();
+				response.setContentType("text/html; charset=UTF-8");
+
+				if (check2 > 0 && !file1.getOriginalFilename().isEmpty() && !file3.getOriginalFilename().isEmpty()) {
+					file1.transferTo(new File(FILE_SERVER_PATH, file1.getOriginalFilename()));
+					file3.transferTo(new File(FILE_SERVER_PATH, file3.getOriginalFilename()));
+					out.println("<script> alert('상품수정성공'); location.href='admin_product_content.do?no=" + no + "&page="
+							+ page + "'; </script>");
+				} else {
+					out.println("<script> alert('상품수정실패'); history.back(); </script>");
+				}
+			} else if (file3.isEmpty()) { // file3만 수정 하지 않은 경우
+				// 원래 있던 파일 삭제
+				if (savedfile1 != null) {
+					String fullpath = FILE_SERVER_PATH + "/" + savedfile1;
+					File file = new File(fullpath);
+					if (file.isFile()) {
+						file.delete();
+					}
+				}
+				if (savedfile2 != null) {
+					String fullpath = FILE_SERVER_PATH + "/" + savedfile2;
+					File file = new File(fullpath);
+					if (file.isFile()) {
+						file.delete();
+					}
+				}
+				apcdto.setProduct_file1(file1.getOriginalFilename());
+				apcdto.setProduct_file2(file2.getOriginalFilename());
+
+				int check2 = this.apcdao.updateWithoutFile3(apcdto);
+
+				PrintWriter out = response.getWriter();
+				response.setContentType("text/html; charset=UTF-8");
+
+				if (check2 > 0 && !file1.getOriginalFilename().isEmpty() && !file2.getOriginalFilename().isEmpty()) {
+					file1.transferTo(new File(FILE_SERVER_PATH, file1.getOriginalFilename()));
+					file2.transferTo(new File(FILE_SERVER_PATH, file2.getOriginalFilename()));
+					out.println("<script> alert('상품수정성공'); location.href='admin_product_content.do?no=" + no + "&page="
+							+ page + "'; </script>");
+				} else {
+					out.println("<script> alert('상품수정실패'); history.back(); </script>");
+				}
+			} else { //셋다 수정됐을 때
+				
+				// 원래 있던 파일 삭제
+				if (savedfile1 != null) {
+					String fullpath = FILE_SERVER_PATH + "/" + savedfile1;
+					File file = new File(fullpath);
+					if (file.isFile()) {
+						file.delete();
+					}
+				}
+				if (savedfile2 != null) {
+					String fullpath = FILE_SERVER_PATH + "/" + savedfile2;
+					File file = new File(fullpath);
+					if (file.isFile()) {
+						file.delete();
+					}
+				}
+				if (savedfile3 != null) {
+					String fullpath = FILE_SERVER_PATH + "/" + savedfile3;
+					File file = new File(fullpath);
+					if (file.isFile()) {
+						file.delete();
+					}
+				}
+				apcdto.setProduct_file1(file1.getOriginalFilename());
+				apcdto.setProduct_file2(file2.getOriginalFilename());
+				apcdto.setProduct_file3(file3.getOriginalFilename());
+
+				int check2 = this.apcdao.productContentUpdate(apcdto);
+
+				PrintWriter out = response.getWriter();
+				response.setContentType("text/html; charset=UTF-8");
+
+				if (check2 > 0 && !file1.getOriginalFilename().isEmpty() && !file2.getOriginalFilename().isEmpty() && !file3.getOriginalFilename().isEmpty()) {
+					file1.transferTo(new File(FILE_SERVER_PATH, file1.getOriginalFilename()));
+					file2.transferTo(new File(FILE_SERVER_PATH, file2.getOriginalFilename()));
+					file3.transferTo(new File(FILE_SERVER_PATH, file3.getOriginalFilename()));
+					out.println("<script> alert('상품수정성공'); location.href='admin_product_content.do?no=" + no + "&page="
+							+ page + "'; </script>");
+				} else {
+					out.println("<script> alert('상품수정실패'); history.back(); </script>");
+				}
+				
+			}
 	}
+
+
 	
 	//상품 삭제(product, product_content 같은 번호 동시 삭제)
 	@RequestMapping("admin_product_delete.do")
@@ -499,6 +706,36 @@ public class AdminController {
 
 		return "admin/admin_order_list";
 	}
+	
+	// 주문 클릭하면 같은 패키지끼리 보여주는 메서드
+	@RequestMapping("admin_order_same_package.do")
+	public String admin_order_same_pakage(HttpServletRequest request, Model model,@RequestParam("no") int no) {
+
+		// 클릭한 패키지번호에 해당하는 게시물을 가져오는 메서드 호출.
+		List<OrderDTO> list = this.dao.getSamePakageOrderList(no);
+
+		int count = 0;
+
+		for (OrderDTO item : list) {
+
+			List<ProductDTO> plist = dao.getOrderProductList(list.get(count).getProduct_no());
+
+			list.get(count).setProduct_name(plist.get(0).getProduct_name());
+			list.get(count).setProduct_thumbnail(plist.get(0).getProduct_thumbnail());
+
+			System.out.println("반복문 list 값 >>> " + list.get(count));
+
+			count += 1;
+
+		}
+
+		model.addAttribute("list", list);
+
+		return "admin/admin_order_same_pakage";
+		
+	}
+	
+	
 	
 	//주문 상태 변경
 	@RequestMapping("admin_order_statusChange.do")
@@ -725,16 +962,21 @@ public class AdminController {
 
 	//유저 수정 완료
 	@RequestMapping("admin_user_update_ok.do")
-	public void admin_user_update_ok(@RequestParam("user_no") int no, 
+	public void admin_user_update_ok(@RequestParam("user_no") int no, @RequestParam("user_point") int user_point,  
 			@RequestParam("page") int page, 
 			HttpServletResponse response, 
 			Model model, UserDTO dto) throws Exception {
 		
-		int check = audao.updateUser(dto);
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("user_no",no);
+		map.put("user_point",user_point);
+		int check = audao.updateUser(map);
+		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		if (check > 0) {
-			out.println("<script> alert('회원 수정 성공'); location.href='admin_user_cont.do?no="+no+"&page="+page+"'; </script>");
+			out.println("<script> alert('회원 수정 성공'); location.href='admin_user_cont.do?no="+no+"'; </script>");
 		} else {
 			out.println("<script> alert('회원 수정 실패.'); history.back(); </script>");
 		}

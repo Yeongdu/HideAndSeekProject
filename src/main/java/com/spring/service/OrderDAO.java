@@ -11,60 +11,61 @@ import com.spring.model.Product_categoryDTO;
 
 public interface OrderDAO {
 	
-	//�ֱ� �ֹ� ����Ʈ�� �ҷ����� �޼���
+	//占쌍깍옙 占쌍뱄옙 占쏙옙占쏙옙트占쏙옙 占쌀뤄옙占쏙옙占쏙옙 占쌨쇽옙占쏙옙
 	List<OrderDTO> getNewOrderList();
 	
-	//�ֹ� ����Ʈ�� �ҷ����� �޼���
+	//占쌍뱄옙 占쏙옙占쏙옙트占쏙옙 占쌀뤄옙占쏙옙占쏙옙 占쌨쇽옙占쏙옙
 	List<OrderDTO> getOrderList();
 	
-	//ī�װ� ����Ʈ�� �ҷ����� �޼���
+	//카占쌓곤옙 占쏙옙占쏙옙트占쏙옙 占쌀뤄옙占쏙옙占쏙옙 占쌨쇽옙占쏙옙
 	List<Product_categoryDTO> getCategoryList();
 	
-	//��ü �ֹ��� �ҷ����� �޼���
+	//占쏙옙체 占쌍뱄옙占쏙옙 占쌀뤄옙占쏙옙占쏙옙 占쌨쇽옙占쏙옙
 	int getOrderCount();
 	
-	// �ֹ� ������ DB �� �ִ� �޼���
+	// 占쌍뱄옙 占쏙옙占쏙옙占쏙옙 DB 占쏙옙 占쌍댐옙 占쌨쇽옙占쏙옙
     void insertOrder(OrderDTO dto);
 
-    // �ֹ� DB �� ������ �޾ƿ��� �޼���
+    // 占쌍뱄옙 DB 占쏙옙 占쏙옙占쏙옙占쏙옙 占쌨아울옙占쏙옙 占쌨쇽옙占쏙옙
     CartDTO getOrderCont(int order_no);
 
-    // �ֹ� ������ �����ϴ� �޼���
+    // 占쌍뱄옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹댐옙 占쌨쇽옙占쏙옙
     void updateOrder(OrderDTO dto);
 
-    // �ֹ� ������ �����ϴ� �޼���
+    // 占쌍뱄옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹댐옙 占쌨쇽옙占쏙옙
     void deleteOrder(int order_no);
     
-    // DB 상의 전체 주문 목록 수를 받아오는 메서드
+    // DB ���� ��泥� 二쇰Ц 紐⑸� ��瑜� 諛����ㅻ�� 硫�����
     int getOrderListCount();
     
-    // 오더테이블의 리스트를 받아오는 메서드
+    // �ㅻ�����대��� 由ъ�ㅽ�몃�� 諛����ㅻ�� 硫�����
     List<OrderDTO> getOrderList(PageDTO dto);
     
-    // 오더리스트에 상품번호에 해당하는 상품 정보를 받아오는 메서드
+    // �ㅻ��由ъ�ㅽ�몄�� ����踰��몄�� �대�뱁���� ���� ��蹂대�� 諛����ㅻ�� 硫�����
     List<ProductDTO> getOrderProductList(int product_no);
     
-    // 주문번호에 해당하는 주문내역의 주문상태를 변경하는 메서드
+    // 二쇰Ц踰��몄�� �대�뱁���� 二쇰Ц�댁���� 二쇰Ц����瑜� 蹂�寃쏀���� 硫�����
     int orderStatusChange(Map<String, Object> map);
     
-    // 오더테이블의 검색 리스트의 수를 받아오는 메서드
+    // �ㅻ�����대��� 寃��� 由ъ�ㅽ�몄�� ��瑜� 諛����ㅻ�� 硫�����
     int getOrderSearchListCount(String keyword);
     
-    // 오더테이블의 검색 리스트를 받아오는 메서드
+    // �ㅻ�����대��� 寃��� 由ъ�ㅽ�몃�� 諛����ㅻ�� 硫�����
     List<OrderDTO> getOrderSearchList(Map<String, Object> map);
     
-    // DB 상의 전체 주문 목록 수를 받아오는 메서드
+    // DB ���� ��泥� 二쇰Ц 紐⑸� ��瑜� 諛����ㅻ�� 硫�����
     int getOrderDelListCount();
     
-    // 오더테이블의 주문이 취소된 리스트를 받아오는 메서드
+    // �ㅻ�����대��� 二쇰Ц�� 痍⑥���� 由ъ�ㅽ�몃�� 諛����ㅻ�� 硫�����
     List<OrderDTO> getOrderDelList(PageDTO dto);
     
-    // 오더테이블의 검색 리스트의 수를 받아오는 메서드
+    // �ㅻ�����대��� 寃��� 由ъ�ㅽ�몄�� ��瑜� 諛����ㅻ�� 硫�����
     int getOrderDelSearchListCount(String keyword);
     
-    // 오더테이블의 검색 리스트를 받아오는 메서드
+    // �ㅻ�����대��� 寃��� 由ъ�ㅽ�몃�� 諛����ㅻ�� 硫�����
     List<OrderDTO> getOrderDelSearchList(Map<String, Object> map);
     
+    List<OrderDTO> getSamePakageOrderList(int order_pakage);
     
 
 }

@@ -11,7 +11,9 @@
   		(select max(product_no) from product_content) +1,
   		'','','','','','','','','','')
   	</insert>
-    <update id="admin_product_content_update" parameterType="Product_contentDTO">
+  	
+<!--   	파일이 다 있을 때 -->
+    <update id="admin_product_content_update" parameterType="admin_product_contentDTO">
   		update product_content set 
   		product_file1 = #{product_file1}, 
   		product_file2 = #{product_file2}, 
@@ -21,6 +23,79 @@
   		product_cont3 = #{product_cont3} 
   		where product_no = #{product_no}
   	</update>
+  	
+<!--   	파일이 1만 있을 때 -->
+  	<update id="admin_productUpdatePCFile1" parameterType="admin_product_contentDTO">
+  		update product_content set 
+  		product_file1 = #{product_file1}, 
+  		product_cont1 = #{product_cont1}, 
+  		product_cont2 = #{product_cont2}, 
+  		product_cont3 = #{product_cont3} 
+  		where product_no = #{product_no}
+  	</update>
+  	
+<!--   	파일이 2만 있을 때 -->
+  	<update id="admin_productUpdatePCFile2" parameterType="admin_product_contentDTO">
+  		update product_content set 
+  		product_file2 = #{product_file2}, 
+  		product_cont1 = #{product_cont1}, 
+  		product_cont2 = #{product_cont2}, 
+  		product_cont3 = #{product_cont3} 
+  		where product_no = #{product_no}
+  	</update>
+  	
+<!--   	파일이 3만 있을 때 -->
+  	<update id="admin_productUpdatePCFile3" parameterType="admin_product_contentDTO">
+  		update product_content set 
+  		product_file3 = #{product_file3}, 
+  		product_cont1 = #{product_cont1}, 
+  		product_cont2 = #{product_cont2}, 
+  		product_cont3 = #{product_cont3} 
+  		where product_no = #{product_no}
+  	</update>
+  	
+<!--   	파일이 1만 없을 때 -->
+  	<update id="admin_productUpdateWithoutFile1" parameterType="admin_product_contentDTO">
+  		update product_content set 
+  		product_file2 = #{product_file2}, 
+  		product_file3 = #{product_file3}, 
+  		product_cont1 = #{product_cont1}, 
+  		product_cont2 = #{product_cont2}, 
+  		product_cont3 = #{product_cont3} 
+  		where product_no = #{product_no}
+  	</update>
+  	
+<!--   	파일이 2만 없을 때 -->
+  	<update id="admin_productUpdateWithoutFile2" parameterType="admin_product_contentDTO">
+  		update product_content set 
+  		product_file1 = #{product_file1}, 
+  		product_file3 = #{product_file3}, 
+  		product_cont1 = #{product_cont1}, 
+  		product_cont2 = #{product_cont2}, 
+  		product_cont3 = #{product_cont3} 
+  		where product_no = #{product_no}
+  	</update>
+  	
+<!--   	파일이 3만 없을 때 -->
+  	<update id="admin_productUpdateWithoutFile3" parameterType="admin_product_contentDTO">
+  		update product_content set 
+  		product_file1 = #{product_file1}, 
+  		product_file2 = #{product_file2}, 
+  		product_cont1 = #{product_cont1}, 
+  		product_cont2 = #{product_cont2}, 
+  		product_cont3 = #{product_cont3} 
+  		where product_no = #{product_no}
+  	</update>
+  	
+<!--   	파일이 한개도 없을 때 -->
+  	<update id="admin_productUpdateWithoutFile" parameterType="admin_product_contentDTO">
+  		update product_content set 
+  		product_cont1 = #{product_cont1}, 
+  		product_cont2 = #{product_cont2}, 
+  		product_cont3 = #{product_cont3} 
+  		where product_no = #{product_no}
+  	</update>
+  	
   	
   	<select id="adminProductContentCont" parameterType="int" resultType="admin_product_contentDTO">
 		select * from product_content where product_no = #{no}

@@ -134,6 +134,11 @@ public class OrderDAOImpl implements OrderDAO{
 		
 	}
 
+	@Override
+	public List<OrderDTO> getSamePakageOrderList(int order_pakage) {
+		return this.sqlSession.selectList("getOrderSamePakage", order_pakage);
+	}
+
 
 
 	

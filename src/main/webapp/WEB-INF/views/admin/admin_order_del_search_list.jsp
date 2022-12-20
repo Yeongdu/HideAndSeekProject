@@ -64,7 +64,7 @@
 			<c:if test="${!empty keyword }">
 				<tr>
 					<td colspan="9" align="center">
-						<input type="button" value="전체목록" onclick="location.href='admin_order_del_list.do'">
+						<input type="button" class="btn btn-light" value="전체목록" onclick="location.href='admin_order_del_list.do'">
 					</td>
 				</tr>
 			</c:if>

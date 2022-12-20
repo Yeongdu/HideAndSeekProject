@@ -22,7 +22,6 @@
 <br>
 
 	<div class="adminProductListTitle" align="center">
-		<br> <br> <br>
 		<h4>' ${keyword } ' 검색 결과</h4>
 		<br>
 	</div>

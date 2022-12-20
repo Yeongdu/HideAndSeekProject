@@ -53,11 +53,13 @@ $(document).on("click",".userDeleteBtn", function(){
 </script>
 <br><br><br>
 
-	<br>
 <div style="height: auto; min-height: 100%;" align="center">
-<!-- 	<p class="adminPdContTitle1"> -->
+	<div class="adminProductListTitle" align="center">
+	<h4>${dto.user_no }) ${dto.user_name } 회원 수정</h4>
+	<br>
+	</div>
 
-			<form method="post" action="<%=request.getContextPath()%>/admin_user_update_ok.do" class="border-top">
+			<form method="post" action="<%=request.getContextPath()%>/admin_user_update_ok.do?no=${dto.user_no }&page=${page}">
 	<div align="center" style="width: 60%;">
 	
 			<input type="hidden" name="page" value="${page }">
@@ -99,7 +101,7 @@ $(document).on("click",".userDeleteBtn", function(){
 				<label for="exampleFormControlInput1"
 					class="col-sm-2 col-form-label-1">전화번호</label>
 				<div class="col-sm-10">
-					<span class="form-control">${dto.user_phone1 }</span>
+					<span class="form-control">${dto.user_phone1 } - ${dto.user_phone2 } - ${dto.user_phone3 }</span>
 				</div>
 			</div>
 			
@@ -146,13 +148,24 @@ $(document).on("click",".userDeleteBtn", function(){
 			
 </div>
 	<!-- 네번째 end -->
+<div class="adminUserContBtnWrab" style="display: flex; justify-content: space-between; width: 60%;">
+	<span>
+		
+		<c:if test="${dto.user_leave == 0 }">
 
-		<input type="button" type="submit" class="btn btn-primary-2" value="수정" onclick="location.href='admin_user_update.do?no=${dto.user_no }&page=${page}'">
-			</form>
-		<input type="button" class="btn btn-primary-2" class="userDeleteBtn" value="삭제" >
-
+		</c:if>
+		
+		<c:if test="${dto.user_leave == 1 }">
+		<input type="submit" class="btn btn-primary-2" value="수정">
+		<input type="button" class="btn btn-primary-2" value="탈퇴" 
+		onclick="swalUserChange();">
+		</c:if>
+	</span>
+	<span>
 		<input type="button" class="btn btn-primary-2" value="전체회원목록" onclick="location.href='admin_user_list.do'">
-
+	</span>
+</div>
+		</form>
 <div></div>
 <div></div>
 <div></div>
