@@ -72,7 +72,7 @@
 	        ON (product_no = #{product_no})
 	    WHEN NOT MATCHED THEN
 	        INSERT (cart_no, cart_amount, cart_date, user_id, product_no)
-	        VALUES ((select nvl(max(#{cart_no}),0) from cart) +1, #{cart_amount}, sysdate, #{user_id}, #{product_no})
+	        VALUES ((select nvl(max(cart_no),0) from cart) +1, #{cart_amount}, sysdate, #{user_id}, #{product_no})
 	    WHEN MATCHED THEN
 	        UPDATE SET
 	            cart_amount=  NVL(cart_amount, 0)+ #{cart_amount},
