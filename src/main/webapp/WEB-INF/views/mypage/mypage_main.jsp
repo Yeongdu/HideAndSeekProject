@@ -20,6 +20,7 @@
 	<c:set var = "refund_count" value = "${refund }" />
 	<c:set var = "delivery_count" value = "${delivery }" />
 	<c:set var = "delivery_complete_count" value = "${delivery_complete }" />
+	<c:set var = "delvery_modify" value = "${dlist }" />
 	
 <div id = "mypage"> <!-- main 영역 -->
 	<div id = "mypage_wrap" align = "center"> <!-- 컨텐츠 전체 영역 -->
@@ -196,7 +197,58 @@
 					<input name = "delivery_addr" id = "delivery_addr" placeholder = "기본 주소를 입력하세요.">
 					<input name = "delivery_extraAddr" id = "delivery_extraAddr" placeholder = "상세 주소를 입력하세요.">
 				</div>
+				
+				<div class = "delivery_phone">
+					<span>전화번호</span>
+					<div class = "delivery_phone_insert">
+						<input name = "deli_phone1" class = "delivery_phone1">&nbsp;-&nbsp;<input name = "deli_phone2">&nbsp;-&nbsp;<input name = "deli_phone3">
+					</div>
+				</div>
 				<input type = "hidden" value = "1" name = "notice" id = "notice">
+				<input type = "button" value = "등록하기" class = "delivery_submit">
+				
+			</form>
+	</div>
+</div> 
+
+
+<div id="delivery_modify_modal" style = 'display:none; z-index:1;'>
+	<div class="delivery_modify_modal_body" align = "center"> 
+		<div class="delivery_modify_modalClose" align="right">
+			<input type = "button" value = "X">
+		</div>
+		
+			<h3>배송지 수정</h3>
+			
+			<form method = "post" action = "<%=request.getContextPath() %>/delivery_modify.do" id = "delivery_modify_form">
+				<input type = "hidden" value = "${userId }" name = "user_id" value = ${dlist.getUser_id() }>
+				<input type = "hidden" name = "deli_no" class = "deli_modify_no" value = ${dlist.getDeli_no() }>
+				
+				<span>배송지 별명</span>
+				<div class = "delivery_nickname">
+					<input name = "delivery_name" class = "delivery_modify_name" value = ${dlist.getDeli_name() }>
+				</div>
+				<hr>
+				<span>주소</span>
+				<div class = "delivery_postcode">
+					<input name = "delivery_zipcode" id = "delivery_zipcode" value = ${dlist.getDeli_zipcode() }>
+					<input type = "button" value = "우편번호 찾기" onclick = "sample6_execDaumPostcode();" id = "zipcodebtn">
+				</div>
+				
+				<div class = "delivery_addrAll">
+					<input name = "delivery_addr" id = "delivery_modify_addr" placeholder = "기본 주소를 입력하세요." value = ${dlist.getDeli_Addr1 }>
+					<input name = "delivery_extraAddr" id = "delivery_modify_extraAddr" placeholder = "상세 주소를 입력하세요." value = ${dlist.getDeli_Addr2 }>
+				</div>
+				
+				<div class = "delivery_phone">
+					<span>전화번호</span>
+					<div class = "delivery_phone_insert">
+						<input name = "deli_phone1" class = "delivery_modify_phone1" value = ${dlist.getDeli_phone1() }>&nbsp;-&nbsp;
+						<input name = "deli_phone2" class = "delivery_modify_phone2" value = ${dlist.getDeli_phone2() }>&nbsp;-&nbsp;
+						<input name = "deli_phone3" class = "delivery_modify_phone3" value = ${dlist.getDeli_phone3() }>
+					</div>
+				</div>
+				<input type = "hidden" value = "1" name = "notice" id = "notice" value = ${dlist.getDeli_default }>
 				<input type = "button" value = "등록하기" class = "delivery_submit">
 				
 			</form>

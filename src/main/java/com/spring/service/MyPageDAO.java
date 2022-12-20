@@ -30,6 +30,7 @@ public interface MyPageDAO {
 	List<Subscribe_userDTO> getSubCont(String userId);
 	
 	List<DeliveryDTO> getDeliveryCont(String userId);
+	DeliveryDTO getDeliveryModify(int deli_no);
 	int getDeliveryAddrCount(String userId);
 	int deliveryInsert(Map<String, Object> map);
 	void updateDeliveryDefault(String userId);

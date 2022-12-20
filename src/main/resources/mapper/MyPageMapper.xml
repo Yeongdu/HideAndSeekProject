@@ -125,11 +125,15 @@
  	 </insert>
  	 
  	 <insert id = "delivery_insert" parameterType="map">
- 	 	insert into delivery values(#{zipcode}, #{addr}, #{extraAddr}, #{user_id}, #{check}, #{name})
+ 	 	insert into delivery values(#{zipcode}, #{addr}, #{extraAddr}, #{user_id}, #{check}, #{name}, #{deli_phone1}, #{deli_phone2}, #{deli_phone3}, (select nvl(max(deli_no), 0) from delivery) +1,)
  	 </insert>
  	 
  	 <update id="default_update" parameterType="String">
  	 	update delivery set deli_default = 0 where user_id = #{userId}
  	 </update>
+ 	 
+ 	 <select id="deli_modify" parameterType="int" resultType="DeliveryDTO">
+ 	 	select * from delivery where deli_no = #{deli_no}
+ 	 </select>
  	 
   </mapper>

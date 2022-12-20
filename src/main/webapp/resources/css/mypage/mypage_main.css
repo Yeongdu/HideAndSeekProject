@@ -761,6 +761,34 @@ main{
     width: 100%;
 }
 
+.delivery_phone{
+	margin-bottom: 10px;
+}
+
+.delivery_phone > span{
+	display: block;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.delivery_phone_insert{
+	display: flex;
+}
+
+.delivery_phone1 {
+	width: 30%;
+}
+
+.delivery_default_badge{
+	border-radius: 20px;
+	border: 2px solid #3395ED;
+	color: #3395ED;
+	font-size: 12px;
+	padding: 5px;
+	margin-bottom: 3%;
+}
+
 #delivery_addr{
 	margin-bottom: 10px;
     margin-top: 10px;
@@ -769,4 +797,33 @@ main{
 .delivery_submit{
 	align-self: center;
     display: flex;
+}
+
+.delivery_main_wrap {
+	border: 1px solid black;
+	width: 30%;
+    padding: 10px;
+    text-align: left;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    
+}
+
+.delivery_modify{
+	text-align: right;
+	color: #FFB317;
+}
+
+.deli_modi_btn {
+	color: #FFB317;
+}
+
+.delivery_name {
+	font-weight: bold;
+    font-size: 1.3em;
+}
+
+.delivery_info{
+	display: flex;
+    justify-content: flex-start;
 }
