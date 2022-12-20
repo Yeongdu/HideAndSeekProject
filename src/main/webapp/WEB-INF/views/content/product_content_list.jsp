@@ -108,8 +108,7 @@
 					<div class="data_header">
 						<div class="wrapper flex">
 							<div class="search_result flex">
-								<input class="check_pic" type='checkbox' name='animal' value='dog' onclick='getCheckboxValue(event)'/>
-								포토리뷰만 보기
+								<input class="check_pic" type="checkbox">포토리뷰만 보기</input>
 							</div>
 							<div class="sort-wrapper flex">
 								<div class="sort-box">
@@ -147,11 +146,11 @@
 							<div class="review_cont">
 								<pre style="margin-bottom: 1%">${rdto.getReview_cont() }</pre>
 							</div>
-							<img src="resources/review_img/${rdto.getReview_file() }" class="review_image${pdto.product_no}" onmouseover="zoomImg(${pdto.product_no})" style="height: 100px; cursor: zoom-in;" onerror="this.style.display='none'">
+							<img src="resources/review_img/${rdto.getReview_file() }" class="review_image${rdto.getReview_no()}" onmouseover="zoomImg(${rdto.getReview_no()})" style="height: 100px; cursor: zoom-in;" onerror="this.style.display='none'">
 						</div>
 					</div>
 					</c:forEach>
-					<input type="button" value="더 많은 리뷰" onclick="more()">
+					<input type="button" value="더 많은 리뷰" class="more">
 				</c:if>
 			
 	
@@ -194,14 +193,129 @@
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 	<script type="text/javascript">
+	//변수
 	let status = true;
+	let check_pic = true;
+	//변수 끝
 	
-	//이미지
-	function noImage(){
-        $(".review_img").css('display','none');
-    };
-    //이미지 끝
-	
+	//사진리뷰
+	$(document).on("click", ".check_pic", function(){
+		let sort = $(".sort-menu").val();
+		
+		product_no = ${pdto.product_no};
+		
+		console.log("체크박스");
+		
+		if(check_pic == true) {
+			$.ajax({
+				url:"<%=request.getContextPath()%>/product_review.do",
+				method:"post",
+				data: {
+					sort : sort,
+					product_no : product_no
+				},
+				datatype : "json",
+				success:function(data) {
+					
+					$(".review").empty();
+					html = "";
+					$.each(data, function(index, item){
+						
+						if(item.review_file != null) {
+							html += "<div class='review_cont'>"
+							html += "<div class='review_top'>"
+							html += "<div>"
+							html += "<span class='review_info_product_name'>"+item.user_id+"</span>"
+							html += "</div>"
+							html += "<div class='review_main_cont' align='right'>"
+							html += "<div class='review_info_star-rating'>"
+							html += "<div class='star-ratings-fill space-x-2 text-lg' style='width:"+item.review_star+"%'>"
+							html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
+							html += "</div>"
+							html += "<div class='star-ratings-base space-x-2 text-lg'>"
+							html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
+							html += "</div>"
+							html += "</div>"
+							html += item.review_date
+							html += "</div>"
+							html += "</div>"
+							html += "<div class='review_main' align='left'>"
+							html += "<div class='review_cont'>"
+							html += "<pre style='margin-bottom: 1%'>"+item.review_cont+"</pre>"
+							html += "</div>"
+							html += "<img src = 'resources/review_img/" + item.review_file + "' class = 'review_image"+item.review_no+"' onmouseover = 'zoomImg("+item.review_no+")' style = 'height:100px;'>"
+							html += "</div>"
+							html += "</div>"
+						}else if(item.review_file == "null") {
+							console.log("elseif문 진입");
+						}
+					});
+					html += "<input type='button' value='더 많은 리뷰' class='more'>"
+						$(".review").append(html);
+				},
+				error:function(request,status,error){
+	                alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+	            }
+			})
+		} else {
+			$.ajax({
+				url:"<%=request.getContextPath()%>/product_review_more.do",
+				method:"post",
+				data: {
+					sort : sort,
+					product_no : product_no
+				},
+				datatype : "json",
+				success:function(data) {
+					console.log("ajax");
+					console.log("star");
+					
+					$(".review").empty();
+					html = "";
+					
+					$.each(data, function(index, item){
+						if(item != "null") {
+							html += "<div class='review_cont'>"
+							html += "<div class='review_top'>"
+							html += "<div>"
+							html += "<span class='review_info_product_name'>"+item.user_id+"</span>"
+							html += "</div>"
+							html += "<div class='review_main_cont' align='right'>"
+							html += "<div class='review_info_star-rating'>"
+							html += "<div class='star-ratings-fill space-x-2 text-lg' style='width:"+item.review_star+"%'>"
+							html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
+							html += "</div>"
+							html += "<div class='star-ratings-base space-x-2 text-lg'>"
+							html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
+							html += "</div>"
+							html += "</div>"
+							html += item.review_date
+							html += "</div>"
+							html += "</div>"
+							html += "<div class='review_main' align='left'>"
+							html += "<div class='review_cont'>"
+							html += "<pre style='margin-bottom: 1%'>"+item.review_cont+"</pre>"
+							html += "</div>"
+								if(item.review_file != null) {
+									html += "<img src = 'resources/review_img/" + item.review_file + "' class = 'review_image"+item.review_no+"' onmouseover = 'zoomImg("+item.review_no+")' style = 'height:100px;'>"
+								} else{
+								}
+							html += "</div>"
+							html += "</div>"
+						}else if(item == "null") {
+							html += "<pre class='no_review'>첫 리뷰를 작성해주세요!</pre>"
+						}
+					});
+					$(".review").append(html);
+				},
+				error:function(request,status,error){
+	                alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+	            }
+			})
+		}
+	});
+	//사진리뷰 끝
+    
     //리뷰
 	$(document).on("change", ".sort-menu", function(){
 		let sort = $(".sort-menu").val();
@@ -228,9 +342,66 @@
 					console.log("star");
 					
 					$(".review").empty();
+					html = "";
 					$.each(data, function(index, item){
 						
-						html = "";
+						if(item != "null") {
+							console.log("if문 진입");
+							html += "<div class='review_cont'>"
+							html += "<div class='review_top'>"
+							html += "<div>"
+							html += "<span class='review_info_product_name'>"+item.user_id+"</span>"
+							html += "</div>"
+							html += "<div class='review_main_cont' align='right'>"
+							html += "<div class='review_info_star-rating'>"
+							html += "<div class='star-ratings-fill space-x-2 text-lg' style='width:"+item.review_star+"%'>"
+							html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
+							html += "</div>"
+							html += "<div class='star-ratings-base space-x-2 text-lg'>"
+							html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
+							html += "</div>"
+							html += "</div>"
+							html += item.review_date
+							html += "</div>"
+							html += "</div>"
+							html += "<div class='review_main' align='left'>"
+							html += "<div class='review_cont'>"
+							html += "<pre style='margin-bottom: 1%'>"+item.review_cont+"</pre>"
+							html += "</div>"
+								if(item.review_file != null) {
+									html += "<img src = 'resources/review_img/" + item.review_file + "' class = 'review_image"+item.review_no+"' onmouseover = 'zoomImg("+item.review_no+")' style = 'height:100px;'>"
+								}
+							html += "</div>"
+							html += "</div>"
+						}else if(item == "null") {
+							console.log("elseif문 진입");
+							html += "<pre class='no_review'>첫 리뷰를 작성해주세요!</pre>"
+						}
+					});
+					html += "<input type='button' value='더 많은 리뷰' class='more'>"
+						$(".review").append(html);
+				},
+				error:function(request,status,error){
+	                alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+	            }
+			})
+		} else {
+			$.ajax({
+				url:"<%=request.getContextPath()%>/product_review_more.do",
+				method:"post",
+				data: {
+					sort : sort,
+					product_no : product_no
+				},
+				datatype : "json",
+				success:function(data) {
+					console.log("ajax");
+					console.log("star");
+					
+					$(".review").empty();
+					html = "";
+					
+					$.each(data, function(index, item){
 						if(item != "null") {
 							html += "<div class='review_cont'>"
 							html += "<div class='review_top'>"
@@ -254,23 +425,41 @@
 							html += "<pre style='margin-bottom: 1%'>"+item.review_cont+"</pre>"
 							html += "</div>"
 								if(item.review_file != null) {
-									html += "<img src='resources/review_img/"+item.review_file+"' class='review_image"+item.product_no+"' onmouseover='zoomImg("+item.product_no+")' style='height: 100px; cursor: zoom-in;' onerror='noImage()'>"								
+									html += "<img src = 'resources/review_img/" + item.review_file + "' class = 'review_image"+item.review_no+"' onmouseover = 'zoomImg("+item.review_no+")' style = 'height:100px;'>"
 								} else{
 								}
 							html += "</div>"
 							html += "</div>"
-							html += "<input type='button' value='더 많은 리뷰' onclick='more()'>"
 						}else if(item == "null") {
 							html += "<pre class='no_review'>첫 리뷰를 작성해주세요!</pre>"
 						}
-						$(".review").append(html);
 					});
+					$(".review").append(html);
 				},
 				error:function(request,status,error){
 	                alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
 	            }
 			})
-		} else {
+		}
+	});
+    //리뷰 끝
+    
+    //리뷰 더보기
+	$(document).on("click", ".more", function(){
+		let sort = $(".sort-menu").val();
+		
+		let more = $(".more").val();
+		
+		product_no = ${pdto.product_no};
+		
+		console.log("버튼 클릭 이벤트");
+		
+		console.log("sort 값 >>> " +sort);
+		
+		console.log("no 값 >>> " +product_no);
+		
+		console.log("more 값 >>> " +more);
+		
 			$.ajax({
 				url:"<%=request.getContextPath()%>/product_review_more.do",
 				method:"post",
@@ -310,25 +499,24 @@
 							html += "<pre style='margin-bottom: 1%'>"+item.review_cont+"</pre>"
 							html += "</div>"
 								if(item.review_file != null) {
-									html += "<img src='resources/review_img/"+item.review_file+"' class='review_image"+item.product_no+"' onmouseover='zoomImg("+item.product_no+")' style='height: 100px; cursor: zoom-in;' onerror='noImage()'>"								
+									html += "<img src = 'resources/review_img/" + item.review_file + "' class = 'review_image"+item.review_no+"' onmouseover = 'zoomImg("+item.review_no+")' style = 'height:100px;'>"
 								} else{
 								}
 							html += "</div>"
 							html += "</div>"
-							html += "<input type='button' value='더 많은 리뷰' onclick='more()'>"
 						}else if(item == "null") {
 							html += "<pre class='no_review'>첫 리뷰를 작성해주세요!</pre>"
 						}
 						$(".review").append(html);
+						status = false;
 					});
 				},
 				error:function(request,status,error){
 	                alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
 	            }
 			})
-		}
 	});
-    //리뷰 끝
+    //리뷰 더보기 끝
 	
 	//리뷰, 교환/환불 버튼 색 변경
 	var first = document.querySelector('.tab01');
