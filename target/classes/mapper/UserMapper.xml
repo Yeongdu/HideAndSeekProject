@@ -66,7 +66,7 @@
  	  
  	  <!-- 이메일, 아이디로 비번 찾기 -->
  	  <select id="findPw" resultType="String" parameterType="map">
- 	  	select user_pwd from tb_user where user_email = #{tomail} and user_id = #{id}
+ 	  	select user_pwd from tb_user where user_email = #{tomail1} and user_id = #{id}
  	  </select>
  	  
  	  <!-- 임시 비밀번호로 업뎃 하기 -->
@@ -76,7 +76,7 @@
  	  
  	  
  	  <insert id="insert_delivery" parameterType="DeliveryDTO">
- 	  	insert into delivery values(#{deli_zipcode}, #{deli_addr1}, #{deli_addr2}, #{user_id}, 1, '')
+ 	  	insert into delivery values(#{deli_zipcode}, #{deli_addr1}, #{deli_addr2}, #{user_id}, 1, '', )
  	  </insert>
  	  
  	
