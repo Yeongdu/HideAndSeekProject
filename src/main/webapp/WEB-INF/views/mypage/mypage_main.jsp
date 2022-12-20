@@ -14,6 +14,12 @@
 <title>마이페이지</title>
 <main style = "min-height : 100%;">
 
+	<c:set var="today" value="<%=new java.util.Date()%>" />
+	<c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /></c:set>
+	<c:set var="year"><fmt:formatDate value="${today}" pattern="yyyy" /></c:set>
+	<c:set var="month"><fmt:formatDate value="${today}" pattern="MM" /></c:set>
+	
+	
 	<c:set  var = "user_dto" value = "${user_cont }"/>
 	<c:set var = "order_all" value = "${count }" />
 	<c:set var = "order_count" value = "${order }" />
@@ -65,7 +71,9 @@
 				
 			</div>
 		</div>
+		<input type ="hidden" value = ${date } class = "today_date">
 		<div id = "mypage_content"> <!-- 컨텐츠 영역 (변경되는 부분) -->
+			
 		</div>
 	</div>
 </div>
@@ -205,50 +213,6 @@
 					</div>
 				</div>
 				<input type = "hidden" value = "1" name = "notice" id = "notice">
-				<input type = "button" value = "등록하기" class = "delivery_submit">
-				
-			</form>
-	</div>
-</div> 
-
-
-<div id="delivery_modify_modal" style = 'display:none; z-index:1;'>
-	<div class="delivery_modify_modal_body" align = "center"> 
-		<div class="delivery_modify_modalClose" align="right">
-			<input type = "button" value = "X">
-		</div>
-		
-			<h3>배송지 수정</h3>
-			
-			<form method = "post" action = "<%=request.getContextPath() %>/delivery_modify.do" id = "delivery_modify_form">
-				<input type = "hidden" value = "${userId }" name = "user_id" value = ${dlist.getUser_id() }>
-				<input type = "hidden" name = "deli_no" class = "deli_modify_no" value = ${dlist.getDeli_no() }>
-				
-				<span>배송지 별명</span>
-				<div class = "delivery_nickname">
-					<input name = "delivery_name" class = "delivery_modify_name" value = ${dlist.getDeli_name() }>
-				</div>
-				<hr>
-				<span>주소</span>
-				<div class = "delivery_postcode">
-					<input name = "delivery_zipcode" id = "delivery_zipcode" value = ${dlist.getDeli_zipcode() }>
-					<input type = "button" value = "우편번호 찾기" onclick = "sample6_execDaumPostcode();" id = "zipcodebtn">
-				</div>
-				
-				<div class = "delivery_addrAll">
-					<input name = "delivery_addr" id = "delivery_modify_addr" placeholder = "기본 주소를 입력하세요." value = ${dlist.getDeli_Addr1 }>
-					<input name = "delivery_extraAddr" id = "delivery_modify_extraAddr" placeholder = "상세 주소를 입력하세요." value = ${dlist.getDeli_Addr2 }>
-				</div>
-				
-				<div class = "delivery_phone">
-					<span>전화번호</span>
-					<div class = "delivery_phone_insert">
-						<input name = "deli_phone1" class = "delivery_modify_phone1" value = ${dlist.getDeli_phone1() }>&nbsp;-&nbsp;
-						<input name = "deli_phone2" class = "delivery_modify_phone2" value = ${dlist.getDeli_phone2() }>&nbsp;-&nbsp;
-						<input name = "deli_phone3" class = "delivery_modify_phone3" value = ${dlist.getDeli_phone3() }>
-					</div>
-				</div>
-				<input type = "hidden" value = "1" name = "notice" id = "notice" value = ${dlist.getDeli_default }>
 				<input type = "button" value = "등록하기" class = "delivery_submit">
 				
 			</form>

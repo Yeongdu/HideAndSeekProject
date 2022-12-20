@@ -13,7 +13,7 @@
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 <link href="resources/css/sub/sub_main.css" rel="stylesheet" type="text/css">
 
-<div id = "main">
+<div id = "sub_main">
 	<div id = "section1">
 		<div class = "sub_banner" align = "center">
 			<h1 class = "sub_title">먹어본 적 없는 새로운 맛을 느끼고 싶을 때</h1>
@@ -115,15 +115,8 @@
     var height2 = $("#section2").height();
     var height3 = $("#section3").height();
     
-    console.log("height1 >>> " + height1);
-    console.log("height2 >>> " + height2);
-    console.log("height3 >>> " + height3);
-    
     var mHtml = $("html");
     
-    $(document).ready(function(){
-    	$("#footer").css("top", height1);
-    });
     
     $("#section1").on('mousewheel',function(e){ 
         var wheels = e.originalEvent.wheelDelta; 
@@ -140,8 +133,6 @@
                         $(".sub2").slideDown(500);
                         $(".sub2_title").fadeIn(500);
                     });
-                    $("#footer").animate({top : height1});
-                    /* $("#footer").animate({top: "950px"},10); */
                 }
               }
             }); 
@@ -156,8 +147,6 @@
                   //ani1 false 이면 true 로 바꿔주고 애니메이션 동작 진행
                     ani1=true;
                     $("#section3").fadeIn(1000);
-                    $("#footer").animate({top : height1+height2});
-                    /* $("#footer").animate({top: "1800px"},10); */
                 }
               }
             }); 

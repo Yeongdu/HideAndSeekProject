@@ -99,7 +99,6 @@ public class MyPageDAOImpl implements MyPageDAO{
 	
 	@Override
 	public List<DeliveryDTO> getDeliveryCont(String userId) {
-		System.out.println("impl >>> " + this.sqlSession.selectList("delivery_cont", userId));
 		return this.sqlSession.selectList("delivery_cont", userId);
 	}
 	
@@ -122,6 +121,11 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public DeliveryDTO getDeliveryModify(int deli_no) {
 		
 		return this.sqlSession.selectOne("deli_modify", deli_no);
+	}
+
+	@Override
+	public int deliveryModify(Map<String, Object> map) {
+		return this.sqlSession.update("deli_modify_ok", map);
 	}
 	
 	
