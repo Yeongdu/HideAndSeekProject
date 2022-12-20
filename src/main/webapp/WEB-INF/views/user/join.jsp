@@ -88,7 +88,7 @@
                   <div class="join_idnum">
                      <label for="user_idnum" class="user_label"><strong class="join_star">* </strong>주민등록번호</label>
                       <div class="join_idnum_input">
-                     <input type="text"  name="user_jumin1" id="user_jumin1"   maxlength="6" required><span> - </span><input type="password"  name="user_jumin2"  id="user_jumin2"  maxlength="7" required>
+                     <input type="text"  name="user_jumin1" id="user_jumin1"  minlength="6" maxlength="6"  placeholder="생년월일 6자리" required><span> - </span><input type="password"  name="user_jumin2"  id="user_jumin2"  maxlength="7" minlength="6"    required>
                      <!-- <input type="checkbox" value="성인인증"  class="chk1" id="chk1"  name="chk1" onclick="getAge();" required> -->
                          <!-- <label for="success" class="btn btn-success" style="margin-left: 10px;border-radius: 5px;">성인인증<input type="checkbox" id="success" class="badgebox" onclick="getAge();" required><span class="badge">&check;</span></label> -->
                          <label for="default" class="btn btn-default" style="margin-left: 10px;border-radius: 5px; height: 43px;"><span style="vertical-align: -webkit-baseline-middle;">성인인증<input type="checkbox" id="default" class="badgebox" onclick="getAge();" required><span class="badge" style="color: black; background-color: white;">&check;</span></span>
