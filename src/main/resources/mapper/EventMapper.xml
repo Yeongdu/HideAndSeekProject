@@ -38,6 +38,12 @@
   	<select id = "eventList" resultType="eventDTO">
   		select * from event
   	</select>
+  	
+  	<select id = "eventContent" parameterType="int" resultType="eventDTO">
+  		select * from event where event_no = #{event_no}
+  	</select>
+  	
+  	
   
   
   

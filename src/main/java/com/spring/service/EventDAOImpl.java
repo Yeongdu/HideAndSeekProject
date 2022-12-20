@@ -40,9 +40,8 @@ public class EventDAOImpl implements EventDAO{
 	}
 
 	@Override
-	public EventDTO getEventCont(EventDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+	public EventDTO getEventCont(int event_no) {
+		return this.sqlSession.selectOne("eventContent", event_no);
 	}
 	
 	

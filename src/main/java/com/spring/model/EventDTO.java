@@ -23,5 +23,8 @@ public class EventDTO {
 	private Date event_end; // 이벤트 종료일
 	
 	private String event_status; // 이벤트 상태
+	
+	private int product_no; // 제품 번호
+	
 
 }

@@ -6,10 +6,10 @@ import com.spring.model.EventDTO;
 
 public interface EventDAO {
 	
-	// 이벤트 종류
+	// �대깽�� 醫�瑜�
 	List<EventDTO> eventList();
 	
-	// 이벤트 상세정보
-	EventDTO getEventCont(EventDTO dto);
+	// �대깽�� ���몄��蹂�
+	EventDTO getEventCont(int event_no);
 
 }

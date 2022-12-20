@@ -32,5 +32,34 @@
    </beans:bean>
 	
 	
+	<beans:bean id="AdminInterceptor" class="com.spring.interceptor.AdminInterceptor" />
+	
+	<interceptors>
+	 <interceptor>
+	  <mapping path="/admin_main.do" />
+	  <mapping path="/admin_product_list.do" />
+	  <mapping path="/admin_product_content.do" />
+	  <mapping path="/admin_product_search.do" />
+	  <mapping path="/admin_product_insert.do" />
+	  <mapping path="/admin_product_update.do" />
+	  <mapping path="/admin_product_content_update.do" />
+	  <mapping path="/admin_product_ing.do" />
+	  <mapping path="/admin_product_ing_search.do" />
+	  <mapping path="/admin_product_del_list.do" />
+	  <mapping path="/admin_order_list.do" />
+	  <mapping path="/admin_order_del.do" />
+	  <mapping path="/admin_order_del_search.do" />
+	  <mapping path="/admin_order_same_package.do" />
+	  <mapping path="/admin_ing_user_list.do" />
+	  <mapping path="/admin_del_user_list.do" />
+	  <mapping path="/admin_user_list.do" />
+	  <mapping path="/admin_user_search.do" />
+	  <mapping path="/admin_user_content.do" />
+	  <mapping path="/admin_user_update.do" />
+	  <mapping path="/admin_event.do" />
+	  <beans:ref bean="AdminInterceptor" />
+	 </interceptor>
+	</interceptors>
+		
 	
 </beans:beans>

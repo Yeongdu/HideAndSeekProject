@@ -23,7 +23,6 @@
 <br>
 
 	<div class="adminProductListTitle" align="center">
-		<br> <br> <br>
 		<h4>탈퇴 회원 목록</h4>
 		<br>
 	</div>
