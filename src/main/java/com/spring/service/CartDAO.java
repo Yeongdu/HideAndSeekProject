@@ -1,8 +1,10 @@
 package com.spring.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.spring.model.CartDTO;
+import com.spring.model.DeliveryDTO;
 import com.spring.model.ProductDTO;
 
 
@@ -32,7 +34,19 @@ public interface CartDAO {
 	// 장바구니 번호에 해당하는 장바구니 수량을 가져오는 메서드
 	String getCartAmount(int cart_no);
 	
-	// 삭제한 장바구니 번호보다 높은 장바구니의 번호를 받아오는 메서드
-	List<CartDTO> getCartMaxNo(int cart_no);
+	// 유저 id에 해당하는 배송지 정보를 받아오는 메서드
+	List<DeliveryDTO> getUserDeliveryList(String userId);
+	
+	// 딜리버리 no에 해당하는 배송지 정보를 받아오는 메서드
+	List<DeliveryDTO> getDeliveryList(int no);
+	
+	// 오더 테이블에 맥스 패키지 값을 받아오는 메서드
+	int getOrderMaxPackageNo();
+	
+	// 오더 테이블에 맥스 오더 넘버를 받아오는 메서드
+	int getOrderMaxNo();
+	
+	// 오더 테이블에 insert 하는 메서드
+	void insertorder(Map<String, Object> map);
 	
 }

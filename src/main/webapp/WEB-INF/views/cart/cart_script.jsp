@@ -182,6 +182,52 @@
 			
 		});
 		
+		$(document).on("click", ".insert_button", function(){
+			
+			let count = $("input:checkbox[name=price]:checked").length;
+			
+			let product_no = [];
+			
+			let amount = [];
+			
+			let name = [];
+			
+			let cart_no = [];
+			
+			let price = 0;
+			
+			let tamount = 0;
+			
+			let sum = 0;
+			
+			let delivery = parseInt(count * 3000);
+			
+			for(let i=0; i<size; i++){
+				
+				if($(".cart_check"+i).is(":checked") == true){
+					
+					product_no[i] = $('.product_no'+i).val();
+					
+					cart_no[i] = $('.cartno'+i).val();
+					
+					amount[i] = $('.amount_info'+i).text();
+					
+					name[i] = $('.product_name'+i).text();
+					
+					price = parseInt($(".cart_check"+i).val());
+					
+					tamount = parseInt($('.amount_info'+i).text());
+					
+					sum += price * tamount;
+					
+				}
+				
+			}
+			
+			window.location.href = "<%=request.getContextPath() %>/cart_delivery.do?product_no="+product_no+"&cart_no="+cart_no+"&amount="+amount+"&name="+name+"&sum="+sum+"&delivery="+delivery+"&userId="+id+""
+			
+		});
+		
 		for(var i=0; i<size; i++){
 			
 			(function(j) {
@@ -250,6 +296,7 @@
 								
 									html += "<input type='hidden' class='cartno"+j+"' name='cartno' value='"+item.cart_no+"'>"
 		 							html += "<input type='hidden' class='stock"+j+"' name='stock' value='"+item.product_stock+"'>"
+		 							html += "<input type='hidden' class='productno"+j+"' name='stock' value='"+item.product_no+"'>"
 	 								html += "<div class='head head'>"
 	 								html += "<div class='company_name'>"+item.product_company+"</div></div>"
 	 								html += "<div class='none_block'></div>"
@@ -263,7 +310,7 @@
 	 								html += "<div class='thumbnail'>"
 									html += "<a href='<%=request.getContextPath()%>/product_content_list.do?no="+item.product_no+"'>"
 									html += "<img src='resources/upload/"+item.product_thumbnail+"'></a></div>"
-	 								html += "<div class='product_name'>"+item.product_name+"</div>"
+	 								html += "<div class='product_name"+j+"'>"+item.product_name+"</div>"
 	 								html += "<button type='button' class='product_remove product_remove"+j+"'>"
 									html += "<img src='resources/image/remove_button.png'></button></div><div></div>"
 									html += "<div class='product_info_bottom'>"
@@ -345,6 +392,7 @@
 	 								
 	 								html += "<input type='hidden' class='cartno"+j+"' name='cartno' value='"+item.cart_no+"'>"
 		 							html += "<input type='hidden' class='stock"+j+"' name='stock' value='"+item.product_stock+"'>"
+		 							html += "<input type='hidden' class='productno"+j+"' name='stock' value='"+item.product_no+"'>"
 	 								html += "<div class='head head'>"
 	 								html += "<div class='company_name'>"+item.product_company+"</div></div>"
 	 								html += "<div class='none_block'></div>"
@@ -358,7 +406,7 @@
 	 								html += "<div class='thumbnail'>"
 									html += "<a href='<%=request.getContextPath()%>/product_content_list.do?no="+item.product_no+"'>"
 									html += "<img src='resources/upload/"+item.product_thumbnail+"'></a></div>"
-	 								html += "<div class='product_name'>"+item.product_name+"</div>"
+	 								html += "<div class='product_name"+j+"'>"+item.product_name+"</div>"
 	 								html += "<button type='button' class='product_remove product_remove"+j+"'>"
 									html += "<img src='resources/image/remove_button.png'></button></div><div></div>"
 									html += "<div class='product_info_bottom'>"

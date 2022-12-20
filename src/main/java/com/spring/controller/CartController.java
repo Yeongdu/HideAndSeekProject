@@ -1,6 +1,8 @@
 package com.spring.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.model.CartDTO;
+import com.spring.model.DeliveryDTO;
 import com.spring.model.ProductDTO;
 import com.spring.service.CartDAO;
 
@@ -110,6 +113,86 @@ public class CartController {
 		list.get(0).setProduct_stock(plist.get(0).getProduct_stock());
 		
 		return list;
+		
+	}
+	
+	// 버튼 클릭시 장바구니 정보를 가지고 배송지 선택을 위한 페이지로 이동하는 메서드
+	@RequestMapping("/cart_delivery.do")
+	public String cartdelivery(@RequestParam("product_no") List<Integer> product_no,
+							   @RequestParam("cart_no") List<Integer> cart_no,
+							   @RequestParam("amount") List<Integer> amount,
+							   @RequestParam("name") List<String> name,
+			   				   @RequestParam("sum") int total,
+			   				   @RequestParam("delivery") int delivery,
+			   				   @RequestParam("userId") String userId,
+			   				   Model model) {
+		
+		List<DeliveryDTO> list = this.dao.getUserDeliveryList(userId);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("product_no", product_no);
+		model.addAttribute("cart_no", cart_no);
+		model.addAttribute("amount", amount);
+		model.addAttribute("name", name);
+		model.addAttribute("sum", total);
+		model.addAttribute("delivery", delivery);
+		
+		
+		return "cart/cart_delivery";
+	}
+	
+	// 배송지 라디오버튼 클릭시 해당 번호에 해당하는 배송지 정보를 가져오는 메서드
+	@RequestMapping("/cart_delivery_list.do")
+	@ResponseBody
+	public List<DeliveryDTO> cartdeliveryList(@RequestParam("delivery_no") int delivery_no) {
+		
+		List<DeliveryDTO> list = this.dao.getDeliveryList(delivery_no);
+		
+		return list;
+	}
+	
+	// 결제 완료시 장바구니의 정보를 오더테이블에 인서트하는 메서드
+	@RequestMapping("/insert_order.do")
+	public String insertorder(@RequestParam("delivery_no") int delivery_no,
+						    @RequestParam("amount") List<Integer> amount,
+						    @RequestParam("product_no") List<Integer> product_no,
+						    @RequestParam("cart_no") List<Integer> cart_no,
+						    @RequestParam("userId") String userId,
+						    HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		int packageno = this.dao.getOrderMaxPackageNo();
+		
+		map.put("packageno", packageno);
+		
+		map.put("userId", userId);
+		
+		map.put("delivery_no", delivery_no);
+		
+		for(int i=0; i<product_no.size(); i++) {
+			
+			int orderno = this.dao.getOrderMaxNo();
+			
+			map.put("orderno", orderno);
+			
+			map.put("product_no", product_no.get(i));
+			
+			map.put("amout", amount.get(i));
+			
+			int no = cart_no.get(i);
+			
+			this.dao.insertorder(map);
+			
+			this.dao.deleteCartList(no);
+			
+		}
+		
+		int count = this.dao.getCartCount(userId);
+		
+		session.setAttribute("rcount", count);
+		
+		return "redirect:store.do";
 		
 	}
 	
