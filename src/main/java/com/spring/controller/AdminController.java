@@ -14,6 +14,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.model.EventDTO;
 import com.spring.model.OrderDTO;
 import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
@@ -39,6 +41,7 @@ import com.spring.model.admin_product_contentDTO;
 import com.spring.service.Admin_productDAO;
 import com.spring.service.Admin_product_contentDAO;
 import com.spring.service.Admin_userDAO;
+import com.spring.service.EventDAO;
 import com.spring.service.OrderDAO;
 import com.spring.service.ProductDAO;
 import com.spring.service.Product_contentDAO;
@@ -64,6 +67,9 @@ public class AdminController {
 	
 	@Autowired
 	private Admin_userDAO audao;
+	
+	@Autowired
+	private EventDAO edao;
 	
 	// 한 페이지당 보여질 게시물의 수
 	private final int rowsize = 10;
@@ -1095,9 +1101,23 @@ public class AdminController {
 	//탈퇴 회원 검색
 	
 	
+	//관리자 로그아웃
+	@RequestMapping("admin_logout.do")
+	public String signOut(HttpSession session) {
+
+		session.invalidate();
+
+		return "redirect:/store.do";
+	}
 	
 	
-	
+	// 관리자 이벤트
+	@RequestMapping("/admin_event.do")
+	public String admin_event(HttpServletRequest request, Model model) {
+		List<EventDTO> list = edao.eventList();
+		model.addAttribute("list", list);
+		return "admin/admin_event";
+	}
 	
 	
 	
