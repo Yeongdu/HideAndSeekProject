@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -213,7 +214,6 @@ public class MyPageController {
 	public List<DeliveryDTO> mypage_delivery(Model model, @RequestParam("userId") String userId){
 		List<DeliveryDTO> delivery_info = this.mypage_dao.getDeliveryCont(userId);
 		
-		System.out.println("controller >>> " + delivery_info);
 		
 		return delivery_info;
 	}
@@ -278,11 +278,7 @@ public class MyPageController {
 										 @RequestParam("deli_phone1")String delivery_phone1,
 										 @RequestParam("deli_phone2")String delivery_phone2,
 										 @RequestParam("deli_phone3")String delivery_phone3,
-										 @RequestParam("notice")int notice, 
-										 HttpServletResponse response) throws IOException {
-		
-		
-		System.out.println("check >>> " + notice);
+										 @RequestParam("notice")int notice) throws IOException {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -332,14 +328,77 @@ public class MyPageController {
 	
 	@RequestMapping("mypage_delivery_modify.do")
 	@ResponseBody
-	public String delivery_modify(@RequestParam("deli_no")int deli_no, Model model) {
+	public DeliveryDTO delivery_modify(@RequestParam("deli_no")int deli_no, Model model) {
 		
 		DeliveryDTO dlist = this.mypage_dao.getDeliveryModify(deli_no);
 		
 		model.addAttribute("dlist", dlist);
 		
-		return "redirect:/mypage.do";
+		return dlist;
 		
+	}
+	
+	@RequestMapping("mypage_delivery_modify_ok.do")
+	@ResponseBody
+	public void delvery_modify_ok(@RequestParam("deli_modify_no")int deli_no,
+								 @RequestParam("user_modify_id")String user_id,
+								 @RequestParam("delivery_modify_name")String delivery_name,
+								 @RequestParam("delivery_modify_zipcode")String delivery_zipcode,
+								 @RequestParam("delivery_modify_addr")String delivery_addr,
+								 @RequestParam("delivery_modify_extraAddr")String delivery_extraAddr,
+								 @RequestParam("deli_modify_phone1")String delivery_phone1,
+								 @RequestParam("deli_modify_phone2")String delivery_phone2,
+								 @RequestParam("deli_modify_phone3")String delivery_phone3,
+								 @RequestParam("modify_notice")int notice, 
+								 HttpServletResponse response) throws IOException {
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("deli_no", deli_no);
+		map.put("name", delivery_name);
+		map.put("zipcode", delivery_zipcode);
+		map.put("addr", delivery_addr);
+		map.put("extraAddr", delivery_extraAddr);
+		map.put("deli_phone1", delivery_phone1);
+		map.put("deli_phone2", delivery_phone2);
+		map.put("deli_phone3", delivery_phone3);
+		map.put("check", notice);
+		
+		int count = 0;
+		
+		List<DeliveryDTO> ddto = this.mypage_dao.getDeliveryCont(user_id);
+		if(ddto != null) {
+			for(DeliveryDTO item : ddto) {
+				count += item.getDeli_default();
+				System.out.println("count >>> " + count);
+				
+				if(notice == 1) { // 추가하는 배송지가 기본 배송지 일 때
+					if(count == 1) { // 이미 기본 배송지가 있을 때
+						this.mypage_dao.updateDeliveryDefault(user_id); // 원래 있던 기본 배송지 상태 변경
+						System.out.println("배송지 상태변경 완료");
+					}
+					
+				}
+				
+			}
+		}
+		
+		
+		int result = this.mypage_dao.deliveryModify(map);
+		
+		if(result > 0) {
+			out.println("<script>");
+			out.println("location.href ='mypage.do'");
+			out.println("</script>");
+			
+		}else {
+			out.println("<script>");
+			out.println("history.back()");
+			out.println("</script>");
+		}
 	}
 	
 	

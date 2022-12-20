@@ -99,7 +99,7 @@ main{
 	justify-content: center;
 	border: 1px solid black;
 	border-radius: 10px;
-	padding: 10px;
+	padding: 20px;
 }
 
 .mypage_sub_info{
@@ -826,4 +826,36 @@ main{
 .delivery_info{
 	display: flex;
     justify-content: flex-start;
+}
+
+#delivery_modify_modal{
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.delivery_modify_modal_body{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 40%;
+	padding: 20px;
+	text-align: center;
+	background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	transform: translateX(-50%) translateY(-50%);
+}
+
+#delivery_modify_form > span{
+	text-align: left;
+    display: block;
+}
+	
+.delivery_postcode{
+	text-align: left;
 }

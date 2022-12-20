@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+
 <script>
 
 let page = 1;
@@ -26,6 +28,21 @@ function displayoff(){
 	loading = false;
 }
 
+$(document).ready(function(){
+	
+	$("#mypage_content").append($("<div class = 'user_title'></div>"));
+	$(".user_title").append($("<h3>회원 정보</h3>"));
+
+	$("#mypage_user").attr("id","mypage_user-active");
+	$('.user_main_wrap').slideDown(1000);
+	
+	if(!loading){
+		getUser();
+		loading = true;
+	} // if(loading)의 end
+	
+});
+
 
 var loading = false; 
 var su = false;
@@ -46,7 +63,8 @@ $(document).on("click", "#mypage_sub", function(){
 		    type : 'get',           // 타입 (get, post, put 등등)
 		    url : "<%=request.getContextPath() %>/mypage_sub.do",          // 요청할 서버url
 		    dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
-		    data : {userId : id},
+		    data : {userId : id,
+		    		date: date},
 		    success : function(result) { // 결과 성공 콜백함수
 		    
 		    	var res = '';
@@ -79,6 +97,7 @@ $(document).on("click", "#mypage_sub", function(){
 								"</div>" +
 								"</div>" +
 								"<div class = 'mypage_sub_date'>" + item.sub_end + "<span>이후 새로운 패키지가 발송됩니다. </span> " +"</div>" +
+								"<div class = 'mypage_sub_delete' onclick = 'sub_delete("+item.sub_enddate+")'>" +
 					    		"</div>" +
 					    		"</div>";
 			    		});
@@ -102,12 +121,14 @@ $(document).on("click", "#mypage_sub", function(){
 	
 }); // 구독관리 열기 - onclick 끝
 
+function sub_delete(date){
+	console.log("date >>> " + date);
+}
+
 $(document).on("click", "#mypage_sub-active", function(){
 	$("#mypage_sub-active").attr("id","mypage_sub");
 	$(".sub_main_wrap").slideUp(500);
 	$("#mypage_content").empty();
-	$(".user_main_wrap").slideDown(500);
-	loading = false;
 }); // 구독관리 닫기 - onclick 끝
 
 // 주문내역 ==============================================================================================================
@@ -749,7 +770,7 @@ $(document).on("blur", ".user_pwd_new",function(){
 			    			res += 			" <div class = 'delivery_info_addr2'>" + item.deli_addr2 + "</div>"
 							res += 		"</div>" // delivery_info의 end
 							res += 		"<div class = 'delivery_modify'>"
-							res +=			"<a class = 'deli_modi_btn' onclick = 'delivery_modify_submit("+item.deli_no+")'>수정</a>"
+							res +=			"<a class = 'deli_modi_btn"+item.deli_no+"' onmouseover = 'delivery_modify_submit("+item.deli_no+")'>수정</a>"
 							res +=		"</div>"
 			    			res += "</div>" // delivery_arco의 end
 			    			res += "</div>" // delivery_main_wrap의 end
@@ -805,17 +826,101 @@ $(document).on("blur", ".user_pwd_new",function(){
 	
 	function delivery_modify_submit(no){
 		
+		var id = '<%=(String)session.getAttribute("userId")%>';
+		
+		$(document).on("click",".deli_modi_btn"+no, function(){
+			
+			$("#delivery_modify_modal"+no).fadeIn(500);
+			console.log("no >>>" + no);
+			
 		$.ajax({
-			type : 'post',           // 타입 (get, post, put 등등)
+			type : 'get',           // 타입 (get, post, put 등등)
 		    url : "<%=request.getContextPath() %>/mypage_delivery_modify.do",          // 요청할 서버url
 		    dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
 		    data : {deli_no : no},
 		    success : function(result) { // 결과 성공 콜백함수
-		    	$("#delivery_modify_modal").fadeIn(500);
-		},
-		});
-	}
+		    	
+		    	var res = '';
+		    console.log("ajax >>> " + result.deli_no);
+		    	
+		    	res = "<div id='delivery_modify_modal"+result.deli_no+"' style = 'z-index:1;'>"+
+		   		 		"<div class='delivery_modify_modal_body' align = 'center'>"+
+		    				"<div class='delivery_modify_modalClose"+result.deli_no+"' align='right' onmouseover = 'deli_modal_close("+result.deli_no+")'>"+
+		    	 			"<input type = 'button' value = 'X'>"	+
+		    			"</div>"+
+		    			"<h3>배송지 수정</h3>"+
+		    			"<form method = 'post' action = 'mypage_delivery_modify_ok.do' id = 'delivery_modify_form"+result.deli_no+"'>"+
+		    				"<input type ='hidden' value ='"+id+"' name = 'user_modify_id'>" +
+		    	 			"<input type = 'hidden' name = 'deli_modify_no' class = 'deli_modify_no"+result.deli_no+"' value = '"+result.deli_no+"'>"+
+		    				"<span>배송지 별명</span>"+
+		    				"<div class = 'delivery_nickname'>"+
+		    					"<input name = 'delivery_modify_name' class = 'delivery_modify_name"+result.deli_no+"' value = '"+result.deli_name+"'>"+
+		    				"</div>"+
+		    				"<hr>"+
+		    				"<span>주소</span>"+
+		    				"<div class = 'delivery_postcode'>"+
+		    					"<input name = 'delivery_modify_zipcode' id = 'delivery_modify_zipcode"+result.deli_no+"' value = '"+result.deli_zipcode+"'>"+
+		    					"<input type = 'button' value = '우편번호 찾기' onclick = 'sample5_execDaumPostcode("+result.deli_no+");' id = 'zipcodebtn'>"+
+		    				"</div>"+
+		    				"<div class = 'delivery_addrAll'>"+
+								"<input name = 'delivery_modify_addr' id = 'delivery_modify_addr"+result.deli_no+"' placeholder = '기본 주소를 입력하세요.' value = '"+result.deli_addr1+"'>"+
+								"<input name = 'delivery_modify_extraAddr' id = 'delivery_modify_extraAddr"+result.deli_no+"' placeholder = '상세 주소를 입력하세요.' value = '"+result.deli_addr2+"'>"+
+							"</div>"+
+							"<div class = 'delivery_phone'>"+
+								"<span>전화번호</span>"+
+								"<div class = 'delivery_phone_insert'>"+
+								"<input name = 'deli_modify_phone1' class = 'delivery_modify_"+result.deli_no+"_phone1' value = '"+result.deli_phone1+"'>&nbsp;-&nbsp;"	+
+								"<input name = 'deli_modify_phone2' class = 'delivery_modify_"+result.deli_no+"_phone2' value = '"+result.deli_phone2+"'>&nbsp;-&nbsp;"	+
+								"<input name = 'deli_modify_phone3' class = 'delivery_modify_"+result.deli_no+"_phone3' value = '"+result.deli_phone3+"'>"	+
+							"</div>"+
+						"</div>"+
+				 		"<input type = 'hidden' value = '1' name = 'modify_notice' id = 'notice"+result.deli_no+"' value = '"+result.deli_default+"'>"+
+						"<input type = 'button' value = '수정하기' class = 'delivery_modify_submit"+result.deli_no+"' onmouseover ='deli_modi_ok_btn("+result.deli_no+")'>"+
+					"</form>"+
+					"</div>"+
+					"</div>";
+				
+		    	
+		    	$('#mypage_content').append(res);
+		    	
+			}, // success의 end
+		
+		}); // ajax의 end
+		
+	});	// deli_modi_btn onclick 이벤트의 end
+		
+} // delivery_modify_submit 함수의 end
 	
+	function deli_modi_ok_btn(no){
+	$(document).on("click", ".delivery_modify_submit"+no, function(){
+		
+		swal({
+			  title: "기본 배송지로 등록하시겠습니까?",
+			  text: "작성하신 배송지가 기본 배송지로 등록됩니다.",
+			  icon: "success",
+			  buttons: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+			    swal("기본 배송지로 등록되었습니다.", {
+			      icon: "success",
+			    });
+			    $("#delivery_modify_form"+no).submit();
+			  } else {
+			    swal("배송지가 등록되었습니다.", "success");
+			    $("#modify_notice").val(0);
+			      
+			    $("#delivery_modify_form"+no).submit();
+			  }
+			});
+	});
+}
+	
+	function deli_modal_close(no){
+		$(document).on("click", ".delivery_modify_modalClose"+no, function(){
+			$("#delivery_modify_modal"+no).fadeOut(300);
+		});	
+	}
 	
 
 </script>
@@ -869,4 +974,52 @@ $(document).on("blur", ".user_pwd_new",function(){
                         }
              }).open();
         }
+                
+                function sample5_execDaumPostcode(no) {
+                    new daum.Postcode({
+                      oncomplete: function(data) {
+                       // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                          // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                           // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                              var addr = ''; // 주소 변수
+                              var extraAddr = ''; // 참고항목 변수
+
+                               //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                                 if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                                   addr = data.roadAddress;
+                                     } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                                          addr = data.jibunAddress;
+                                           }
+
+                                  // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                                   if(data.userSelectedType === 'R'){
+                                     // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                                     // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                                      if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                                        extraAddr += data.bname;
+                                   }
+                                      // 건물명이 있고, 공동주택일 경우 추가한다.
+                                        if(data.buildingName !== '' && data.apartment === 'Y'){
+                                          extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                                       }
+                                   // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                                     if(extraAddr !== ''){
+                                       extraAddr = ' (' + extraAddr + ')';
+                                   }
+                                     // 조합된 참고항목을 해당 필드에 넣는다.
+                                     // 주소변수 문자열과 참고항목 문자열 합치기
+                                     addr += extraAddr;
+                                        } else {
+                                                 addr += ' ';
+                                               }
+
+                              // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                              document.getElementById("delivery_modify_zipcode"+no).value = data.zonecode;
+                              document.getElementById("delivery_modify_addr"+no).value = addr;
+                              // 커서를 상세주소 필드로 이동한다.
+                              document.getElementById("delivery_modify_extraAddr"+no).focus();
+                         }
+              }).open();
+         }
 </script>

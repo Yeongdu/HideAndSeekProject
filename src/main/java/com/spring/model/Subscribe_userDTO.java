@@ -26,6 +26,9 @@ public class Subscribe_userDTO {
 	private int product_no; // 상품 번호
 	private String sub_image; // 패키지 이미지 
 	
+	private Date sub_enddate;
+	private int sub_package_no;
+	
 	
 	// 상품 상세 관련 
 	private String product_name; // 상품 이름

@@ -6,17 +6,17 @@
     font-style: normal;
 }
 
-main {
-	height: 100%;
-}
-
 html{
 	/* overflow: hidden; */
 }
 
 #section1 {
 	width:100%;
-	height: 100%;
+	height: auto;
+}
+
+#sub_main{
+	height: auto;
 }
 
 .sub_banner {
@@ -87,7 +87,7 @@ html{
 
 #section2 {
 	width: 100%;
-	height: 100%;
+	height: auto;
 	display: none;
 }
 
@@ -137,7 +137,7 @@ html{
 
 #section3 {
 	width: 100%;
-	height: 100%;
+	height: auto;
 	display: none;
 }
 

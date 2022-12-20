@@ -44,8 +44,9 @@
  	 <select id="sub_cont" parameterType="String" resultType="Subscribe_userDTO">
  	 	select * from (select * from subscribe s join product p on s.product_no = p.product_no) sub
 		join subscribe_user su 
-		on sub.sub_package = su.sub_package
-		where user_id = #{userId}
+		on sub.sub_package_no = su.sub_no
+		where user_id = #{userId} and sub.sub_status = '진행'
+
  	 </select>
  	 
  	 <update id="user_delete" parameterType="map">
@@ -135,5 +136,9 @@
  	 <select id="deli_modify" parameterType="int" resultType="DeliveryDTO">
  	 	select * from delivery where deli_no = #{deli_no}
  	 </select>
+ 	 
+ 	 <update id="deli_modify_ok" parameterType="map">
+ 	 	update delivery set deli_name = #{name}, deli_zipcode = #{zipcode}, deli_addr1 = #{addr}, deli_addr2 = #{extraAddr}, deli_phone1 = #{deli_phone1}, deli_phone2 = #{deli_phone2}, deli_phone3 = #{deli_phone3}, deli_default = #{check} where deli_no = #{deli_no}
+ 	 </update>
  	 
   </mapper>
