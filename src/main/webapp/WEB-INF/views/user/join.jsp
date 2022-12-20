@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
 
@@ -17,11 +19,17 @@
   
 
 
-      <!-- top include 지정 -->
+   <%--    <!-- top include 지정 -->
       <jsp:include page="../banner/none_top.jsp" />
+ --%>
 
-
-
+ <c:if test="${empty userId }">
+		<jsp:include page="../banner/none_top.jsp" />
+	</c:if>
+	
+	<c:if test="${!empty userId }">
+		<jsp:include page="../banner/user_top.jsp" />
+	</c:if>
 
 
 

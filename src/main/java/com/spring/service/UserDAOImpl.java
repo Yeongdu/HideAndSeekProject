@@ -153,7 +153,7 @@ public class UserDAOImpl implements UserDAO{
 				
 			String list = this.sqlSession.selectOne("findPw", map);
 			
-			String mail = (String)map.get("tomail");
+			String mail = (String)map.get("tomail1");
 			
 			System.out.println("mail >>> " + mail);
 			System.out.println("list >>> " + list);
@@ -162,7 +162,7 @@ public class UserDAOImpl implements UserDAO{
 					MailDTO mdto = new MailDTO();
 					UserDTO udto = new UserDTO();
 					
-					mdto.setTomail((String)map.get("tomail"));
+					mdto.setTomail((String)map.get("tomail1"));
 					
 					mdto.setTitle("술래잡기 임시비밀번호 입니다.");
 					//임시비밀번호 생성
@@ -173,14 +173,14 @@ public class UserDAOImpl implements UserDAO{
 		            resultCode = this.mailSending(mdto);
 		            udto.setUser_pwd(updatePw);
 		            udto.setUser_id((String)map.get("id"));
-		            udto.setUser_email((String)map.get("tomail"));
+		            udto.setUser_email((String)map.get("tomail1"));
 					
 					 int resultPw = this.updatePw(udto);
 					 
 					 
 					 System.out.println("updatePw의 값 >>>" +updatePw);
 					 System.out.println("id의 값 >>>" +(String)map.get("id"));
-					 System.out.println("id의 값 >>>" +(String)map.get("tomail"));
+					 System.out.println("id의 값 >>>" +(String)map.get("tomail1"));
 					 
 					/* 
 					 * udto.setUser_pwd(updatePw);

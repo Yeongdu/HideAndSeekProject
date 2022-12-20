@@ -66,13 +66,15 @@
                                 		
                                 		
                                 		<div class="find_id">
-                                			<a class="find_id_a"   onclick="location.href = '<%=request.getContextPath() %>/find_id.do'">아이디 찾기</a>
+                                			<a class="find_id_a"   onclick="location.href = '<%=request.getContextPath() %>/find_idpw.do'">아이디 / 비밀번호 찾기</a>
                                 		</div>
                                 		
+                                		
+                                		<%-- 
                                 		<div class="find_pw">
                                 		   <a class="find_pw_a"  href="<%=request.getContextPath() %>/find_pw.do">비밀번호 찾기</a>
                                 		</div>
-                                		
+                                		 --%>
                                 		<div class="join_form">
                                 			<a  class="join_form_a"  href="<%=request.getContextPath() %>/join_form.do">회원가입</a>
                                 		

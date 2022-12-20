@@ -149,6 +149,7 @@ public class UserController {
 			ddto.setDeli_addr2(dto.getUser_addr2());
 			ddto.setUser_id(dto.getUser_id());
 			
+			
 			this.dao.insertDelivery(ddto);
 		}
 		
@@ -175,11 +176,11 @@ public class UserController {
 	      return "redirect:/store.do";
 	   }
 	
-	//아이디찾기 페이지로 이동
-	@RequestMapping("find_id.do")
+	//아이디/비밀번호찾기 페이지로 이동
+	@RequestMapping("find_idpw.do")
 	public String findId() {
 		
-		return "user/find_id";
+		return "user/find_idpw";
 	}
 	
 	//아이디찾기 메일 관련 
@@ -193,21 +194,23 @@ public class UserController {
 	}
 	
 	
-	//비밀번호찾기 페이지로 이동
-	@RequestMapping("find_pw.do")
-	public String findPw() {
-		
-		return "user/find_pw";
-	}
+	/*
+	 * //비밀번호찾기 페이지로 이동
+	 * 
+	 * @RequestMapping("find_pw.do") public String findPw() {
+	 * 
+	 * return "user/find_pw"; }
+	 */
+	
 	
 	//비밀번호 찾기 메일 관련
 	   @RequestMapping("findPwMail.do")
 	   @ResponseBody
-	   public int findPwMail(@RequestParam("tomail") String tomail, @RequestParam("id") String id) {
+	   public int findPwMail(@RequestParam("tomail1") String tomail1, @RequestParam("id") String id) {
 	      
 
 	        Map<String, Object> map = new HashMap<String, Object>();
-	        map.put("tomail", tomail);
+	        map.put("tomail1", tomail1);
 	        map.put("id", id);
 
 	        int resultCode = dao.findPw(map);
@@ -215,7 +218,7 @@ public class UserController {
 	        
 	        
 	        System.out.println("map확인 >>>" + map);
-	        System.out.println("tomail확인 >>>" + tomail);
+	        System.out.println("tomail확인 >>>" + tomail1);
 	        System.out.println("id확인 >>>" + id);
 	        
 	        return resultCode;

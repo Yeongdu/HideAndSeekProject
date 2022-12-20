@@ -1,6 +1,5 @@
 @charset "UTF-8";
 
-
 /*************************/
 /* tag reset_ 모든 CSS파일에 적용하고 시작!
 /*************************/
@@ -114,8 +113,6 @@ h1, h2, h3, h4, h5 {
 
 /*===============================================================================*/
 
-
-
 /* @import url('https://fonts.googleapis.com/css?family=Yydimibang&display=swap'); */
 @font-face {
     font-family: 'kdg_Medium';
@@ -124,99 +121,78 @@ h1, h2, h3, h4, h5 {
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'ChosunCentennial';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/ChosunCentennial.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
- .login_input_wrap_title {
-  width: 500px;
-  /* color: rgba(64,64,64,0.800000011920929);
-  position: absolute;
-  top: 321px;
-  left: 808px;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  font-family: Yydimibang;
-  font-weight: Bold; */
-  font-size: 80px;
-  opacity: 1;
-  text-align: center;
-  font-family: 'kdg_Medium';
 
-} 
 
-.login_input_inner_wrap{
+
+.main_wrap{
 	
-	/* border: 1px solid; */
-	width: 500px;
-	
+    height: 100%;
+    position: relative;
+    top: 15%;
 	
 }
 
-.input_id{
-	width: 440px;
-	height: 45px;
-}
-
-.input_pw{
-	width: 440px;
-	height: 45px;
-}
-
-.btn_login{
-	width: 440px;
-	height: 45px;
+.main_title_wrap{
+	font-size: 60px;
+	font-family: 'kdg_Medium';
+	width: 550px;
 	
 }
 
-.btn_login{
-	
-	background-color: lightgray;
-	width: 470px;
-}
-
-
-.find_wrap{
-	
-	display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: stretch;
-    justify-content: space-between;
-    width: 470px;
-    margin-left: 30px;
+.find_id_main_wrap, .find_pw_main_wrap{
+	margin-top: 50px;
+	width: 550px;
 	
 }
 
-
-.login_input_wrap{
-	
-	position: relative;
-    top: 20%;
-    
-	
-}
-
-.login_input_btn{
-	display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    align-content: stretch;
-	
+.find_id_title{
+  font-family:'kdg_Medium';
+  font-size: 30px;
 }
 
 
-.find_id_a:hover {
-	color: lightgray;
+.find_id_emailinput_wrap, .find_pw_idinput_wrap, .find_pw_emailinput_wrap{
+	margin-top: 20px;
+    margin-bottom: 15px;
+    width: 550px;
 }
 
-.find_pw_a:hover {
-	color: lightgray;
+.find_id_input, .find_pw_idinput, .find_pw_emailinput{
+	width: 400px;
+    border-block-start: none;
+    border-left: none;
+    border-right: none;
+    text-align: center;
 }
 
-.join_form_a:hover {
-	color: lightgray;
+.find_id_btn, .find_pw_btn{
+	border-radius: 10px;
+    background-color: #555;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    width: 120px;
+    margin-top: 25px;
+
+}
+
+.find_pw_title{
+  font-family:'kdg_Medium';
+  font-size: 30px;
+}
+
+.find_pw_emailinput{
+	margin-top: 30px;
 }
 
 
 
 
-    
 
