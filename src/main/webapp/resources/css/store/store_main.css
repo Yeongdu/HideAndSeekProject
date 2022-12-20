@@ -467,6 +467,17 @@ hr {
     box-sizing: border-box;
 }
 
+.photoreview_card {
+	height: auto;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.photoreview_card > div{
+	height: 75%;
+	box-sizing: border-box;
+}
+
 .photoreview_card > div > span {
 	box-sizing: border-box;
     display: block;
@@ -479,6 +490,8 @@ hr {
     margin: 0px;
     padding: 0px;
     position: relative;
+    height: 100%;
+    width: 100%;
 }
 
 .photoreview_card > div > span > img {
@@ -492,12 +505,8 @@ hr {
     min-height: 100%;
     max-height: 100%;
     object-fit: fill;
-}
-
-.photoreview_card {
-	height: auto;
-	width: 100%;
-	box-sizing: border-box;
+    height: 100%;
+    width: 100%
 }
 
 .photoreview_card_content {

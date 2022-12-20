@@ -13,8 +13,8 @@
 
 		function total(){
 			
- 			let count = $(".cart_check").length;
-			
+ 			let count = $("input:checkbox[name=price]").length;
+ 			
 			let ckcount = $("input:checkbox[name=price]:checked").length;
 			
 			let price = 0;
@@ -23,11 +23,11 @@
 			
 			let sum = 0;
 			
-			for(let i=0; i<count; i++){
+			for(let i=0; i<size; i++){
 				
-				if($(".cart_check")[i].checked == true){
+				if($(".cart_check"+i).is(":checked") == true){
 					
-					price = parseInt($(".cart_check")[i].value);
+					price = parseInt($(".cart_check"+i).val());
 					
 					tamount = parseInt($('.amount_info'+i).text());
 					
@@ -58,7 +58,7 @@
 		
 		$(function(){
 			
-			let count = $(".cart_check").length;
+			let count = $("input:checkbox[name=price]").length;
 			
 			if(count != 0){
 				
@@ -76,14 +76,14 @@
 		
 		$(document).on("click", ".delete_button", function(){
 			
-			let count = $(".cart_check").length;
+			let count = $("input:checkbox[name=price]").length;
 			
-			for(let i=0; i<count; i++){
+			for(let i=0; i<size; i++){
 				
-				if($(".cart_check")[i].checked == true){
+				if($(".cart_check"+i).is(":checked") == true){
 					
 					let cart_no = $('.cartno'+i).val();
-			    	
+					
 		    		$.ajax({
 						url:"<%=request.getContextPath()%>/cart_delete.do",
 						method:"post",
@@ -92,52 +92,14 @@
 							userId : id,
 	 						cart_no : cart_no
 							},
-						datatype: "json",
+						datatype: "text",
 						success:function(data){
 							
-							$.ajax({
-								url:"<%=request.getContextPath()%>/cart_delete_count.do",
-								method:"post",
-								async: false,
-								data: {
-									userId : id,
-									},
-								datatype: "text",
-								success:function(data){
-									
-									totalcart = parseInt(data);
-									
-								},
-								
-								error:function(data){
-									alert("통신 실패");
-								}
-							});
+							totalcart = parseInt(data);
 							
 							$(".cart_content"+i).remove();
 							
-							let iset = i;
-							
-							i += 1;
-							
-							if(totalcart != 0){
-							
-								$.each(data, function(index, item){
-									
-									$(".cart_content"+i).attr("class","cart_content cart_content"+(i - 1));
-									$(".cartno"+i).attr("class","cartno"+(i - 1));
-									$(".stock"+i).attr("class","stock"+(i - 1));
-									$(".checkbox_button"+i).attr("class","checkbox_button checkbox_button"+(i - 1));
-									$(".product_remove"+i).attr("class","product_remove product_remove"+(i - 1));
-									$(".minusbutton"+i).attr("class","minusbutton"+(i - 1));
-									$(".amount_info"+i).attr("class","amount_info"+(i - 1));
-									$(".plusbutton"+i).attr("class","plusbutton"+(i - 1));
-									
-									i += 1;
-									
-								});
-							
-							}else if(totalcart == 0){
+							if(totalcart == 0){
 								
 								let html = "<div class='above'><div class='guide'>지금 장바구니가 비어 있어요.</div></div>"
 								
@@ -148,12 +110,6 @@
 								document.getElementById("total_amount").checked = false;
 								
 							}
-							
-							i = iset;
-							
-							i -= 1;
-							
-							count -= 1;
 							
 							total();
 							
@@ -175,26 +131,9 @@
 			
 		});
 		
-		$(document).on("click", ".insert_button", function(){
-			
-			let count = $(".cart_check").length;
-			
-			for(let i=0; i<count; i++){
-				
-				if($(".cart_check")[i].checked == true){
-					
-					let cart_no = $('.cartno'+i).val();
-			    	
-				}
-				
-			}
-		
-		})
-		
-		
 		$(document).on("click", ".total_ckbox", function(){
 			
-			let count = $(".cart_check").length;
+			let count = $("input:checkbox[name=price]").length;
 			
 			if(count != 0){
 				
@@ -204,11 +143,11 @@
 					
 					document.getElementById("total_amount").checked = false;
 					
-					for(let i = 0; i<count; i++){
+					for(let i = 0; i<size; i++){
 						
-						if($(".cart_check")[i].checked == true){
-						
-							$(".cart_check")[i].checked = false;
+						if($(".cart_check"+i).is(":checked") == true){
+							
+							$(".cart_check"+i).prop("checked", false);
 							
 							$(".checkbox_button"+i+" > img").attr({src:"resources/image/checkbox.png"});
 						
@@ -224,11 +163,11 @@
 					
 					document.getElementById("total_amount").checked = true;
 					
-					for(let i = 0; i<count; i++){
+					for(let i = 0; i<size; i++){
 						
-						if($(".cart_check")[i].checked == false){
+						if($(".cart_check"+i).is(":checked") == false){
 							
-							$(".cart_check")[i].checked = true;
+							$(".cart_check"+i).prop("checked", true);
 							
 							$(".checkbox_button"+i+" > img").attr({src:"resources/image/checkbox-active.png"});
 						
@@ -249,11 +188,11 @@
 				
 				$(document).on('click', '.checkbox_button' + j, function() {
 					
-					let count = $(".cart_check").length;
+					let count = $("input:checkbox[name=price]").length;
 					
-					if($(".cart_check")[j].checked == true){
+					if($(".cart_check"+j).is(":checked") == true){
 						
-						$(".cart_check")[j].checked = false;
+						$(".cart_check"+j).prop("checked", false);
 						
 						$('.checkbox_button'+j+" > img").attr({src:"resources/image/checkbox.png"});
 						
@@ -263,9 +202,9 @@
 						
 						total();
 						
-					}else if($(".cart_check")[j].checked == false){
+					}else if($(".cart_check"+j).is(":checked") == false){
 						
-						$(".cart_check")[j].checked = true;
+						$(".cart_check"+j).prop("checked", true);
 						
 						$('.checkbox_button'+j+" > img").attr({src:"resources/image/checkbox-active.png"});
 						
@@ -317,7 +256,7 @@
 	 								html += "<div class='content'>"
 	 								html += "<div class='product_wrap'>"
 	 								html += "<div class='checkbox_wrap'>"
-	 								html += "<input type='checkbox' class='cart_check' name='price' value='"+item.product_price+"' checked='checked' >"
+	 								html += "<input type='checkbox' class='cart_check cart_check"+j+"' name='price' value='"+item.product_price+"' checked='checked' >"
 	 								html += "<button type='button' class='checkbox_button checkbox_button"+j+"'>"
 	 								html += "<img alt='checkbox' src='resources/image/checkbox-active.png'></button></div>"
 	 								html += "<div class='product_info_top'>"
@@ -412,7 +351,7 @@
 	 								html += "<div class='content'>"
 	 								html += "<div class='product_wrap'>"
 	 								html += "<div class='checkbox_wrap'>"
-	 								html += "<input type='checkbox' class='cart_check' name='price' value='"+item.product_price+"' checked='checked' >"
+	 								html += "<input type='checkbox' class='cart_check cart_check"+j+"' name='price' value='"+item.product_price+"' checked='checked' >"
 	 								html += "<button type='button' class='checkbox_button checkbox_button"+j+"'>"
 	 								html += "<img alt='checkbox' src='resources/image/checkbox-active.png'></button></div>"
 	 								html += "<div class='product_info_top'>"
@@ -485,52 +424,14 @@
 							userId : id,
 	 						cart_no : cart_no
 							},
-						datatype: "json",
+						datatype: "text",
 						success:function(data){
 							
-							$.ajax({
-								url:"<%=request.getContextPath()%>/cart_delete_count.do",
-								method:"post",
-								async: false,
-								data: {
-									userId : id,
-									},
-								datatype: "text",
-								success:function(data){
-									
-									totalcart = parseInt(data);
-									
-								},
-								
-								error:function(data){
-									alert("통신 실패");
-								}
-							});
+							totalcart = parseInt(data);
 							
 							$(".cart_content"+j).remove();
 							
-							let jset = j;
-							
-							j += 1;
-							
-							if(totalcart != 0){
-							
-								$.each(data, function(index, item){
-									
-									$(".cart_content"+j).attr("class","cart_content cart_content"+(j - 1));
-									$(".cartno"+j).attr("class","cartno"+(j - 1));
-									$(".stock"+j).attr("class","stock"+(j - 1));
-									$(".checkbox_button"+j).attr("class","checkbox_button checkbox_button"+(j - 1));
-									$(".product_remove"+j).attr("class","product_remove product_remove"+(j - 1));
-									$(".minusbutton"+j).attr("class","minusbutton"+(j - 1));
-									$(".amount_info"+j).attr("class","amount_info"+(j - 1));
-									$(".plusbutton"+j).attr("class","plusbutton"+(j - 1));
-									
-									j += 1;
-									
-								});
-							
-							}else if(totalcart == 0){
+							if(totalcart == 0){
 								
 								let html = "<div class='above'><div class='guide'>지금 장바구니가 비어 있어요.</div></div>"
 								
@@ -541,10 +442,6 @@
 								document.getElementById("total_amount").checked = false;
 								
 							}
-							
-							j = jset;
-							
-							let count = $(".cart_check").length;
 							
 							total();				
 							

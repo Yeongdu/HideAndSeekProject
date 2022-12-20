@@ -41,7 +41,7 @@
 	</select>
 	
 	<select id="getCartList" parameterType="String" resultType="CartDTO">
-		select * from cart where user_id = #{userId}
+		select * from cart where user_id = #{userId} order by cart_date desc
 	</select>
 	
 	<select id="getCartDTO" resultType="CartDTO">
