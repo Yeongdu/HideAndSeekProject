@@ -63,8 +63,7 @@ $(document).on("click", "#mypage_sub", function(){
 		    type : 'get',           // 타입 (get, post, put 등등)
 		    url : "<%=request.getContextPath() %>/mypage_sub.do",          // 요청할 서버url
 		    dataType : 'json',       // 데이터 타입 (html, xml, json, text 등등)
-		    data : {userId : id,
-		    		date: date},
+		    data : {userId : id},
 		    success : function(result) { // 결과 성공 콜백함수
 		    
 		    	var res = '';

@@ -22,5 +22,7 @@ public class SubscribeDTO {
 	
 	private String sub_status;
 	private int sub_package_no;
+	
+	private int sub_price;
 
 }

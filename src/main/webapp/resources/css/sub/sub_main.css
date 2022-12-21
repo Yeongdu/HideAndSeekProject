@@ -6,17 +6,17 @@
     font-style: normal;
 }
 
-html{
-	/* overflow: hidden; */
-}
-
-#section1 {
-	width:100%;
-	height: auto;
+html, body{
+	height: 100%;
 }
 
 #sub_main{
-	height: auto;
+	height: 100%;
+}
+
+#section1 {
+	height: 100%;
+	position: relative;
 }
 
 .sub_banner {
@@ -86,9 +86,9 @@ html{
 }
 
 #section2 {
-	width: 100%;
-	height: auto;
+	height: 100%;
 	display: none;
+	position: relative;
 }
 
 .sub_section2{
@@ -96,10 +96,10 @@ html{
 }
 
 .sub_banner3{
-	width:100%;
 	height: 80%;
 	background-color: #F8F8F8;
-	
+	padding: 40px;
+	padding-top: 0;
 	display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -116,8 +116,9 @@ html{
 }
 
 .sub2_title{
-	position: relative;
-    top: -50%;
+    position: absolute;
+    top: 48%;
+    left: 40%;
     color: white;
     text-align: center;
     font-size: 2em;
@@ -136,9 +137,9 @@ html{
 }
 
 #section3 {
-	width: 100%;
-	height: auto;
+	height: 100%;
 	display: none;
+	position: relative;
 }
 
 .sub_banner4 {
