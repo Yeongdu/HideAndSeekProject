@@ -13,5 +13,7 @@ public interface EventDAO {
 	EventDTO getEventCont(int event_no);
 	
 	int insertEvent(EventDTO dto);
+	
+	int updateEvent(EventDTO dto);
 
 }

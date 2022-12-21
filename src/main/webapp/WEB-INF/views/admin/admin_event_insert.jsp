@@ -78,68 +78,18 @@ onclick = "location.href ='<%=request.getContextPath() %>/admin_event.do'"
 >이벤트 목록</button>
 <br />
 <br><br>
-        <form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/admin_product_content_update_ok.do" class="border-top">
+        <form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/admin_event_insert_ok.do" class="border-top">
         
 			<br><br>
 
 				<div class="form-group row border-bottom py-2">
 						<img width="500px;" id="preview1" />
-					<label for="product_file1" class="col-sm-2 col-form-label">이벤트 썸네일</label>
+					<label for="event_thumbnailfile" class="col-sm-2 col-form-label">이벤트 썸네일</label>
 					<div class="col-sm-8">
 						<input type="file" name="event_thumbnailfile" id="event_thumbnailfile"  class="thumbnailInput" onchange="readURL1(this);"/>
 					</div>
 				</div>
 
-				<div class="form-group row border-bottom py-2">
-					<label for="product_file1" class="col-sm-2 col-form-label">이벤트사진1</label>
-					<div class="col-sm-8">
-						<input type="file" name="event_file1file" id="event_file1file"  class="thumbnailInput" onchange="readURL2(this);"/>
-						<img width="300px;" id="preview2" />
-					</div>
-				</div>
-
-
-				<div class="form-group row border-bottom py-2">
-					<label for="product_cont1" class="col-sm-2 col-form-label">이벤트설명1</label>
-					<div class="col-sm-8">
-					 <textarea class="form-control" name="event_cont1" id="event_cont1" onkeydown="resize(this);" onkeyup="resize(this);">${pcdto.product_cont1 }</textarea>
-					</div>
-				</div>
-
-				<div class="form-group row border-bottom py-2">
-					<label for="product_file2" class="col-sm-2 col-form-label">이벤트사진2</label>
-					<div class="col-sm-8">
-						<input type="file" class="thumbnailInput" name="event_file2file" id="event_file2file" onchange="readURL3(this);" value="${pcdto.product_file2 }"/> 
-						<img width="300px;" id="preview3" />
-					</div>
-				</div>
-
-
-				<div class="form-group row border-bottom py-2">
-					<label for="product_cont2" class="col-sm-2 col-form-label">이벤트설명2</label>
-					<div class="col-sm-8">
-						<textarea class="form-control" name="event_cont2" id="event_cont2" onkeydown="resize(this);" onkeyup="resize(this);">${pcdto.product_cont2 }</textarea>
-					</div>
-				</div>
-
-				<div class="form-group row border-bottom py-2">
-					<label for="product_file3" class="col-sm-2 col-form-label">이벤트사진3</label>
-					<div class="col-sm-8">
-						<input type="file" name="event_file3file" id="event_file3file" class="thumbnailInput" onchange="readURL4(this);" value="${pcdto.product_file3 }"/>
-						<img width="300px;" id="preview4" />
-					</div>
-				</div>
-
-
-				<div class="form-group row border-bottom py-2">
-					<label for="product_cont3" class="col-sm-2 col-form-label">이벤트설명3</label>
-					<div class="col-sm-8">
-						<textarea class="form-control" name="event_cont3" id="event_cont3" onkeydown="resize(this);" onkeyup="resize(this);">${pcdto.product_cont3 }</textarea>
-					</div>
-				</div>
-				
-				
-         
          
 			<div class="form-group row mt-4" align="center">
                 <div>
