@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+#sub_info_main{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+	text-align: center;
+	height: auto;
+}
+
+.delivery_main_wrap {
+	border: 1px solid black;
+	width: 30%;
+    padding: 10px;
+    text-align: left;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.delivery_default_badge{
+	border-radius: 20px;
+	border: 2px solid #3395ED;
+	color: #3395ED;
+	font-size: 12px;
+	padding: 5px;
+	margin-bottom: 3%;
+}
+
+.delivery_name {
+	font-weight: bold;
+    font-size: 1.3em;
+}
+
+#delivery_addr{
+	margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.delivery_title{
+	display: flex;
+    justify-content: space-between;
+}
