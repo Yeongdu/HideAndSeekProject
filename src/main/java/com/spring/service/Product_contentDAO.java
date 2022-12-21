@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.spring.model.CartDTO;
+import com.spring.model.ProductDTO;
 import com.spring.model.Product_contentDTO;
 import com.spring.model.ReviewDTO;
 
@@ -18,5 +19,8 @@ public interface Product_contentDAO {
 	
 	int getReviewCount(int product_no);
 	
+	double getReviewStar(int product_no);
+	
 	int insertCart(CartDTO dto);
+	
 }

@@ -63,7 +63,7 @@
   	</select>
   	
   	<select id="RCount" parameterType="int" resultType="int">
-  		select count(*) as count from review where product_no = #{no}
+  		select nvl(count(product_no),0) from review where product_no = #{no}
   	</select>
   	
   	<insert id="add_cart" parameterType="CartDTO">
@@ -79,4 +79,8 @@
 	            cart_date = sysdate,
 	            user_id = #{user_id}
   	</insert>
+  	
+    <select id="SCount" parameterType="int" resultType="double">
+		select nvl(ROUND((sum((review_star*20)/2)/count(product_no)), 1),0) from review where product_no = #{no}
+	</select>
   </mapper>

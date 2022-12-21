@@ -78,6 +78,12 @@ public class Product_contentController {
 	        System.out.println("리뷰 : "+rlist);
 	        System.out.println("페이지 : "+page_dto);
 	        
+	        //수정중
+	        int RCount = this.pcdao.getReviewCount(no);
+	        double SCount = this.pcdao.getReviewStar(no);
+	        model.addAttribute("RCount", RCount);
+	        model.addAttribute("SCount", SCount);
+	        
 	        return "content/product_content_list";
 	    }
 	 
@@ -93,11 +99,11 @@ public class Product_contentController {
 		 session.setAttribute("rcount", cdao.getCartCount(userId));
 	 }
 	 
-	 @RequestMapping("/user_top.jsp")
-	 public void getReviewCount(HttpServletRequest request, Model model, @RequestParam("no") int no) {
-		 int RCount = this.pcdao.getReviewCount(no);
-		 model.addAttribute("RCount", RCount);
-	 }
+//	 @RequestMapping("/user_top.jsp")
+//	 public void getReviewCount(HttpServletRequest request, Model model, @RequestParam("no") int no) {
+//		 int RCount = this.pcdao.getReviewCount(no);
+//		 model.addAttribute("RCount", RCount);
+//	 }
 	 
 	 @RequestMapping("/product_review.do")
 	 @ResponseBody

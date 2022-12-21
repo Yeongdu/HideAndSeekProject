@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.model.CartDTO;
+import com.spring.model.ProductDTO;
 import com.spring.model.Product_contentDTO;
 import com.spring.model.ReviewDTO;
 
@@ -44,5 +45,10 @@ public class Product_contentDAOImpl implements Product_contentDAO{
 	@Override
 	public int insertCart(CartDTO dto) {
 		return this.sqlSession.insert("add_cart", dto);
+	}
+
+	@Override
+	public double getReviewStar(int product_no) {
+		return this.sqlSession.selectOne("SCount", product_no);
 	}
 }
