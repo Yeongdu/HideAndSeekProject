@@ -133,13 +133,13 @@
 												<div class="img_wrap" >
 													<c:if test="${dto.product_status != '품절'}" >
 														<span>
-															<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+															<img alt="img" src="resources/upload/${dto.product_thumbnail }">
 														</span>
 													</c:if>
 													
 													<c:if test="${dto.product_status == '품절'}" >
 														<span>
-															<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+															<img alt="img" src="resources/upload/${dto.product_thumbnail }">
 														</span>
 														
 														<div class="soldout">
@@ -201,13 +201,13 @@
 												<div class="img_wrap" >
 													<c:if test="${dto.product_stock != 0}" >
 													<span>
-														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }">
 													</span>
 													</c:if>
 													
 													<c:if test="${dto.product_stock == 0}" >
 													<span>
-														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }">
 													</span>
 													
 													<div class="soldout">
@@ -269,13 +269,13 @@
 												<div class="img_wrap" >
 													<c:if test="${dto.product_stock != 0}" >
 													<span>
-														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }">
 													</span>
 													</c:if>
 													
 													<c:if test="${dto.product_stock == 0}" >
 													<span>
-														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }">
 													</span>
 													
 													<div class="soldout">
@@ -337,13 +337,13 @@
 												<div class="img_wrap" >
 													<c:if test="${dto.product_stock != 0}" >
 													<span>
-														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }">
 													</span>
 													</c:if>
 													
 													<c:if test="${dto.product_stock == 0}" >
 													<span>
-														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }">
 													</span>
 													
 													<div class="soldout">
@@ -437,13 +437,13 @@
 												<div class="img_wrap" >
 													<c:if test="${dto.product_stock != 0}" >
 													<span>
-														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }">
 													</span>
 													</c:if>
 													
 													<c:if test="${dto.product_stock == 0}" >
 													<span>
-														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }">
 													</span>
 													
 													<div class="soldout">
@@ -505,13 +505,13 @@
 												<div class="img_wrap" >
 													<c:if test="${dto.product_stock != 0}" >
 													<span>
-														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }">
 													</span>
 													</c:if>
 													
 													<c:if test="${dto.product_stock == 0}" >
 													<span>
-														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }">
 													</span>
 													
 													<div class="soldout">
@@ -573,13 +573,13 @@
 												<div class="img_wrap" >
 													<c:if test="${dto.product_stock != 0}" >
 													<span>
-														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }">
 													</span>
 													</c:if>
 													
 													<c:if test="${dto.product_stock == 0}" >
 													<span>
-														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }">
 													</span>
 													
 													<div class="soldout">
@@ -641,13 +641,13 @@
 												<div class="img_wrap" >
 													<c:if test="${dto.product_stock != 0}" >
 													<span>
-														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }">
 													</span>
 													</c:if>
 													
 													<c:if test="${dto.product_stock == 0}" >
 													<span>
-														<img alt="img" src="resources/upload/${dto.product_thumbnail }" style="width: 100%; height: 39.7vh">
+														<img alt="img" src="resources/upload/${dto.product_thumbnail }">
 													</span>
 													
 													<div class="soldout">

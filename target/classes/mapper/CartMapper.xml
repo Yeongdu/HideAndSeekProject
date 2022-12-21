@@ -69,7 +69,7 @@
 	</select>
 	
 	<select id="getUserDeliveryList" parameterType="String" resultType="DeliveryDTO">
-		select * from delivery where user_id = #{userId}
+		select * from delivery where user_id = #{userId} order by deli_default desc
 	</select>
 	
 	<select id="getDeliveryList" parameterType="int" resultType="DeliveryDTO">
