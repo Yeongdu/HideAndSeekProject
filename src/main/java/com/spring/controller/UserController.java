@@ -63,8 +63,13 @@ public class UserController {
 
 	//로그인
     @RequestMapping("user_check.do")
-    public String signIn( HttpServletRequest request, HttpSession session, @RequestParam("id") String id, @RequestParam("pw") String pw, Model model) {
+    public String signIn( HttpServletRequest request, HttpSession session, HttpServletResponse response, @RequestParam("id") String id, @RequestParam("pw") String pw, Model model) throws IOException {
 
+    	if(id.equals("admin1") && pw.equals("1234")) {//관리자 아이디일때 
+    		session.setAttribute("userId", id);
+    		return "redirect:/admin_main.do";
+    		
+    	}else {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("user_id", id);
         map.put("user_pwd", pw);
@@ -80,13 +85,8 @@ public class UserController {
         
         if (result == 1) { //아이디, 비밀번호 일치 시(로그인 성공)
             
-        	if(id.equals("admin1")) {//관리자 아이디일때 
-        		return "redirect:/admin_main.do";
-        		
-        	}
-        	
-        	//세션값
-        	session.setAttribute("userId", id);
+              //세션값
+            session.setAttribute("userId", id);
         	// 아이디에 해당하는 장바구니 수량을 가져오는 메서드
         	session.setAttribute("rcount", cdao.getCartCount(id));
       		 return "redirect:/store.do";
@@ -94,9 +94,16 @@ public class UserController {
         	
         	
         }else {//아이디, 비번 틀렸을 때
-
-            return "user/login";
+        	
+        	model.addAttribute("msg","아이디, 비밀번호를 확인하세요");
+        	model.addAttribute("url","/user_login.do");
+        	
+        	
+        	
+          
+            return "user/redirect";
         }
+    }
     }
 	
 	//회원가입_아이디 중복체크
@@ -147,6 +154,10 @@ public class UserController {
 			ddto.setDeli_addr1(dto.getUser_addr1());
 			ddto.setDeli_addr2(dto.getUser_addr2());
 			ddto.setUser_id(dto.getUser_id());
+			ddto.setDeli_phone1(dto.getUser_phone1());
+			ddto.setDeli_phone2(dto.getUser_phone2());
+			ddto.setDeli_phone3(dto.getUser_phone3());
+		
 			
 			
 			this.dao.insertDelivery(ddto);
@@ -242,6 +253,7 @@ public class UserController {
 	   //바로구매 버튼 클릭 시 로그인 성공
 	   @RequestMapping("user_check_buy.do")
 	    public String signIn1( HttpServletRequest request, HttpSession session, @RequestParam("id") String id, @RequestParam("pw") String pw, Model model) {
+		  
 		   Map<String, Object> map = new HashMap<String, Object>();
 	        map.put("user_id", id);
 	        map.put("user_pwd", pw);
@@ -251,13 +263,6 @@ public class UserController {
 	        String referer = (String)session.getAttribute("referer");
 
 	        if (result == 1) { //아이디, 비밀번호 일치 시(로그인 성공)
-	        	
-
-	        	if(id.equals("admin1")) {//관리자 아이디일때 
-	        		return "redirect:/admin_main.do";
-	        		
-	        	}
-	        	
 	        	
 	        	session.setAttribute("userId", id);
 	           
