@@ -9,12 +9,12 @@
 <title>Insert title here</title>
 <link href="resources/css/user/login.css" rel="stylesheet" type="text/css">
 
-
+<div style="height:auto; min-height: 100%;">
 		
 		
                         <!-- 로그인 창 -->
 		                  
-                             <div class="login_input_wrap" align="center" style="height:100%;">
+                             <div class="login_input_wrap" align="center">
                              	
                              			<form action="user_check_buy.do" method="post">
                              		
@@ -85,6 +85,7 @@
                                 	</form>
                              
                                 
+                              </div>
                               </div>
                              
                               <!-- 로그인 창 end -->
