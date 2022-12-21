@@ -13,8 +13,10 @@ public class AdminInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	 public boolean preHandle(HttpServletRequest req,
 	    HttpServletResponse res, Object handler) throws Exception {
-
+		
 		HttpSession session = req.getSession();
+		
+		
 		Object obj = session.getAttribute("userId");
 		
 		  
@@ -24,10 +26,10 @@ public class AdminInterceptor extends HandlerInterceptorAdapter{
 		}
 		
 		if(obj != null && !("admin1".equals(obj) )) {
-			res.sendRedirect("/");
+			res.sendRedirect("/model/");
 			return false;
 		}
-		  
+
 		  return true;
 		 }
 

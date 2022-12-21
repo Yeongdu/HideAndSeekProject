@@ -11,5 +11,7 @@ public interface EventDAO {
 	
 	// �대깽�� ���몄��蹂�
 	EventDTO getEventCont(int event_no);
+	
+	int insertEvent(EventDTO dto);
 
 }
