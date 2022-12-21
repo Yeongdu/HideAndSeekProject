@@ -26,9 +26,9 @@
 	 
 	function requestPay() {
 		
-		var zipcode = $(".zipcode").val();
-		var addr = $(".addr1").val() + $(".addr2").val();
-		var tel = $(".phone1").val()+"-"+$(".phone2").val()+"-"+$(".phone3").val();
+		var zipcode = $(".zipcode").text();
+		var addr = $(".addr1").text() + $(".addr2").text();
+		var tel = $(".phone").text();
 		var name = '${name}';
 		
 		let product_no = [];
@@ -40,18 +40,13 @@
 		cart_no = ${cart_no};
 		amount = ${amount};
 		
-		console.log("delivery_no 값 >>> " + delivery_no);
-		console.log("userId 값 >>> " + userId);
-		console.log("product_no 값 >>> " + product_no);
-		console.log("amount 값 >>> " + amount);
-		
 		IMP.request_pay({
 	  	pg : 'kcp',
 	    pay_method : 'card',
 	    merchant_uid: "IMP"+makeMerchantUid, 
 	    name : name,
 	    amount : (${sum + delivery}),
-	    buyer_email : '$(.zipcode).val()',
+	    buyer_email : '${email}',
 	    buyer_name : '${userId}',
 	    buyer_tel : tel,
 	    buyer_addr : addr,
@@ -87,30 +82,28 @@
 			datatype: "json",
 			success:function(data){
 				
-				$(".product_wrap").empty();
+				$(".content_delivery_wrap").empty();
 				
 				let html = "";
 				
 				$.each(data, function(index, item){
 					
-					html += "<div>우편 번호</div>"
-					html += "<div class='zipcode_wrap'>"
-					html += "<input class='zipcode' value='"+item.deli_zipcode+"' disabled='disabled'></div>"
-					html += "<div>주소</div>"
-					html += "<div class='addr1_wrap'>"
-					html += "<input class='addr1' value='"+item.deli_addr1+"' disabled='disabled'></div>"
-					html += "<div>상세 주소</div>"
-					html += "<div class='addr2_wrap'>"
-					html += "<input class='addr2' value='"+item.deli_addr2+"' disabled='disabled'></div>"
-					html += "<div>핸드폰</div>"
-					html += "<div class='phone_wrap'>"
-					html += "<input class='phone1' value='"+item.deli_phone1+"' disabled='disabled'> -"
-					html += "<input class='phone2' value='"+item.deli_phone2+"' disabled='disabled'> -"
-					html += "<input class='phone3' value='"+item.deli_phone3+"' disabled='disabled'></div>"
+					html += "<div class='delivery_info'>"
+					html += "<div class='delivery_title'>우편 번호</div>"
+					html += "<div class='zipcode'>"+item.deli_zipcode+"</div></div>"
+					html += "<div class='delivery_info'>"
+					html += "<div class='delivery_title'>주소</div>"
+					html += "<div class='addr1'>"+item.deli_addr1+"</div></div>"
+					html += "<div class='delivery_info'>"
+					html += "<div class='delivery_title'>상세 주소</div>"
+					html += "<div class='addr2'>"+item.deli_addr2+"</div></div>"
+					html += "<div class='delivery_info'>"
+					html += "<div class='delivery_title'>핸드폰</div>"
+					html += "<div class='phone'>"+item.deli_phone1+"-"+item.deli_phone1+"-"+item.deli_phone1+"</div></div>"
 				
 				});
 				
-				$(".product_wrap").append(html);
+				$(".content_delivery_wrap").append(html);
 				
 			},
 			
@@ -154,30 +147,28 @@
 								
 					<div class="none_block"></div>
 					
-					<div class="content">
-						<div class="product_wrap">
+					<div class="content_delivery">
+						<div class="content_delivery_wrap">
 							<c:forEach items="${list }" var="dto">
 								<c:if test="${dto.deli_default == 1 }">
-									<div>우편 번호</div>
-									<div class="zipcode_wrap">
-										<input class="zipcode" value="${dto.deli_zipcode }" disabled="disabled">
+									<div class="delivery_info">
+										<div class="delivery_title">우편 번호</div>
+										<div class="zipcode">${dto.deli_zipcode }</div>
 									</div>
 									
-									<div>주소</div>
-									<div class="addr1_wrap">
-										<input class="addr1" value="${dto.deli_addr1 }" disabled="disabled">
+									<div class="delivery_info">
+										<div class="delivery_title">주소</div>
+										<div class="addr1">${dto.deli_addr1 }</div>
 									</div>
 									
-									<div>상세 주소</div>
-									<div class="addr2_wrap">
-										<input class="addr2" value="${dto.deli_addr2 }" disabled="disabled">
+									<div class="delivery_info">
+										<div class="delivery_title">상세 주소</div>
+										<div class="addr2">${dto.deli_addr2 }</div>
 									</div>
 									
-									<div>핸드폰</div>
-									<div class="phone_wrap">
-										<input class="phone1" value="${dto.deli_phone1 }" disabled="disabled"> -
-										<input class="phone2" value="${dto.deli_phone2 }" disabled="disabled"> -
-										<input class="phone3" value="${dto.deli_phone3 }" disabled="disabled">
+									<div class="delivery_info">
+										<div class="delivery_title">핸드폰</div>
+										<div class="phone">${dto.deli_phone1 }-${dto.deli_phone2 }-${dto.deli_phone3 }</div>
 									</div>
 								</c:if>
 							</c:forEach>

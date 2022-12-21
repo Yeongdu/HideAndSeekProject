@@ -493,3 +493,18 @@ div {
     font-weight: bold;
     font-size: 1.2rem;
 }
+
+.delivery_info {
+	display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    height: 15px;
+    line-height: 15px;
+    margin: 20px 0px;
+}
+
+.delivery_title {
+	font-size: 1rem;
+    font-weight: bold;
+}

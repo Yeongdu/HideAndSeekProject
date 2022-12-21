@@ -89,7 +89,7 @@ public class ProductDAOImpl implements ProductDAO{
 	
 	@Override
 	public List<ProductDTO> getProductTagList(Map<String, Object> map, String sort) {
-
+		
 		return this.sqlSession.selectList(sort+"_tag", map);
 		
 	}

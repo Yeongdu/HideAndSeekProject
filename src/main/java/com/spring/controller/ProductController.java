@@ -318,30 +318,37 @@ public class ProductController {
 		
 		if(dosu != null) {
 			map.put("dosu", dosu);
+			System.out.println("dosu 값 >>> " + dosu);
 		}
 		
 		if(sweet != null) {
 			map.put("sweet", sweet);
+			System.out.println("sweet 값 >>> " + sweet);
 		}
 		
 		if(acidity != null) {
 			map.put("acidity", acidity);
+			System.out.println("acidity 값 >>> " + acidity);
 		}
 		
 		if(soda != null) {
 			map.put("soda", soda);
+			System.out.println("soda 값 >>> " + soda);
 		}
 		
 		if(material != null) {
 			map.put("material", material);
+			System.out.println("material 값 >>> " + material);
 		}
 		
 		if(minprice != null) {
 			map.put("minprice", minprice);
+			System.out.println("minprice 값 >>> " + minprice);
 		}
 		
 		if(maxprice != null) {
 			map.put("maxprice", maxprice);
+			System.out.println("maxprice 값 >>> " + maxprice);
 		}
 		
 		map.put("category", category);
@@ -435,7 +442,15 @@ public class ProductController {
 									@RequestParam("sort") String sort) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-
+		
+		System.out.println("무한스크롤 태그 dosu 값 >>> " + dosu);
+		System.out.println("sweet 값 >>> " + sweet);
+		System.out.println("acidity 값 >>> " + acidity);
+		System.out.println("soda 값 >>> " + soda);
+		System.out.println("material 값 >>> " + material);
+		System.out.println("minprice 값 >>> " + minprice);
+		System.out.println("maxprice 값 >>> " + maxprice);
+		
 		if(dosu != null) {
 			map.put("dosu", dosu);
 		}

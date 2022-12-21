@@ -932,6 +932,8 @@ $(function(){
 		
 		let sort = $('.sort-menu').val();
 		
+		console.log("dosu 값 >>>"+ list.dosu);
+		
 		$.ajax({
 			url:"<%=request.getContextPath()%>/infinite_scroll_tag.do",
 			method:"post",

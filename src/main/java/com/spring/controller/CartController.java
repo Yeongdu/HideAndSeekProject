@@ -17,13 +17,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spring.model.CartDTO;
 import com.spring.model.DeliveryDTO;
 import com.spring.model.ProductDTO;
+import com.spring.model.UserDTO;
 import com.spring.service.CartDAO;
+import com.spring.service.MyPageDAO;
 
 @Controller
 public class CartController {
 	
 	@Autowired
 	private CartDAO dao;
+	
+	@Autowired
+	private MyPageDAO mdao;
 	
 	// 장바구니 테이블에서 userId 와 일치하는 장바구니 정보를 불러오는 메서드
 	@RequestMapping("/cart.do")
@@ -129,6 +134,10 @@ public class CartController {
 		
 		List<DeliveryDTO> list = this.dao.getUserDeliveryList(userId);
 		
+		UserDTO dto = this.mdao.getUserCont(userId);
+		
+		String email = dto.getUser_email();
+		
 		model.addAttribute("list", list);
 		model.addAttribute("product_no", product_no);
 		model.addAttribute("cart_no", cart_no);
@@ -136,6 +145,7 @@ public class CartController {
 		model.addAttribute("name", name);
 		model.addAttribute("sum", total);
 		model.addAttribute("delivery", delivery);
+		model.addAttribute("email", email);
 		
 		
 		return "cart/cart_delivery";
