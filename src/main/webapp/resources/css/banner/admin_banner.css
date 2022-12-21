@@ -151,6 +151,7 @@ h1, h2, h3, h4, h5 {
 	font-family: 'ChosunCentennial', sans-serif;
 	font-size: 1.5em;
 	font-weight: bold;
+	text-shadow: 1.2px 1.2px 2.5px #abaaaa;
 	}
 	
 	/*로고*/

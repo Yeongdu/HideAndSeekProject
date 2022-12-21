@@ -43,6 +43,88 @@
   		select * from event where event_no = #{event_no}
   	</select>
   	
+  	<insert id="eventInsert" parameterType="eventDTO">
+    	insert into event values (
+    	(select max(event_no) from event) +1,
+    	<if test="event_thumbnail != null and event_thumbnail !=''">
+    	#{event_thumbnail},  	
+    	</if>
+    	<if test="event_thumbnail == null and event_thumbnail ==''">
+    	'',  	
+    	</if>
+    	
+    	<if test="event_file1 != null and event_file1 !=''">
+    	#{event_file1},    	
+    	</if>
+    	<if test="event_file1 == null and event_file1 ==''">
+    	'',  	
+    	</if>
+    	
+    	<if test="event_file2 != null and event_file2 !=''">
+    	#{event_file2},    	
+    	</if>
+    	<if test="event_file2 == null and event_file2 ==''">
+    	'',  	
+    	</if>
+    	
+    	<if test="event_file3 != null and event_file3 !=''">
+    	#{event_file1},    	
+    	</if>
+    	<if test="event_file1 == null and event_file1 ==''">
+    	'',  	
+    	</if>
+    	
+    		
+    	<if test="event_cont1 != null and event_cont1 !=''">
+    	#{event_cont1},    	
+    	</if>
+    	<if test="event_cont1 == null and event_cont1 ==''">
+    	'',  	
+    	</if>
+    	
+    	<if test="event_cont2 != null and event_cont2 !=''">
+    	#{event_file2},    	
+    	</if>
+    	<if test="event_cont2 == null and event_cont2 ==''">
+    	'',  	
+    	</if>
+    	
+    	<if test="event_cont3 != null and event_cont3 !=''">
+    	#{event_file1},    	
+    	</if>
+    	<if test="event_cont3 == null and event_cont3 ==''">
+    	'',  	
+    	</if>
+    	
+    	sysdate,
+    	
+    	
+    	<if test="event_start != null and event_start !=''">
+    	#{event_start},    	
+    	</if>
+    	<if test="event_start == null and event_start ==''">
+    	'',  	
+    	</if>
+    	
+    	
+    	<if test="event_end != null and event_end !=''">
+    	#{event_end},    	
+    	</if>
+    	<if test="event_end == null and event_end ==''">
+    	'',  	
+    	</if>
+
+    	'진행중',
+    	
+    	<if test="product_no != null and product_no !=''">
+    	#{product_no},    	
+    	</if>
+    	<if test="product_no == null and product_no ==''">
+    	'',  	
+    	</if>
+
+    	)
+    </insert>
   	
   
   

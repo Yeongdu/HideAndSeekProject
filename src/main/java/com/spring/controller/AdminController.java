@@ -1119,6 +1119,55 @@ public class AdminController {
 		return "admin/admin_event";
 	}
 	
+	// 관리자 이벤트 등록
+	@RequestMapping("/admin_event_insert.do")
+	public String admin_event_insert(HttpServletRequest request, Model model) {
+
+		return "admin/admin_event_insert";
+	}
+	
+	//이벤트 등록 확인
+	@RequestMapping("/admin_event_insert_ok.do")
+	public void admin_event_insert_ok(
+			@RequestParam("event_thumbnailfile") MultipartFile file1,
+			@RequestParam("event_file1file") MultipartFile file2,
+			@RequestParam("event_file2file") MultipartFile file3,
+			@RequestParam("event_file3file") MultipartFile file4,
+			HttpServletResponse response, 
+			EventDTO dto,
+			Model model) throws Exception {
+		
+		if (!file1.isEmpty()) {
+			dto.setEvent_thumbnail(file1.getOriginalFilename());			
+		}
+		
+		if (!file2.isEmpty()) {
+			dto.setEvent_file1(file2.getOriginalFilename());
+		}
+		
+		if (!file3.isEmpty()) {
+			dto.setEvent_file2(file3.getOriginalFilename());
+		}
+		
+		if (!file4.isEmpty()) {
+			dto.setEvent_file3(file4.getOriginalFilename());
+		}
+		
+		
+		
+
+
+		int check = this.edao.insertEvent(dto);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		if (check > 0 && !file1.getOriginalFilename().isEmpty()) {
+//			file1.transferTo(new File(FILE_SERVER_PATH, file.getOriginalFilename()));
+			out.println("<script> alert('제품 등록 성공'); location.href='admin_product_list.do'; </script>");
+		} else {
+			out.println("<script> alert('제품 등록 실패했습니다.'); history.back(); </script>");
+		}
+	}
+	
 	
 	
 	

@@ -7,6 +7,40 @@
 <c:set var="dto" value="${list }"  />
 
 <title>관리자 이벤트</title>
+<style>
+
+#event{
+	height: 100%;
+}
+
+.title{
+	margin-top: 30px;
+	font-size: 3em;
+	font-family: 'yg-jalnan';
+}
+
+#event_center{
+	display: flex;
+    flex-direction: column;
+}
+
+.event_span {
+	margin-top: 20px;
+	margin-bottom: 50px;
+}
+
+.event_wrap{
+	margin-bottom: 30px;
+}
+
+.event_img{
+	width:70%;
+	height: 100%;	
+}
+
+
+
+</style>
 <div class="admin_main_Wrab" style="height: auto; min-height: 100%;" align="center">
 	<br> <br> <br>
 
@@ -16,7 +50,9 @@
 	<br />
 
 
-<button type="button" class="btn btn-success">이벤트 생성</button>
+<button type="button" class="btn btn-success"
+onclick = "location.href ='<%=request.getContextPath() %>/admin_event_insert.do'"
+>이벤트 생성</button>
 <br />
 <div align = "center" id = "event">
 		<h1 class = "title">EVENT</h1>

@@ -43,6 +43,11 @@ public class EventDAOImpl implements EventDAO{
 	public EventDTO getEventCont(int event_no) {
 		return this.sqlSession.selectOne("eventContent", event_no);
 	}
+
+	@Override
+	public int insertEvent(EventDTO dto) {
+		return this.sqlSession.insert("eventInsert", dto);
+	}
 	
 	
 }

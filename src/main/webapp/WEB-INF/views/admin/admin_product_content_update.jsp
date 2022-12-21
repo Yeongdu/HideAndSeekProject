@@ -104,7 +104,7 @@ $(function() {
 });
 </script>
 <br><br>
-<div style="width:66em; height:auto; margin: 50px auto; text-align: center;" align="center">
+<div style="min-height:100%; width:66em; height:auto; margin: 50px auto; text-align: center;" align="center">
 <!-- <div style="width:80em;"> -->
         <form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/admin_product_content_update_ok.do" class="border-top">
             <input type="hidden" name="product_no" value="${dto.product_no }">
