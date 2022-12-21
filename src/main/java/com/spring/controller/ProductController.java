@@ -318,37 +318,30 @@ public class ProductController {
 		
 		if(dosu != null) {
 			map.put("dosu", dosu);
-			System.out.println("dosu 값 >>> " + dosu);
 		}
 		
 		if(sweet != null) {
 			map.put("sweet", sweet);
-			System.out.println("sweet 값 >>> " + sweet);
 		}
 		
 		if(acidity != null) {
 			map.put("acidity", acidity);
-			System.out.println("acidity 값 >>> " + acidity);
 		}
 		
 		if(soda != null) {
 			map.put("soda", soda);
-			System.out.println("soda 값 >>> " + soda);
 		}
 		
 		if(material != null) {
 			map.put("material", material);
-			System.out.println("material 값 >>> " + material);
 		}
 		
 		if(minprice != null) {
 			map.put("minprice", minprice);
-			System.out.println("minprice 값 >>> " + minprice);
 		}
 		
 		if(maxprice != null) {
 			map.put("maxprice", maxprice);
-			System.out.println("maxprice 값 >>> " + maxprice);
 		}
 		
 		map.put("category", category);
@@ -431,25 +424,17 @@ public class ProductController {
 	@ResponseBody
 	@RequestMapping("/infinite_scroll_tag.do")
 	public Object InfiniteScrollTag(@RequestParam("page") int page,
-									@RequestParam(value = "dosu", required = false) List<String> dosu,
-									@RequestParam(value = "sweet", required = false) List<String> sweet,
-									@RequestParam(value = "acidity", required = false) List<String> acidity,
-									@RequestParam(value = "soda", required = false) List<String> soda,
-									@RequestParam(value = "material", required = false) List<String> material,
+									@RequestParam(value = "dosu[]", required = false) List<String> dosu,
+									@RequestParam(value = "sweet[]", required = false) List<String> sweet,
+									@RequestParam(value = "acidity[]", required = false) List<String> acidity,
+									@RequestParam(value = "soda[]", required = false) List<String> soda,
+									@RequestParam(value = "material[]", required = false) List<String> material,
 									@RequestParam(value = "minprice", required = false) Integer minprice,
 									@RequestParam(value = "maxprice", required = false) Integer maxprice,
 									@RequestParam(value = "category", required = false) String category,
 									@RequestParam("sort") String sort) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		
-		System.out.println("무한스크롤 태그 dosu 값 >>> " + dosu);
-		System.out.println("sweet 값 >>> " + sweet);
-		System.out.println("acidity 값 >>> " + acidity);
-		System.out.println("soda 값 >>> " + soda);
-		System.out.println("material 값 >>> " + material);
-		System.out.println("minprice 값 >>> " + minprice);
-		System.out.println("maxprice 값 >>> " + maxprice);
 		
 		if(dosu != null) {
 			map.put("dosu", dosu);
