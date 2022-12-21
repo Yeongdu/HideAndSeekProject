@@ -62,6 +62,18 @@
   		select review_no, review_title, review_cont, review_file, (review_star*10) as review_star, review_date, user_id, product_no from review where product_no = #{no} order by review_star, review_date desc
   	</select>
   	
+  	<select id="release_photo" parameterType="int" resultType="ReviewDTO">
+  		select review_no, review_title, review_cont, review_file, (review_star*10) as review_star, review_date, user_id, product_no from (select r.*, row_number() over(order by review_date desc) rnum from review r where product_no = #{no} and review_file != 'null') where rnum <![CDATA[<=]]> 5
+  	</select>
+  	
+  	<select id="rating_high_photo" parameterType="int" resultType="ReviewDTO">
+  		select review_no, review_title, review_cont, review_file, (review_star*10) as review_star, review_date, user_id, product_no from (select r.*, row_number() over(order by review_star desc, review_date desc) rnum from review r where product_no = #{no} and review_file != 'null') where rnum <![CDATA[<=]]> 5
+  	</select>
+  	
+  	<select id="rating_low_photo" parameterType="int" resultType="ReviewDTO">
+  		select review_no, review_title, review_cont, review_file, (review_star*10) as review_star, review_date, user_id, product_no from (select r.*, row_number() over(order by review_star, review_date desc) rnum from review r where product_no = #{no} and review_file != 'null') where rnum <![CDATA[<=]]> 5
+  	</select>
+  	
   	<select id="RCount" parameterType="int" resultType="int">
   		select nvl(count(product_no),0) from review where product_no = #{no}
   	</select>

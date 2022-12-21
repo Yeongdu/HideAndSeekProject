@@ -16,6 +16,8 @@ public interface Product_contentDAO {
 	List<ReviewDTO> getReviewList(int product_no, String sort);
 
 	List<ReviewDTO> getReviewListMore(int product_no, String sort);
+
+	List<ReviewDTO> getReviewListPhoto(int product_no, String sort);
 	
 	int getReviewCount(int product_no);
 	

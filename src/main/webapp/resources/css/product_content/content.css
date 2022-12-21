@@ -41,7 +41,7 @@ body {
 .picture_1 img {
 	max-width: 400px;
 	max-height: 520px;
-	margin-top: 10%;
+	margin-top: 15%;
 	display: table-cell;
 	vertical-align: middle;
 }
@@ -49,7 +49,7 @@ body {
 .product_cont {
 	display: inline-block;
 	margin-top: 2.5%;
-	margin-left: 5%;
+	margin-left: 11%;
 }
 
 .name {
@@ -59,7 +59,7 @@ body {
 	width: 55px;
 }
 
-.ex_box {
+/* .ex_box {
 	width: 442px;
 	height: 146px;
 	background: rgba(217, 217, 217, 0.5);
@@ -71,61 +71,66 @@ body {
 	padding: 3%;
 	padding-left: 5%;
 	margin-bottom: 4%;
-}
+} */
 
 .sub_ex {
-	width: 422px;
-	height: 25px;
-	left: 4%;
-	top: 12%;
 	font-family: 'Noto Sans';
-	font-style: normal;
-	font-weight: bolder;
-	font-size: 18px;
-	line-height: 25px;
-	display: block;
+    font-style: normal;
+    font-weight: bolder;
+    line-height: 25px;
+    display: block;
+    font-size: 21px;
+    color: rgb(255, 186, 0);
+    margin-bottom: 2%;
+    margin-top: 1%;
+}
+.ssub_span {
+	margin-top: 5%;
 }
 
 .ssub_ex {
-	width: 208px;
-	height: 25px;
-	left: 4%;
-	top: 33%;
-	font-family: 'Noto Sans';
-	font-style: normal;
-	font-weight: 400;
-	font-size: 18px;
-	line-height: 25px;
-	display: block;
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 25px;
+    display: block;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(112, 112, 112);
+    margin-bottom: 10px;
+    word-break: keep-all;
 }
 
 .price_w {
 	width: 300px;
-	color: rgba(0, 0, 0, 1);
+	color: rgb(112, 112, 112);
 	font-family: Noto Sans;
-	font-weight: Regular;
 	font-size: 20px;
-	margin-top: 3%;
+	font-weight: 700;
+	margin-top: 5%;
 	display: block;
 }
 
 .price {
 	width: 100%;
-	color: rgba(0, 0, 0, 1);
+	color: rgb(112, 112, 112);
 	font-family: Noto Sans;
 	font-weight: 700;
-	font-size: 23px;
+	font-size: 30px;
 	opacity: 1;
 	line-height: 31px;
 	display: block;
 	letter-spacing: 1px;
+    margin: 1% 0 0 1%;
 }
 
 .first {
 	width: 471px;
 	height: 0px;
-	border: 1px solid black;
-	margin-bottom: 5%;
+	border: 0px;
+	margin-bottom: 3%;
 }
 
 .su {
@@ -140,6 +145,7 @@ body {
 	font-family: 'ChosunCentennial', sans-serif;
 	font-size: 30px;
 	display: block;
+	margin-top: 3%;
 }
 
 .total_price {
@@ -266,33 +272,38 @@ textarea:focus {
 }
 
 .minus {
-	width: 50px;
-	height: 35px;
-	background: rgba(217, 217, 217, 0.5);
-	padding: 0;
-	margin-left: 5%;
-	display: inline-block;
-	border: 0;
-	margin-bottom: 2%;
+	width: 80px;
+    height: 38px;
+    background: rgba(217, 217, 217, 0.5);
+    padding: 0 0 38px 0;
+    margin-left: 5%;
+    display: inline-block;
+    border: 0;
+    margin-bottom: 2%;
+    font-size: 31px;
+    font-family: serif;
 }
 
 .plus {
-	width: 50px;
-	height: 35px;
-	background: rgba(217, 217, 217, 0.5);
-	padding: 0;
-	display: inline-block;
-	border: 0;
-	margin-bottom: 2%;
+	width: 80px;
+    height: 38px;
+    background: rgba(217, 217, 217, 0.5);
+    padding: 0;
+    display: inline-block;
+    border: 0;
+    margin-bottom: 2%;
+    font-size: 21px;
+    font-family: serif;
+    font-weight: 600;
 }
 
 .numBox {
-	width: 50px;
-	height: 35px;
+	width: 60px;
+	height: 38px;
 	background: rgba(217, 217, 217, 0.5);
 	font-size: 20px;
 	padding: 0;
-	padding-left: 4%;
+	padding-left: 5%;
 	border: 0px;
 	display: inline-block;
 	margin-bottom: 2%;
@@ -402,7 +413,7 @@ textarea:focus {
 .review_main_cont {
 	display: flex;
     width: 73%;
-    margin-left: 42%;
+    margin-left: 76%;
     margin-top: 0.2%;
 }
 
@@ -416,6 +427,23 @@ textarea:focus {
 	-webkit-text-stroke-width: 1.3px;
 	-webkit-text-stroke-color: rgb(254, 185, 74);
 	display: block;
+}
+
+.review_info_star-rat {
+	margin: 0px auto;
+	position: relative;
+	unicode-bidi: bidi-override;
+	width: max-content;
+	-webkit-text-fill-color: transparent;
+	-webkit-text-stroke-width: 1.3px;
+	-webkit-text-stroke-color: rgb(254, 185, 74);
+	display: inline-flex;
+    font-size: 1.875rem;
+    color: #ddd;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+    pointer-events: none;
 }
 
 .star-ratings-fill {
@@ -499,7 +527,6 @@ textarea:focus {
     width: 100px;
     padding: 4px;
     font-size: 14px;
-    margin-right: 20px;
     border: 0;
     text-align: end;
 }
@@ -512,7 +539,8 @@ option {
 }
 
 .check_pic {
-	margin-left: 25px;
+	margin-left: 1%;
+    width: 10%;
 }
 
 .swal-modal .swal-text {
@@ -527,4 +555,18 @@ option {
     border-radius: inherit;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+
+#review_count{
+	font-size: 18px;
+    font-weight: 900;
+    color: rgb(0, 151, 243);
+    margin-left: 10px;
+    margin-bottom: -8px;
+    text-decoration: none;
+}
+
+input[type=checkbox] {
+	transform : scale(1.5);
+	margin-right: 2%;
 }
