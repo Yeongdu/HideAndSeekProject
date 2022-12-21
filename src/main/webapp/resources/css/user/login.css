@@ -187,8 +187,7 @@ h1, h2, h3, h4, h5 {
 
 .login_input_wrap{
 	
-	position: relative;
-    top: 20%;
+	margin-top: 20%;
     
 	
 }

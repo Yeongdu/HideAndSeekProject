@@ -114,7 +114,7 @@
                                 <option value="018">018</option>
                                 </select>
 
-                            <span> - </span><input type="text" name="user_phone2" id="user_phone2" required><span> - </span><input type="text" name="user_phone3" id="user_phone3" required>
+                            <span> - </span><input type="text" name="user_phone2" id="user_phone2"  maxlength="10"   required><span> - </span><input type="text" name="user_phone3" id="user_phone3"  maxlength="10"  required>
                         </div>
                         
                         </div>

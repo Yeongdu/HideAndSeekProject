@@ -133,11 +133,12 @@ h1, h2, h3, h4, h5 {
 
 .main_wrap{
 	
-    height: 100%;
-    position: relative;
-    top: 15%;
-	
+    height: auto;
+    min-height: 100%;
+    margin-top: 20%;
 }
+	
+
 
 .main_title_wrap{
 	font-size: 60px;
