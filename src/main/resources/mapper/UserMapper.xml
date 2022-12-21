@@ -76,7 +76,7 @@
  	  
  	  
  	  <insert id="insert_delivery" parameterType="DeliveryDTO">
- 	  	insert into delivery values(#{deli_zipcode}, #{deli_addr1}, #{deli_addr2}, #{user_id}, 1, '', )
+ 	  	insert into delivery values(#{deli_zipcode}, #{deli_addr1}, #{deli_addr2}, #{user_id}, 1, '', #{deli_phone1}, #{deli_phone2}, #{deli_phone3}, (select max(deli_no) from delivery) +1)
  	  </insert>
  	  
  	
