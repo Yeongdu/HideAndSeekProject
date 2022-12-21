@@ -99,16 +99,15 @@ public class Product_contentController {
 		 session.setAttribute("rcount", cdao.getCartCount(userId));
 	 }
 	 
-//	 @RequestMapping("/user_top.jsp")
-//	 public void getReviewCount(HttpServletRequest request, Model model, @RequestParam("no") int no) {
-//		 int RCount = this.pcdao.getReviewCount(no);
-//		 model.addAttribute("RCount", RCount);
-//	 }
-	 
 	 @RequestMapping("/product_review.do")
 	 @ResponseBody
 	 public List<ReviewDTO> product_review(@RequestParam("sort") String sort, @RequestParam("product_no") int no) {
 		 List<ReviewDTO> list = this.pcdao.getReviewList(no, sort);
+		 
+		 System.out.println("list : " + list);
+		 System.out.println("sort : " + sort);
+		 System.out.println("product_no : " + no);
+		 
 		 return list;
 	 }
 	 
@@ -116,6 +115,23 @@ public class Product_contentController {
 	 @ResponseBody
 	 public List<ReviewDTO> product_review_more(@RequestParam("sort") String sort, @RequestParam("product_no") int no) {
 		 List<ReviewDTO> list = this.pcdao.getReviewListMore(no, sort);
+		 
+		 System.out.println("list1 : " + list);
+		 System.out.println("sort1 : " + sort);
+		 System.out.println("product_no1 : " + no);
+		 
+		 return list;
+	 }
+	 
+	 @RequestMapping("/product_review_photo.do")
+	 @ResponseBody
+	 public List<ReviewDTO> product_review_photo(@RequestParam("sort") String sort, @RequestParam("product_no") int no) {
+		 List<ReviewDTO> list = this.pcdao.getReviewListPhoto(no, sort);
+		 
+		 System.out.println("list2 : " + list);
+		 System.out.println("sort2 : " + sort);
+		 System.out.println("product_no2 : " + no);
+		 
 		 return list;
 	 }
 

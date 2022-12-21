@@ -51,4 +51,9 @@ public class Product_contentDAOImpl implements Product_contentDAO{
 	public double getReviewStar(int product_no) {
 		return this.sqlSession.selectOne("SCount", product_no);
 	}
+
+	@Override
+	public List<ReviewDTO> getReviewListPhoto(int product_no, String sort) {
+		return this.sqlSession.selectList(sort+"_photo", product_no);
+	}
 }
