@@ -145,6 +145,7 @@ h1, h2, h3, h4, h5 {
 	font-family: 'ChosunCentennial', sans-serif;
 	color: #595959;
 	min-width: 90px;
+	cursor: pointer;
 }
 
 .header_wrap > .logo {
