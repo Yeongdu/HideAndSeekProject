@@ -1130,43 +1130,130 @@ public class AdminController {
 	@RequestMapping("/admin_event_insert_ok.do")
 	public void admin_event_insert_ok(
 			@RequestParam("event_thumbnailfile") MultipartFile file1,
-			@RequestParam("event_file1file") MultipartFile file2,
-			@RequestParam("event_file2file") MultipartFile file3,
-			@RequestParam("event_file3file") MultipartFile file4,
-			HttpServletResponse response, 
+//			@RequestParam("event_file1file") MultipartFile file2,
+//			@RequestParam("event_file2file") MultipartFile file3,
+//			@RequestParam("event_file3file") MultipartFile file4,
+			HttpServletResponse response,
+			ModelAndView mv,
 			EventDTO dto,
 			Model model) throws Exception {
 		
 		if (!file1.isEmpty()) {
 			dto.setEvent_thumbnail(file1.getOriginalFilename());			
+		}else if(file1.isEmpty()) {
+			dto.setEvent_thumbnail(null);			
 		}
 		
-		if (!file2.isEmpty()) {
-			dto.setEvent_file1(file2.getOriginalFilename());
-		}
+//		if (!file2.isEmpty()) {
+//			dto.setEvent_file1(file2.getOriginalFilename());
+//		}else {
+//			dto.setEvent_file1(null);
+//		}
+//		
+//		if (!file3.isEmpty()) {
+//			dto.setEvent_file2(file3.getOriginalFilename());
+//		}else {
+//			dto.setEvent_file2(null);
+//		}
+//		
+//		if (!file4.isEmpty()) {
+//			dto.setEvent_file3(file4.getOriginalFilename());
+//		}else {
+//			dto.setEvent_file3(null);
+//		}
+//		
+//		
 		
-		if (!file3.isEmpty()) {
-			dto.setEvent_file2(file3.getOriginalFilename());
-		}
-		
-		if (!file4.isEmpty()) {
-			dto.setEvent_file3(file4.getOriginalFilename());
-		}
-		
-		
-		
-
 
 		int check = this.edao.insertEvent(dto);
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		if (check > 0 && !file1.getOriginalFilename().isEmpty()) {
-//			file1.transferTo(new File(FILE_SERVER_PATH, file.getOriginalFilename()));
-			out.println("<script> alert('제품 등록 성공'); location.href='admin_product_list.do'; </script>");
+			file1.transferTo(new File(FILE_SERVER_PATH, file1.getOriginalFilename()));
+			out.println("<script> alert('이벤트 등록 성공'); location.href='admin_product_list.do'; </script>");
 		} else {
-			out.println("<script> alert('제품 등록 실패했습니다.'); history.back(); </script>");
+			out.println("<script> alert('이벤트 등록 실패했습니다.'); history.back(); </script>");
 		}
 	}
+	
+	//이벤트 상세
+	@RequestMapping("/admin_event_content.do")
+	public String admin_event_content(@RequestParam("event_no") int no, Model model) {
+		EventDTO dto = this.edao.getEventCont(no);
+		model.addAttribute("eventCont", dto);
+		return "admin/admin_event_content";
+	}
+	
+	//이벤트 상세정보 수정
+	@RequestMapping("/admin_event_update.do")
+	public String admin_event_update(@RequestParam("no") int no, Model model) throws Exception {
+		EventDTO dto = this.edao.getEventCont(no);
+		model.addAttribute("eventCont", dto);		
+		return "admin/admin_event_update";
+	}
+	
+	//이벤트 상세정보 수정 완료
+	@RequestMapping("/admin_event_update_ok.do")
+	public void admin_event_update_ok(
+			@RequestParam(value="event_file1file",required = false) MultipartFile file1,
+			@RequestParam(value="event_file2file",required = false) MultipartFile file2,
+			@RequestParam(value="event_file3file",required = false) MultipartFile file3,
+			@RequestParam("no") int no, 
+			HttpServletResponse response,
+			ModelAndView mv,
+			EventDTO dto,
+			Model model) throws Exception {
+		
+		String savedfile1 = dto.getEvent_file1();
+		String savedfile2 = dto.getEvent_file2();
+		String savedfile3 = dto.getEvent_file3();
+
+		if (!file1.isEmpty()) {//파일이 있을 때
+			if(!dto.getEvent_file1().isEmpty()) { //원래 파일이 있을 때
+				dto.setEvent_file1(file1.getOriginalFilename()); //새로운 파일로 교체
+			}else {
+				dto.setEvent_file1(savedfile1);	//파일이 없으면 원래 있던 파일
+			}
+		} else {
+			dto.setEvent_file1(null);
+		}
+//
+		if (!file2.isEmpty()) {//파일이 있을 때
+			if(!dto.getEvent_file2().isEmpty()) { //원래 파일이 있을 때
+				dto.setEvent_file2(file2.getOriginalFilename()); //새로운 파일로 교체
+			}else {
+				dto.setEvent_file2(savedfile2);	//파일이 없으면 원래 있던 파일
+			}
+		} else {
+			dto.setEvent_file2(null);
+		}
+//
+		if (!file3.isEmpty()) {//파일이 있을 때
+			if(!dto.getEvent_file3().isEmpty()) { //원래 파일이 있을 때
+				dto.setEvent_file3(file3.getOriginalFilename()); //새로운 파일로 교체
+			}else {
+				dto.setEvent_file3(savedfile3);	//파일이 없으면 원래 있던 파일
+			}
+		} else {
+			dto.setEvent_file3(null);
+		}
+		
+		int check = this.edao.updateEvent(dto);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		if (check > 0) {
+			file1.transferTo(new File(FILE_SERVER_PATH, file1.getOriginalFilename()));
+			file2.transferTo(new File(FILE_SERVER_PATH, file2.getOriginalFilename()));
+			file3.transferTo(new File(FILE_SERVER_PATH, file3.getOriginalFilename()));
+			out.println("<script> alert('이벤트 등록 성공'); location.href='admin_event.do'; </script>");
+		} else {
+			out.println("<script> alert('이벤트 등록 실패했습니다.'); history.back(); </script>");
+		}
+		
+
+	}
+	
+	
 	
 	
 	

@@ -34,8 +34,10 @@
 }
 
 .event_img{
-	width:70%;
-	height: 100%;	
+	width: 70%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
 }
 
 
@@ -64,8 +66,8 @@ onclick = "location.href ='<%=request.getContextPath() %>/admin_event_insert.do'
 			<c:set var = "list" value = "${list }" />
 			<c:forEach items="${list }" var = "dto">
 			<div class = "event_wrap">
-				<img src = "resources/image/event${dto.getEvent_no() }.png" class = "event_img"
-					onclick = "location.href ='<%=request.getContextPath() %>/event_content?event_no=${dto.getEvent_no() }'">
+				<img src = "resources/image/${dto.event_thumbnail}" class = "event_img"
+					onclick = "location.href ='<%=request.getContextPath() %>/admin_event_content.do?event_no=${dto.event_no }'">
 			</div>
 			</c:forEach>
 		</div>

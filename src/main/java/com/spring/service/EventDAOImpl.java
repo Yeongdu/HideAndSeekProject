@@ -48,6 +48,11 @@ public class EventDAOImpl implements EventDAO{
 	public int insertEvent(EventDTO dto) {
 		return this.sqlSession.insert("eventInsert", dto);
 	}
+
+	@Override
+	public int updateEvent(EventDTO dto) {
+		return this.sqlSession.update("eventUpdate", dto);
+	}
 	
 	
 }
