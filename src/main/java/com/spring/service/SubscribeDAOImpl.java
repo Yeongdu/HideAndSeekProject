@@ -17,4 +17,9 @@ public class SubscribeDAOImpl implements SubscribeDAO{
 		return this.sqlSession.selectOne("subList");
 	}
 
+	@Override
+	public int subPay(int pack) {
+		return this.sqlSession.selectOne("package_price", pack);
+	}
+
 }

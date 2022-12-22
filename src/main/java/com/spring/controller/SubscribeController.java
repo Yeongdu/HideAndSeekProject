@@ -33,13 +33,29 @@ public class SubscribeController {
 	} 
 	
 	@RequestMapping("sub_info.do")
-	public String sub_info(@RequestParam("userId")String userId, Model model) {
+	public String sub_info(@RequestParam("userId")String userId, @RequestParam("pack")int pack, Model model) {
 		
 		List<DeliveryDTO> ddto = this.ddao.getDeliveryCont(userId);
 		
 		model.addAttribute("ddto", ddto);
+		model.addAttribute("pack", pack);
+		model.addAttribute("userId", userId);
 		
 		return "sub/sub_info";
+	}
+	
+	@RequestMapping("sub_pay.do")
+	public String sub_pay(@RequestParam("userId")String userId, @RequestParam("pack")int pack, @RequestParam("deli_no")int deli_no, Model model) {
+		
+		int pay = this.sdao.subPay(pack);
+		
+		model.addAttribute("pack", pack); // 패키지의 번호
+		model.addAttribute("userId", userId);
+		model.addAttribute("deli_no", deli_no);
+		model.addAttribute("price", pay);
+		
+		return "sub/sub_pay";
+		
 	}
 
 }
