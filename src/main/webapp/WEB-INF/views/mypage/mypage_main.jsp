@@ -96,7 +96,7 @@
 				</span>
 				</div>
 			<div class = "review_content">
-				<textarea rows="10" cols="80" class = "review_cont" name = "review_insert_cont" placeholder = "솔직한 후기를 남겨주세요."></textarea>
+				<textarea rows="10" cols="80" class = "review_cont" name = "review_insert_cont" placeholder = "한번 작성하신 리뷰는 삭제할 수 없습니다.&#13;&#10;&#13;&#10;신중하고 솔직한 후기를 남겨주세요."></textarea>
 				<div class = "review_files">
 					<div class = "review_file">
 						<label class = "filebox" for="review_image_upload">업로드</label>
