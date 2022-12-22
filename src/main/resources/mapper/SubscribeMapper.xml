@@ -18,6 +18,10 @@
 		WHERE SEQ = 1
 	]]>
   	</select>
+  	
+  	<select id="package_price" parameterType="int" resultType="int">
+  		select distinct sub_price from subscribe where sub_package_no = #{pack}
+  	</select>
   
   
   

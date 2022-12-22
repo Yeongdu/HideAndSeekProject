@@ -10,11 +10,15 @@
 
 .delivery_main_wrap {
 	border: 1px solid black;
-	width: 30%;
+	width: 20%;
     padding: 10px;
     text-align: left;
     margin-bottom: 10px;
     border-radius: 5px;
+}
+
+.delivey_active{
+	border: 1.5px solid #3395ED;
 }
 
 .delivery_default_badge{
@@ -31,12 +35,18 @@
     font-size: 1.3em;
 }
 
-#delivery_addr{
-	margin-bottom: 10px;
-    margin-top: 10px;
+.delivery_addr{
+	display: flex;
+	margin: 10px 5px;
+	margin-left: 0;
+}
+
+.delivery_addr1{
+	margin-right: 5px;
 }
 
 .delivery_title{
 	display: flex;
     justify-content: space-between;
 }
+

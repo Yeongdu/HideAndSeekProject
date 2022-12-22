@@ -60,7 +60,7 @@
 						</div>
 						<span class = "sub_title_cont">다양한 술이 담겨있는 술래잡기만의 박스</span>
 					</div>
-					
+						<input type = "hidden" value = "${sdto.getSub_package_no() }" class = "package_no">
 						<hr style = "width: 10%; color: #707070; border: 0.5px solid rgb(224, 224, 224); text-align: left; margin-left: 0;">
 					
 					<div class = "sub_info_date">
@@ -85,14 +85,16 @@
 <script type="text/javascript">
 
 	var id = '<%=(String)session.getAttribute("userId")%>';
+	var pack = $(".package_no").val();
+	console.log("pack >>> " + pack);
 	
 	$(".sub_btn").on("click", function(){
-		if(id != "null"){
-			location.href = "<%=request.getContextPath() %>/sub_info.do?userId="+id;
-		}else {
-			location.href = "user_login.do";
-		}
-	});
+        if(id != "null"){
+            location.href = "<%=request.getContextPath() %>/sub_info.do?userId="+id;
+        }else {
+            location.href = "user_login_sub.do";
+        }
+    });
 
 	// 페이지가 새로고침될 때마다 스크롤을 최상단으로 이동
 	$(document).ready(function () {
