@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,8 @@ import com.sun.jdi.Location;
 @Controller
 @RequestMapping
 public class UserController {
+
+	private static final String String = null;
 
 	@Autowired
 	private UserDAO dao;
@@ -77,11 +80,14 @@ public class UserController {
         int result = dao.userCheck(map);
         
         String referer = (String)session.getAttribute("referer");
-
-        //상품상세페이지 주소
+         
+        //구독페이지
+		
 		/*
 		 * String address = "http://localhost:8787/model/product_content_list.do?no=14";
 		 */
+		
+       
         
         if (result == 1) { //아이디, 비밀번호 일치 시(로그인 성공)
             
@@ -164,13 +170,23 @@ public class UserController {
         PrintWriter out = response.getWriter();
         
         if(check > 0) {
-        	out.println("<script> alert('회원 가입 성공'); location.href='user_login.do'; </script>");
+        	out.println("<script> location.href='join_okPage.do'; </script>");
         	
         	
         }else {
         	out.println("<script> alert('회원 가입 실패'); history.back(); </script>");
         }
 	}
+	
+	//회원가입완료페이지이동
+	@RequestMapping("join_okPage.do")
+	public String joinokPage() {
+
+		return "user/join_ok";
+
+	}
+	
+	
 	
 	
 	//로그아웃
@@ -246,6 +262,7 @@ public class UserController {
 
 		}
 	   
+	   
 	   //바로구매 버튼 클릭 시 로그인 성공
 	   @RequestMapping("user_check_buy.do")
 	    public String signIn1( HttpServletRequest request, HttpSession session, @RequestParam("id") String id, @RequestParam("pw") String pw, Model model) {
@@ -260,17 +277,15 @@ public class UserController {
 	        if (result == 1) { //아이디, 비밀번호 일치 시(로그인 성공)
 
 	        	session.setAttribute("userId", id);
-
-	           // 아이디에 해당하는 장바구니 수량을 가져오는 메서드
+                // 아이디에 해당하는 장바구니 수량을 가져오는 메서드
 	           session.setAttribute("rcount", cdao.getCartCount(id));
 
 	           if(referer != null) {// referer에 값이 있을 때(로그인 전 세션값이 있을 때)
 	              session.setAttribute("userId", id);
-	               System.out.println("referer값 확인1 >>>" + referer);
+	              session.setAttribute("rcount", cdao.getCartCount(id));
 
-	               session.setAttribute("rcount", cdao.getCartCount(id));
-
-	               return "redirect:" +referer;
+	              return "redirect:" +referer;
+	               
 
 	           }//referer값이 없을 때 (로그인 전 세션값이 없을 때)
 	                session.setAttribute("userId", id);
@@ -280,11 +295,85 @@ public class UserController {
 	               return "redirect:/store.do";
 
 	        }else {
+	        	 
+	        	
+	        	
+	            return "user/redirect_fail";
+	        }
+	    }
+	   
+	   
+	   //구독 버튼 클릭 시 로그인 버튼 이동
+	   @RequestMapping("/user_login_sub.do")
+		public String loginList2(HttpServletRequest request, HttpSession session) {
 
-	            return "user/redirect_buy";
+			String referer = request.getHeader("Referer");
+			
+			session.setAttribute("referer", referer);
+			
+			return "user/login_sub";
+
+		}
+	   
+	   
+	   
+	   
+	 //구독 버튼 클릭 시 로그인 성공
+	   @RequestMapping("user_check_sub.do")
+	    public String signIn2( HttpServletRequest request, HttpSession session, @RequestParam("id") String id, @RequestParam("pw") String pw, Model model) {
+		   Map<String, Object> map = new HashMap<String, Object>();
+	        map.put("user_id", id);
+	        map.put("user_pwd", pw);
+
+	        int result = dao.userCheck(map);
+
+	        String referer = (String)session.getAttribute("referer");
+
+	        if (result == 1) { //아이디, 비밀번호 일치 시(로그인 성공)
+
+	        	session.setAttribute("userId", id);
+                // 아이디에 해당하는 장바구니 수량을 가져오는 메서드
+	           session.setAttribute("rcount", cdao.getCartCount(id));
+
+	           if(referer != null) {// referer에 값이 있을 때(로그인 전 세션값이 있을 때)
+	              session.setAttribute("userId", id);
+	              session.setAttribute("rcount", cdao.getCartCount(id));
+
+	              return "user/redirect_sub";
+	               
+
+	           }//referer값이 없을 때 (로그인 전 세션값이 없을 때)
+	                session.setAttribute("userId", id);
+
+	                session.setAttribute("rcount", cdao.getCartCount(id));
+
+	               return "redirect:/store.do";
+
+	        }else {
+	        	 
+	        	
+	        	
+	            return "user/redirect_fail";
 	        }
 	    }
         
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
 		
 		
 	}

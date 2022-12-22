@@ -6,7 +6,7 @@
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
-<title>로그인</title>
+<title>Insert title here</title>
 <link href="resources/css/user/login.css" rel="stylesheet" type="text/css">
 
 <div style="height:auto; min-height: 100%;">
@@ -14,9 +14,9 @@
 		
                         <!-- 로그인 창 -->
 		                  
-                             <div class="login_input_wrap" align="center" >
+                             <div class="login_input_wrap" align="center">
                              	
-                             			<form action="user_check.do" method="post">
+                             			<form action="user_check_sub.do" method="post">
                              		
                              		<div class="login_input_wrap_title">
                              			<span>입장하기</span>
@@ -86,7 +86,8 @@
                              
                                 
                               </div>
-                             </div>
+                              </div>
+                             
                               <!-- 로그인 창 end -->
                         
                             
