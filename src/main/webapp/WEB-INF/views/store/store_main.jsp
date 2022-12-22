@@ -76,7 +76,7 @@
 							<li>
 								<img alt="takju" src="resources/image/store_chungju_logo.png">
 							</li>
-							<li class="text">청 주</li>
+							<li class="text">약·청 주</li>
 						</ul>
 					</a>
 				</li>
@@ -727,7 +727,7 @@
 							<div class="photoreview_content">
 								<div>
 									<a href="<%=request.getContextPath()%>/product_content_list.do?no=${dto.product_no}">
-										<div class="photoreview_card">	
+										<div class="photoreview_card">
 											<div style="display: block">
 												<span>
 													<img src="resources/review_img/${dto.review_file }">

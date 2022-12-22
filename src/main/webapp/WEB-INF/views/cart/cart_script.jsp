@@ -109,13 +109,17 @@
 								
 								document.getElementById("total_amount").checked = false;
 								
+								$(".insert_button").attr("disabled", true);
+								
+								$(".insert_button").css("background-color", "gray");
+								
+								$(".insert_button").css("border-color", "gray");
+								
 							}
 							
 							total();
 							
-							$(".cart_count").empty();
-							
-							$(".cart_count").append(totalcart);
+							$(".cart_count").load(location.href+" .cart_count");
 							
 						},
 						
@@ -124,7 +128,7 @@
 						}
 						
 					});
-					
+		    		
 				}
 				
 			}
@@ -142,6 +146,12 @@
 					$(".total_ckbox").attr({src:"resources/image/checkbox.png"});
 					
 					document.getElementById("total_amount").checked = false;
+					
+					$(".insert_button").attr("disabled", true);
+					
+					$(".insert_button").css("background-color", "gray");
+					
+					$(".insert_button").css("border-color", "gray");
 					
 					for(let i = 0; i<size; i++){
 						
@@ -163,6 +173,12 @@
 					
 					document.getElementById("total_amount").checked = true;
 					
+					$(".insert_button").attr("disabled", false);
+					
+					$(".insert_button").css("background-color", "rgb(0, 151, 243)");
+					
+					$(".insert_button").css("border-color", "rgb(0, 151, 243)");
+					
 					for(let i = 0; i<size; i++){
 						
 						if($(".cart_check"+i).is(":checked") == false){
@@ -170,7 +186,7 @@
 							$(".cart_check"+i).prop("checked", true);
 							
 							$(".checkbox_button"+i+" > img").attr({src:"resources/image/checkbox-active.png"});
-						
+							
 						}
 						
 					};
@@ -265,6 +281,26 @@
 						}
 						
 						total();
+						
+					}
+					
+					let ckcount = $("input:checkbox[name=price]:checked").length;
+					
+					if(ckcount == 0){
+						
+						$(".insert_button").attr("disabled", true);
+						
+						$(".insert_button").css("background-color", "gray");
+						
+						$(".insert_button").css("border-color", "gray");
+						
+					}else {
+						
+						$(".insert_button").attr("disabled", false);
+						
+						$(".insert_button").css("background-color", "rgb(0, 151, 243)");
+						
+						$(".insert_button").css("border-color", "rgb(0, 151, 243)");
 						
 					}
 					
@@ -489,13 +525,19 @@
 								
 								document.getElementById("total_amount").checked = false;
 								
+								$(".insert_button").attr("disabled", true);
+								
+								$(".insert_button").css("background-color", "gray");
+								
+								$(".insert_button").css("border-color", "gray");
+								
 							}
 							
 							total();				
 							
-							$(".cart_count").empty();
+							$("#div의 id").load(window.location.href + "#div의 id");
 							
-							$(".cart_count").append(totalcart);
+							$(".cart_count").load(location.href+" .cart_count");
 							
 						},
 						
