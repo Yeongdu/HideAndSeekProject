@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link href="resources/css/sub/sub_info.css" rel="stylesheet" type="text/css">
 <title>구독 신청</title>
 <script>
@@ -20,9 +21,20 @@
 	
 	<div id = "sub_info_main">
 	<c:set var = "dlist" value = "${ddto }" />
+		
+		<span>선택된 패키지</span>
+		<div class = "sub_package_wrap">
+			<div class ="sub_package_left">
+				<img src = "resources/image/${sdto.getSub_image() }" class = "sub_package_img">
+			</div>
+			<div class = "sub_package_right">
+				<div class = "sub_package_title">${sdto.getSub_package() }</div>
+				<div class = "sub_package_price">월/<fmt:formatNumber>${sdto.getSub_price() }</fmt:formatNumber>원</div>
+			</div>
+		</div>
 	
 		<div class = "sub_info_deli_title">
-			<span>어디로 보내드릴까요?</span>
+			<span>배송지를 선택하세요</span>
 		</div>
 			
 			<c:forEach items = "${dlist }" var = "ddto" varStatus = "s">
@@ -44,21 +56,13 @@
 								<div class = "delivery_addr2">${ddto.getDeli_addr2() }</div>
 							</div>
 						</div>
-						<label for = "sub_delivery_check${s.index }">배송지 선택
-							<c:if test="${ddto.getDeli_default() == 1 }">
-								<input type = "radio" class = "sub_delivery_check${s.index }" name = "radio" value = "1" checked>
-							</c:if>
-							<c:if test="${ddto.getDeli_default() == 0 }">
-								<input type = "radio" class = "sub_delivery_check${s.index }" name = "radio" value = "0">
-							</c:if>
-						</label>
+						<input type = "radio" class = "sub_delivery_check${s.index }" name = "radio" style = "display:none;">
 						<input type = "hidden" value = "${ddto.getDeli_no() }" class = "deli_no${s.index }">
 						<input type = "hidden" value = "${ddto.getDeli_default() }" class = "deli_de${s.index }">
 				</div> 
 				
 				<script>
 					var de = $(".deli_de"+no).val();
-					
 					
 					if(de == 0){
 						$(".delivery_arco"+no).css("display", "none");
@@ -96,54 +100,55 @@
 				
 			}
 			
+			var len = 0;
+			
 			function checkdelivery(no){
 				// 배송지 클릭시 이벤트
 				
+				len = $("input:radio[name=radio]:checked").length;
+				
+				let count = ${dlist.size()};
+				
 				$(document).on("click",".delivery_main_wrap", function(){
+					
+					$("input:radio[class=sub_delivery_check"+no+"]").prop("checked", true);
 					
 					var radioCheck = $("input:radio[class=sub_delivery_check"+no+"]").is(":checked");
 					
-					if(!radioCheck){
-						$("input:radio[class=sub_delivery_check"+no+"]").val(0);					
-					}else{
-						$("input:radio[class=sub_delivery_check"+no+"]").val(1);
+					for(var i = 0; i<=count; i++){
+						if($("input:radio[class=sub_delivery_check"+i+"]").is(":checked") == false) {
+							$(".delivery_main_wrap"+i).css("border", "1px solid black");	
+							$(".delivery_main_wrap"+i).css("width", "20%");	
+							$(".delivery_main_wrap"+i).css("padding", "10px");	
+							$(".delivery_main_wrap"+i).css("text-align", "left");	
+							$(".delivery_main_wrap"+i).css("margin-bottom", "10px");	
+							$(".delivery_main_wrap"+i).css("border-radius", "5px");	
+						}else{
+							$(".delivery_main_wrap"+i).css("border", "2px solid #0097F3");	
+							$(".delivery_main_wrap"+i).css("width", "20%");	
+							$(".delivery_main_wrap"+i).css("padding", "10px");	
+							$(".delivery_main_wrap"+i).css("text-align", "left");	
+							$(".delivery_main_wrap"+i).css("margin-bottom", "10px");	
+							$(".delivery_main_wrap"+i).css("border-radius", "5px");
+						}
 					}
 					
-					if($("input:radio[name=radio]").val() == 0) {
-						$(".delivery_main_wrap"+no).css("border", "1px solid black");	
-						$(".delivery_main_wrap"+no).css("width", "20%");	
-						$(".delivery_main_wrap"+no).css("padding", "10px");	
-						$(".delivery_main_wrap"+no).css("text-align", "left");	
-						$(".delivery_main_wrap"+no).css("margin-bottom", "10px");	
-						$(".delivery_main_wrap"+no).css("border-radius", "5px");	
-					}
 					
-					if($("input:radio[class=sub_delivery_check"+no+"]").val() == 1){
-						$(".delivery_main_wrap"+no).css("border", "2px solid #0097F3");	
-						$(".delivery_main_wrap"+no).css("width", "20%");	
-						$(".delivery_main_wrap"+no).css("padding", "10px");	
-						$(".delivery_main_wrap"+no).css("text-align", "left");	
-						$(".delivery_main_wrap"+no).css("margin-bottom", "10px");	
-						$(".delivery_main_wrap"+no).css("border-radius", "5px");	
-					}
-
 				});
 			}
 			
 			function submit(no){
 				var deli_no = $(".deli_no"+no).val();
-				console.log("deli_no >>> " + deli_no);
 				var check = $("input:radio[name=radio]:checked").val();
-				console.log("check >>> " + check);
-				
-				var pack = ${pack}; 
 				
 				var id = '<%=(String)session.getAttribute("userId")%>';
 				
-				console.log("userId >>> " + id);
+				len = $("input:radio[name=radio]:checked").length;
 				
-				$(".sub_delivery_btn").on("click", function(){
-					location.href = "<%=request.getContextPath() %>/sub_pay.do?deli_no="+deli_no+"&pack="+pack+"&userId="+id+"";	
+				$(document).on("click",".sub_delivery_btn", function(){
+					
+						location.href = "<%=request.getContextPath() %>/sub_pay.do?deli_no="+deli_no+"&userId="+id+"";
+					
 				});
 				
 			}

@@ -27,7 +27,7 @@ $(document).ready(function() {
 	        $('.ontop').fadeIn();
 	    } else {
 	        $('.ontop').fadeOut();
-	        $("html").css("scroll-behavior", "");
+	        $("html").css("scroll-behavior", "smooth");
 	    }
 	});
 	

@@ -45,8 +45,7 @@
  	 	select * from (select * from subscribe s join product p on s.product_no = p.product_no) sub
 		join subscribe_user su 
 		on sub.sub_package_no = su.sub_no
-		where user_id = #{userId} and sub.sub_status = '진행'
-
+		where user_id = #{userId}
  	 </select>
  	 
  	 <update id="user_delete" parameterType="map">

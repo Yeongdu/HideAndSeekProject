@@ -238,25 +238,29 @@ function getorder(){
 	    			res += 		"</div>"
 	    			
 	    			res += 		"<div id = 'order_info'>"
-	    			res += 			"<div id = 'order_info_date'><span>" + item.order_date + "</span>"
-	    									if(item.order_status == "취소"){
-	    			res +=						"<div style = 'color:red;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"							
-	    									}else if(item.order_status == "배송중"){
-	    			res +=						"<div style = 'color:#0097F3;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"	    										
-	    									}else if(item.order_status == "배송완료"){
-	    			res +=						"<div style = 'color:#FAAF00;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"
-	    									}else{
-	    			res +=						"<div style = 'color:black;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"
-	    									}
-	    			
-	    			res +=			"</div>"
+	    			res += 			"<div id = 'order_info_date'><span>" + item.order_date + "</span>" + "</div>"
 	    			res += 			"<div id = 'order_info_title'>" + item.product_name + "</div>"
 	    			res += 			"<div id = 'order_info_alchol'>도수 : " + item.product_alcohol + "%</div>"
 	    			res += 			"<div id = 'order_info_amount'>수량 : " + item.order_amount + "개</div>"
 	    			res += 			"<div id = 'order_info_price'>" + totalprice + "원</div>"
 	    			res +=			"<input type = 'hidden' value = '" + item.product_no + "' class = 'product_review_no' name = 'product_review_no'>"
 					res += 		"</div>"
-					res +=		"<input type = 'button' class = 'review_goBtn' value = '리뷰하러가기' onclick = 'review_submit("+item.product_no+")'>"
+					res +=		"<div class = 'order_review_insert'>"
+							if(item.order_status == "취소"){
+	    			res +=						"<div style = 'color:red;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"							
+	    									}else if(item.order_status == "배송중"){
+	    			res +=						"<div style = 'color:#0097F3;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"	    										
+	    									}else if(item.order_status == "배송 완료"){
+	    			res +=						"<div style = 'color:#FAAF00;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"
+	    									}else{
+	    			res +=						"<div style = 'color:black;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"
+	    						}
+	    			
+								if(item.order_status == "배송 완료"){
+					res +=			"<input type = 'button' class = 'review_goBtn' value = '리뷰하러가기' onclick = 'review_submit("+item.product_no+")'>"				
+								}
+					res +=		"</div>"
+					
 					res += "</div>"
 					
 	    			count += 1;
@@ -373,7 +377,7 @@ $(document).on("click", "#mypage_user", function(){
 					    				"<div class = 'user_phone'>" + result.user_phone1 + " - " + result.user_phone2 + " - " + result.user_phone3 + "</div>" +
 				    				"</div>" +
 				    			"</div>" +
-			    				"<div class = 'user_info_bottom'>" +
+			    				"<div class = 'user_info_bottom1'>" +
 			    					"<div class = 'user_modify_btn'>수정</div>" +
 			    					"<hr>" + 
 			    					"<div class = 'user_delete_btn'>회원 탈퇴</div>" +
@@ -418,7 +422,7 @@ $(document).on("click", "#mypage_user", function(){
     				"</div>" +
     				"<div class = 'user_info_bottom'>" +
     					"<div class = 'user_modifyok_btn'>수정</div>" +
-    					"<div class = 'user_modifyCancle_btn' style = 'color:red;'>취소</div>" +
+    					"<div class = 'user_modifyCancle_btn'>취소</div>" +
     				"</div>" +
     			"</div>";
 
@@ -848,7 +852,7 @@ $(document).on("blur", ".user_pwd_new",function(){
 		    	 			"<input type = 'button' value = 'X'>"	+
 		    			"</div>"+
 		    			"<h3>배송지 수정</h3>"+
-		    			"<form method = 'post' action = 'mypage_delivery_modify_ok.do' id = 'delivery_modify_form"+result.deli_no+"'>"+
+		    			"<form method = 'post' action = 'mypage_delivery_modify_ok.do' class = 'delivery_form' id = 'delivery_modify_form"+result.deli_no+"'>"+
 		    				"<input type ='hidden' value ='"+id+"' name = 'user_modify_id'>" +
 		    	 			"<input type = 'hidden' name = 'deli_modify_no' class = 'deli_modify_no"+result.deli_no+"' value = '"+result.deli_no+"'>"+
 		    				"<span>배송지 별명</span>"+
@@ -874,7 +878,7 @@ $(document).on("blur", ".user_pwd_new",function(){
 							"</div>"+
 						"</div>"+
 				 		"<input type = 'hidden' value = '1' name = 'modify_notice' id = 'notice"+result.deli_no+"' value = '"+result.deli_default+"'>"+
-						"<input type = 'button' value = '수정하기' class = 'delivery_modify_submit"+result.deli_no+"' onmouseover ='deli_modi_ok_btn("+result.deli_no+")'>"+
+						"<input type = 'button' value = '수정하기'  class = 'delivery_modify_submit delivery_modify_submit"+result.deli_no+"' onmouseover ='deli_modi_ok_btn("+result.deli_no+")'>"+
 					"</form>"+
 					"</div>"+
 					"</div>";

@@ -7,5 +7,7 @@ import com.spring.model.DeliveryDTO;
 public interface DeliveryDAO {
 	
 	List<DeliveryDTO> getDeliveryCont(String userId);
+	
+	DeliveryDTO getDeli(int deli_no);
 
 }

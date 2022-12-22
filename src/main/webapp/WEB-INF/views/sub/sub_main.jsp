@@ -85,8 +85,6 @@
 <script type="text/javascript">
 
 	var id = '<%=(String)session.getAttribute("userId")%>';
-	var pack = $(".package_no").val();
-	console.log("pack >>> " + pack);
 	
 	$(".sub_btn").on("click", function(){
         if(id != "null"){

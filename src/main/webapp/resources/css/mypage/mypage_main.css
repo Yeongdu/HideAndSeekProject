@@ -1,7 +1,16 @@
 @charset "UTF-8";
+@font-face {
+    font-family: 'ChosunGu';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 
 main{
 	height: auto;
+	font-family: 'ChosunGu';
 }
 
 #mypage {
@@ -215,9 +224,15 @@ main{
 	margin-right: 70%;
 }
 
+.order_review_insert{
+	width: 160px;
+}
+
 .order_info_status{
 	display: inline-block;
 	text-align: right;
+	width: 130px;
+    text-align: center;
 }
 
 
@@ -233,6 +248,20 @@ main{
 .order_count > span{
 	font-size:1.2em;
 	font-weight: bold;
+}
+
+.review_submit{
+	margin: 30px;
+	font-family: 'ChosunGu';
+	border-radius : 5px;
+	background-color: #FFD166;
+	color: white;
+	font-weight: bold;
+}
+
+.review_submit:hover{
+	background-color: #FFBD52;
+	cursor: pointer;
 }
 
 
@@ -315,12 +344,19 @@ main{
     justify-content: space-between;
 }
 
-.user_modify_btn{
+.user_modifyok_btn{
 	width: 5%;
     font-size: 1.2em;
     text-align: right;
     width: 55%;
-    color: #FFDEA8;
+    color: #FFBD52;
+    margin-right: 20px;
+}
+
+.user_modifyCancle_btn{
+	color: #d1d1d1;
+	font-size: 1.2em;
+    text-align: right;
 }
 
 .user_title {
@@ -368,7 +404,7 @@ main{
 	width: 40px;
 }
 
-.user_info_bottom{
+.user_info_bottom1{
 	display: flex;
     justify-content: flex-end;
     width: 60%;
@@ -376,7 +412,14 @@ main{
     align-items: flex-end;
 }
 
-.user_info_bottom > div {
+.user_info_bottom{
+	display: flex;
+    justify-content: flex-end;
+    width: 60%;
+    align-items: flex-end;
+}
+
+.user_modify_btn {
     font-size: 1.2em;
     text-align: right;
     color: #FFDEA8;
@@ -457,6 +500,12 @@ main{
 	background-color: red;
 	color: white;
 	cursor: not-allowed;
+}
+
+.user_delete_btn{
+	color: #d1d1d1;
+    text-align: right;
+    font-weight: bold;
 }
 
 /* 리뷰 css ===============================================================================================*/
@@ -761,6 +810,10 @@ main{
     width: 100%;
 }
 
+.delivery_addrAll > input{
+	margin-top: 5px;
+}
+
 .delivery_phone{
 	margin-bottom: 10px;
 }
@@ -851,11 +904,67 @@ main{
 	transform: translateX(-50%) translateY(-50%);
 }
 
-#delivery_modify_form > span{
+.delivery_form > span{
 	text-align: left;
     display: block;
 }
 	
 .delivery_postcode{
 	text-align: left;
+}
+
+.delivery_btn{
+	margin: 30px;
+	font-family: 'ChosunGu';
+	border-radius : 5px;
+	background-color: #FFD166;
+	color: white;
+	font-weight: bold;
+}
+
+.delivery_btn:hover{
+	background-color: #FFBD52;
+	cursor: pointer;
+}
+
+.delivery_modify_submit{
+	margin: 30px;
+	font-family: 'ChosunGu';
+	border-radius : 5px;
+	background-color: #FFD166;
+	color: white;
+	font-weight: bold;
+}
+
+.delivery_modify_submit:hover{
+	background-color: #FFBD52;
+	cursor: pointer;
+}
+
+#zipcodebtn{
+	display: inline-block;
+    padding: 0.5em 0.75em;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #f7f7f7;
+    cursor: pointer;
+    border: 1px solid #f7f7f7;
+    border-bottom-color: #e2e2e2;
+    border-radius: 0.25em;
+    margin-left: 10px;
+}
+
+#zipcodebtn:hover{
+	display: inline-block;
+    padding: 0.5em 0.75em;
+    color: #337AB7;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #f7f7f7;
+    cursor: pointer;
+    border: 1px solid #f7f7f7;
+    border-bottom-color: #e2e2e2;
+    border-radius: 0.25em;
 }
