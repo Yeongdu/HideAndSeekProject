@@ -82,6 +82,7 @@
         </if>
     	event_cont1=#{event_cont1},
     	event_cont2=#{event_cont2},
+        event_cont3=#{event_cont3},
     	
     	<if test="event_start != null">
     	event_start = 
@@ -91,7 +92,7 @@
     	event_end = 
     	#{dto.event_end},
         </if>
-        event_cont3=#{event_cont3}
+        event_status = #{event_status}
     	where event_no=#{event_no}
     </update>
   	

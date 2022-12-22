@@ -3,18 +3,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-
-
 <jsp:include page="../banner/admin_top.jsp" />
 <c:set var="dto" value="${list }"  />
 
-<title>관리자 이벤트</title>
-<script type="text/javascript">
 
+<title>관리자 이벤트</title>
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
+<!-- // jQuery UI CSS파일  -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<!-- // jQuery 기본 js파일 -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<!-- // jQuery UI 라이브러리 js파일 -->
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
+
+
+
+
+<script type="text/javascript">
+$(function() {
 	function readURL1(input) {
 	  if (input.files && input.files[0]) {
 	    var reader = new FileReader();
@@ -67,7 +74,17 @@
 		  obj.style.height = "1px";
 		  obj.style.height = (12+obj.scrollHeight)+"px";
 		}
+	
+	
+// 	데이트 피커 설정
 
+	 $('.datepicker1').datepicker();
+	 $('.datepicker2').datepicker();
+
+
+
+	
+});
 </script>
 
 
@@ -88,6 +105,14 @@ onclick = "location.href ='<%=request.getContextPath() %>/admin_event.do'"
 					<div class="col-sm-8">
 						<input type="file" name="event_thumbnailfile" id="event_thumbnailfile"  class="thumbnailInput" onchange="readURL1(this);"/>
 					</div>
+				</div>
+
+
+		<div>
+				<p>이벤트기간:
+				    <input type="text" id="datepicker1"> ~
+				    <input type="text" id="datepicker2">
+				</p>
 				</div>
 
          

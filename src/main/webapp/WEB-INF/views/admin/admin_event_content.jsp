@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="dto" value="${eventCont}" />
+<c:set var="pdto" value="${productCont}" />
 
 <jsp:include page="../banner/admin_top.jsp" />
 
@@ -20,6 +21,10 @@
 
 <script type="text/javascript">
 $(function() {
+	
+	
+	
+	
 
 	function adjustHeight1() {
 		var textEle = $('#admin_event_cont1');
@@ -219,8 +224,44 @@ onclick = "location.href ='<%=request.getContextPath() %>/admin_event_insert.do'
 		<button class="btn btn-secondary" 
 			onclick = "location.href ='<%=request.getContextPath() %>/admin_event_update.do?no=${dto.event_no }'">
 			이벤트 상세정보 수정</button>
+			&nbsp;&nbsp;
+			<button type="button" class="btn btn-success"
+onclick = "location.href ='<%=request.getContextPath() %>/admin_event.do'"
+>전체 이벤트</button>
 			<br />
 			<br />
+			
+			<%-- 이벤트 진행 상태 --%>
+			<div align="center" style="display: flex; justify-content: center;">
+			<div class="mb-3 row">
+				<label for="exampleFormControl"
+					class="col-sm-5 col-form-label">상태</label>
+				<div class="col-sm-2">
+					<span class="form-control" style="width: 200px">
+					${dto.event_status }
+					</span>
+				</div>
+			</div>
+			</div>
+			
+			<%-- 이벤트 진행 상품 --%>
+			<div align="center" style="display: flex; justify-content: center;">
+			<div class="mb-3 row">
+				<label for="exampleFormControl"
+					class="col-sm-4 col-form-label">진행 상품</label>
+				<div class="col-sm-6">
+					<span class="form-control" style="width: 300px">
+					${dto.product_no }&nbsp;&nbsp;  ${pdto.product_name }
+					</span>
+				</div>
+				<div class="col-sm-3">
+					<img width="100px" src = "resources/upload/${pdto.product_thumbnail}" 
+					style="margin-left: 50px;"/>
+				</div>
+			</div>
+			</div>
+			
+			
 			<br />
 
 		<!-- 첫번째 영역 -->
@@ -281,7 +322,10 @@ onclick = "location.href ='<%=request.getContextPath() %>/admin_event_insert.do'
 		
 			<button class="btn btn-secondary" 
 			onclick = "location.href ='<%=request.getContextPath() %>/admin_event_update.do?no=${dto.event_no }'">
-			이벤트 상세정보 수정</button>
+			이벤트 상세정보 수정</button>&nbsp;&nbsp;
+			<button type="button" class="btn btn-success"
+onclick = "location.href ='<%=request.getContextPath() %>/admin_event.do'"
+>전체 이벤트</button>
 			<br />
 			<br />
 			<br />
