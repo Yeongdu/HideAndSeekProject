@@ -9,6 +9,17 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'ChosunGu';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+* {
+	font-family: 'ChosunGu';
+}
 
 div {
 	display: block;
@@ -35,7 +46,7 @@ input {
 }
 
 .header_menu {
- 	font-family: 'Noto Sans KR', sans-serif;
+ 	font-family: 'ChosunGu';
 	width: 100%;
 	margin: 0px auto;
 	padding: 0px 20%;

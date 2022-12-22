@@ -12,6 +12,7 @@
 	</c:if>
 <link href="resources/css/cart/cart.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
 
 	var IMP = window.IMP; 
@@ -61,12 +62,10 @@
 			window.location.href = "<%=request.getContextPath() %>/insert_order.do?delivery_no="+delivery_no+"&amount="+amount+"&cart_no="+cart_no+"&product_no="+product_no+"&userId="+userId+""
 
 			} else {               
-				var msg1 = '결제에 실패하였습니다.\n';           
- 				msg1 += '에러내용 : ' + rsp.error_msg;
  				window.history.go(-2);
- 				swal('',msg1,'warning');
+ 				swal('결제 실패',rsp.error_msg,'warning');
 			}         
- 			swal('',msg,'success');
+ 			swal('결제 완료',msg,'success');
 			});
 	}
 

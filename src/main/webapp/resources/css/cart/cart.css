@@ -1,12 +1,20 @@
 @charset "UTF-8";
 
-div {
-	display: block;
+@font-face {
+    font-family: 'ChosunGu';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 * {
+	font-family: 'ChosunGu';
 	color: inherit;
 	box-sizing: border-box;
+}
+
+div {
+	display: block;
 }
 
 .main_wrap {

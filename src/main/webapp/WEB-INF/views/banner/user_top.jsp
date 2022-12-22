@@ -44,4 +44,27 @@
 				});
 			});
 		});
+		
+		$(function(){
+			
+			$.ajax({
+				url:"<%=request.getContextPath()%>/banner_cart_count.do",
+				method:"post",
+				async: false,
+				data: {userId : '${userId}'},
+				datatype: "text",
+				success:function(data){
+				
+					$(".cart_count").load(location.href+" .cart_count");
+					
+				},
+				
+				error:function(request,status,error){
+	                alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+	            }
+				
+			});
+			
+		});
+		
 	</script>
