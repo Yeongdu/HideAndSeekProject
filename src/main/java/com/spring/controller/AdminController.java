@@ -79,6 +79,7 @@ public class AdminController {
 	private int totalRecord = 0;
 	
 	private static final String FILE_SERVER_PATH = "D:\\git\\HideAndSeekProject\\src\\main\\webapp\\resources\\upload";
+	private static final String FILE_SERVER_PATH2 = "D:\\git\\HideAndSeekProject\\src\\main\\webapp\\resources\\image";
 //	private static final String FILE_SERVER_PATH = "/src/main/webapp/resources/upload";
 
 	//신규 제품 등록
@@ -1180,7 +1181,10 @@ public class AdminController {
 	@RequestMapping("/admin_event_content.do")
 	public String admin_event_content(@RequestParam("event_no") int no, Model model) {
 		EventDTO dto = this.edao.getEventCont(no);
+		int pno = dto.getProduct_no();
+		ProductDTO pdto = this.pdao.getProductCont(pno);
 		model.addAttribute("eventCont", dto);
+		model.addAttribute("productCont", pdto);		
 		return "admin/admin_event_content";
 	}
 	
@@ -1188,7 +1192,9 @@ public class AdminController {
 	@RequestMapping("/admin_event_update.do")
 	public String admin_event_update(@RequestParam("no") int no, Model model) throws Exception {
 		EventDTO dto = this.edao.getEventCont(no);
+		admin_productDTO apdto = this.apdao.getProductCont(dto.getProduct_no());
 		model.addAttribute("eventCont", dto);		
+		model.addAttribute("productCont", apdto);		
 		return "admin/admin_event_update";
 	}
 	
@@ -1209,32 +1215,45 @@ public class AdminController {
 		String savedfile3 = dto.getEvent_file3();
 
 		if (!file1.isEmpty()) {//파일이 있을 때
-			if(!dto.getEvent_file1().isEmpty()) { //원래 파일이 있을 때
-				dto.setEvent_file1(file1.getOriginalFilename()); //새로운 파일로 교체
-			}else {
-				dto.setEvent_file1(savedfile1);	//파일이 없으면 원래 있던 파일
+			if (savedfile1 != null) {
+				String fullpath = FILE_SERVER_PATH2 + "/" + savedfile1;
+				File file = new File(fullpath);
+				if (file.isFile()) {
+					file.delete();
+				}
 			}
-		} else {
+			file1.transferTo(new File(FILE_SERVER_PATH2, file1.getOriginalFilename()));
+				
+				dto.setEvent_file1(file1.getOriginalFilename()); //새로운 파일로 교체
+		} else { //파일 없을 때
 			dto.setEvent_file1(null);
 		}
 //
 		if (!file2.isEmpty()) {//파일이 있을 때
-			if(!dto.getEvent_file2().isEmpty()) { //원래 파일이 있을 때
-				dto.setEvent_file2(file2.getOriginalFilename()); //새로운 파일로 교체
-			}else {
-				dto.setEvent_file2(savedfile2);	//파일이 없으면 원래 있던 파일
+			if (savedfile2 != null) {
+				String fullpath = FILE_SERVER_PATH2 + "/" + savedfile2;
+				File file = new File(fullpath);
+				if (file.isFile()) {
+					file.delete();
+				}
 			}
-		} else {
+			file2.transferTo(new File(FILE_SERVER_PATH2, file2.getOriginalFilename()));
+				dto.setEvent_file2(file2.getOriginalFilename()); //새로운 파일로 교체
+		} else { //파일 없을 때
 			dto.setEvent_file2(null);
 		}
 //
 		if (!file3.isEmpty()) {//파일이 있을 때
-			if(!dto.getEvent_file3().isEmpty()) { //원래 파일이 있을 때
-				dto.setEvent_file3(file3.getOriginalFilename()); //새로운 파일로 교체
-			}else {
-				dto.setEvent_file3(savedfile3);	//파일이 없으면 원래 있던 파일
+			if (savedfile3 != null) {
+				String fullpath = FILE_SERVER_PATH2 + "/" + savedfile3;
+				File file = new File(fullpath);
+				if (file.isFile()) {
+					file.delete();
+				}
 			}
-		} else {
+			file3.transferTo(new File(FILE_SERVER_PATH2, file3.getOriginalFilename()));
+				dto.setEvent_file3(file3.getOriginalFilename()); //새로운 파일로 교체
+		} else { //파일 없을 때
 			dto.setEvent_file3(null);
 		}
 		
@@ -1242,12 +1261,9 @@ public class AdminController {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		if (check > 0) {
-			file1.transferTo(new File(FILE_SERVER_PATH, file1.getOriginalFilename()));
-			file2.transferTo(new File(FILE_SERVER_PATH, file2.getOriginalFilename()));
-			file3.transferTo(new File(FILE_SERVER_PATH, file3.getOriginalFilename()));
-			out.println("<script> alert('이벤트 등록 성공'); location.href='admin_event.do'; </script>");
+			out.println("<script> alert('이벤트 수정 성공'); location.href='admin_event_content.do?event_no=" + no+"'; </script>");
 		} else {
-			out.println("<script> alert('이벤트 등록 실패했습니다.'); history.back(); </script>");
+			out.println("<script> alert('이벤트 수정 실패했습니다.'); history.back(); </script>");
 		}
 		
 

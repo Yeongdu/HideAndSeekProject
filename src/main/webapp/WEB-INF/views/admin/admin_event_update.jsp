@@ -11,6 +11,42 @@
 
 <script type="text/javascript">
 $(function() {
+	
+	function readURL(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function(e) {
+	      document.getElementById('preview1').src = e.target.result;
+	    };
+	    reader.readAsDataURL(input.files[0]);
+	  } else {
+	    document.getElementById('preview1').src = "";
+	  }
+	}
+	
+	function readURL2(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function(e) {
+	      document.getElementById('preview2').src = e.target.result;
+	    };
+	    reader.readAsDataURL(input.files[0]);
+	  } else {
+	    document.getElementById('preview2').src = "";
+	  }
+	}
+	
+	function readURL3(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function(e) {
+	      document.getElementById('preview3').src = e.target.result;
+	    };
+	    reader.readAsDataURL(input.files[0]);
+	  } else {
+	    document.getElementById('preview3').src = "";
+	  }
+	}
 
 	function adjustHeight1() {
 		var textEle = $('#event_cont1');
@@ -184,6 +220,27 @@ function resize(obj) {
 }
 
 
+.admin_event_cont1WrapEdit{
+	flex-grow: 1;
+	width: 55%;
+	border-bottom: 0.1px solid lightgray;
+	padding: 1rem 2rem 3rem 4rem;
+}
+
+.admin_event_cont2WrapEdit{
+
+	flex-grow: 1;
+	width: 60%;
+	border-bottom: 0.05px solid lightgray;
+	padding: 1rem 3rem 3rem 1rem;
+}
+
+.admin_event_cont3WrapEdit{
+	flex-grow: 1;
+	width: 60%;
+	border-bottom: 0.05px solid lightgray;
+	padding: 1rem 2rem 3rem 4rem;
+}
 
 
 </style>
@@ -209,25 +266,50 @@ function resize(obj) {
 		</div>
 		
 		<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/admin_event_update_ok.do?no=${dto.event_no }" class="border-top">
+		<input type="hidden" name="event_no" value="${dto.event_no }" />
 			<br />
 		<button type="submit" class="btn btn-secondary" >
 			상세정보 수정완료</button>
 			<br />
 			<br />
+			
+			<%-- 이벤트 진행 상태 --%>
+			<div class="form-group row border-bottom py-2">
+				<label for="event_status" class="col-sm-4 col-form-label">상태</label>
+				<div class="col-sm-8">
+
+					<input class="form-check-input" type="radio" name="event_status" id="event_status" value="진행예정" <c:if test="${dto.event_status eq '진행예정'}">checked</c:if> required> 
+					<label class="form-check-label" for="inlineRadio1">진행예정</label>
+					&nbsp;&nbsp;&nbsp;&nbsp; 
+					<input class="form-check-input" type="radio" name="event_status" id="event_status" value="진행중" <c:if test="${dto.event_status eq '진행중'}">checked</c:if> required>
+					<label class="form-check-label" for="inlineRadio1">진행중</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input class="form-check-input" type="radio" name="event_status" id="event_status" value="진행종료" <c:if test="${dto.event_status eq '진행종료'}">checked</c:if> required>
+					<label class="form-check-label" for="inlineRadio1">진행종료</label>
+
+				</div>
+			</div>
+			
+			
+			
 			<br />
 
 		<!-- 첫번째 영역 -->
 		<div class="admin_event1Wrap" style="display: flex;">
-			<div class="admin_event_cont1Wrap">
-				<textarea class="event_cont1" id="event_cont1"
+			<div class="admin_event_cont1WrapEdit">
+			<div align="right">
+			<span style="color: gray;">[새로 첨부하는]</span>
+					<input type="file" name="event_file1file" id="event_file1file" class="thumbnailInput" onchange="readURL1(this);"/>
+			</div>
+				<textarea class="event_cont1" id="event_cont1" name="event_cont1"
 					spellcheck="false"
 					style="width: 100%; resize: none; font-size: 1.4em; border: 0px;"
 					onkeydown="resize(this)" onkeyup="resize(this)"> ${dto.event_cont1 } </textarea>
 			</div>
 			<div class="admin_event_file1Wrap">
 			
-			<input type="file" name="event_file1file" id="event_file1file" class="thumbnailInput" onchange="readURL3(this);"/>
-						<img class="admin_event_file1" width="300px;" id="preview4"
+			
+						<img class="admin_event_file1" width="300px;" id="preview1"
 							<c:if test="${!empty dto.event_file1 }" >
 							src = "resources/image/${dto.event_file1 }"
 							</c:if>
@@ -242,16 +324,19 @@ function resize(obj) {
 		
 		<!-- 두번째 영역 -->
 		<div class="admin_event2Wrap" style="display: flex;">
-			<div class="admin_event_cont2Wrap">
-				<textarea class="event_cont2" id="event_cont2"
+			<div class="admin_event_cont2WrapEdit">
+			<div align="left">
+			<span style="color: gray;">[새로 첨부하는]</span><input type="file" name="event_file2file" id="event_file2file" class="thumbnailInput" onchange="readURL2(this);"/>
+			</div>
+			
+				<textarea class="event_cont2" id="event_cont2" name="event_cont2"
 					spellcheck="false"
 					style="width: 100%; resize: none; font-size: 1.4em; border: 0px;"
 					onkeydown="resize(this)" onkeyup="resize(this)"> ${dto.event_cont2 } </textarea>
 			</div>
 			<div class="admin_event_file2Wrap">
 			
-			<input type="file" name="event_file2file" id="event_file2file" class="thumbnailInput" onchange="readURL2(this);"/>
-						<img class="admin_event_file2" width="300px;" id="preview4"
+						<img class="admin_event_file2" width="300px;" id="preview2"
 							<c:if test="${!empty dto.event_file2 }" >
 							src = "resources/image/${dto.event_file2 }"
 							</c:if>
@@ -269,10 +354,13 @@ function resize(obj) {
 		
 		<!-- 세번째 영역 -->
 		<div class="admin_event3Wrap" style="display: flex;">
-			<div class="admin_event_cont3Wrap">
+			<div class="admin_event_cont3WrapEdit">
 			<div class="admin_event3In">
 			<div>
-				<textarea class="event_cont3" id="event_cont3"
+			<div align="right">
+				<span style="color: gray;">[새로 첨부하는]</span><input type="file" name="event_file3file" id="event_file3file" class="thumbnailInput" onchange="readURL3(this);"/>
+				</div>
+				<textarea class="event_cont3" id="event_cont3" name="event_cont3"
 					spellcheck="false"
 					style="width: 100%; resize: none; font-size: 1.4em; border: 0px;"
 					onkeydown="resize(this)" onkeyup="resize(this)"> ${dto.event_cont3 } </textarea>
@@ -282,8 +370,7 @@ function resize(obj) {
 			</div>
 			<div class="admin_event_file3Wrap">
 			
-				<input type="file" name="event_file3file" id="event_file3file" class="thumbnailInput" onchange="readURL3(this);"/>
-				<img class="admin_event_file3" width="300px;" id="preview4"
+				<img class="admin_event_file3" width="300px;" id="preview3"
 				<c:if test="${!empty dto.event_file3 }" >
 					src = "resources/image/${dto.event_file3 }"
 				</c:if>
