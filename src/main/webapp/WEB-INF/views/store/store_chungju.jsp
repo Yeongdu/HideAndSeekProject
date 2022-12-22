@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<title>술래잡기 약청주 리스트</title>
+<title>술래잡기 약·청주 리스트</title>
 	<c:if test="${empty userId }">
 		<jsp:include page="../banner/none_top.jsp" />
 	</c:if>
