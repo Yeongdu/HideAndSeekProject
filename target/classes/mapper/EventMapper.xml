@@ -47,17 +47,17 @@
     	insert into event values (
     	(select max(event_no) from event) +1,
     	#{event_thumbnail},  	
-    	'',  	
-    	'',  	
-    	'',  	
-    	'',  	
-    	'',  	
-    	'',  	
+    	'',  
+    	'', 
+    	'', 
+    	'', 
+    	'', 
+    	'', 
     	sysdate,
-    	sysdate,
-    	sysdate,    	
-    	'진행중',
-    	2
+    	#{event_start},
+    	#{event_end},	
+    	'진행예정',
+    	null
     	)
     </insert>
     
@@ -86,14 +86,15 @@
     	
     	<if test="event_start != null">
     	event_start = 
-    	#{dto.event_start},
+    	#{event_start},
         </if>  
     	<if test="event_end != null">
     	event_end = 
-    	#{dto.event_end},
+    	#{event_end},
         </if>
+        product_no = #{product_no},
         event_status = #{event_status}
-    	where event_no=#{event_no}
+    	where event_no = #{event_no}
     </update>
   	
   

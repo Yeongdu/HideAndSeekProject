@@ -10,76 +10,78 @@
 <title>관리자 이벤트</title>
 
 <script type="text/javascript">
-$(function() {
-	
-	function readURL(input) {
-	  if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	    reader.onload = function(e) {
-	      document.getElementById('preview1').src = e.target.result;
-	    };
-	    reader.readAsDataURL(input.files[0]);
-	  } else {
-	    document.getElementById('preview1').src = "";
-	  }
+
+
+	function readURL1(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				document.getElementById('preview1').src = e.target.result;
+			};
+			reader.readAsDataURL(input.files[0]);
+		} else {
+			document.getElementById('preview1').src = "";
+		}
 	}
-	
+
 	function readURL2(input) {
-	  if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	    reader.onload = function(e) {
-	      document.getElementById('preview2').src = e.target.result;
-	    };
-	    reader.readAsDataURL(input.files[0]);
-	  } else {
-	    document.getElementById('preview2').src = "";
-	  }
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				document.getElementById('preview2').src = e.target.result;
+			};
+			reader.readAsDataURL(input.files[0]);
+		} else {
+			document.getElementById('preview2').src = "";
+		}
 	}
-	
+
 	function readURL3(input) {
-	  if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	    reader.onload = function(e) {
-	      document.getElementById('preview3').src = e.target.result;
-	    };
-	    reader.readAsDataURL(input.files[0]);
-	  } else {
-	    document.getElementById('preview3').src = "";
-	  }
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				document.getElementById('preview3').src = e.target.result;
+			};
+			reader.readAsDataURL(input.files[0]);
+		} else {
+			document.getElementById('preview3').src = "";
+		}
 	}
 
-	function adjustHeight1() {
-		var textEle = $('#event_cont1');
-		textEle[0].style.height = 'auto';
-		var textEleHeight = textEle.prop('scrollHeight');
-		textEle.css('height', textEleHeight+8);
-		};
-	function adjustHeight2() {
-		var textEle = $('#event_cont2');
-		textEle[0].style.height = 'auto';
-		var textEleHeight = textEle.prop('scrollHeight');
-		textEle.css('height', textEleHeight+8);
-		};
-	function adjustHeight3() {
-		var textEle = $('#event_cont3');
-		textEle[0].style.height = 'auto';
-		var textEleHeight = textEle.prop('scrollHeight');
-		textEle.css('height', textEleHeight+8);
-		};
+	$(function() {
 
-	adjustHeight1();
-	adjustHeight2();
-	adjustHeight3();
+		function adjustHeight1() {
+			var textEle = $('#event_cont1');
+			textEle[0].style.height = 'auto';
+			var textEleHeight = textEle.prop('scrollHeight');
+			textEle.css('height', textEleHeight + 8);
+		}
+		;
+		function adjustHeight2() {
+			var textEle = $('#event_cont2');
+			textEle[0].style.height = 'auto';
+			var textEleHeight = textEle.prop('scrollHeight');
+			textEle.css('height', textEleHeight + 8);
+		}
+		;
+		function adjustHeight3() {
+			var textEle = $('#event_cont3');
+			textEle[0].style.height = 'auto';
+			var textEleHeight = textEle.prop('scrollHeight');
+			textEle.css('height', textEleHeight + 8);
+		}
+		;
 
+		adjustHeight1();
+		adjustHeight2();
+		adjustHeight3();
 
 	});
-	
-function resize(obj) {
-	  obj.style.height = "1px";
-	  obj.style.height = (12+obj.scrollHeight)+"px";
+
+	function resize(obj) {
+		obj.style.height = "1px";
+		obj.style.height = (12 + obj.scrollHeight) + "px";
 	}
-
-
 </script>
 <style>
 #event {
@@ -273,6 +275,8 @@ function resize(obj) {
 			<br />
 			<br />
 			
+			
+			<div style="width: 80%">
 			<%-- 이벤트 진행 상태 --%>
 			<div class="form-group row border-bottom py-2">
 				<label for="event_status" class="col-sm-4 col-form-label">상태</label>
@@ -290,9 +294,32 @@ function resize(obj) {
 				</div>
 			</div>
 			
+			<%--이벤트 상품 --%>
+            <div class="form-group row border-bottom py-2">
+                <label for="product_name" class="col-sm-4 col-form-label">상품번호</label>
+                <div class="col-sm-8">
+                    <input type="number" name="product_no" id="product_no" value="${dto.product_no }" style="text-align: center; font-size: 1.2em; font-weight: bold;" class="form-control-plaintext" required/>
+                </div>
+            </div>
+            
+            <%--이벤트 진행날짜 --%>
+            <div class="form-group row border-bottom py-2">
+                <label for="product_name" class="col-sm-4 col-form-label">이벤트 기간</label>
+                <div class="col-sm-8">
+                <input type="date" id="event_start" name="event_start" value="${dto.event_start.substring(0,10) }"> ~ 
+				<input type="date" id="event_end" name="event_end" value="${dto.event_end.substring(0,10) }">
+	
+                
+                </div>
+            </div>
+            
+            
+            
+			</div>
 			
 			
-			<br />
+			<br /><br />
+
 
 		<!-- 첫번째 영역 -->
 		<div class="admin_event1Wrap" style="display: flex;">
@@ -308,12 +335,12 @@ function resize(obj) {
 			</div>
 			<div class="admin_event_file1Wrap">
 			
-			
 						<img class="admin_event_file1" width="300px;" id="preview1"
 							<c:if test="${!empty dto.event_file1 }" >
 							src = "resources/image/${dto.event_file1 }"
 							</c:if>
 							<c:if test="${empty dto.event_file1 }" >
+							src = "resources/image/image_not_found.jpg"
 							</c:if>
 						 />
 			
@@ -326,7 +353,8 @@ function resize(obj) {
 		<div class="admin_event2Wrap" style="display: flex;">
 			<div class="admin_event_cont2WrapEdit">
 			<div align="left">
-			<span style="color: gray;">[새로 첨부하는]</span><input type="file" name="event_file2file" id="event_file2file" class="thumbnailInput" onchange="readURL2(this);"/>
+			<span style="color: gray;">[새로 첨부하는]</span>
+			<input type="file" name="event_file2file" id="event_file2file" class="thumbnailInput" onchange="readURL2(this);"/>
 			</div>
 			
 				<textarea class="event_cont2" id="event_cont2" name="event_cont2"
@@ -338,9 +366,10 @@ function resize(obj) {
 			
 						<img class="admin_event_file2" width="300px;" id="preview2"
 							<c:if test="${!empty dto.event_file2 }" >
-							src = "resources/image/${dto.event_file2 }"
+							 src = "resources/image/${dto.event_file2 }"
 							</c:if>
 							<c:if test="${empty dto.event_file2 }" >
+							src = "resources/image/image_not_found.jpg"
 							</c:if>
 						 />
 			
@@ -375,6 +404,7 @@ function resize(obj) {
 					src = "resources/image/${dto.event_file3 }"
 				</c:if>
 				<c:if test="${empty dto.event_file3 }" >
+				src = "resources/image/image_not_found.jpg"
 				</c:if>
 				/>
 			

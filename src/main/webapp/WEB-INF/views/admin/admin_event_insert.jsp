@@ -21,8 +21,8 @@
 
 
 <script type="text/javascript">
-$(function() {
-	function readURL1(input) {
+
+function readURL1(input) {
 	  if (input.files && input.files[0]) {
 	    var reader = new FileReader();
 	    reader.onload = function(e) {
@@ -33,6 +33,26 @@ $(function() {
 	    document.getElementById('preview1').src = "";
 	  }
 	}
+	
+
+// function date1(obj) {
+	
+// 	  var x = document.getElementById("event_start").value;
+// 	  console.log(x);
+// 	  document.getElementById("date1").innerHTML = x;
+
+// }
+	
+// function date2(obj) {
+
+// 	  var x = document.getElementById("event_end").value;
+// 	  document.getElementById("date2").innerHTML = x;
+
+// 	}
+
+
+$(function() {
+
 	
 	function readURL2(input) {
 	  if (input.files && input.files[0]) {
@@ -76,11 +96,6 @@ $(function() {
 		}
 	
 	
-// 	데이트 피커 설정
-
-	 $('.datepicker1').datepicker();
-	 $('.datepicker2').datepicker();
-
 
 
 	
@@ -106,14 +121,18 @@ onclick = "location.href ='<%=request.getContextPath() %>/admin_event.do'"
 						<input type="file" name="event_thumbnailfile" id="event_thumbnailfile"  class="thumbnailInput" onchange="readURL1(this);"/>
 					</div>
 				</div>
-
-
-		<div>
-				<p>이벤트기간:
-				    <input type="text" id="datepicker1"> ~
-				    <input type="text" id="datepicker2">
-				</p>
+				
+				<div class="form-group row border-bottom py-2">
+					<label for="event_start" class="col-sm-2 col-form-label">이벤트 기간</label>
+					<div class="col-sm-8">
+					<input type="date" id="event_start" pattern="\d{4}-\d{2}-\d{2}" name="event_start" >
+				     ~
+				    <input type="date" id="event_end" pattern="\d{4}-\d{2}-\d{2}" name="event_end" >
+					
+					</div>
 				</div>
+
+
 
          
 			<div class="form-group row mt-4" align="center">
