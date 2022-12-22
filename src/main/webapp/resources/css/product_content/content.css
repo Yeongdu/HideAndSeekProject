@@ -166,47 +166,44 @@ body {
 }
 
 .buybtn {
-	margin-top: 4%;
-	width: 192px;
-	height: 81px;
-	background: #D9D9D9;
-	border-radius: 5px;
-	font-family: 'Noto Sans';
-	font-size: 23px;
+	width: 44%;
+    height: 12%;
+    background-color: rgb(0, 151, 243);
+    border: 1px solid rgb(0, 151, 243);
+    border-radius: 5px;
+    padding: 0px;
+    color: rgb(255, 255, 255);
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease 0s;
+    box-shadow: none !important;
+    text-shadow: none !important;
 }
 
 .buybtn:hover {
-	margin-top: 4%;
-	width: 192px;
-	height: 81px;
-	background: #D9D9D9;
-	border-radius: 5px;
-	font-family: 'Noto Sans';
-	font-size: 23px;
-	background-color: rgb(255, 186, 0);
+	 filter: brightness(0.8);
 }
 
 .cartbtn {
-	margin-top: 4%;
-	margin-left: 17%;
-	width: 192px;
-	height: 81px;
-	background: #D9D9D9;
-	border-radius: 5px;
-	font-family: 'Noto Sans';
-	font-size: 23px;
+	width: 44%;
+    height: 12%;
+    background-color: rgb(0, 151, 243);
+    border: 1px solid rgb(0, 151, 243);
+    border-radius: 5px;
+    padding: 0px;
+    color: rgb(255, 255, 255);
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease 0s;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    margin-left: 11%;
 }
 
 .cartbtn:hover {
-	margin-top: 4%;
-	margin-left: 17%;
-	width: 192px;
-	height: 81px;
-	background: #D9D9D9;
-	border-radius: 5px;
-	font-family: 'Noto Sans';
-	font-size: 23px;
-	background-color: rgb(255, 186, 0);
+	filter: brightness(0.8);
 }
 
 .second {
@@ -569,4 +566,13 @@ option {
 input[type=checkbox] {
 	transform : scale(1.5);
 	margin-right: 2%;
+}
+
+
+.buybtn:disabled:hover {
+  filter: brightness(1);
+}
+ 
+.cartbtn:disabled:hover {
+  filter: brightness(1);
 }
