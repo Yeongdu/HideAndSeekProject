@@ -113,31 +113,66 @@ h1, h2, h3, h4, h5 {
 
 /*===============================================================================*/
 
-.join_ok_wrap{
-	margin-top: 20%;
-    border: 2px solid black;
-    width: 800px;
-    margin-left: 20%;
-	
+/* @import url('https://fonts.googleapis.com/css?family=Yydimibang&display=swap'); */
+@font-face {
+    font-family: 'kdg_Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/kdg_Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
+
+
+@font-face {
+    font-family: 'ChosunCentennial';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/ChosunCentennial.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ChosunGu';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 
 .join_ok_logo{
 	 margin-bottom: 30px;
 }
    
    .join_ok_msg1_wrap{
-   font-size: 30px;
-    margin-bottom: 20px;
+     font-size: 30px;
+     margin-bottom: 20px;
+     font-weight: bold;
    }
    
    .join_ok_msg2_wrap{
    font-size: 20px;
+   margin-bottom: 3px;
    }
    
    .join_ok_msg3_wrap{
     font-size: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
    }
+   
+   
+   .login_btn{
+    width: 400px;
+    height: 50px;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(244, 187, 95);
+    font-size: 20px;
+    border: 0;
+   
+   }
+  
+  .join_ok_msg1, .join_ok_msg2, .join_ok_msg3_wrap, .login_btn_wrap{
+  		font-family: 'ChosunGu';
+  }
       
    
     

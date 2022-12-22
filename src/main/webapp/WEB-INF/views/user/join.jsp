@@ -91,7 +91,7 @@
                      <input type="text"  name="user_jumin1" id="user_jumin1"  minlength="6" maxlength="6"  placeholder="생년월일 6자리" required><span> - </span><input type="password"  name="user_jumin2"  id="user_jumin2"  maxlength="7" minlength="6"    required>
                      <!-- <input type="checkbox" value="성인인증"  class="chk1" id="chk1"  name="chk1" onclick="getAge();" required> -->
                          <!-- <label for="success" class="btn btn-success" style="margin-left: 10px;border-radius: 5px;">성인인증<input type="checkbox" id="success" class="badgebox" onclick="getAge();" required><span class="badge">&check;</span></label> -->
-                         <label for="default" class="btn btn-default" style="margin-left: 10px;border-radius: 5px; height: 43px;"><span style="vertical-align: -webkit-baseline-middle;">성인인증<input type="checkbox" id="default" class="badgebox" onclick="getAge();" required><span class="badge" style="color: black; background-color: white;">&check;</span></span>
+                         <label for="default" class="btn btn-default" style="margin-left: 10px;border-radius: 5px; height: 43px;"><span style="vertical-align: -webkit-baseline-middle; font-family: 'ChosunGu';">성인인증<input type="checkbox" id="default" class="badgebox" onclick="getAge();" required><span class="badge" style="color: black; background-color: white;">&check;</span></span>
                        
                          </label>
                         </div>
@@ -136,7 +136,7 @@
                      <label for="user_zipcode" class="user_label">우편번호</label>
                         <div class="join_zipcode_input">
                         <input type="text" class="user_zipcode" name="user_zipcode1" id="sample6_postcode" size="7" readonly>
-                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호찾기">
+                        <input type="button" onclick="sample6_execDaumPostcode()" style="font-family: 'ChosunGu';"   value="우편번호찾기">
                           </div>
                   </div>
                   
@@ -307,7 +307,7 @@
                              
                              <div class="join_ok_btn">
                                 <!-- <button type="submit">가입완료</button> -->
-                                <input type="submit" class="join_ok_btn_input"    value="가입완료">
+                                <input type="submit" class="join_ok_btn_input"  style="font-family: 'ChosunGu';"     value="가입완료">
                              </div>
                   
                   

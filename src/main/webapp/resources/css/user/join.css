@@ -131,6 +131,16 @@ h1, h2, h3, h4, h5 {
 }
 
 
+@font-face {
+    font-family: 'ChosunGu';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+
 
 
 .join_field{
@@ -151,13 +161,14 @@ h1, h2, h3, h4, h5 {
     height: 100px;
     width: 300px;
     text-indent: inherit;
-    font-family: 'kdg_Medium';
-    font-size: 50px;
+    font-family: 'ChosunGu';
+    font-size: 60px;
     margin-top: 30px;
+    font-weight: bold;
 }
 
 .title_1_span{
-   font-family: 'ChosunCentennial', sans-serif;
+   font-family: 'ChosunGu';
    font-size: 25px;
     color: #595959;
     text-align: left;
@@ -176,7 +187,7 @@ h1, h2, h3, h4, h5 {
     text-align: right;
     margin-top: -25px;
     margin-bottom: 10px;
-    font-family: 'ChosunCentennial', sans-serif;
+    font-family: 'ChosunGu';
     
 }
 
@@ -187,7 +198,7 @@ h1, h2, h3, h4, h5 {
 
 .user_label{
    font-size: 18px;
-    font-family: 'ChosunCentennial', sans-serif;
+    font-family: 'ChosunGu';
     color: #787878;
     display: flex;
     align-items: center;
@@ -209,7 +220,7 @@ h1, h2, h3, h4, h5 {
 
 .title_2_span{
    
-   font-family: 'ChosunCentennial', sans-serif;
+   font-family: 'ChosunGu';
     font-size: 25px;
     color: #595959;
     text-align: left;
@@ -263,7 +274,7 @@ h1, h2, h3, h4, h5 {
 
 .agree_all_lable{
    font-size: 18px;
-    font-family: 'ChosunCentennial', sans-serif;
+    font-family: 'ChosunGu';
     color: #787878;
     display: flex;
     align-items: center;
@@ -271,10 +282,11 @@ h1, h2, h3, h4, h5 {
 
 .panel-heading{
    display: flex;
-    font-family: 'ChosunCentennial', sans-serif;
+    font-family: 'ChosunGu';
 }
 p{
    text-align: left;
+   font-family: 'ChosunGu';
 }
 
 .panel-body{
