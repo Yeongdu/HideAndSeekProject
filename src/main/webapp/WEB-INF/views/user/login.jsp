@@ -9,7 +9,7 @@
 <title>로그인</title>
 <link href="resources/css/user/login.css" rel="stylesheet" type="text/css">
 
-<div style="height:auto; min-height: 100%;">
+<div  class="main"    style="height:auto; min-height: 100%;">
 		
 		
                         <!-- 로그인 창 -->
@@ -19,7 +19,7 @@
                              			<form action="user_check.do" method="post">
                              		
                              		<div class="login_input_wrap_title">
-                             			<span>입장하기</span>
+                             			<span>입 장 하 기</span>
                              		</div>
                              		
                              <div class="login_input_inner_wrap">
