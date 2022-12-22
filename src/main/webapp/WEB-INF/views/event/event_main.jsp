@@ -12,20 +12,22 @@
     <link href="resources/css/event/event_main.css" rel="stylesheet" type="text/css">
     
 <style>
+
  .event_wrap {
- 	width: 100%;
+ 	width: 70%;
  	height: 15%;
  	margin : 10px auto;
  	position: relative;
  	}
 
-.event_image > img {
+.event_wrap > img {
 
 	width: 100%;
 	height: 20vw;
 	vertical-align: middle;
 	object-fit: cover;
 	overflow:hidden;
+	border-radius: 15px;
 }
 
  .event_text { 
@@ -47,43 +49,22 @@
 <div style="height: auto; min-height: 100%;">
 <br>
 <br>
+    
+<div align = "center" id = "event">
+		<h1 class = "title">EVENT</h1>
+		<br />
+		<div id = "event_center">
+		<input type = "hidden" name = "event_no">
 
-	<c:set var = "list" value = "${list }" />
-	<c:forEach items="${list }" var = "dto">
-    
-    <div class="event_wrap">
-    	<div class="event_image">
-    	<img src = "resources/image/${dto.event_thumbnail }"
-    	onclick = "location.href ='<%=request.getContextPath() %>/event_content.do?event_no=${dto.event_no }'"
-    	>
-    	</div>
-    	<div class="event_text">
-    	<p>${dto.event_cont1 }</p>
-    	</div>
-    
-    </div>
-    
-    <br><br>
-    
-    </c:forEach>
-    
-    
-<!-- 	<div align = "center" id = "event"> -->
-<!-- 		<h1 class = "title">EVENT</h1> -->
-<!-- 		<div id = "event_center"> -->
-<!-- 		<input type = "hidden" name = "event_no"> -->
-<!-- 			<div class = "event_span" align = "center"> -->
-<!-- 				<h3 class = "event_ing">현재 진행중인 이벤트</h3> -->
-<!-- 			</div> -->
-<%-- 			<c:set var = "list" value = "${list }" /> --%>
-<%-- 			<c:forEach items="${list }" var = "dto"> --%>
-<!-- 			<div class = "event_wrap"> -->
-<%-- 				<img src = "resources/image/event${dto.getEvent_no() }.png" class = "event_img" --%>
-<%-- 					onclick = "location.href ='<%=request.getContextPath() %>/event_content?event_no=${dto.getEvent_no() }'"> --%>
-<!-- 			</div> -->
-<%-- 			</c:forEach> --%>
-<!-- 		</div> -->
-<!-- 	</div> -->
+			<c:set var = "list" value = "${list }" />
+			<c:forEach items="${list }" var = "dto">
+			<div class = "event_wrap">
+				<img src = "resources/image/${dto.event_thumbnail}" class = "event_img"
+					onclick = "location.href ='<%=request.getContextPath() %>/event_content.do?event_no=${dto.event_no }'">
+			</div>
+			</c:forEach>
+		</div>
+	</div>
 
 </div>
 

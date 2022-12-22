@@ -206,10 +206,10 @@ onclick = "location.href ='<%=request.getContextPath() %>/admin_event_insert.do'
 >이벤트 생성</button>
 <br />
 <div align = "center" id = "event">
-		<h1 class = "title">EVENT</h1>
 		<div id = "event_center">
 		<input type = "hidden" name = "event_no">
 			<div class = "event_span" align = "center">
+			<br />
 				<h3 class = "event_ing">이벤트 상세</h3>
 			</div>
 
@@ -249,31 +249,65 @@ onclick = "location.href ='<%=request.getContextPath() %>/admin_event.do'"
 			<div class="mb-3 row">
 				<label for="exampleFormControl"
 					class="col-sm-4 col-form-label">진행 상품</label>
-				<div class="col-sm-6">
-					<span class="form-control" style="width: 300px">
+				<div class="col-sm-8">
+					<span class="form-control" style="width: 300px"
+
+					<c:if test="${dto.product_no != null }" >
+					onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=1'"
+					</c:if>
+					
+					<c:if test="${dto.product_no == '0' }" >
+					</c:if>
+
+>
 					${dto.product_no }&nbsp;&nbsp;  ${pdto.product_name }
 					</span>
+					<br /><br /><br />
+					<input type="date" id="event_start" name="event_start"
+					value="${dto.event_start.substring(0,10) }"> ~ <input type="date"
+					id="event_end" name="event_end" value="${dto.event_end.substring(0,10) }">
 				</div>
 				<div class="col-sm-3">
-					<img width="100px" src = "resources/upload/${pdto.product_thumbnail}" 
-					style="margin-left: 50px;"/>
+				<img width="130px" class="img-thumbnail" style="margin-left: 50px;"
+				<c:if test="${dto.product_no != null }" >
+					onclick="location.href='<%=request.getContextPath()%>/admin_product_content.do?no=${dto.product_no }&page=1'"
+					src = "resources/upload/${pdto.product_thumbnail }"
+				</c:if>
+				<c:if test="${dto.product_no == '0' }" >
+				src = "resources/image/image_not_found.jpg"
+				</c:if> 
+				/>
 				</div>
 			</div>
 			</div>
-			
-			
-			<br />
+
+
+		<br />
+		<br />
+		<br />
 
 		<!-- 첫번째 영역 -->
 		<div class="admin_event1Wrap" style="display: flex;">
 			<div class="admin_event_cont1Wrap">
 				<textarea class="admin_event_cont1" id="admin_event_cont1"
 					spellcheck="false" readonly
-					style="width: 100%; resize: none; font-size: 1.4em; border: 0px;"> ${dto.event_cont1 } </textarea>
+					style="width: 100%; resize: none; font-size: 1.4em; border: 0px;">${dto.event_cont1 }</textarea>
+					
+
 			</div>
 			<div class="admin_event_file1Wrap">
-				<img width="50%" src="resources/image/${dto.event_file1}"
-					class="admin_event_file1">
+<%-- 				<img width="50%" src="resources/image/${dto.event_file1}" --%>
+<!-- 					class="admin_event_file1"> -->
+					
+					
+				<img class="admin_event_file2" width="50%" class="admin_event_file1"
+				<c:if test="${!empty dto.event_file1 }" >
+					src = "resources/image/${dto.event_file1 }"
+				</c:if>
+				<c:if test="${empty dto.event_file1 }" >
+				src = "resources/image/image_not_found.jpg"
+				</c:if>
+				/>
 			</div>
 		</div>
 		
@@ -282,11 +316,20 @@ onclick = "location.href ='<%=request.getContextPath() %>/admin_event.do'"
 			<div class="admin_event_cont2Wrap">
 				<textarea class="admin_event_cont2" id="admin_event_cont2"
 					spellcheck="false" readonly
-					style="width: 100%; resize: none; font-size: 1.4em; border: 0px;"> ${dto.event_cont2 } </textarea>
+					style="width: 100%; resize: none; font-size: 1.4em; border: 0px;">${dto.event_cont2 }</textarea>
 			</div>
 			<div class="admin_event_file2Wrap">
-				<img width="30%" src="resources/image/${dto.event_file2}"
-					class="admin_event_file2">
+<%-- 				<img width="30%" src="resources/image/${dto.event_file2}" --%>
+<!-- 					class="admin_event_file2"> -->
+					
+				<img class="admin_event_file2" width="30%" class="admin_event_file2"
+				<c:if test="${!empty dto.event_file2 }" >
+					src = "resources/image/${dto.event_file2 }"
+				</c:if>
+				<c:if test="${empty dto.event_file2 }" >
+				src = "resources/image/image_not_found.jpg"
+				</c:if>
+				/>
 			</div>
 		</div>
 		
@@ -297,7 +340,7 @@ onclick = "location.href ='<%=request.getContextPath() %>/admin_event.do'"
 			<div>
 				<textarea class="admin_event_cont3" id="admin_event_cont3"
 					spellcheck="false" readonly
-					style="width: 100%; resize: none; font-size: 1.4em; border: 0px;"> ${dto.event_cont3 } </textarea>
+					style="width: 100%; resize: none; font-size: 1.4em; border: 0px;">${dto.event_cont3 }</textarea>
 			</div>
 			<div align="center">
 				<button type="button" class="btn btn-light-eventItemBtn">사러가기</button>			
@@ -305,8 +348,19 @@ onclick = "location.href ='<%=request.getContextPath() %>/admin_event.do'"
 			</div>
 			</div>
 			<div class="admin_event_file3Wrap">
-				<img width="30%" src="resources/image/${dto.event_file3}"
-					class="admin_event_file3">
+<%-- 				<img width="30%" src="resources/image/${dto.event_file3}" --%>
+<!-- 					class="admin_event_file3"> -->
+					
+				<img class="admin_event_file3" width="30%" class="admin_event_file3"
+				<c:if test="${!empty dto.event_file3 }" >
+					src = "resources/image/${dto.event_file3 }"
+				</c:if>
+				<c:if test="${empty dto.event_file3 }" >
+				src = "resources/image/image_not_found.jpg"
+				</c:if>
+				/>
+					
+					
 			</div>
 		</div>
 

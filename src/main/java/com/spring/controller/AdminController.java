@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.DefaultNamingPolicy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -1134,11 +1136,18 @@ public class AdminController {
 //			@RequestParam("event_file1file") MultipartFile file2,
 //			@RequestParam("event_file2file") MultipartFile file3,
 //			@RequestParam("event_file3file") MultipartFile file4,
+//			@RequestParam("event_start") Date event_start, 
+//			@RequestParam("event_end") Date event_end, 
+			@RequestParam("event_start") String start, 
+			@RequestParam("event_end") String end, 
 			HttpServletResponse response,
 			ModelAndView mv,
 			EventDTO dto,
 			Model model) throws Exception {
 		
+		dto.setEvent_start(start.substring(0,10));
+		dto.setEvent_end(end.substring(0,10));
+//		
 		if (!file1.isEmpty()) {
 			dto.setEvent_thumbnail(file1.getOriginalFilename());			
 		}else if(file1.isEmpty()) {
@@ -1170,8 +1179,8 @@ public class AdminController {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		if (check > 0 && !file1.getOriginalFilename().isEmpty()) {
-			file1.transferTo(new File(FILE_SERVER_PATH, file1.getOriginalFilename()));
-			out.println("<script> alert('이벤트 등록 성공'); location.href='admin_product_list.do'; </script>");
+			file1.transferTo(new File(FILE_SERVER_PATH2, file1.getOriginalFilename()));
+			out.println("<script> alert('이벤트 등록 성공'); location.href='admin_event.do'; </script>");
 		} else {
 			out.println("<script> alert('이벤트 등록 실패했습니다.'); history.back(); </script>");
 		}
@@ -1181,10 +1190,11 @@ public class AdminController {
 	@RequestMapping("/admin_event_content.do")
 	public String admin_event_content(@RequestParam("event_no") int no, Model model) {
 		EventDTO dto = this.edao.getEventCont(no);
-		int pno = dto.getProduct_no();
-		ProductDTO pdto = this.pdao.getProductCont(pno);
+			int pno = dto.getProduct_no();
+			ProductDTO pdto = this.pdao.getProductCont(pno);
+			model.addAttribute("productCont", pdto);
+		
 		model.addAttribute("eventCont", dto);
-		model.addAttribute("productCont", pdto);		
 		return "admin/admin_event_content";
 	}
 	
@@ -1192,9 +1202,10 @@ public class AdminController {
 	@RequestMapping("/admin_event_update.do")
 	public String admin_event_update(@RequestParam("no") int no, Model model) throws Exception {
 		EventDTO dto = this.edao.getEventCont(no);
-		admin_productDTO apdto = this.apdao.getProductCont(dto.getProduct_no());
-		model.addAttribute("eventCont", dto);		
-		model.addAttribute("productCont", apdto);		
+		int pno = dto.getProduct_no();
+		ProductDTO pdto = this.pdao.getProductCont(pno);
+		model.addAttribute("eventCont", dto);
+		model.addAttribute("productCont", pdto);		
 		return "admin/admin_event_update";
 	}
 	
@@ -1203,12 +1214,19 @@ public class AdminController {
 	public void admin_event_update_ok(
 			@RequestParam(value="event_file1file",required = false) MultipartFile file1,
 			@RequestParam(value="event_file2file",required = false) MultipartFile file2,
-			@RequestParam(value="event_file3file",required = false) MultipartFile file3,
+			@RequestParam(value="event_file3file",required = false) MultipartFile file3,			
 			@RequestParam("no") int no, 
+			@RequestParam("event_start") String start, 
+			@RequestParam("event_end") String end, 
 			HttpServletResponse response,
 			ModelAndView mv,
 			EventDTO dto,
 			Model model) throws Exception {
+		
+		System.out.println(dto.getEvent_start());
+		
+		dto.setEvent_start(start.substring(0,10));
+		dto.setEvent_end(end.substring(0,10));
 		
 		String savedfile1 = dto.getEvent_file1();
 		String savedfile2 = dto.getEvent_file2();
