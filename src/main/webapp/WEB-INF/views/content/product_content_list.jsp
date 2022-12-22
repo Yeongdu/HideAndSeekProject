@@ -82,12 +82,24 @@
 
 		<div class="main_cont">
 			<div class="picture_2">
-				<img src="resources/upload/${dto.getProduct_file1() }" onerror="this.style.display='none'"> 
-				<textarea class="sub_cont" id="sub_cont1" spellcheck="false" readonly> ${dto.getProduct_cont1() } </textarea>
-				<img src="resources/upload/${dto.getProduct_file2() }" onerror="this.style.display='none'"> 
-				<textarea class="sub_cont" id="sub_cont2" spellcheck="false" readonly> ${dto.getProduct_cont2() } </textarea>
-				<img src="resources/upload/${dto.getProduct_file3() }" onerror="this.style.display='none'">
-				<textarea class="sub_cont" id="sub_cont3" spellcheck="false" readonly> ${dto.getProduct_cont3() } </textarea>
+				<div>
+					<img src="resources/upload/${dto.getProduct_file1() }" onerror="this.style.display='none'"> 
+				</div>
+				<div>	
+					<textarea class="sub_cont" id="sub_cont1" spellcheck="false" readonly> ${dto.getProduct_cont1() } </textarea>
+				</div>
+				<div>
+					<img src="resources/upload/${dto.getProduct_file2() }" onerror="this.style.display='none'"> 
+				</div>
+				<div>				
+					<textarea class="sub_cont" id="sub_cont2" spellcheck="false" readonly> ${dto.getProduct_cont2() } </textarea>
+				</div>
+				<div>
+					<img src="resources/upload/${dto.getProduct_file3() }" onerror="this.style.display='none'">
+				</div>
+				<div>
+					<textarea class="sub_cont" id="sub_cont3" spellcheck="false" readonly> ${dto.getProduct_cont3() } </textarea>
+				</div>
 			</div>
 		</div>
 	</c:forEach>
@@ -210,8 +222,6 @@
 		
 		let product_no = ${pdto.product_no};
 		
-		console.log("체크박스");
-		
 		if($(".check_pic").is(":checked")) {
 			$.ajax({
 				url:"<%=request.getContextPath()%>/product_review_photo.do",
@@ -224,13 +234,11 @@
 				success:function(data) {
 					console.log("ajax");
 					$(".review").empty();
-					console.log("첫번째 data값 >>> " + data);
+					console.log(data);
 					html = "";
-					if(data != "null") {
-						console.log("요기저기");
+					if(data.length != 0) {
+						console.log("첫번째");
 						$.each(data, function(index, item){
-							console.log("카운트 " +count);
-								console.log("사진체크박스");
 								html += "<div class='review_cont_top'>"
 								html += "<div class='review_top'>"
 								html += "<div>"
@@ -257,11 +265,10 @@
 								html += "</div>"
 							count += 1;
 						});
-					if(count > 6) {
+					if(count > 5) {
 						html += "<input type='button' value='더 많은 리뷰' class='more'>"
 					}
-				} else if(data == null) {
-						console.log("체크함");
+				} else if(data.length == 0) {
 						html += "<pre class='no_review'>첫 리뷰를 작성해주세요!</pre>"
 					}
 					$(".review").append(html);
@@ -271,7 +278,6 @@
 				}
 			})
 		}else {
-			console.log("체크박스 해제");
 			$.ajax({
 				url:"<%=request.getContextPath()%>/product_review.do",
 				method:"post",
@@ -282,11 +288,10 @@
 				datatype : "json",
 				success:function(data) {
 					$(".review").empty();
-					console.log("data값 >>> " + data);
 					html = "";
-					if(data != "null") {
+					if(data.length != 0) {
 						$.each(data, function(index, item){
-							console.log("안돼애");
+							console.log(count);
 							html += "<div class='review_cont_top'>"
 							html += "<div class='review_top'>"
 							html += "<div>"
@@ -313,13 +318,14 @@
 								}
 							html += "</div>"
 							html += "</div>"
+							count += 1;
 						});
-					}else if(data == "null") {
-							console.log("체크체크");
+						if(count > 5) {
+							html += "<input type='button' value='더 많은 리뷰' class='more'>"
+						}
+					}else if(data.length == 0) {
 							html += "<pre class='no_review'>첫 리뷰를 작성해주세요!</pre>"
 					}
-					console.log("여기여기");
-						html += "<input type='button' value='더 많은 리뷰' class='more'>"
 						$(".review").append(html);
 				},
 					error:function(request,status,error){
@@ -330,7 +336,7 @@
 		});
 	//포토리뷰 끝
     
-    //리뷰
+    //리뷰(sort)
 	$(document).on("change", ".sort-menu", function(){
 		let sort = $(".sort-menu").val();
 		
@@ -338,9 +344,6 @@
 		
 		let product_no = ${pdto.product_no};
 		
-		console.log("버튼 클릭 이벤트");
-		
-			//사진리뷰 시작
 			if($(".check_pic").is(":checked")) {
 				$.ajax({
 					url:"<%=request.getContextPath()%>/product_review_photo.do",
@@ -353,9 +356,8 @@
 					success:function(data) {
 						$(".review").empty();
 						html = "";
-					if(data != "null") {
+					if(data.length != 0) {
 						$.each(data, function(index, item){
-								console.log("체크박스 사진");
 								html += "<div class='review_cont_top'>"
 								html += "<div class='review_top'>"
 								html += "<div>"
@@ -382,11 +384,10 @@
 								html += "</div>"
 								count += 1;
 						});
-					if(count > 6) {
+					if(count > 5) {
 						html += "<input type='button' value='더 많은 리뷰' class='more'>"
 					}
-				} else if(data == null) {
-						console.log("체크함");
+				} else if(data.length == 0) {
 						html += "<pre class='no_review'>첫 리뷰를 작성해주세요!</pre>"
 					}
 					$(".review").append(html);
@@ -396,7 +397,6 @@
 				}
 			})	
 			} else {
-				console.log("체크박스 아니면");
 				$.ajax({
 					url:"<%=request.getContextPath()%>/product_review.do",
 					method:"post",
@@ -406,43 +406,44 @@
 					},
 					datatype : "json",
 					success:function(data) {
-						
 						$(".review").empty();
 						html = "";
-						$.each(data, function(index, item){
-							
-							if(item != "null") {
-								html += "<div class='review_cont_top'>"
-								html += "<div class='review_top'>"
-								html += "<div>"
-								html += "<span class='review_info_product_name'>"+item.user_id+"</span>"
-								html += "</div>"
-								html += "<div class='review_main_cont' align='right'>"
-								html += "<div class='review_info_star-rating'>"
-								html += "<div class='star-ratings-fill space-x-2 text-lg' style='width:"+item.review_star+"%'>"
-								html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
-								html += "</div>"
-								html += "<div class='star-ratings-base space-x-2 text-lg'>"
-								html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
-								html += "</div>"
-								html += "</div>"
-								html += item.review_date
-								html += "</div>"
-								html += "</div>"
-								html += "<div class='review_main' align='left'>"
-								html += "<div class='review_cont'>"
-								html += "<pre style='margin-bottom: 1%'>"+item.review_cont+"</pre>"
-								html += "</div>"
-									if(item.review_file != null) {
-										html += "<img src = 'resources/review_img/" + item.review_file + "' class = 'review_image"+item.review_no+"' onmouseover = 'zoomImg("+item.review_no+")' style = 'height:100px;'>"
-									}
-								html += "</div>"
-								html += "</div>"
-								}else if(item == "null") {
-									html += "<pre class='no_review'>첫 리뷰를 작성해주세요!</pre>"
-								}
-						});
-							html += "<input type='button' value='더 많은 리뷰' class='more'>"
+						if(data.length != 0) {
+							$.each(data, function(index, item){
+									html += "<div class='review_cont_top'>"
+									html += "<div class='review_top'>"
+									html += "<div>"
+									html += "<span class='review_info_product_name'>"+item.user_id+"</span>"
+									html += "</div>"
+									html += "<div class='review_main_cont' align='right'>"
+									html += "<div class='review_info_star-rating'>"
+									html += "<div class='star-ratings-fill space-x-2 text-lg' style='width:"+item.review_star+"%'>"
+									html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
+									html += "</div>"
+									html += "<div class='star-ratings-base space-x-2 text-lg'>"
+									html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
+									html += "</div>"
+									html += "</div>"
+									html += item.review_date
+									html += "</div>"
+									html += "</div>"
+									html += "<div class='review_main' align='left'>"
+									html += "<div class='review_cont'>"
+									html += "<pre style='margin-bottom: 1%'>"+item.review_cont+"</pre>"
+									html += "</div>"
+										if(item.review_file != null) {
+											html += "<img src = 'resources/review_img/" + item.review_file + "' class = 'review_image"+item.review_no+"' onmouseover = 'zoomImg("+item.review_no+")' style = 'height:100px;'>"
+										}
+									html += "</div>"
+									html += "</div>"
+									count += 1;
+							});
+							if(count > 5) {
+								html += "<input type='button' value='더 많은 리뷰' class='more'>"
+							}
+						}else if(data.length == 0) {
+								html += "<pre class='no_review'>첫 리뷰를 작성해주세요!</pre>"
+						}
 							$(".review").append(html);
 						},
 						error:function(request,status,error){
@@ -450,9 +451,8 @@
 			            }
 					});
 				}
-			//사진리뷰 끝
-	});
-    //리뷰 끝
+		});
+    //리뷰(sort) 끝
     
     //리뷰 더보기
 	$(document).on("click", ".more", function(){
@@ -677,44 +677,48 @@
 	//장바구니 확인
 	let url = $(this).attr('href');
 	function cart() {
-		swal({
-			title : "주문내역을 확인해주세요",
-			text : "${pdto.product_name}\n"+hm.value+"개\n"+total_price+"원",
-			icon: "info",
-			buttons: ["취소" , "확인"]
-		})
-		.then(function(cart){
-			console.log(cart);        
-		       if(cart){
-		    	   $.ajax({
-		               type: 'post',
-		               url: '<%=request.getContextPath() %>/cart_ok.do',
-		               data : {cart_amount: hm.value,
-		            	  	   user_id: '${userId}',
-		            	  	   product_no: '${pdto.product_no}'},	               
-		               dataType: 'text',
-		               success :function(result){
-		                   if(result==0){
-		                       swal({
-		               			text : "장바구니로 이동하시겠습니까?",
-		               			icon: "info",
-		               			buttons: ["취소" , "이동"],
-		               			closeOnClickOutside : false
-		               			})
-		               			.then(function(cart_result){
-									if(cart_result==true) {
-										location.href="<%=request.getContextPath() %>/cart.do";
-									} else {
-										 $('.cart_count').load(location.href+' .cart_count');
-									} 
-								}) 
-		                   }else{
-		                	   alert("실패:"+result);
-		                   }
-		                  }
-		               });
-		       }
-		})
+		if (${pdto.product_stock } > 0) {
+			swal({
+				title : "주문내역을 확인해주세요",
+				text : "${pdto.product_name}\n"+hm.value+"개\n"+total_price+"원",
+				icon: "info",
+				buttons: ["취소" , "확인"]
+			})
+			.then(function(cart){
+				console.log(cart);        
+			       if(cart){
+			    	   $.ajax({
+			               type: 'post',
+			               url: '<%=request.getContextPath() %>/cart_ok.do',
+			               data : {cart_amount: hm.value,
+			            	  	   user_id: '${userId}',
+			            	  	   product_no: '${pdto.product_no}'},	               
+			               dataType: 'text',
+			               success :function(result){
+			                   if(result==0){
+			                       swal({
+			               			text : "장바구니로 이동하시겠습니까?",
+			               			icon: "info",
+			               			buttons: ["취소" , "이동"],
+			               			closeOnClickOutside : false
+			               			})
+			               			.then(function(cart_result){
+										if(cart_result==true) {
+											location.href="<%=request.getContextPath() %>/cart.do";
+										} else {
+											 $('.cart_count').load(location.href+' .cart_count');
+										} 
+									}) 
+			                   }else{
+			                	   alert("실패:"+result);
+			                   }
+			                  }
+			               });
+			       }
+			})
+		} else {
+			$('.cartbtn').attr("disabled", true);
+		}
 	}
 	//장바구니 확인 끝
 	
@@ -751,14 +755,14 @@
     		window.location.href = "<%=request.getContextPath() %>/store.do";
     		} else {               
     			var msg1 = '결제에 실패하였습니다.\n';           
-    			msg1 += '에러내용 : ' + rsp.error_msg;
+    			msg1 += rsp.error_msg;
     			window.history.go(-2);
     			swal('',msg1,'warning');
     		}         
     		swal('',msg,'success');
     		});
     	} else {
-    		swal('',"품절되었습니다",'warning');
+			$('.buybtn').attr("disabled", true);
 		}
     }
   	//결제 api 끝
