@@ -39,15 +39,28 @@
 					<span class="sub_ex">#${pdto.product_introduce1}&nbsp;&nbsp;#${pdto.product_introduce2 }</span>&nbsp;
 					<div class="review_info_star-rat">
 		    			<div class="star-ratings-fill space-x-2 text-lg" style="width:${SCount }%">
-		    				<span>★</span>&nbsp;<span>★</span>&nbsp;<span>★</span>&nbsp;<span>★</span>&nbsp;<span>★</span>
+		    				<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 		    			</div>
 			    		<div class="star-ratings-base space-x-2 text-lg">
-			    			<span>★</span>&nbsp;<span>★</span>&nbsp;<span>★</span>&nbsp;<span>★</span>&nbsp;<span>★</span>
+			    			<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 			   			</div>
 		    		</div>
 		    		<a href="#tab-button" id="review_count">[ ${RCount } 건 ]</a>
 		    		<div class="ssub_span">
-						<span class="ssub_ex">주종 : ${pdto.product_category }</span>
+						<span class="ssub_ex">주종 : 
+							<c:if test="${pdto.product_category eq 'takju' }">
+								탁주
+							</c:if>
+							<c:if test="${pdto.product_category eq 'chungju' }">
+								약·청주
+							</c:if>
+							<c:if test="${pdto.product_category eq 'wine' }">
+								과실주
+							</c:if>
+							<c:if test="${pdto.product_category eq 'soju' }">
+								증류주
+							</c:if>
+						</span>
 						<span class="ssub_ex">도수 : ${pdto.product_alcohol }%</span>
 						<span class="ssub_ex">용량 : ${pdto.product_amount }ml</span>
 					</div>
@@ -58,9 +71,17 @@
 				
 				<form name="form" method="get">
 					<span class="su">수량</span>
-					<input type="button" class="minus" value=" - " onclick="del();"
-					><input type="text" class="numBox" name="amount" min="1" max="${pdto.product_stock}" value="1" size="3" onchange="change();"
-					><input type="button" class="plus" value=" + " onclick="add();"><br>
+					<div class="border">
+						<div style="width: 80px; margin: 0;">
+							<input type="button" class="minus" value=" - " onclick="del();">
+					 	</div> 
+					 	<div style="width: 80px; margin: 0;">
+							<input type="text" class="numBox" name="amount" min="1" max="${pdto.product_stock}" value="1" size="3" onchange="change();">
+						</div>
+						<div style="width: 80px; margin: 0;">
+							<input type="button" class="plus" value=" + " onclick="add();">
+						</div>
+					</div>
 					<span class="total_price_w">총 상품 가격</span>
 					<input type=hidden id="sell_price" name="sell_price" value="${pdto.product_price}">
 					<div class="total_price" align="center">
@@ -166,10 +187,11 @@
 						</div>
 					</div>
 					</c:forEach>
-					<input type="button" value="더 많은 리뷰" class="more">
+					<c:if test="${rlist.size() >= 5 }">
+						<input type="button" value="더 많은 리뷰" class="more">
+					</c:if>
 				</c:if>
 			
-	
 				<c:if test="${empty rlist}">
 					<pre class="no_review">첫 리뷰를 작성해주세요!</pre>
 				</c:if>
