@@ -9,11 +9,19 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'ChosunGu';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
 	box-sizing: border-box;
 }
 
 .main {
+	font-family: 'ChosunGu';
 	width: 100%;
 	height: auto;
 	background: rgba(255,255,255,1);
@@ -289,7 +297,7 @@ hr {
 
 .best_introduse2{
 	width:100%;
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'ChosunGu';
 	font-size: 1.5rem;
 	color: #FFD600;
 	margin-left: 5%;
@@ -317,7 +325,7 @@ hr {
 .best_product_content {
 	display: flex;
 	flex-direction: column;
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'ChosunGu';
 	text-align: left;
 	width: 85%;
     margin-left: auto;
@@ -379,7 +387,7 @@ hr {
 
 .review_introduse2{
 	width:100%;
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'ChosunGu';
 	font-size: 1.5rem;
 	color: #FFD600;
 	margin-left: 5%;
@@ -393,7 +401,7 @@ hr {
 .review_product_content {
 	display: flex;
 	flex-direction: column;
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'ChosunGu';
 	text-align: left;
 	width: 85%;
     margin-left: auto;

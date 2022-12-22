@@ -206,4 +206,17 @@ public class CartController {
 		
 	}
 	
+	// 유저 탑 배너 로드 시 장바구니 카운트 숫자를 받아오는 메서드
+	@RequestMapping("/banner_cart_count.do")
+	@ResponseBody
+	public String getcartcount(@RequestParam("userId") String userId,
+						     HttpSession session) {
+		
+		int count = this.dao.getCartCount(userId);
+		
+		session.setAttribute("rcount", count);
+		
+		return "성공 메세지";
+	}
+	
 }
