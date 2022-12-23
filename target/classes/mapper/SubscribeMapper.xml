@@ -22,6 +22,12 @@
   	<select id="package_price" parameterType="int" resultType="int">
   		select distinct sub_price from subscribe where sub_package_no = #{pack}
   	</select>
+  	
+  	<select id="admin_all_sub_list" resultType="SubscribeDTO">
+  		SELECT DISTINCT 
+  		sub_package_no, sub_package, sub_image, sub_date, sub_enddate, sub_price from subscribe 
+  		order by sub_package_no desc
+  	</select>
   
   
   

@@ -72,6 +72,9 @@ public interface Admin_productDAO {
     
     //썸네일 포함하지 않은 상품수정
     int productUpdateWithoutThumbnail(admin_productDTO adto);
+    
+    //카테고리 별 상품 전체 목록
+    List<admin_productDTO> getProductCateSortList(String product_category);
 	
 
 }

@@ -64,15 +64,15 @@
 						<c:if test="${dto.order_status =='배송중' }">
 							<td colspan="2" align="right">
 								<input type="button" value="배송중" class="btn btn-outline-primary"
-									onclick="if(confirm('배송완료로 변경 하시겠습니까?')){
-									location.href='<%=request.getContextPath() %>/admin_order_statusChange.do?no=${dto.order_no }&page=${page.page }&key=배송완료'} 
+									onclick="if(confirm('배송 완료로 변경 하시겠습니까?')){
+									location.href='<%=request.getContextPath() %>/admin_order_statusChange.do?no=${dto.order_no }&page=${page.page }&key=배송 완료'} 
 									else{return; }">
 							</td>
 						</c:if>
 						
-						<c:if test="${dto.order_status == '배송완료' }">
+						<c:if test="${dto.order_status == '배송 완료' }">
 							<td colspan="2" align="right">
-								<input type="button" class="btn btn-outline-dark" value="배송완료" disabled>
+								<input type="button" class="btn btn-outline-dark" value="배송 완료" disabled>
 							</td>
 						</c:if>
 						

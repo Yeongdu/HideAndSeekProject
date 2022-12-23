@@ -45,6 +45,7 @@
 		    <li class="admin_navMenu"><a href="<%=request.getContextPath() %>/admin_user_list.do">회원관리</a></li>
 		    
 		    <li class="admin_navMenu"><a href="<%=request.getContextPath() %>/admin_event.do">이벤트</a></li>
+		    <li class="admin_navMenu"><a href="<%=request.getContextPath() %>/admin_subscribe.do">구독</a></li>
 		    
 		    <li class="admin_navMenu_none"> </li>
 		    
