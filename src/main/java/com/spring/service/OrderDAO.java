@@ -67,5 +67,25 @@ public interface OrderDAO {
     
     List<OrderDTO> getSamePakageOrderList(int order_pakage);
     
-
+    // 오더 테이블에 맥스 패키지 값을 받아오는 메서드
+ 	int getOrderMaxPackageNo();
+ 	
+ 	// 오더 테이블에 맥스 오더 넘버를 받아오는 메서드
+ 	int getOrderMaxNo();
+ 	
+ 	// 오더 테이블에 주문 정보를 넣는 메서드
+ 	void insertorder(Map<String, Object> map);
+ 	
+ 	// 주문 완료시 해당하는 상품의 재고 수량을 낮추는 메서드
+ 	void updateProductStock(Map<String, Object> map);
+ 	
+	// 주문 완료시 해당하는 유저가 사용한 포인트를 차감해주는 메서드
+   	void updateMinusPoint(Map<String, Object> map);
+ 	
+ 	// 주문 완료시 해당하는 유저의 정보에 포인트를 적립해주는 메서드
+  	void updateSavePoint(Map<String, Object> map);
+  	
+  	// 주문 후 해당 상품의 재고가 0이면 판매상태를 품절로 바꿔주는 메서드
+   	void updateProductStatus(Map<String, Object> map);
+  	
 }

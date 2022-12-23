@@ -87,26 +87,4 @@ public class CartDAOImpl implements CartDAO{
 		
 	}
 
-	@Override
-	public int getOrderMaxPackageNo() {
-
-		return this.sqlSession.selectOne("getOrderMaxPackageNo");
-		
-	}
-
-	@Override
-	public int getOrderMaxNo() {
-
-		return this.sqlSession.selectOne("getOrderMaxNo");
-		
-	}
-
-	@Override
-	public void insertorder(Map<String, Object> map) {
-
-		this.sqlSession.insert("insertorder", map);
-		
-	}
-
-
 }

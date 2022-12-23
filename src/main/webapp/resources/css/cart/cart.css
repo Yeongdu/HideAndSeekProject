@@ -516,3 +516,33 @@ div {
 	font-size: 1rem;
     font-weight: bold;
 }
+
+.delivery_point_info {
+	align-items: center;
+	display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    height: 30px;
+    line-height: 15px;
+    margin: 20px 0px;
+}
+
+.point_info {
+	text-align: right;
+}
+
+.point_input {
+	width: 250px;
+	margin-bottom: 10px;
+}
+
+.point_input > input{
+	width: 100%;
+	text-align: right;
+}
+
+.point {
+	color: rgb(0, 151, 243);
+	font-weight: bold;
+}

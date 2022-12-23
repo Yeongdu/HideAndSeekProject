@@ -218,6 +218,8 @@
 			
 			let delivery = parseInt(count * 3000);
 			
+			console.log("이벤트 진입");
+			
 			for(let i=0; i<size; i++){
 				
 				if($(".cart_check"+i).is(":checked") == true){
@@ -240,7 +242,15 @@
 				
 			}
 			
-			window.location.href = "<%=request.getContextPath() %>/cart_delivery.do?product_no="+product_no+"&cart_no="+cart_no+"&amount="+amount+"&name="+name+"&sum="+sum+"&delivery="+delivery+"&userId="+id+""
+			console.log("product_no 값 >>> " + product_no);
+			console.log("cart_no 값 >>> " + amount);
+			console.log("amount 값 >>> " + amount);
+			console.log("name 값 >>> " + name);
+			console.log("sum 값 >>> " + sum);
+			console.log("delivery 값 >>> " + delivery);
+			console.log("userId 값 >>> " + id);
+			
+			window.location.href = "<%=request.getContextPath() %>/cart_delivery.do?product_no="+product_no+"&cart_no="+cart_no+"&amount="+amount+"&name="+encodeURIComponent(name)+"&sum="+sum+"&delivery="+delivery+"&userId="+id+""
 			
 		});
 		
