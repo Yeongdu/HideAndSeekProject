@@ -88,7 +88,21 @@
 	
 	$(".sub_btn").on("click", function(){
         if(id != "null"){
-            location.href = "<%=request.getContextPath() %>/sub_info.do?userId="+id;
+        	
+        	$.ajax({
+        		type : "post",
+        		url : "<%=request.getContextPath()%>/sub_check.do">,
+        		data : {userId : id},
+        		datatype : "text",
+        		success : function(result){
+        			if(result == 1){
+        				swal("구독회원", "이미 구독중인 회원입니다.", "warning");
+        			}else if(result == 0){
+        				location.href = "<%=request.getContextPath() %>/sub_info.do?userId="+id;
+        			}
+        		}
+        	});
+        	
         }else {
             location.href = "user_login_sub.do";
         }

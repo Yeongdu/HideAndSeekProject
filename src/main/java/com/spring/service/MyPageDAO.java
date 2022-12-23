@@ -28,6 +28,7 @@ public interface MyPageDAO {
 	int reviewInsert(ReviewDTO rdto);
 	
 	List<Subscribe_userDTO> getSubCont(String userId);
+	List<Subscribe_userDTO> getSubList(String userId);
 	void subDelete(String userId);
 	void subUserUpdate(int sub_no);
 	

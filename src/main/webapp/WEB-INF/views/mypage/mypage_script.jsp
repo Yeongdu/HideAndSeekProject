@@ -71,7 +71,7 @@ $(document).on("click", "#mypage_sub", function(){
 		    	if(result == 0){
 		    		res = "<div class = sub_main_wrap>" + 
 		    				"<div id = 'none_sub'>" + 
-		    				"<h3 = 'none_sub_title'>아직 구독을 준비중이에요" + "</h3>" +
+		    				"<h3 id = 'none_sub_title'>아직 구독을 준비중이에요" + "</h3>" +
 		    				"<input type = 'button' value = '구독하기' class = 'sub_btn'>" +
 		    				"</div>" + "</div>";
 		    	}else {
@@ -96,7 +96,6 @@ $(document).on("click", "#mypage_sub", function(){
 								"</div>" +
 								"<input type = 'button' class = 'sub_table' value = '구독 이력보기'>" +
 								"</div>" +
-								"<div class = 'mypage_sub_date'>" + item.sub_end + "<span>이후 새로운 패키지가 발송됩니다. </span> " +"</div>" +
 								"<div class = 'mypage_sub_delete' onclick = 'sub_delete("+id+","+item.sub_no+")'>구독 취소" +
 					    		"</div>" +
 					    		"</div>";
@@ -250,7 +249,7 @@ function getorder(){
 	    		if(su) {
 	    			res = "<div class = 'order_main_wrap'>" +
     				"<div id = 'none_order'>" + 
-    				"<h3 = 'none_order_title'>주문한 술이 없어요" + "</h3>" +
+    				"<h3 id = 'none_order_title'>주문한 술이 없어요" + "</h3>" +
     				"<input type = 'button' value = '구매하러 가기 >' class = 'order_btn'>" +
     				"</div>";
     				su = true;
@@ -344,7 +343,7 @@ $(window).scroll(function() {
     //이동 애니메이션
     $("#modal").stop().animate({
       "top" : modalTop
-    }, 300);
+    }, 1);
 }).scroll();
 
 
@@ -633,9 +632,8 @@ $(document).on("blur", ".user_pwd_new",function(){
 			        	if(su2){
 			        		loading = true; //실행 불가능 상태로 변경
 				            getreview();
-			        		if(su3){
-					            $("#none_review").css("display","none");	
-			        		}
+				            $("#none_review").css("display","none");
+				            su2 = true;
 			        			
 		        		}
 		        	
@@ -659,14 +657,13 @@ $(document).on("blur", ".user_pwd_new",function(){
 		    	var res = '';
 		    
 		    	if(result == 0){
+		    		res = "<div class = 'review_main_wrap'>" +
+    				"<div id = 'none_review'>" + 
+    					"<h3 = 'none_review_title'>작성한 리뷰가 없어요" + "</h3>" +
+    				"</div>";
 		    		if(su2) {
-		    			if(su3){
-		    				res = "<div class = 'review_main_wrap'>" +
-		    				"<div id = 'none_review'>" + 
-		    					"<h3 = 'none_review_title'>작성한 리뷰가 없어요" + "</h3>" +
-		    				"</div>";
+		    				
 		    				su2 = true;
-		    			}
 		    			
 	    				su = true;
 		    		}
@@ -769,16 +766,16 @@ $(document).on("blur", ".user_pwd_new",function(){
 			    
 			    	var res = '';
 			    
-			    	if(result == 0){
-			    		res = "<div class = delivery_main_wrap>" + 
-			    				"<div id = 'none_delivery'>" + 
-			    					"<h3 = 'none_delivery_title'>등록된 배송지가 없어요" + "</h3>" +
+			    console.log(result.length);
+			    
+			    	if(result.length == 0){
+			    		res = "<div id = 'none_delivery'>" + 
+			    					"<h3 id= 'none_delivery_title'>등록된 배송지가 없어요" + "</h3>" +
 			    					"<input type = 'button' value = '등록하기' class = 'delivery_btn'>" +
-			    				"</div>" + 
 			    			  "</div>";
-			    	}else {
+			    	}else{
 			    		$.each(result, function(index, item){
-			    			
+			    			console.log("de >>> " +de);
 			    			var de = item.deli_default;
 			    			
 				    		res += "<div class = 'delivery_main_wrap'>"
@@ -803,7 +800,7 @@ $(document).on("blur", ".user_pwd_new",function(){
 			    			res += 			" <div class = 'delivery_info_addr2'>" + item.deli_addr2 + "</div>"
 							res += 		"</div>" // delivery_info의 end
 							res += 		"<div class = 'delivery_modify'>"
-							res +=			"<a class = 'deli_modi_btn"+item.deli_no+"' onmouseover = 'delivery_modify_submit("+item.deli_no+")'>수정</a>"
+							res +=			"<a class = 'deli_modi_btn deli_modi_btn"+item.deli_no+"' onmouseover = 'delivery_modify_submit("+item.deli_no+")'>수정</a>"
 							res +=		"</div>"
 			    			res += "</div>" // delivery_arco의 end
 			    			res += "</div>" // delivery_main_wrap의 end
@@ -879,7 +876,7 @@ $(document).on("blur", ".user_pwd_new",function(){
 		    	res = "<div id='delivery_modify_modal"+result.deli_no+"' style = 'z-index:1;'>"+
 		   		 		"<div class='delivery_modify_modal_body' align = 'center'>"+
 		    				"<div class='delivery_modify_modalClose"+result.deli_no+"' align='right' onmouseover = 'deli_modal_close("+result.deli_no+")'>"+
-		    	 			"<input type = 'button' value = 'X'>"	+
+		    	 			"<input type = 'button' value = 'X' class = 'Mclose'>"	+
 		    			"</div>"+
 		    			"<h3>배송지 수정</h3>"+
 		    			"<form method = 'post' action = 'mypage_delivery_modify_ok.do' class = 'delivery_form' id = 'delivery_modify_form"+result.deli_no+"'>"+

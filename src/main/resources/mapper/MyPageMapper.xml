@@ -41,6 +41,7 @@
  	 	select * from tb_user where user_Id = #{userId} 
  	 </select>
  	 
+ 	 <!-- 구독페이지에서 사용하는 구독 신청을 위한 content -->
  	 <select id="sub_cont" parameterType="String" resultType="Subscribe_userDTO">
  	 <![CDATA[
  	 	select * from (select * from subscribe s join product p on s.product_no = p.product_no where sysdate > sub_date and sysdate < sub_enddate) sub
@@ -48,6 +49,15 @@
 		on sub.sub_package_no = su.sub_no
 		where user_id = #{userId}
 		]]>
+ 	 </select>
+ 	 
+ 	 <!-- 마이페이지에서 사용하는 마이페이지 사용자의 구독 이력 전체 -->
+ 	 <select id = "sub_content" parameterType="String" resultType="Subscribe_userDTO">
+ 	 	select distinct su.user_id, sub.sub_package, su.sub_start, sub.sub_price, su.user_status 
+ 	 	from (select * from subscribe s join product p on s.product_no = p.product_no) sub
+		join subscribe_user su 
+		on sub.sub_package_no = su.sub_no
+		where user_id = #{userId}
  	 </select>
  	 
  	 <update id ="sub_delete" parameterType="int">
@@ -93,7 +103,7 @@
  	 </select>
  	 
 	 <select id ="count_deliverycomplete" parameterType="String" resultType="int">
- 	 	select count(*) as count from tb_order where user_id = #{userId} and order_status = '배송완료'
+ 	 	select count(*) as count from tb_order where user_id = #{userId} and order_status = '배송 완료'
  	 </select>
  	 
  	 <select id ="orderall" parameterType="String" resultType="int">
@@ -135,7 +145,7 @@
  	 </insert>
  	 
  	 <insert id = "delivery_insert" parameterType="map">
- 	 	insert into delivery values(#{zipcode}, #{addr}, #{extraAddr}, #{user_id}, #{check}, #{name}, #{deli_phone1}, #{deli_phone2}, #{deli_phone3}, (select nvl(max(deli_no), 0) from delivery) +1,)
+ 	 	insert into delivery values(#{zipcode}, #{addr}, #{extraAddr}, #{user_id}, #{check}, #{name}, #{deli_phone1}, #{deli_phone2}, #{deli_phone3}, (select nvl(max(deli_no), 0) from delivery) +1)
  	 </insert>
  	 
  	 <update id="default_update" parameterType="String">
