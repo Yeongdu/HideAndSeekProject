@@ -23,7 +23,6 @@
 </c:if>
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 <div id="main" align="center">
 	<c:forEach items="${list }" var="dto">
@@ -91,7 +90,7 @@
 				</form>
 				
 				<c:if test="${!empty userId}">
-			   		<input type="button" class="buybtn" onclick="requestPay();" value="바로 구매">
+			   		<input type="button" class="buybtn" onclick="cart_delivery();" value="바로 구매">
 			   		<input type="button" class="cartbtn" onclick="cart()" value="장바구니">
 			   	</c:if>
 				<c:if test="${empty userId}">
@@ -107,19 +106,19 @@
 					<img src="resources/upload/${dto.getProduct_file1() }" onerror="this.style.display='none'"> 
 				</div>
 				<div>	
-					<textarea class="sub_cont" id="sub_cont1" spellcheck="false" readonly> ${dto.getProduct_cont1() } </textarea>
+					<textarea disabled="disabled" class="sub_cont" id="sub_cont1" spellcheck="false" readonly> ${dto.getProduct_cont1() } </textarea>
 				</div>
 				<div>
 					<img src="resources/upload/${dto.getProduct_file2() }" onerror="this.style.display='none'"> 
 				</div>
 				<div>				
-					<textarea class="sub_cont" id="sub_cont2" spellcheck="false" readonly> ${dto.getProduct_cont2() } </textarea>
+					<textarea disabled="disabled" class="sub_cont" id="sub_cont2" spellcheck="false" readonly> ${dto.getProduct_cont2() } </textarea>
 				</div>
 				<div>
 					<img src="resources/upload/${dto.getProduct_file3() }" onerror="this.style.display='none'">
 				</div>
 				<div>
-					<textarea class="sub_cont" id="sub_cont3" spellcheck="false" readonly> ${dto.getProduct_cont3() } </textarea>
+					<textarea disabled="disabled" class="sub_cont" id="sub_cont3" spellcheck="false" readonly> ${dto.getProduct_cont3() } </textarea>
 				</div>
 			</div>
 		</div>
@@ -233,6 +232,28 @@
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 	<script type="text/javascript">
+	
+	function cart_delivery(){
+		
+		var delivery = 3000;
+		
+		var product_no = ${pdto.product_no };
+		
+		var amount = $('input[name=amount]').val();
+		
+		var name = '${pdto.product_name }';
+		
+		var price = ${pdto.product_price };
+		
+		var sum = price + delivery;
+		
+		var id = '<%=(String)session.getAttribute("userId")%>';
+		
+		var cart_no = 0;
+				
+		window.location.href = "<%=request.getContextPath() %>/cart_delivery.do?product_no="+product_no+"&cart_no="+cart_no+"&amount="+amount+"&name="+encodeURIComponent(name)+"&sum="+sum+"&delivery="+delivery+"&userId="+id+""
+		
+	}
 	//변수
 	let status = true;
 	let checked = $('.check_pic').is(':checked');
@@ -758,51 +779,6 @@
 	}
 	//장바구니 확인 끝
 	
-	//결제 api
-	var IMP = window.IMP; 
-    IMP.init("imp68070036"); 
-      
-    var today = new Date();   
-    var hours = today.getHours(); // 시
-    var minutes = today.getMinutes();  // 분
-    var seconds = today.getSeconds();  // 초
-    var milliseconds = today.getMilliseconds();
-    var makeMerchantUid = hours +  minutes + seconds + milliseconds;
-     
-    function requestPay() {
-    	if (${pdto.product_stock } > 0) {
-    	IMP.request_pay({
-      	pg : 'kcp',
-        pay_method : 'card',
-        merchant_uid: "IMP"+makeMerchantUid, 
-        name : '${pdto.product_name }',
-        amount : total_price,
-        buyer_email : '',
-        buyer_name : '${userId}',
-        buyer_tel : '010-5654-0265',
-        buyer_addr : '서울특별시 중구',
-        buyer_postcode : '123-456'
-    	}, function (rsp) {           
-    		console.log(rsp);            
-    		if (rsp.success) {   
-    		var msg = '결제가 완료되었습니다.\n';       
-    		msg += '결제 금액 : ' + rsp.paid_amount+'\n원';            
-    		msg += '카드 승인번호 : ' + rsp.apply_num+'\n';
-    		window.location.href = "<%=request.getContextPath() %>/store.do";
-    		} else {               
-    			var msg1 = '결제에 실패하였습니다.\n';           
-    			msg1 += rsp.error_msg;
-    			window.history.go(-2);
-    			swal('',msg1,'warning');
-    		}         
-    		swal('',msg,'success');
-    		});
-    	} else {
-			$('.buybtn').attr("disabled", true);
-		}
-    }
-  	//결제 api 끝
-  	
   	//리뷰, 교환/환불 버튼
   	$(document).ready(function() {
   		var $tabButtonItem = $('#tab-button li'),

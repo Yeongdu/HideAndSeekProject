@@ -50,11 +50,7 @@ public class OrderController {
 			
 			map.put("delivery_no", delivery_no);
 			
-			System.out.println("product_no 사이즈 >>> " + product_no.size());
-			
 			for(int i=0; i<product_no.size(); i++) {
-				
-				System.out.println("product_no 값 >>> " + product_no);
 				
 				int orderno = this.dao.getOrderMaxNo();
 				
@@ -64,11 +60,16 @@ public class OrderController {
 				
 				map.put("amount", amount.get(i));
 				
-				int no = cart_no.get(i);
+				if(cart_no.size() != 0) {
+					
+					int no = cart_no.get(i);
+					
+					this.cdao.deleteCartList(no);
+					
+					
+				}
 				
 				this.dao.insertorder(map);
-				
-				this.cdao.deleteCartList(no);
 				
 				this.dao.updateProductStock(map);
 				
