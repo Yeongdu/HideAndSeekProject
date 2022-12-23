@@ -136,8 +136,6 @@ public class CartController {
 		
 		UserDTO dto = this.mdao.getUserCont(userId);
 		
-		String email = dto.getUser_email();
-		
 		model.addAttribute("list", list);
 		model.addAttribute("product_no", product_no);
 		model.addAttribute("cart_no", cart_no);
@@ -145,7 +143,8 @@ public class CartController {
 		model.addAttribute("name", name);
 		model.addAttribute("sum", total);
 		model.addAttribute("delivery", delivery);
-		model.addAttribute("email", email);
+		model.addAttribute("email", dto.getUser_email());
+		model.addAttribute("point", dto.getUser_point());
 		
 		
 		return "cart/cart_delivery";
@@ -159,51 +158,6 @@ public class CartController {
 		List<DeliveryDTO> list = this.dao.getDeliveryList(delivery_no);
 		
 		return list;
-	}
-	
-	// 결제 완료시 장바구니의 정보를 오더테이블에 인서트하는 메서드
-	@RequestMapping("/insert_order.do")
-	public String insertorder(@RequestParam("delivery_no") int delivery_no,
-						    @RequestParam("amount") List<Integer> amount,
-						    @RequestParam("product_no") List<Integer> product_no,
-						    @RequestParam("cart_no") List<Integer> cart_no,
-						    @RequestParam("userId") String userId,
-						    HttpSession session) {
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		int packageno = this.dao.getOrderMaxPackageNo();
-		
-		map.put("packageno", packageno);
-		
-		map.put("userId", userId);
-		
-		map.put("delivery_no", delivery_no);
-		
-		for(int i=0; i<product_no.size(); i++) {
-			
-			int orderno = this.dao.getOrderMaxNo();
-			
-			map.put("orderno", orderno);
-			
-			map.put("product_no", product_no.get(i));
-			
-			map.put("amout", amount.get(i));
-			
-			int no = cart_no.get(i);
-			
-			this.dao.insertorder(map);
-			
-			this.dao.deleteCartList(no);
-			
-		}
-		
-		int count = this.dao.getCartCount(userId);
-		
-		session.setAttribute("rcount", count);
-		
-		return "redirect:store.do";
-		
 	}
 	
 	// 유저 탑 배너 로드 시 장바구니 카운트 숫자를 받아오는 메서드

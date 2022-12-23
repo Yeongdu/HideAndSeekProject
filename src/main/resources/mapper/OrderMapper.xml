@@ -115,7 +115,42 @@
 		select * from tb_order where order_package = #{no} order by order_no desc
 		]]>
 	</select>
-  
-  
+	
+	<!-- 오더 테이블에 맥스 패키지 값을 받아오는 쿼리문 -->
+	<select id="getOrderMaxPackageNo" resultType="int">
+		select nvl(max(order_package),0)+1 from tb_order
+	</select>
+	
+	<!-- 오더 테이블에 맥스 오더 넘버를 받아오는 쿼리문 -->
+	<select id="getOrderMaxNo" resultType="int">
+		select nvl(max(order_no),0)+1 from tb_order
+	</select>
+	
+	
+	<!-- 오더 테이블에 주문 정보를 넣는 쿼리문 -->
+	<insert id="insertorder" parameterType="map">
+		insert into tb_order values(#{orderno}, default, sysdate, #{userId}, #{product_no}, #{amount}, #{packageno}, #{delivery_no})
+	</insert>
+
+	<!-- 주문 완료시 해당하는 상품의 재고 수량을 낮추는 쿼리문 -->
+	<update id="updateProductStock" parameterType="map">
+		update product set product_stock = product_stock - #{amount} where product_no = #{product_no}
+	</update>
+	
+	<!-- 주문 완료시 해당하는 유저가 사용한 포인트를 차감해주는 메서드 -->
+	<update id="updateMinusPoint" parameterType="map">
+		update tb_user set user_point = user_point - #{minuspoint} where user_id = #{userId}
+	</update>
+	
+	<!-- 주문 완료시 해당하는 유저의 정보에 포인트를 적립해주는 쿼리문 -->
+	<update id="updateSavePoint" parameterType="map">
+		update tb_user set user_point = user_point + #{savepoint} where user_id = #{userId}
+	</update>
+	
+	<update id="updateProductStatus" parameterType="map">
+		update product set product_status = '품절' where product_no = #{product_no} and product_stock = 0
+	</update>
+	
+	
   
   </mapper>

@@ -76,20 +76,4 @@
 		select * from delivery where deli_no = #{delivery_no}
 	</select>
 	
-	<select id="getOrderMaxPackageNo" resultType="int">
-		select nvl(max(order_package),0)+1 from tb_order
-	</select>
-	
-	<select id="getOrderMaxNo" resultType="int">
-		select nvl(max(order_no),0)+1 from tb_order
-	</select>
-	
-	<insert id="insertorder" parameterType="map">
-		insert into tb_order values(#{orderno}, default, sysdate, #{userId}, #{product_no}, #{amout}, #{packageno}, #{delivery_no})
-	</insert>
-	
-	
-  
-  
-  
   </mapper>
