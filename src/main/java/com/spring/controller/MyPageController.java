@@ -49,7 +49,7 @@ public class MyPageController {
 		
 		 UserDTO user_info = this.mypage_dao.getUserCont(userId);
 		 List<OrderDTO> olist = this.mypage_dao.orderContent(userId);
-		 List<Subscribe_userDTO> sub_info = this.mypage_dao.getSubCont(userId);
+		 List<Subscribe_userDTO> sub_list = this.mypage_dao.getSubList(userId);
 		 
 		 int count = this.mypage_dao.getOrderCount(userId);
 		 int order = this.mypage_dao.getOrderAllCount(userId);
@@ -59,7 +59,7 @@ public class MyPageController {
 		 
 		 model.addAttribute("user_cont", user_info);
 		 model.addAttribute("order_content", olist);
-		 model.addAttribute("sub_list", sub_info);
+		 model.addAttribute("sub_list", sub_list);
 		 model.addAttribute("count", count);
 		 model.addAttribute("order", order);
 		 model.addAttribute("refund", refund);

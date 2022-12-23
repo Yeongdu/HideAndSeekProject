@@ -146,6 +146,12 @@ h1, h2, h3, h4, h5 {
 	color: #595959;
 	min-width: 90px;
 	cursor: pointer;
+	text-shadow: 1.2px 1.2px 2.5px #abaaaa;
+}
+
+.header_wrap > li:hover {
+	color: #007bff;
+	font-size: 1.55em;
 }
 
 .header_wrap > .logo {
@@ -167,6 +173,11 @@ h1, h2, h3, h4, h5 {
   background-position: center center;
   background-size: cover;
   opacity: 1;
+}
+
+.cart_icon:hover{
+	width: 52px;
+	height: 53px;
 }
 
 .cart_circle {

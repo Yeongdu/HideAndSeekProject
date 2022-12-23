@@ -40,6 +40,11 @@ public class MyPageDAOImpl implements MyPageDAO{
 	}
 	
 	@Override
+	public List<Subscribe_userDTO> getSubList(String userId) {
+		return this.sqlSession.selectList("sub_content", userId);
+	}
+	
+	@Override
 	public void subDelete(String userId) {
 		this.sqlSession.update("sub_delete", userId);
 	}
@@ -135,8 +140,5 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public int deliveryModify(Map<String, Object> map) {
 		return this.sqlSession.update("deli_modify_ok", map);
 	}
-
-
-
 
 }

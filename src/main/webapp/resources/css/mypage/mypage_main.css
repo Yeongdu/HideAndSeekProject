@@ -39,7 +39,7 @@ main{
 /* 마이페이지 카테고리 css ===============================================================================================*/
 
 #mypage_category{
-	border: 1px solid black;
+	border: 1px solid #e9e9e9;
 	border-radius: 10px;
 	padding: 10px;
 	height: 12%;
@@ -53,7 +53,7 @@ main{
 #mypage_category_user {
 	width:30%;
 	height: 50%;
-	border-right: 1px solid black;
+	border-right: 1px solid #e9e9e9;
 	font-size: 1.5em;
 	display:flex;
 	align-items: center;
@@ -185,7 +185,33 @@ main{
 }
 
 .mypage_sub_delete{
+	margin-top: 15px;
 	color:#a7a7a7;
+	cursor:pointer;
+}
+
+.sub_table{
+	font-family: 'ChosunGu';
+	border-radius : 5px;
+	background-color: #FFD166;
+	color: white;
+	font-weight: bold;
+}
+
+.sub_table:hover{
+	background-color: #FFBD52;
+	cursor: pointer;
+}
+
+.Mclose{
+	border: 0;
+    background: #ffffff;
+    font-size: 2em;
+    color: #e9e9e9;
+}
+
+.Mclose:hover{
+	color: #bfbfbf;
 	cursor:pointer;
 }
 
@@ -213,19 +239,24 @@ main{
 }
 
 	/* 구독이 없을 시 */
-	#none_sub {
-		height: 75%;
-		width: 70%;
-		border: 1px solid black;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-	}
 	
 	#none_sub_title {
 		text-align: center;
-		font-size: 3em;
+		font-size: 1.5em;
+	}
+	
+	.sub_btn{
+		margin: 30px;
+		font-family: 'ChosunGu';
+		border-radius : 5px;
+		background-color: #FFD166;
+		color: white;
+		font-weight: bold;
+	}
+	
+	.sub_btn:hover{
+		background-color: #FFBD52;
+		cursor: pointer;
 	}
 	
 /* 주문 내역 건수 css ===============================================================================================*/
@@ -339,6 +370,7 @@ main{
 .order_thumbnail{
 	width: 100%;
     height: auto;
+    border-radius: 5px;
 }
 
 #order_info_price{
@@ -352,6 +384,29 @@ main{
 
 #order_info_price{
 	font-size: 1.5em;
+}
+
+
+/* 주문내역이 없는 경우 */
+	
+#none_order_title {
+	text-align: center;
+	font-size: 1.5em;
+}
+
+
+.order_btn{
+	margin: 30px;
+	font-family: 'ChosunGu';
+	border-radius : 5px;
+	background-color: #FFD166;
+	color: white;
+	font-weight: bold;
+}
+
+.order_btn:hover{
+	background-color: #FFBD52;
+	cursor: pointer;
 }
 
 
@@ -386,12 +441,14 @@ main{
     width: 55%;
     color: #FFBD52;
     margin-right: 20px;
+    cursor:pointer
 }
 
 .user_modifyCancle_btn{
 	color: #d1d1d1;
 	font-size: 1.2em;
     text-align: right;
+    cursor:pointer
 }
 
 .user_title {
@@ -459,6 +516,7 @@ main{
     text-align: right;
     color: #FFDEA8;
     font-weight: bold;
+    cursor:pointer
 }
 
 #user_modal {
@@ -528,19 +586,31 @@ main{
 }
 
 .user_submit{
-	margin-top: 25px;
+	margin: 25px;
+	font-family: 'ChosunGu';
+	border-radius : 5px;
+	background-color: #FFD166;
+	color: white;
+	font-weight: bold;
+}
+
+.user_submit:hover{
+	background-color: #FFBD52;
+	cursor: pointer;
 }
 
 .user_submit:disabled {
-	background-color: red;
-	color: white;
+	background-color: rgba(222,222,222,0.4);
+    color: rgba(200,200,200,0.5);
 	cursor: not-allowed;
+	font-family: 'ChosunGu';
 }
 
 .user_delete_btn{
 	color: #d1d1d1;
     text-align: right;
     font-weight: bold;
+    cursor:pointer
 }
 
 /* 리뷰 css ===============================================================================================*/
@@ -551,6 +621,7 @@ main{
     color: white;
     cursor: pointer;
 	margin-top: 10%;
+	cursor:pointer
 }
 
 .star {
@@ -885,6 +956,17 @@ main{
 .delivery_submit{
 	align-self: center;
     display: flex;
+    margin: 30px;
+	font-family: 'ChosunGu';
+	border-radius : 5px;
+	background-color: #FFD166;
+	color: white;
+	font-weight: bold;
+}
+
+.delivery_submit:hover{
+	background-color: #FFBD52;
+	cursor: pointer;
 }
 
 .delivery_main_wrap {
@@ -904,6 +986,7 @@ main{
 
 .deli_modi_btn {
 	color: #FFB317;
+	cursor:pointer
 }
 
 .delivery_name {
@@ -983,23 +1066,38 @@ main{
     line-height: normal;
     vertical-align: middle;
     background-color: #f7f7f7;
-    cursor: pointer;
     border: 1px solid #f7f7f7;
     border-bottom-color: #e2e2e2;
     border-radius: 0.25em;
     margin-left: 10px;
+    font-weight: 600;
+    color: #337AB7;
 }
 
 #zipcodebtn:hover{
-	display: inline-block;
-    padding: 0.5em 0.75em;
-    color: #337AB7;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    background-color: #f7f7f7;
+	background-color: #337AB7;
+	color: #f7f7f7;
     cursor: pointer;
-    border: 1px solid #f7f7f7;
-    border-bottom-color: #e2e2e2;
-    border-radius: 0.25em;
+}
+
+/* 배송지가 없을 때 */
+	
+#none_delivery_title {
+	text-align: center;
+	font-size: 1.5em;
+}
+
+
+.delivery_btn{
+	margin: 30px;
+	font-family: 'ChosunGu';
+	border-radius : 5px;
+	background-color: #FFD166;
+	color: white;
+	font-weight: bold;
+}
+
+.delivery_btn:hover{
+	background-color: #FFBD52;
+	cursor: pointer;
 }

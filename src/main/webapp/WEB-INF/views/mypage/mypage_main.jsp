@@ -83,7 +83,7 @@
 <div id="modal" style = 'display:none; z-index:1;'>
 	<div class="modal_body">
 		<div class="modalClose" align="right">
-			<input type = "button" value = "X">
+			<input type = "button" value = "X" class = "Mclose">
 		</div>
 			<div class = "review_select">
 				<span>리뷰 작성하기</span>
@@ -120,24 +120,20 @@
 <div id="sub_modal" style = 'display:none; z-index:1;'>
 	<div class="sub_modal_body">
 		<div class="sub_modalClose" align="right">
-			<input type = "button" value = "X">
+			<input type = "button" value = "X" class = "Mclose">
 		</div>
 			<div class = "sub_apply_table">
-				<table>
-					<tr>
-						<th>구독신청일</th> <th>패키지명<th> <th>가격</th> <th>상품1</th> <th>상품2</th> <th>상품3</th> <th>구독상태</th>
+				<table border = "1" style = "width:100%; padding:5px; margin-top: 10px;">
+					<tr style = "line-height: 40px; border-bottom: 1px double #c7c7c7;">
+						<th>구독 신청일</th> <th>패키지명</th> <th>결제 금액</th> <th>구독 상태</th>
 					</tr>
 					<c:set var = "sList" value = "${sub_list }" />
-						<c:forEach items = "${sList }" var = "sdto">
-					<tr>
-							<td>${sdto.getSub_start() }</td>
-							<td>${sdto.getSub_package() }</td>
-<%-- 							<td><fmt:formatNumber>${sdto.getSub_price() }</fmt:formatNumber>원</td> --%>
-							<c:forEach items = "${sdto.getProduct_name() }" var = "p">
-								<td>${p }</td>
-							</c:forEach>
-							<td>${sdto.getSub_status() }</td>
-						
+					<c:forEach items = "${sList }" var = "sdto">
+					<tr style = "text-align: center; margin-top: 3px; line-height: 40px;">
+						<td><fmt:formatDate value="${sdto.getSub_start() }" pattern = "yyyy년 MM월 dd일"/></td>
+						<td>${sdto.getSub_package() }</td>
+						<td><fmt:formatNumber>${sdto.getSub_price() }</fmt:formatNumber>원</td>
+						<td>${sdto.getUser_status() }</td>
 					</tr>
 					</c:forEach>
 				</table>
@@ -150,7 +146,7 @@
 <!-- 회원 삭제 모달 -->
 <div id="user_modal" style = 'display:none; z-index:1;'>
 	<div class="user_modal_body"> 
-		<div class="user_modalClose" align="right">
+		<div class="user_modalClose" align="right" class = "Mclose">
 			<input type = "button" value = "X">
 		</div>
 				<div class = "user_delete_title">
@@ -214,7 +210,7 @@
 <div id="delivery_modal" style = 'display:none; z-index:1;'>
 	<div class="delivery_modal_body" align = "center"> 
 		<div class="delivery_modalClose" align="right">
-			<input type = "button" value = "X">
+			<input type = "button" value = "X" class = "Mclose">
 		</div>
 		
 			<h3>배송지 등록</h3>
@@ -284,6 +280,38 @@
 	        }
 	   	});
 	});
+	
+	// 스크롤 이동에 따른 모달창 이동
+	
+	// 구독 모달
+	var floatPosition = parseInt($("#sub_modal").css('top'))
+	$(window).scroll(function() {
+	    var currentTop = $(window).scrollTop();
+	    var modalTop = currentTop + floatPosition + "px";
+	    $("#sub_modal").stop().animate({
+	      "top" : modalTop
+	    }, 1);
+	}).scroll();
+	
+	// 유저 모달
+	var floatPosition = parseInt($("#user_modal").css('top'))
+	$(window).scroll(function() {
+	    var currentTop = $(window).scrollTop();
+	    var modalTop = currentTop + floatPosition + "px";
+	    $("#user_modal").stop().animate({
+	      "top" : modalTop
+	    }, 1);
+	}).scroll();
+	
+	// 배송지 모달
+	var floatPosition = parseInt($("#delivery_modal").css('top'))
+	$(window).scroll(function() {
+	    var currentTop = $(window).scrollTop();
+	    var modalTop = currentTop + floatPosition + "px";
+	    $("#delivery_modal").stop().animate({
+	      "top" : modalTop
+	    }, 1);
+	}).scroll();
 	
 // 배송지 등록 ========================================================
 	
