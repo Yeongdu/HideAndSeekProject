@@ -33,6 +33,7 @@ public class MyPageController {
 	@Autowired
 	private MyPageDAO mypage_dao;
 	
+	
 	// 한 페이지당 보여질 게시물의 수
 	private final int rowsize = 3;
 
@@ -48,6 +49,8 @@ public class MyPageController {
 		
 		 UserDTO user_info = this.mypage_dao.getUserCont(userId);
 		 List<OrderDTO> olist = this.mypage_dao.orderContent(userId);
+		 List<Subscribe_userDTO> sub_info = this.mypage_dao.getSubCont(userId);
+		 
 		 int count = this.mypage_dao.getOrderCount(userId);
 		 int order = this.mypage_dao.getOrderAllCount(userId);
 		 int refund = this.mypage_dao.getRefundCount(userId);
@@ -56,6 +59,7 @@ public class MyPageController {
 		 
 		 model.addAttribute("user_cont", user_info);
 		 model.addAttribute("order_content", olist);
+		 model.addAttribute("sub_list", sub_info);
 		 model.addAttribute("count", count);
 		 model.addAttribute("order", order);
 		 model.addAttribute("refund", refund);
@@ -80,6 +84,16 @@ public class MyPageController {
 		List<Subscribe_userDTO> sub_info = this.mypage_dao.getSubCont(userId);
 		
 		return sub_info;
+		
+	}
+	
+	@RequestMapping("sub_delete.do")
+	public String sub_delete(@RequestParam("userId")String userId, @RequestParam("sub_no")int sub_no) {
+	
+		this.mypage_dao.subDelete(userId);
+		this.mypage_dao.subUserUpdate(sub_no);
+		
+		return "redirect:/main.do";
 		
 	}
 	

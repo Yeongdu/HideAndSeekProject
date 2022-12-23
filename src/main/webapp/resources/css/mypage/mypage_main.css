@@ -122,12 +122,15 @@ main{
 .mypage_sub_packagename{
 	font-size: 1.3em;	
 	margin-bottom: 1%;
+	font-weight: 600;
 }
 
 .sub_packagename {
 	display: block;
 	font-size: 1.5em;
 }
+
+
 
 .mypage_sub_date{
 	margin-bottom: 1%;
@@ -175,6 +178,38 @@ main{
 .drink1{
 	width: 100%;
 	margin-bottom: 10px;
+}
+
+.drink_name {
+	font-weight: 600;
+}
+
+.mypage_sub_delete{
+	color:#a7a7a7;
+	cursor:pointer;
+}
+
+#sub_modal{
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.sub_modal_body{
+	 position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  width: 40%;
+	  padding: 20px;
+	  text-align: center;
+	  background-color: rgb(255, 255, 255);
+	  border-radius: 10px;
+	  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	  transform: translateX(-50%) translateY(-50%);
 }
 
 	/* 구독이 없을 시 */

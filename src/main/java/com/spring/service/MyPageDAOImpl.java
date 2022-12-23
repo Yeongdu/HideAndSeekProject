@@ -39,14 +39,22 @@ public class MyPageDAOImpl implements MyPageDAO{
 		return this.sqlSession.selectList("sub_cont", userId);
 	}
 	
+	@Override
+	public void subDelete(String userId) {
+		this.sqlSession.update("sub_delete", userId);
+	}
+	
+	@Override
+	public void subUserUpdate(int sub_no) {
+		this.sqlSession.update("sub_update", sub_no);
+		
+	}
+	
 	
 	
 	@Override
 	public List<OrderDTO> getOrderCont(Map<String, Object> map) {
-
-		System.out.println("map >>> " + map);
 		return this.sqlSession.selectList("order_cont", map);
-		
 	}
 	
 	@Override
@@ -127,12 +135,8 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public int deliveryModify(Map<String, Object> map) {
 		return this.sqlSession.update("deli_modify_ok", map);
 	}
-	
-	
-
-	
 
 
-	
+
 
 }

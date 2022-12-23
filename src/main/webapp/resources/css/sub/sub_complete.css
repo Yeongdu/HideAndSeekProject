@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+html{
+	font-family: 'ChosunGu';	
+}
+
+.sub_complete_main{
+	display: flex;
+    justify-content: center;
+    padding: 5%
+}
+
+.sub_complete_wrap{
+	display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sub_complete_title{
+	font-size: 2em;
+    margin: 20px 0;
+}
+
+.sub_complete_wrap_center{
+	background-color: #ededed;
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sub_complete_package > span{
+	font-size: 1.2em;
+    font-weight: 600;
+}
+
+.sub_complete_package_wrap{
+	margin-left: 10px;
+}
+
+.complete_warning{
+	font-size: 12px;
+    font-weight: 600;
+    color: #ff00008a;
+    margin-left: 10px;
+}
+
+.sub_complete_btn{
+	margin: 30px;
+	font-family: 'ChosunGu';
+	border-radius : 5px;
+	background-color: #FFD166;
+	color: white;
+	font-weight: bold;
+}
+
+.sub_complete_btn{
+	background-color: #FFBD52;
+	cursor: pointer;
+}
