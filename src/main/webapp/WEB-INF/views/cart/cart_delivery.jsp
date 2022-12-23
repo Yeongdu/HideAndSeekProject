@@ -38,15 +38,23 @@
 		let delivery_no = $('input[name=delivery_spot]:checked').val();
 		let userId = '${userId}';
 		product_no = ${product_no};
-		cart_no = ${cart_no};
+		let cart_no = ${cart_no};
 		amount = ${amount};
+		
+		let point = 0;
+		
+		if($('input[name=point]').val() != ""){
+			point = $('input[name=point]').val();
+		}
+		
+		let price = ${sum};
 		
 		IMP.request_pay({
 	  	pg : 'kcp',
 	    pay_method : 'card',
 	    merchant_uid: "IMP"+makeMerchantUid, 
 	    name : name,
-	    amount : (${sum + delivery}),
+	    amount : (${sum + delivery} - point),
 	    buyer_email : '${email}',
 	    buyer_name : '${userId}',
 	    buyer_tel : tel,
@@ -59,7 +67,7 @@
  			msg += '결제 금액 : ' + rsp.paid_amount+'\n원';            
  			msg += '카드 승인번호 : ' + rsp.apply_num+'\n';
 
-			window.location.href = "<%=request.getContextPath() %>/insert_order.do?delivery_no="+delivery_no+"&amount="+amount+"&cart_no="+cart_no+"&product_no="+product_no+"&userId="+userId+""
+			window.location.href = "<%=request.getContextPath() %>/insert_order.do?delivery_no="+delivery_no+"&amount="+amount+"&cart_no="+cart_no+"&product_no="+product_no+"&userId="+userId+"&price="+price+"&point="+point
 
 			} else {               
  				window.history.go(-2);
@@ -120,6 +128,32 @@
 		
 	});
 
+	
+	$(document).on("change", "input[name='point']", function(){
+		
+		let point = parseInt(this.value);
+			
+		if(point > ${point}){
+			
+			swal('알림',"사용 가능한 포인트를 초과했습니다.",'warning');
+			$("input[name='point']").val("");
+			
+		}else {
+			
+			
+			let total = ${sum + delivery} - point;
+			
+			$(".bill_point").empty();
+			
+			$(".bill_footer_price").empty();
+			
+			$(".bill_point").append(point.toLocaleString('ko-KR')+"원");
+			
+			$(".bill_footer_price").append(total.toLocaleString('ko-KR') +"원");
+		}
+		
+	});
+	
 </script>
 	
 	<div class="main_wrap">
@@ -169,6 +203,14 @@
 										<div class="delivery_title">핸드폰</div>
 										<div class="phone">${dto.deli_phone1 }-${dto.deli_phone2 }-${dto.deli_phone3 }</div>
 									</div>
+									
+									<div class="delivery_point_info">
+										<div class="delivery_title">포인트</div>
+										<div class="point_info">
+											<div class="point_input"><input name="point" placeholder="사용 할 포인트를 입력해 주세요" ></div>
+											<div class="point">사용 가능한 포인트: ${point }</div>
+										</div>
+									</div>
 								</c:if>
 							</c:forEach>
 						</div>
@@ -189,6 +231,10 @@
 						<div class="bill_content_row">
 							<div>총 배송비</div>
 							<div class="bill_delivery"><fmt:formatNumber>${delivery }</fmt:formatNumber>원</div>
+						</div>
+						<div class="bill_content_row">
+							<div>포인트 사용</div>
+							<div class="bill_point">0원</div>
 						</div>
 						<div class="bill_info">
 							<div class="icon">

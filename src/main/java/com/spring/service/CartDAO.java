@@ -40,13 +40,4 @@ public interface CartDAO {
 	// 딜리버리 no에 해당하는 배송지 정보를 받아오는 메서드
 	List<DeliveryDTO> getDeliveryList(int no);
 	
-	// 오더 테이블에 맥스 패키지 값을 받아오는 메서드
-	int getOrderMaxPackageNo();
-	
-	// 오더 테이블에 맥스 오더 넘버를 받아오는 메서드
-	int getOrderMaxNo();
-	
-	// 오더 테이블에 insert 하는 메서드
-	void insertorder(Map<String, Object> map);
-	
 }

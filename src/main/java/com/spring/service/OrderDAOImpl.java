@@ -138,8 +138,54 @@ public class OrderDAOImpl implements OrderDAO{
 	public List<OrderDTO> getSamePakageOrderList(int order_pakage) {
 		return this.sqlSession.selectList("getOrderSamePakage", order_pakage);
 	}
-
-
-
 	
+	@Override
+	public int getOrderMaxPackageNo() {
+
+		return this.sqlSession.selectOne("getOrderMaxPackageNo");
+		
+	}
+
+	@Override
+	public int getOrderMaxNo() {
+
+		return this.sqlSession.selectOne("getOrderMaxNo");
+		
+	}
+
+	@Override
+	public void insertorder(Map<String, Object> map) {
+
+		this.sqlSession.insert("insertorder", map);
+		
+	}
+
+	@Override
+	public void updateProductStock(Map<String, Object> map) {
+		
+		this.sqlSession.update("updateProductStock", map);
+		
+	}
+	
+	@Override
+	public void updateMinusPoint(Map<String, Object> map) {
+		
+		this.sqlSession.update("updateMinusPoint", map);
+		
+	}
+
+	@Override
+	public void updateSavePoint(Map<String, Object> map) {
+
+		this.sqlSession.update("updateSavePoint", map);
+		
+	}
+
+	@Override
+	public void updateProductStatus(Map<String, Object> map) {
+
+		this.sqlSession.update("updateProductStatus", map);
+		
+	}
+
 }
