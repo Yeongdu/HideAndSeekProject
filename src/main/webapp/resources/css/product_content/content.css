@@ -31,6 +31,7 @@ body {
 	justify-content: center;
 	margin-bottom: 5%;
 	height: 800px;
+	/* width: 67%; */
 }
 
 .picture_1 {
@@ -53,7 +54,7 @@ body {
     margin-top: 2.5%;
     margin-left: 11%;
     border: 2px solid rgb(224, 224, 224);
-    padding: 2%;
+    padding: 1.4% 2%;
     border-radius: 2%;
 }
 
@@ -103,7 +104,7 @@ body {
 .price {
 	width: 100%;
 	color: rgb(112, 112, 112);
-	font-weight: 700;
+	font-weight: 900;
 	font-size: 30px;
 	opacity: 1;
 	line-height: 31px;
@@ -146,6 +147,7 @@ body {
 	line-height: 19px;
 	border: 0px;
 	text-align: right;
+	letter-spacing: 3px;
 }
 
 .buybtn {
@@ -203,11 +205,12 @@ body {
 }
 
 .picture_2 img {
-	max-width: 71%;
+	width: 100%;
 }
 
 .main_cont{
     vertical-align: middle;
+    width: 55%;
 }
 
 .cont1 {
@@ -253,40 +256,66 @@ textarea:focus {
 }
 
 .minus {
-	width: 157px;
-    height: 38px;
+	width: 152px;
+    height: 100%;
     background: white;
-    padding: 0 0 38px 0;
     display: inline-block;
     border: 0;
-    margin-bottom: 2%;
     font-size: 31px;
     font-family: serif;
+    border-radius: 10px;
+}
+
+.minus_border {
+	border: 1px rgb(224, 224, 224);
+    border-style: solid;
+    margin: 0;
+    padding: 0;
+    height: 57.09px;
+    border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
 }
 
 .plus {
-	width: 157px;
+	width: 152px;
+	height: 100%;
     background: white;
-    padding: 0;
     display: inline-block;
     border: 0;
     font-size: 21px;
     font-family: serif;
     font-weight: 600;
-    border: 1px rgb(224, 224, 224);
-    border-style: none none none solid;
+    border-radius: 10px;
+    padding-top: 10%;
+}
+
+.plus_border {
+	border: 1px rgb(224, 224, 224);
+    border-style: solid;
+    margin: 0;
+    padding: 0;
+    height: 57.09px;
+    border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
 }
 
 .numBox {
-	width: 157px;
-	height: 38px;
+	width: 163px;
+	height: 100%;
 	background: white;
-	font-size: 20px;
-	padding: 0;
-	padding-left: 38%;
+	font-size: 24px;
+	padding-left: 45%;
 	border: 0px;
 	display: inline-block;
-	margin-bottom: 2%;
+}
+
+.numBox_border {
+	border: 1px rgb(224, 224, 224);
+    border-style: solid none solid none;
+    margin: 0;
+    padding: 0;
+    height: 57.09px;
+	
 }
 
 .tabs {
@@ -310,7 +339,6 @@ textarea:focus {
 
 .tabs .tab01 {
 	float: left;
-	padding-top: 0.5%;
 	width: 75px;
 	height: 30px;
 	border-radius: 10px;
@@ -365,9 +393,9 @@ textarea:focus {
     width: 55.5%;
     background-color: #F4F4F4;
     border-radius: 10px;
-    padding: 1% 4% 1% 4%;
+    padding: 0.7% 4% 0.9% 4%;
     margin-top: 2%;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .review_info_product_name {
@@ -379,17 +407,28 @@ textarea:focus {
 	padding: 20 0;
 }
 
+.review_date {
+	padding-top: 3%;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+.review_name {
+	padding-top: 0.7%;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
 .review_main {
 	width: 80%;
-	margin-left: 25%;
+	margin-left: 26%;
 	margin-top: 1.5%;
 }
 
 .review_main_cont {
-	display: flex;
-    width: 73%;
-    margin-left: 76%;
+    width: auto;
     margin-top: 0.2%;
+    display: flex;
 }
 
 .review_info_star-rating {
@@ -399,9 +438,9 @@ textarea:focus {
 	unicode-bidi: bidi-override;
 	width: max-content;
 	-webkit-text-fill-color: transparent;
-	-webkit-text-stroke-width: 1.3px;
-	-webkit-text-stroke-color: rgb(254, 185, 74);
-	display: block;
+	display: flex;
+	font-size: 1.5rem;
+	margin-left: -15%;
 }
 
 .review_info_star-rat {
@@ -558,4 +597,23 @@ input[type=checkbox] {
 .border {
 	display: flex;
     justify-content: space-between;
+}
+
+.cart_count {
+	bottom: 3.5px;
+}
+
+.more {
+	color: rgb(0, 151, 243);
+    padding: 0;
+    margin-top: 70px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: white;
+    border: 1px;
+    border-style: none none solid none;
+    border-bottom-color: rgb(0, 151, 243);
+    font-family: 'ChosunGu';
+    font-weight: 600;
+    letter-spacing: initial;
 }
