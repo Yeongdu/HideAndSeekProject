@@ -42,11 +42,21 @@
  	 </select>
  	 
  	 <select id="sub_cont" parameterType="String" resultType="Subscribe_userDTO">
- 	 	select * from (select * from subscribe s join product p on s.product_no = p.product_no) sub
+ 	 <![CDATA[
+ 	 	select * from (select * from subscribe s join product p on s.product_no = p.product_no where sysdate > sub_date and sysdate < sub_enddate) sub
 		join subscribe_user su 
 		on sub.sub_package_no = su.sub_no
 		where user_id = #{userId}
+		]]>
  	 </select>
+ 	 
+ 	 <update id ="sub_delete" parameterType="int">
+ 	 	update sub_user_status set user_status = '구독취소' where user_id = #{userId}
+ 	 </update>
+ 	 
+ 	 <update id="sub_update">
+ 	 	update subscribe_user set sub_status = '취소' where sub_no = #{sub_no}
+ 	 </update>
  	 
  	 <update id="user_delete" parameterType="map">
  	 	update tb_user set user_leave = 0 where user_id = #{userId}

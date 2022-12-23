@@ -72,7 +72,7 @@ public class SubscribeController {
 		model.addAttribute("sdto", sdto);
 		model.addAttribute("ddto", ddto);
 		
-		return "sub_complete";
+		return "sub/sub_complete";
 		
 	}
 

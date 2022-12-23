@@ -30,6 +30,7 @@
         <typeAlias type="com.spring.model.ReviewDTO" alias="ReviewDTO"/>
         <typeAlias type="com.spring.model.Subscribe_userDTO" alias="Subscribe_userDTO"/>
         <typeAlias type="com.spring.model.SubscribeDTO" alias="SubscribeDTO"/>
+        <typeAlias type="com.spring.model.Sub_user_statusDTO" alias="Sub_user_statusDTO"/>
         <typeAlias type="com.spring.model.UserDTO" alias="UserDTO"/>
         <typeAlias type="com.spring.model.PageDTO" alias="PageDTO"/>
         <typeAlias type="com.spring.model.admin_productDTO" alias="admin_productDTO"/>

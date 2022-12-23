@@ -81,8 +81,8 @@ $(document).on("click", "#mypage_sub", function(){
 			    			"<div id = 'mypage_sub_wrap'>" + "<img src = 'resources/image/loading_new.gif' class = 'mypage_loading'>" +
 					    			/* "<div class = 'mypage_sub_pacakge_image'> " + "<img src = 'resources/image/" + item.sub_image + "' class = 'sub_image'>" + "</div>" + */
 					    			"<div class = 'mypage_sub_info'>" +
-						    			"<div class = 'mypage_sub_packagename'> <span class = 'sub_packagename'>현재 구독중인 패키지</span>" +"「"+ item.sub_package + "」</div>" + "<hr>" +
-									"<div class ='sub_package' align = 'center'> <span class = 'package_name'>받아보신 패키지 술</span>" + "<hr>"+
+						    			"<div class = 'mypage_sub_packagename'> <span class = 'sub_packagename'>현재 구독중인 패키지</span></div>" + "<hr>" +
+									"<div class ='sub_package' align = 'center'> <span class = 'package_name'>" +"「"+ item.sub_package + "」</span>" + "<hr>"+
 									"<div class = 'sub_drinks'>";
 			    		
 									$.each(result, function(index, sub_item){
@@ -92,11 +92,12 @@ $(document).on("click", "#mypage_sub", function(){
 										"<span class = 'drick_dosu'>도수 : " + sub_item.product_alcohol + "%</span>" +
 									"</div>" ;
 	    						});
-						res +=
+						res +=	
 								"</div>" +
+								"<input type = 'button' class = 'sub_table' value = '구독 이력보기'>" +
 								"</div>" +
 								"<div class = 'mypage_sub_date'>" + item.sub_end + "<span>이후 새로운 패키지가 발송됩니다. </span> " +"</div>" +
-								"<div class = 'mypage_sub_delete' onclick = 'sub_delete("+item.sub_enddate+")'>" +
+								"<div class = 'mypage_sub_delete' onclick = 'sub_delete("+id+","+item.sub_no+")'>구독 취소" +
 					    		"</div>" +
 					    		"</div>";
 			    		});
@@ -120,9 +121,38 @@ $(document).on("click", "#mypage_sub", function(){
 	
 }); // 구독관리 열기 - onclick 끝
 
-function sub_delete(date){
-	console.log("date >>> " + date);
+function sub_delete(id,no){
+	
+	swal("정말로 구독을 취소하시겠습니까?",{
+		buttons: {
+		    cancel: "아니오",
+		    yes: {
+		      text: "예",
+		      value: "yes",
+		    },
+		},
+		})
+		.then((value) => {
+		  if (value) {
+		    swal("구독이 취소되었습니다.", {
+		      icon: "success",
+		      text : "구독 패키지는 결제된 다음달 패키지까지만 배송됩니다."
+		    });
+		    location.href = "sub_delete.do?userId="+id+"&sub_no="+no;
+		  } else {
+		    swal("구독을 취소하지 않았습니다.");
+		  }
+		});
+	
 }
+
+$(document).on("click", ".sub_table", function(){
+	$("#sub_modal").fadeIn(300);
+});
+
+$(document).on("click", ".sub_modalClose", function(){
+	$("#sub_modal").fadeOut(300);
+});
 
 $(document).on("click", "#mypage_sub-active", function(){
 	$("#mypage_sub-active").attr("id","mypage_sub");

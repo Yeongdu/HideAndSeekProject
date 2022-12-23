@@ -127,6 +127,7 @@
 		requestPay();
 		
 	});
+
 	
 	$(document).on("change", "input[name='point']", function(){
 		

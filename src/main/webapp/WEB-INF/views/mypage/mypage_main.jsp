@@ -115,6 +115,38 @@
 	</div>
 </div> 
 
+
+<!-- 구독 이력 모달 -->
+<div id="sub_modal" style = 'display:none; z-index:1;'>
+	<div class="sub_modal_body">
+		<div class="sub_modalClose" align="right">
+			<input type = "button" value = "X">
+		</div>
+			<div class = "sub_apply_table">
+				<table>
+					<tr>
+						<th>구독신청일</th> <th>패키지명<th> <th>가격</th> <th>상품1</th> <th>상품2</th> <th>상품3</th> <th>구독상태</th>
+					</tr>
+					<c:set var = "sList" value = "${sub_list }" />
+						<c:forEach items = "${sList }" var = "sdto">
+					<tr>
+							<td>${sdto.getSub_start() }</td>
+							<td>${sdto.getSub_package() }</td>
+<%-- 							<td><fmt:formatNumber>${sdto.getSub_price() }</fmt:formatNumber>원</td> --%>
+							<c:forEach items = "${sdto.getProduct_name() }" var = "p">
+								<td>${p }</td>
+							</c:forEach>
+							<td>${sdto.getSub_status() }</td>
+						
+					</tr>
+					</c:forEach>
+				</table>
+			</div>
+	</div>
+</div> 
+
+
+
 <!-- 회원 삭제 모달 -->
 <div id="user_modal" style = 'display:none; z-index:1;'>
 	<div class="user_modal_body"> 
