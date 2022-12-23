@@ -198,6 +198,7 @@
 			
 		});
 		
+		
 		$(document).on("click", ".insert_button", function(){
 			
 			let count = $("input:checkbox[name=price]:checked").length;
@@ -241,14 +242,6 @@
 				}
 				
 			}
-			
-			console.log("product_no 값 >>> " + product_no);
-			console.log("cart_no 값 >>> " + amount);
-			console.log("amount 값 >>> " + amount);
-			console.log("name 값 >>> " + name);
-			console.log("sum 값 >>> " + sum);
-			console.log("delivery 값 >>> " + delivery);
-			console.log("userId 값 >>> " + id);
 			
 			window.location.href = "<%=request.getContextPath() %>/cart_delivery.do?product_no="+product_no+"&cart_no="+cart_no+"&amount="+amount+"&name="+encodeURIComponent(name)+"&sum="+sum+"&delivery="+delivery+"&userId="+id+""
 			
