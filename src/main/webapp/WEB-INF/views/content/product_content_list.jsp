@@ -72,13 +72,13 @@
 				<form name="form" method="get">
 					<span class="su">수량</span>
 					<div class="border">
-						<div style="width: 80px; margin: 0;">
+						<div class="minus_border" style="margin: 0;">
 							<input type="button" class="minus" value=" - " onclick="del();">
 					 	</div> 
-					 	<div style="width: 80px; margin: 0;">
+					 	<div class="numBox_border" style="margin: 0;">
 							<input type="text" class="numBox" name="amount" min="1" max="${pdto.product_stock}" value="1" size="3" onchange="change();">
 						</div>
-						<div style="width: 80px; margin: 0;">
+						<div class="plus_border" style="margin: 0;">
 							<input type="button" class="plus" value=" + " onclick="add();">
 						</div>
 					</div>
@@ -144,8 +144,8 @@
 				<div id="tab01" class="tab-contents">
 					<div class="data_header">
 						<div class="wrapper flex">
-							<div class="search_result flex">
-								<input class="check_pic" type="checkbox" name="checkbox">포토리뷰만 보기
+							<div class="search_result flex" style="width: 6%">
+								<input class="check_pic" type="checkbox" name="checkbox">&nbsp;&nbsp;포토리뷰만 보기
 							</div>
 							<div class="sort-wrapper flex">
 								<div class="sort-box">
@@ -164,8 +164,8 @@
 					<c:forEach items="${rlist }" var="rdto">
 					<div class="review_cont_top">
 						<div class="review_top">
-							<div>
-							<span class="review_info_product_name">${rdto.getUser_id() }</span>
+							<div class="review_name">
+								<span class="review_info_product_name">${rdto.getUser_id() }</span>
 							</div>
 							<div class="review_main_cont" align="right">
 								<div class="review_info_star-rating">
@@ -176,7 +176,9 @@
 		    							<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 		    						</div>
 		    					</div>
-								<fmt:formatDate pattern="yyyy년 MM월 dd일" value="${rdto.getReview_date() }" />
+		    					<div class="review_date">
+									<fmt:formatDate pattern="yyyy년 MM월 dd일" value="${rdto.getReview_date() }" />
+								</div>
 							</div>
 						</div>
 						<div class="review_main" align="left">
@@ -263,7 +265,7 @@
 						$.each(data, function(index, item){
 								html += "<div class='review_cont_top'>"
 								html += "<div class='review_top'>"
-								html += "<div>"
+								html += "<div class='review_name'>"
 								html += "<span class='review_info_product_name'>"+item.user_id+"</span>"
 								html += "</div>"
 								html += "<div class='review_main_cont' align='right'>"
@@ -275,7 +277,9 @@
 								html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
 								html += "</div>"
 								html += "</div>"
+								html += "<div class='review_date'>"
 								html += item.review_date
+								html += "</div>"
 								html += "</div>"
 								html += "</div>"
 								html += "<div class='review_main' align='left'>"
@@ -316,7 +320,7 @@
 							console.log(count);
 							html += "<div class='review_cont_top'>"
 							html += "<div class='review_top'>"
-							html += "<div>"
+							html += "<div class='review_name'>"
 							html += "<span class='review_info_product_name'>"+item.user_id+"</span>"
 							html += "</div>"
 							html += "<div class='review_main_cont' align='right'>"
@@ -328,7 +332,9 @@
 							html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
 							html += "</div>"
 							html += "</div>"
+							html += "<div class='review_date'>"
 							html += item.review_date
+							html += "</div>"
 							html += "</div>"
 							html += "</div>"
 							html += "<div class='review_main' align='left'>"
@@ -382,7 +388,7 @@
 						$.each(data, function(index, item){
 								html += "<div class='review_cont_top'>"
 								html += "<div class='review_top'>"
-								html += "<div>"
+								html += "<div class='review_name'>"
 								html += "<span class='review_info_product_name'>"+item.user_id+"</span>"
 								html += "</div>"
 								html += "<div class='review_main_cont' align='right'>"
@@ -394,7 +400,9 @@
 								html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
 								html += "</div>"
 								html += "</div>"
+								html += "<div class='review_date'>"
 								html += item.review_date
+								html += "</div>"
 								html += "</div>"
 								html += "</div>"
 								html += "<div class='review_main' align='left'>"
@@ -434,7 +442,7 @@
 							$.each(data, function(index, item){
 									html += "<div class='review_cont_top'>"
 									html += "<div class='review_top'>"
-									html += "<div>"
+									html += "<div class='review_name'>"
 									html += "<span class='review_info_product_name'>"+item.user_id+"</span>"
 									html += "</div>"
 									html += "<div class='review_main_cont' align='right'>"
@@ -446,7 +454,9 @@
 									html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
 									html += "</div>"
 									html += "</div>"
+									html += "<div class='review_date'>"
 									html += item.review_date
+									html += "</div>"
 									html += "</div>"
 									html += "</div>"
 									html += "<div class='review_main' align='left'>"
@@ -503,7 +513,7 @@
 						if(item.review_file != null) {
 							html += "<div class='review_cont_top'>"
 							html += "<div class='review_top'>"
-							html += "<div>"
+							html += "<div class='review_name'>"
 							html += "<span class='review_info_product_name'>"+item.user_id+"</span>"
 							html += "</div>"
 							html += "<div class='review_main_cont' align='right'>"
@@ -515,7 +525,9 @@
 							html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
 							html += "</div>"
 							html += "</div>"
+							html += "<div class='review_date'>"
 							html += item.review_date
+							html += "</div>"
 							html += "</div>"
 							html += "</div>"
 							html += "<div class='review_main' align='left'>"
@@ -551,7 +563,7 @@
 						if(item != "null") {
 							html += "<div class='review_cont_top'>"
 							html += "<div class='review_top'>"
-							html += "<div>"
+							html += "<div class='review_name'>"
 							html += "<span class='review_info_product_name'>"+item.user_id+"</span>"
 							html += "</div>"
 							html += "<div class='review_main_cont' align='right'>"
@@ -563,7 +575,9 @@
 							html += "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>"
 							html += "</div>"
 							html += "</div>"
+							html += "<div class='review_date'>"
 							html += item.review_date
+							html += "</div>"
 							html += "</div>"
 							html += "</div>"
 							html += "<div class='review_main' align='left'>"
