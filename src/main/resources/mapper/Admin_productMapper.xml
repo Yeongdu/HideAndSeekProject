@@ -130,8 +130,24 @@
 		
 	</select>
 	
-	<select id="getProductCateSortList" parameterType="String" resultType="admin_productDTO">
-  		select * from product where product_category = #{product_category}
+<!-- 	<select id="getProductCateSortListTakju" resultType="admin_productDTO"> -->
+<!--   		select * from product where product_category = 'takju' -->
+<!--   	</select> -->
+  	
+<!-- 	<select id="getProductCateSortChungjuList" resultType="admin_productDTO"> -->
+<!--   		select * from product where product_category = 'chungju' -->
+<!--   	</select> -->
+  	
+<!-- 	<select id="getProductCateSortWineList" resultType="admin_productDTO"> -->
+<!--   		select * from product where product_category = 'wine' -->
+<!--   	</select> -->
+  	
+<!-- 	<select id="getProductCateSortSojuList" resultType="admin_productDTO"> -->
+<!--   		select * from product where product_category = 'soju' -->
+<!--   	</select> -->
+  	
+	<select id="getCateProductList" resultType="ProductDTO">
+  		select * from product where product_category = #{category} order by product_date desc
   	</select>
 
   

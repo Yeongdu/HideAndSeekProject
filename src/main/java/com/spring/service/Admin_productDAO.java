@@ -74,7 +74,13 @@ public interface Admin_productDAO {
     int productUpdateWithoutThumbnail(admin_productDTO adto);
     
     //카테고리 별 상품 전체 목록
-    List<admin_productDTO> getProductCateSortList(String product_category);
+    List<admin_productDTO> getProductCateSortTakjuList();
+    List<admin_productDTO> getProductCateSortChungjuList();
+    List<admin_productDTO> getProductCateSortWineList();
+    List<admin_productDTO> getProductCateSortSojuList();
+    
+    //카테고리별 상품 목록
+    List<ProductDTO> getCateProductList(String category);
 	
 
 }

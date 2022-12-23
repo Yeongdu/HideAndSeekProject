@@ -26,6 +26,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
@@ -1302,12 +1303,26 @@ public class AdminController {
 		return "admin/admin_subscribe";
 	}
 	
-	//구독 등록
 	@RequestMapping("/admin_sub_insert")
-	public String admin_sub_insert(Model model) {
-		List<Product_categoryDTO> cateList = this.dao.getCategoryList();
-		model.addAttribute("CategoryList", cateList);
+	public String admin_sub_insert() {
+		
+		
 		return "admin/admin_sub_insert";
+	}
+	
+	
+	
+	//구독 등록
+	@RequestMapping("/admin_sub_list")
+	@ResponseBody
+	public List<ProductDTO> admin_sub_list(@RequestParam("category") String category
+			) {
+		
+		System.out.println("category 값 >>> " + category);
+		List<ProductDTO> List = this.apdao.getCateProductList(category);
+		System.out.println("List 값 >>> " + List);
+
+		return List;
 	}
 	
 	

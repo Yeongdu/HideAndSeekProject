@@ -143,8 +143,30 @@ public class Admin_productDAOImpl implements Admin_productDAO{
 	}
 
 	@Override
-	public List<admin_productDTO> getProductCateSortList(String product_category) {
-		return this.sqlSession.selectList("getProductCateSortList", product_category);
+	public List<admin_productDTO> getProductCateSortTakjuList() {
+		return this.sqlSession.selectList("getProductCateSortListTakju");
 	}
+
+	@Override
+	public List<admin_productDTO> getProductCateSortChungjuList() {
+		return this.sqlSession.selectList("getProductCateSortChungjuList");
+	}
+
+	@Override
+	public List<admin_productDTO> getProductCateSortWineList() {
+		return this.sqlSession.selectList("getProductCateSortWineList");
+	}
+
+	@Override
+	public List<admin_productDTO> getProductCateSortSojuList() {
+		return this.sqlSession.selectList("getProductCateSortSojuList");
+	}
+
+	@Override
+	public List<ProductDTO> getCateProductList(String category) {
+		return this.sqlSession.selectList("getCateProductList",category);
+	}
+	
+	
 
 }
