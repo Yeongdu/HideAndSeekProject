@@ -74,13 +74,13 @@ public class Admin_productDAOImpl implements Admin_productDAO{
 		return this.sqlSession.insert("adminProductInsertt", adto);
 	}
 
-	//ÆÇ¸ÅÁß -> ÆÇ¸ÅÁßÁö(Ç°Àý)
+	//ï¿½Ç¸ï¿½ï¿½ï¿½ -> ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½(Ç°ï¿½ï¿½)
 	@Override
 	public int productStatusChange(int product_no) {
 		return this.sqlSession.update("productStatusChange", product_no);
 	}
 
-	//ÆÇ¸ÅÁßÁö(Ç°Àý) -> ÆÇ¸ÅÁß
+	//ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½(Ç°ï¿½ï¿½) -> ï¿½Ç¸ï¿½ï¿½ï¿½
 	@Override
 	public int productStatusChange2(int product_no) {
 		return this.sqlSession.update("productStatusChange2", product_no);
@@ -140,6 +140,11 @@ public class Admin_productDAOImpl implements Admin_productDAO{
 	@Override
 	public int productUpdateWithoutThumbnail(admin_productDTO adto) {
 		return this.sqlSession.update("adminProductUpdateWithoutThumbnail", adto);
+	}
+
+	@Override
+	public List<admin_productDTO> getProductCateSortList(String product_category) {
+		return this.sqlSession.selectList("getProductCateSortList", product_category);
 	}
 
 }

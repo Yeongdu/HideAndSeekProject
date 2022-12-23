@@ -37,6 +37,7 @@ import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
 import com.spring.model.Product_categoryDTO;
 import com.spring.model.Product_contentDTO;
+import com.spring.model.SubscribeDTO;
 import com.spring.model.UserDTO;
 import com.spring.model.admin_productDTO;
 import com.spring.model.admin_product_contentDTO;
@@ -47,6 +48,7 @@ import com.spring.service.EventDAO;
 import com.spring.service.OrderDAO;
 import com.spring.service.ProductDAO;
 import com.spring.service.Product_contentDAO;
+import com.spring.service.SubscribeDAO;
 
 
 @Controller
@@ -72,6 +74,9 @@ public class AdminController {
 	
 	@Autowired
 	private EventDAO edao;
+	
+	@Autowired
+	private SubscribeDAO sdao;
 	
 	// 한 페이지당 보여질 게시물의 수
 	private final int rowsize = 10;
@@ -1283,9 +1288,28 @@ public class AdminController {
 		} else {
 			out.println("<script> alert('이벤트 수정 실패했습니다.'); history.back(); </script>");
 		}
-		
-
 	}
+	
+	//구독 관리
+	@RequestMapping("/admin_subscribe.do")
+	public String admin_subscribe(HttpServletRequest request, Model model) {
+		SubscribeDTO dto = sdao.subCont();
+		List<SubscribeDTO> list = sdao.getAllsubscribeList();
+		model.addAttribute("currentSub", dto);
+		model.addAttribute("list", list);
+		
+		
+		return "admin/admin_subscribe";
+	}
+	
+	//구독 등록
+	@RequestMapping("/admin_sub_insert")
+	public String admin_sub_insert(Model model) {
+		List<Product_categoryDTO> cateList = this.dao.getCategoryList();
+		model.addAttribute("CategoryList", cateList);
+		return "admin/admin_sub_insert";
+	}
+	
 	
 	
 	
