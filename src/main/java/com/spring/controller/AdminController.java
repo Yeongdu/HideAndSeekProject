@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -39,6 +40,7 @@ import com.spring.model.ProductDTO;
 import com.spring.model.Product_categoryDTO;
 import com.spring.model.Product_contentDTO;
 import com.spring.model.SubscribeDTO;
+import com.spring.model.Subscribe_userDTO;
 import com.spring.model.UserDTO;
 import com.spring.model.admin_productDTO;
 import com.spring.model.admin_product_contentDTO;
@@ -46,10 +48,14 @@ import com.spring.service.Admin_productDAO;
 import com.spring.service.Admin_product_contentDAO;
 import com.spring.service.Admin_userDAO;
 import com.spring.service.EventDAO;
+import com.spring.service.MyPageDAO;
 import com.spring.service.OrderDAO;
 import com.spring.service.ProductDAO;
 import com.spring.service.Product_contentDAO;
 import com.spring.service.SubscribeDAO;
+import com.spring.service.Subscribe_userDAO;
+
+import oracle.net.aso.p;
 
 
 @Controller
@@ -78,6 +84,13 @@ public class AdminController {
 	
 	@Autowired
 	private SubscribeDAO sdao;
+	
+	@Autowired
+    private MyPageDAO mdao;
+	
+	@Autowired
+	private Subscribe_userDAO sudao;
+	
 	
 	// 한 페이지당 보여질 게시물의 수
 	private final int rowsize = 10;
@@ -958,12 +971,17 @@ public class AdminController {
 	
 	//유저 상세정보
 	@RequestMapping("admin_user_content.do")
-	public String admin_user_cont(@RequestParam("no") int no, @RequestParam("page") int page , Model model) {
-		UserDTO udto = this.audao.getUserCont(no);
-		model.addAttribute("udto", udto);
-		model.addAttribute("page", page);
-		return "admin/admin_user_cont";
-	}
+    public String admin_user_cont(@RequestParam("no") int no, @RequestParam("page") int page , @RequestParam("userId")String userId, Model model) {
+        UserDTO udto = this.audao.getUserCont(no); // 유저 정보
+        List<OrderDTO> olist = this.mdao.orderContent(userId ); // 유저 주문 정보
+        List<Subscribe_userDTO> slist = this.mdao.getSubList(userId); // 유저 구독 정보 
+
+        model.addAttribute("olist", olist);
+        model.addAttribute("slist", slist);
+        model.addAttribute("udto", udto);
+        model.addAttribute("page", page);
+        return "admin/admin_user_cont";
+    }
 	
 
 	//유저 수정
@@ -1324,6 +1342,65 @@ public class AdminController {
 
 		return List;
 	}
+	
+	//구독 등록 완료
+	@RequestMapping("/admin_sub_insert_ok.do")
+	public void insertSubOk(@RequestParam("sub_package") String sub_package,
+			@RequestParam("sub_date") String sub_date,
+			@RequestParam("sub_date_time") String sub_date_time,
+			@RequestParam("sub_enddate") String sub_enddate,
+			@RequestParam("sub_date_endtime") String sub_date_endtime,
+			@RequestParam("sub_item1") int sub_item1,
+			@RequestParam("sub_item2") int sub_item2,
+			@RequestParam("sub_item3") int sub_item3,
+			@RequestParam("sub_price") int sub_price,
+			HttpServletResponse response, Model model, SubscribeDTO dto) {
+		
+//		dto.setSub_date(sub_date + " " + sub_date_time);
+//		dto.setSub_enddate(sub_enddate + " " + sub_date_endtime);
+		
+		String sub_dateString = sub_date + " " + sub_date_time;
+		String sub_enddateString = sub_enddate + " " + sub_date_endtime;
+		List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
+				
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("product_no1", sub_item1);
+//		map.put("product_no2", sub_item2);
+//		map.put("product_no3", sub_item3);
+		map.put("sub_date", sub_dateString);
+		map.put("sub_enddate", sub_enddateString);
+		map.put("sub_package",sub_package);
+		map.put("sub_price",sub_price);
+
+		listMap.add(map);
+		
+		
+		Map<String, Object> map2 = new HashMap<String, Object>();
+//		map.put("product_no1", sub_item1);
+		map.put("product_no2", sub_item2);
+//		map.put("product_no3", sub_item3);
+		map.put("sub_date", sub_dateString);
+		map.put("sub_enddate", sub_enddateString);
+		map.put("sub_package",sub_package);
+		map.put("sub_price",sub_price);
+		
+		listMap.add(map2);
+		
+		
+		Map<String, Object> map3 = new HashMap<String, Object>();
+//		map.put("product_no1", sub_item1);
+//		map.put("product_no2", sub_item2);
+		map.put("product_no3", sub_item3);
+		map.put("sub_date", sub_dateString);
+		map.put("sub_enddate", sub_enddateString);
+		map.put("sub_package",sub_package);
+		map.put("sub_price",sub_price);
+		
+		listMap.add(map3);
+		
+		
+	}
+	
 	
 	
 	
