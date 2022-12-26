@@ -87,5 +87,8 @@ public interface OrderDAO {
   	
   	// 주문 후 해당 상품의 재고가 0이면 판매상태를 품절로 바꿔주는 메서드
    	void updateProductStatus(Map<String, Object> map);
+   	
+   	// 유저 이름에 해당하는 주문 내역을 출력하는 메서드
+   	List<OrderDTO> getOrderList(String userId);
   	
 }

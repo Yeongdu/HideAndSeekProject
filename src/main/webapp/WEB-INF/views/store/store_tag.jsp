@@ -57,9 +57,9 @@
 							</c:if>
 							
 							<c:if test="${category != 'wine' }">
-								<span class="label">약·청주</span>
+								<span class="label">과실주</span>
 							</c:if>
-						</div>
+						</div>	
 					</a>
 				</li>
 				
@@ -493,6 +493,14 @@
 											</div>
 										</div>
 									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="container">
+							<div class="filter_search">
+								<div class="search_info">
+									<input name="search_keyword" class="search_keyword" placeholder="검색어를 입력하세요" value = "${keyword }">
 								</div>
 							</div>
 						</div>

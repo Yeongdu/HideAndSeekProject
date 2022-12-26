@@ -312,6 +312,7 @@ public class ProductController {
 						  @RequestParam(value = "minprice", required = false) Integer minprice,
 						  @RequestParam(value = "maxprice", required = false) Integer maxprice,
 						  @RequestParam(value = "category", required = false) String category,
+						  @RequestParam(value = "search_keyword", required = false)String keyword,
 						  Model model) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -344,9 +345,15 @@ public class ProductController {
 			map.put("maxprice", maxprice);
 		}
 		
+		if(keyword != null) {
+			map.put("keyword", keyword);
+		}
+		
 		map.put("category", category);
 		
 		totalRecord = this.dao.getListTagCount(map);
+		
+		System.out.println("total >>> " + totalRecord);
 		 
 		int page = 1;
 		
@@ -381,6 +388,8 @@ public class ProductController {
 		model.addAttribute("list", list);
 
 		model.addAttribute("page", dto);
+		
+		model.addAttribute("keyword", keyword);
 
 		return "store/store_tag";
 		 
@@ -432,6 +441,7 @@ public class ProductController {
 									@RequestParam(value = "minprice", required = false) Integer minprice,
 									@RequestParam(value = "maxprice", required = false) Integer maxprice,
 									@RequestParam(value = "category", required = false) String category,
+									@RequestParam(value = "keyword", required = false)String keyword,
 									@RequestParam("sort") String sort) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -462,6 +472,10 @@ public class ProductController {
 		
 		if(maxprice != null) {
 			map.put("maxprice", maxprice);
+		}
+		
+		if(keyword != null) {
+			map.put("keyword", keyword);
 		}
 		
 		map.put("category", category);
