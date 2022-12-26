@@ -28,6 +28,21 @@
   		sub_package_no, sub_package, sub_image, sub_date, sub_enddate, sub_price from subscribe 
   		order by sub_package_no desc
   	</select>
+  	
+<!--   	<insert id="admin_all_sub_list" parameterType="java.util.List"> -->
+ 
+<!--     INSERT ALL -->
+    
+<!--     <foreach collection="list" item="item" index="index"  open="" separator=" " close="SELECT * FROM DUAL"> -->
+    
+<!--     INTO TABLE_NAME -->
+<!--         (TEST_ID, TEST_NAME, UPDATE_DATE, IP_ADDRESS) -->
+<!--     VALUES -->
+<!--         (#{item.test_id}, #{item.test_name}, SYSDATE, (SELECT SYS_CONTEXT ('USERENV', 'IP_ADDRESS') FROM DUAL)) -->
+        
+<!--     </foreach> -->
+ 
+<!-- 	</insert> -->
   
   
   
