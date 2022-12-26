@@ -48,7 +48,6 @@
 			</div>
 		</div>
 
-<!-- 		<div class="product_size"> -->
 			<div class="product_cont" align="left">
 				<span class="name">${pdto.product_name }</span>
 
@@ -121,10 +120,10 @@
 					<c:if test="${pdto.product_status == '품절'}" >
 						<div class="mbtn">
 							<div class="bbtn">
-				   				<input type="button" class="buybtn" style="color: red" value="바로 구매">
+				   				<input type="button" class="buybtn" style="background-color: rgb(178, 178, 178); border: 0; color: white;" value="바로 구매">
 				   			</div>
 				   			<div class="cbtn">
-				   				<input type="button" class="cartbtn" style="color: red" value="장바구니">
+				   				<input type="button" class="cartbtn" style="background-color: rgb(178, 178, 178); border: 0; color: white;" value="장바구니">
 				   			</div>
 				   		</div>
 					</c:if>
@@ -140,8 +139,9 @@
 				   	</c:if>
 			   	</c:if>
 			</div>
-<!-- 		</div> -->
-	</div>
+		</div>
+		
+		<hr class="hr">
 
 		<div class="main_cont">
 			<div class="picture_2">
@@ -186,15 +186,15 @@
 				<div id="tab01" class="tab-contents">
 					<div class="data_header">
 						<div class="wrapper flex">
-							<div class="search_result flex" style="width: 6%">
+							<div class="search_result flex">
 								<input class="check_pic" type="checkbox" name="checkbox">&nbsp;&nbsp;포토리뷰만 보기
 							</div>
 							<div class="sort-wrapper flex">
 								<div class="sort-box">
 									<select class="sort-menu" name="sort">
-										<option value="release" selected>최신순</option>
-										<option value="rating_high">평점 높은 순</option>
-										<option value="rating_low">평점 낮은 순</option>
+										<option style="background-color: white;" value="release" selected>최신순</option>
+										<option style="background-color: white;" value="rating_high">평점 높은 순</option>
+										<option style="background-color: white;" value="rating_low">평점 낮은 순</option>
 									</select>
 								</div>
 							</div>
