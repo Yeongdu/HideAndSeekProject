@@ -29,5 +29,12 @@
   	<select id="subList" resultType="Subscribe_userDTO">
   		select * from subscribe_user
   	</select>
+  	
+  	<select id="sub_user_list" resultType="Subscribe_userDTO" parameterType="String">
+  		select su.sub_start, su.user_status, su.sub_package, d.deli_addr1, d.deli_addr2 
+		from subscribe_user su join delivery d 
+		on su.deli_no = d.deli_no 
+		where su.user_id = #{userId} order by su.sub_start desc;
+  	</select>
   
   </mapper>

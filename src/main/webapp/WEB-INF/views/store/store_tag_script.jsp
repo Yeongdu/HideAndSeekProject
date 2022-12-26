@@ -868,6 +868,7 @@ $(function(){
 				material : list.material,
 				minprice : list.minprice,
 				maxprice : list.maxprice,
+				keyword : list.keyword,
 				category : "${category}",
 				sort : sort
 				},
@@ -944,6 +945,7 @@ $(function(){
 				material : list.material,
 				minprice : list.minprice,
 				maxprice : list.maxprice,
+				keyword : list.keyword,
 				category : "${category}",
 				sort : sort
 				},

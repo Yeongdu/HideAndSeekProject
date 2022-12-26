@@ -151,6 +151,10 @@
 		update product set product_status = '품절' where product_no = #{product_no} and product_stock = 0
 	</update>
 	
+	<select id="orderUser_List" resultType="OrderDTO" parameterType="String">
+		select * from tb_order tbo join product p on tbo.product_no = p.product_no where user_id =#{userId}
+	</select>
+	
 	
   
   </mapper>

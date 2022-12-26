@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="dto" value="${udto }" />
-
+<c:set var = "olist" value = "${olist }" />
+<c:set var = "slist" value = "${slist }" />
 <c:set var="page" value="${page }" />
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
@@ -148,7 +149,37 @@
 	</span>
 </div>
 
-<div></div>
+<div id = "adminUser_bottom">
+<div class = "adminUser_order">
+	<table class = "adminUser_order_table" border = "1">
+		<tr>
+			<th>주문일</th> <th>상품명</th> <th>수량</th> <th>가격</th> <th>주문상태</th>
+		</tr>
+		<tr>
+			<c:if test="${!empty olist }">
+			<c:forEach items = "${olist }" var = "odto">
+				<td><fmt:formatDate value="${odto.getOrder_date() }" pattern = "yyyy년 MM월 dd일"/> </td>
+				<td>${odto.getProduct_name() }</td>
+				<td>${odto.getOrder_amount() }개</td>
+				<td><fmt:formatNumber>${odto.getProduct_price()*odto.getOrder_amount() }</fmt:formatNumber>원</td>
+				<td>${odto.getOrder_status() }</td>
+			</c:forEach>
+			</c:if>
+			
+			<c:if test="${empty olist }">
+				<td colspan = "5">주문한 상품이 없습니다</td>
+			</c:if>
+		</tr>
+	</table>
+</div>
+
+<div class = "adminUser_sub">
+	<table class = "adminUser_sub_table" border = "1">
+		<tr>구독일</tr>
+	</table>
+</div>
+
+</div>
 
 
 

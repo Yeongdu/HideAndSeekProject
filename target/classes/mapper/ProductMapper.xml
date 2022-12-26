@@ -164,6 +164,10 @@
 		<if test="maxprice != null">
 			and product_price <![CDATA[<=]]> #{maxprice}
 		</if>
+		
+		<if test="keyword != null">
+			and (product_name like '%' || #{keyword} || '%') or (product_introduce1 like '%' || #{keyword} || '%') or (product_introduce2 like '%' || #{keyword} || '%')
+		</if>
 	</select>
 	
 	<!-- 최신순으로 필터 정렬된 상품들을 불러오는 메서드 -->
@@ -202,6 +206,11 @@
 		<if test="maxprice != null">
 			and product_price <![CDATA[<=]]> #{maxprice}
 		</if> 
+		
+		<if test="keyword != null">
+			and (product_name like '%' || #{keyword} || '%') or (product_introduce1 like '%' || #{keyword} || '%') or (product_introduce2 like '%' || #{keyword} || '%')
+		</if>
+		
 		) where rnum >= #{startNo} and rnum <![CDATA[<=]]> #{endNo} order by product_date desc
 	</select>
 	
@@ -245,6 +254,11 @@
 		<if test="maxprice != null">
 			and product_price <![CDATA[<=]]> #{maxprice}
 		</if>
+		
+		<if test="keyword != null">
+			and (product_name like '%' || #{keyword} || '%') or (product_introduce1 like '%' || #{keyword} || '%') or (product_introduce2 like '%' || #{keyword} || '%')
+		</if>
+		
 		) where SEQ >= #{startNo} and SEQ <![CDATA[<=]]> #{endNo}
 	</select>
 	
@@ -288,6 +302,11 @@
 		<if test="maxprice != null">
 			and product_price <![CDATA[<=]]> #{maxprice}
 		</if>
+		
+		<if test="keyword != null">
+			and (product_name like '%' || #{keyword} || '%') or (product_introduce1 like '%' || #{keyword} || '%') or (product_introduce2 like '%' || #{keyword} || '%')
+		</if>
+		
 		) where SEQ >= #{startNo} and SEQ <![CDATA[<=]]> #{endNo}
 	</select>
 	
@@ -331,6 +350,11 @@
 		<if test="maxprice != null">
 			and product_price <![CDATA[<=]]> #{maxprice}
 		</if>
+		
+		<if test="keyword != null">
+			and (product_name like '%' || #{keyword} || '%') or (product_introduce1 like '%' || #{keyword} || '%') or (product_introduce2 like '%' || #{keyword} || '%')
+		</if>
+		
 		) where SEQ >= #{startNo} and SEQ <![CDATA[<=]]> #{endNo}
 	</select>
 	
@@ -370,6 +394,11 @@
 		<if test="maxprice != null">
 			and product_price <![CDATA[<=]]> #{maxprice}
 		</if>
+		
+		<if test="keyword != null">
+			and (product_name like '%' || #{keyword} || '%') or (product_introduce1 like '%' || #{keyword} || '%') or (product_introduce2 like '%' || #{keyword} || '%')
+		</if>
+		
 		)
 		where rnum >= #{startNo} and rnum <![CDATA[<=]]> #{endNo}
 	</select>
@@ -410,6 +439,11 @@
 		<if test="maxprice != null">
 			and product_price <![CDATA[<=]]> #{maxprice}
 		</if>
+		
+		<if test="keyword != null">
+			and (product_name like '%' || #{keyword} || '%') or (product_introduce1 like '%' || #{keyword} || '%') or (product_introduce2 like '%' || #{keyword} || '%')
+		</if>
+		
 		)
 		where rnum >= #{startNo} and rnum <![CDATA[<=]]> #{endNo}
 	</select>
@@ -483,9 +517,4 @@
   		update product set product_status = '판매' where product_no = #{no}
     </update>
     
-    
-  
-  
-  
-  
   </mapper>

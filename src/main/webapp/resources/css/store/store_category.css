@@ -271,6 +271,10 @@ span {
     padding: 10px;
 }
 
+.search_keyword {
+	display: block;
+}
+
 .price_info_button {
 	width: 80px;
 	height: 40px;

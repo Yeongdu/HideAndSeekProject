@@ -149,7 +149,9 @@ public class UserController {
 		
 		System.out.println("회원가입 dto >>>" + dto);
 		
-		if(!dto.getUser_zipcode1().equals("null")) {
+		if(!dto.getUser_zipcode1().equals("")) {
+			
+			System.out.println("왜 도는거야? >>>" + dto.getUser_zipcode1());
 			
 			ddto.setDeli_zipcode(dto.getUser_zipcode1());
 			ddto.setDeli_addr1(dto.getUser_addr1());

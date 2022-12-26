@@ -432,6 +432,14 @@
 							</div>
 						</div>
 						
+						<div class="container">
+							<div class="filter_search">
+								<div class="search_info">
+									<input name="search_keyword" class="search_keyword" placeholder="검색어를 입력하세요">
+								</div>
+							</div>
+						</div>
+						
 						<div class="container-button">
 							<input type="button" class="price_submit_button" value="검색">
 						</div>
