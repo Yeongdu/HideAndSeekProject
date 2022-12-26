@@ -30,7 +30,11 @@ onclick="location.href='<%=request.getContextPath()%>/admin_sub_insert.do?'">구
 			<td>${cdto.sub_package_no }</td>
 			<td>${cdto.sub_package }</td>
 			<td><img width="150px" src="resources/image/${cdto.sub_image}"></td>
+
 			<td width="180px;">${cdto.sub_date.substring(0,10) } 부터</td>
+
+			<td width="180px;">${cdto.sub_date.substring(0,10) }부터</td>
+
 			<td width="170px;">${cdto.sub_enddate.substring(0,10) } 까지</td>
 			<td><fmt:formatNumber value="${cdto.sub_price }"
 					pattern="#,### 원" /></td>
@@ -46,11 +50,17 @@ onclick="location.href='<%=request.getContextPath()%>/admin_sub_insert.do?'">구
 			<tr>
 				<td>${dto.sub_package_no }</td>
 				<td>${dto.sub_package }</td>
+
 				<td><img width="150px" src="resources/image/${dto.sub_image}"></td>
 				<td width="180px;">${dto.sub_date.substring(0,10) } 부터</td>
 				<td width="170px;">${dto.sub_enddate.substring(0,10) } 까지</td>
 				<td><fmt:formatNumber value="${dto.sub_price }"
 						pattern="#,### 원" /></td>
+				<td><img width="150px" src="resources/image/${cdto.sub_image}"></td>
+			<td width="180px;">${cdto.sub_date.substring(0,10) } 부터</td>
+			<td width="170px;">${cdto.sub_enddate.substring(0,10) } 까지</td>
+			<td><fmt:formatNumber value="${cdto.sub_price }"
+					pattern="#,### 원" /></td>
 			</tr>
 		</c:forEach>
 
