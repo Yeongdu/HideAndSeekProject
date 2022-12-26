@@ -40,4 +40,7 @@ public class Subscribe_userDTO {
 	private int product_price; // 상품 판매가
 	private String product_thumbnail; // 상품 썸네일
 	
+	private String deli_addr1; // 기본 주소
+	private String deli_addr2; // 상세 주소
+	
 }

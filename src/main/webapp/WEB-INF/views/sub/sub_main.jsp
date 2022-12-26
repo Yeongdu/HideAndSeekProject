@@ -67,11 +67,11 @@
 					<div class = "sub_info_date">
 						<div class = "sub_info_date_left">
 							<span class = "sub_start">신청일 </span>
-							<span class = "sub_start_date"><fmt:formatDate value="${sdto.getSub_date() }" pattern="yyyy년 MM월 dd일"/></span>
+							<span class = "sub_start_date">${sdto.getSub_date().substring(0,10) }</span>
 						</div>
 						<div class = "sub_info_date_right">
 							<span class = "sub_start">마감일 </span>
-							<span class = "sub_start_date"><fmt:formatDate value="${sdto.getSub_enddate() }" pattern="yyyy년 MM월 dd일"/></span>
+							<span class = "sub_start_date">${sdto.getSub_enddate().substring(0,10) }</span>
 						</div>
 					</div>
 				</div>

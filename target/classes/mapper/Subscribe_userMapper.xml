@@ -31,10 +31,24 @@
   	</select>
   	
   	<select id="sub_user_list" resultType="Subscribe_userDTO" parameterType="String">
-  		select su.sub_start, su.user_status, su.sub_package, d.deli_addr1, d.deli_addr2 
-		from subscribe_user su join delivery d 
-		on su.deli_no = d.deli_no 
-		where su.user_id = #{userId} order by su.sub_start desc
+  	<![CDATA[
+  		select * from
+		(select su.sub_start,su.user_status,su.sub_package,deli.deli_addr1, deli.deli_addr2, row_number() over(order by su.sub_start desc) as onum
+		from subscribe_user su
+		join delivery deli
+		on su.deli_no = deli.deli_no
+        where su.user_id = #{userId})
+        where onum <= 5
+       ]]>
+  	</select>
+  	
+  	<select id="sub_user_list_all" resultType="Subscribe_userDTO" parameterType="String">
+  		select * from
+		(select su.sub_start,su.user_status,su.sub_package,deli.deli_addr1, deli.deli_addr2, row_number() over(order by su.sub_start desc) as onum
+		from subscribe_user su
+		join delivery deli
+		on su.deli_no = deli.deli_no
+        where su.user_id = #{userId})
   	</select>
   
   </mapper>

@@ -5,11 +5,14 @@
 <c:set var="dto" value="${udto }" />
 <c:set var = "olist" value = "${olist }" />
 <c:set var = "slist" value = "${slist }" />
+<c:set var = "oall" value = "${olist_all }" />
+<c:set var = "sall" value = "${slist_all }" />
 <c:set var="page" value="${page }" />
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link href="resources/css/admin/admin_user.css" rel="stylesheet" type="text/css">
 <jsp:include page="../banner/admin_top.jsp" />
 
 
@@ -150,60 +153,276 @@
 </div>
 
 <div id = "adminUser_bottom">
-<div class = "adminUser_order">
-	<table class = "adminUser_order_table" border = "1">
-		<tr>
-			<th>주문일</th> <th>상품명</th> <th>수량</th> <th>가격</th> <th>주문상태</th>
-		</tr>
-		<tr>
-			<c:if test="${!empty olist }">
+	
+<div class = "adminUser_wrap">
+	<span> 주문 내역 </span>
+<div class = "adminUser_wrap_main">
+		<c:if test="${!empty olist }">
+		<ul>
+			<li class = "adminUser_title">주문일</li>
 			<c:forEach items = "${olist }" var = "odto">
-				<td><fmt:formatDate value="${odto.getOrder_date() }" pattern = "yyyy년 MM월 dd일"/> </td>
-				<td>${odto.getProduct_name() }</td>
-				<td>${odto.getOrder_amount() }개</td>
-				<td><fmt:formatNumber>${odto.getProduct_price()*odto.getOrder_amount() }</fmt:formatNumber>원</td>
-				<td>${odto.getOrder_status() }</td>
+				<li><fmt:formatDate value="${odto.getOrder_date() }" pattern = "yyyy년 MM월 dd일"/> </li>
 			</c:forEach>
-			</c:if>
+		</ul>
+		
+		<ul>
+			<li class = "adminUser_title">상품명</li>
+			<c:forEach items = "${olist }" var = "odto">
+				<li>${odto.getProduct_name() }</li>
+			</c:forEach>
+		</ul>
+		
+		<ul>
+			<li class = "adminUser_title">수량</li>
+			<c:forEach items = "${olist }" var = "odto">
+				<li>${odto.getOrder_amount() }개</li>
+			</c:forEach>
+		</ul>
+		
+		<ul>
+			<li class = "adminUser_title">가격</li>
+			<c:forEach items = "${olist }" var = "odto">
+				<li><fmt:formatNumber>${odto.getProduct_price()*odto.getOrder_amount() }</fmt:formatNumber>원</li>
+			</c:forEach>
+		</ul>
+		
+		<ul>
+			<li class = "adminUser_title">배송지</li>
+			<c:forEach items = "${olist }" var = "odto">
+				<li>${odto.getDeli_addr1() } ${odto.getDeli_addr2() }</li>
+			</c:forEach>
+		</ul>
+		
+		<ul>
+			<li class = "adminUser_title">주문상태</li>
+			<c:forEach items = "${olist }" var = "odto">
+				<li>${odto.getOrder_status() }</li>
+			</c:forEach>
+		</ul>
+		
+		</c:if>
 			
 			<c:if test="${empty olist }">
-				<td colspan = "5">주문한 상품이 없습니다</td>
+				<ul>
+					<li>주문한 상품이 없습니다</li>
+				</ul>
 			</c:if>
-		</tr>
-	</table>
+	</div>
+	<input type = "button" value = "전체 목록" class = "adminUser_order_moreBtn">
 </div>
 
-<div class = "adminUser_sub">
-	<table class = "adminUser_sub_table" border = "1">
-		<tr>
-			<th>구독일</th> <th>패키지명</th> <th>구독 상태</th> <th>주소</th>
-		</tr>
-		
+
+
+<div class = "adminUser_wrap adminuser_sub_title">
+	<span> 구독 내역 </span>
+<div class = "adminUser_wrap_main">
 		<c:if test="${!empty slist }">
-			<c:forEach items = "${slist }" var = "sdto">
-				<td>${sdto.getSub_start() }</td>
-				<td>${sdto.getSub_package() }</td>
-				<td>${sdto.getUser_status() }</td>
-				<td>${sdto.getDeli_adrr1() } ${sdto.getDeli_addr2() }</td>
+		<ul>
+			<li class = "adminUser_title">구독일</li>
+			<c:forEach items = "${slist }" var = "odto">
+				<li><fmt:formatDate value="${odto.getSub_start() }" pattern = "yyyy년 MM월 dd일"/> </li>
 			</c:forEach>
-		</c:if>
+		</ul>
 		
-		<c:if test="${empty slist }">
-			<td colspan = "4">구독 내역이 없습니다</td>
+		<ul>
+			<li class = "adminUser_title">패키지명</li>
+			<c:forEach items = "${slist }" var = "odto">
+				<li>${odto.getSub_package() }</li>
+			</c:forEach>
+		</ul>
+		
+		<ul>
+			<li class = "adminUser_title">배송지</li>
+			<c:forEach items = "${slist }" var = "odto">
+				<li>${odto.getDeli_addr1() } ${odto.getDeli_addr2() }</li>
+			</c:forEach>
+		</ul>
+		
+		<ul>
+			<li class = "adminUser_title">구독상태</li>
+			<c:forEach items = "${slist }" var = "odto">
+				<li>${odto.getUser_status() }</li>
+			</c:forEach>
+		</ul>
 		</c:if>
-	</table>
+			
+			<c:if test="${empty slist }">
+				<ul>
+					<li>구독 내역이 없습니다</li>
+				</ul>
+			</c:if>
+	</div>
+	<input type = "button" value = "전체 목록" class = "adminUser_sub_moreBtn">
 </div>
 
 </div>
-
-
-
-
-
 
 </div>
 <br><br><br>
 
+<div id="modal" style = 'display:none; z-index:1;'>
+	<div class="modal_body">
+			<div class = "adminUser_order_more_title">
+				<span>전체 주문 내역</span>
+				<div class="modalClose" align="right">
+					<input type = "button" value = "X" class = "Mclose">
+				</div>
+			</div>
+			
+			<div class = "adminUser_order_more">
+				<c:if test="${!empty oall }">
+		<ul>
+			<li class = "adminUser_title">주문일</li>
+			<c:forEach items = "${oall }" var = "odto">
+				<li><fmt:formatDate value="${odto.getOrder_date() }" pattern = "yyyy년 MM월 dd일"/> </li>
+			</c:forEach>
+		</ul>
+		
+		<ul>
+			<li class = "adminUser_title">상품명</li>
+			<c:forEach items = "${oall }" var = "odto">
+				<li>${odto.getProduct_name() }</li>
+			</c:forEach>
+		</ul>
+		
+		<ul>
+			<li class = "adminUser_title">수량</li>
+			<c:forEach items = "${oall }" var = "odto">
+				<li>${odto.getOrder_amount() }개</li>
+			</c:forEach>
+		</ul>
+		
+		<ul>
+			<li class = "adminUser_title">가격</li>
+			<c:forEach items = "${oall }" var = "odto">
+				<li><fmt:formatNumber>${odto.getProduct_price()*odto.getOrder_amount() }</fmt:formatNumber>원</li>
+			</c:forEach>
+		</ul>
+		
+		<ul>
+			<li class = "adminUser_title">배송지</li>
+			<c:forEach items = "${oall }" var = "odto">
+				<li>${odto.getDeli_addr1() } ${odto.getDeli_addr2() }</li>
+			</c:forEach>
+		</ul>
+		
+		<ul>
+			<li class = "adminUser_title">주문상태</li>
+			<c:forEach items = "${oall }" var = "odto">
+				<li>${odto.getOrder_status() }</li>
+			</c:forEach>
+		</ul>
+		
+		</c:if>
+			
+			<c:if test="${empty oall }">
+				<ul>
+					<li>주문한 상품이 없습니다</li>
+				</ul>
+			</c:if>
+			</div>
+	</div>
+</div> 
+
+<div id="sub_modal" style = 'display:none; z-index:1;'>
+	<div class="modal_body">
+		<div class = "adminUser_sub_more_title">
+			<span>전체 구독 내역</span>
+			<div class="submodalClose" align="right">
+				<input type = "button" value = "X" class = "Mclose">
+			</div>
+		</div>
+		
+		<div class = "adminUser_sub_more">
+			<c:if test="${!empty sall }">
+		<ul>
+			<li class = "adminUser_title">구독일</li>
+			<c:forEach items = "${sall }" var = "sdto">
+				<li><fmt:formatDate value="${sdto.getSub_start() }" pattern = "yyyy년 MM월 dd일"/> </li>
+			</c:forEach>
+		</ul>
+		
+		<ul>
+			<li class = "adminUser_title">패키지명</li>
+			<c:forEach items = "${sall }" var = "sdto">
+				<li>${sdto.getSub_package() }</li>
+			</c:forEach>
+		</ul>
+		
+		<ul>
+			<li class = "adminUser_title">배송지</li>
+			<c:forEach items = "${sall }" var = "sdto">
+				<li>${sdto.getDeli_addr1() } ${sdto.getDeli_addr2() }</li>
+			</c:forEach>
+		</ul>
+		
+		<ul>
+			<li class = "adminUser_title">구독상태</li>
+			<c:forEach items = "${sall }" var = "sdto">
+				<li>${sdto.getUser_status() }</li>
+			</c:forEach>
+		</ul>
+		</c:if>
+			
+			<c:if test="${empty sall }">
+				<ul>
+					<li>구독 내역이 없습니다</li>
+				</ul>
+			</c:if>
+		</div>
+	</div>
+</div> 
+
+<script>
+	
+	// 주문 전체 보기 모달
+	$(document).on("click", ".adminUser_order_moreBtn", function(){
+		$("#modal").fadeIn(500);
+	});
+	
+	$(".modalClose").on("click", function(){
+		$("#modal").fadeOut(500);
+	});
+	
+	
+	var floatPosition = parseInt($("#modal").css('top'))
+	$(window).scroll(function() {
+	  
+	    var currentTop = $(window).scrollTop();
+	    var modalTop = currentTop + floatPosition + "px";
+	    $("#modal").stop().animate({
+	      "top" : modalTop
+	    }, 1);
+	    
+	}).scroll();
+	// ====================================== 주문 전체 보기 모달 end
+	
+	
+	// 구독 전체 보기 모달
+	$(document).on("click", ".adminUser_sub_moreBtn", function(){
+		$("#sub_modal").fadeIn(300);
+	});
+	
+	$(".submodalClose").on("click", function(){
+		$("#sub_modal").fadeOut(300);
+	});
+	
+	
+	var floatPosition2 = parseInt($("#sub_modal").css('top'))
+	$(window).scroll(function() {
+	  
+	    var currentTop = $(window).scrollTop();
+	    var modalTop = currentTop + floatPosition2 + "px";
+	    $("#sub_modal").stop().animate({
+	      "top" : modalTop
+	    }, 1);
+	    
+	}).scroll();
+	// ====================================== 주문 전체 보기 모달 end
+	
+	
+	
+</script>
 
 
 
