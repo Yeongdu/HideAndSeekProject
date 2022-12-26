@@ -151,8 +151,29 @@
 		update product set product_status = '품절' where product_no = #{product_no} and product_stock = 0
 	</update>
 	
+	<!-- 회원의 전체 주문목록 출력 (5개만)-->
 	<select id="orderUser_List" resultType="OrderDTO" parameterType="String">
-		select * from tb_order tbo join product p on tbo.product_no = p.product_no where user_id =#{userId}
+	<![CDATA[
+		select * from
+		(select ord.*,pro.product_name, pro.product_price, row_number() over(order by ord.order_date desc) as onum
+		from tb_order ord
+		join product pro
+		on ord.product_no = pro.product_no
+		where ord.user_id = #{userId}) ordall join delivery deli
+		on ordall.deli_no = deli.deli_no
+		where onum <= 5
+	]]>
+	</select>
+	
+	<!-- 회원의 전체 주문목록 출력 -->
+	<select id="orderUser_List_all" resultType="OrderDTO" parameterType="String">
+		select * from
+		(select ord.*,pro.product_name, pro.product_price, row_number() over(order by ord.order_date desc) as onum
+		from tb_order ord
+		join product pro
+		on ord.product_no = pro.product_no
+		where ord.user_id = #{userId}) ordall join delivery deli
+		on ordall.deli_no = deli.deli_no
 	</select>
 	
 	

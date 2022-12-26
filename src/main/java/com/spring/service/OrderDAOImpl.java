@@ -193,4 +193,9 @@ public class OrderDAOImpl implements OrderDAO{
 		return this.sqlSession.selectList("orderUser_List", userId);
 	}
 
+	@Override
+	public List<OrderDTO> getorderListall(String userId) {
+		return this.sqlSession.selectList("orderUser_List_all", userId);
+	}
+
 }
