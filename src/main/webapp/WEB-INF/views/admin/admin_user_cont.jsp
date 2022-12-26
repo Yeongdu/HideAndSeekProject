@@ -175,7 +175,22 @@
 
 <div class = "adminUser_sub">
 	<table class = "adminUser_sub_table" border = "1">
-		<tr>구독일</tr>
+		<tr>
+			<th>구독일</th> <th>패키지명</th> <th>구독 상태</th> <th>주소</th>
+		</tr>
+		
+		<c:if test="${!empty slist }">
+			<c:forEach items = "${slist }" var = "sdto">
+				<td>${sdto.getSub_start() }</td>
+				<td>${sdto.getSub_package() }</td>
+				<td>${sdto.getUser_status() }</td>
+				<td>${sdto.getDeli_adrr1() } ${sdto.getDeli_addr2() }</td>
+			</c:forEach>
+		</c:if>
+		
+		<c:if test="${empty slist }">
+			<td colspan = "4">구독 내역이 없습니다</td>
+		</c:if>
 	</table>
 </div>
 

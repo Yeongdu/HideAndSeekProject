@@ -973,13 +973,14 @@ public class AdminController {
 	@RequestMapping("admin_user_content.do")
     public String admin_user_cont(@RequestParam("no") int no, @RequestParam("page") int page , @RequestParam("userId")String userId, Model model) {
         UserDTO udto = this.audao.getUserCont(no); // 유저 정보
-        List<OrderDTO> olist = this.mdao.orderContent(userId ); // 유저 주문 정보
-        List<Subscribe_userDTO> slist = this.mdao.getSubList(userId); // 유저 구독 정보 
+        List<OrderDTO> olist = this.dao.getOrderList(userId);
+        List<Subscribe_userDTO> slist = this.sudao.subList(userId); 
 
         model.addAttribute("olist", olist);
         model.addAttribute("slist", slist);
         model.addAttribute("udto", udto);
         model.addAttribute("page", page);
+        
         return "admin/admin_user_cont";
     }
 	
