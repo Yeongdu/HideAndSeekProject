@@ -974,13 +974,17 @@ public class AdminController {
     public String admin_user_cont(@RequestParam("no") int no, @RequestParam("page") int page , @RequestParam("userId")String userId, Model model) {
         UserDTO udto = this.audao.getUserCont(no); // 유저 정보
         List<OrderDTO> olist = this.dao.getOrderList(userId);
+        List<OrderDTO> olist_all = this.dao.getorderListall(userId);
         List<Subscribe_userDTO> slist = this.sudao.subList(userId); 
+        List<Subscribe_userDTO> slist_all = this.sudao.subList_all(userId);
 
         model.addAttribute("olist", olist);
         model.addAttribute("slist", slist);
+        model.addAttribute("olist_all", olist_all);
+        model.addAttribute("slist_all", slist_all);
         model.addAttribute("udto", udto);
         model.addAttribute("page", page);
-        
+
         return "admin/admin_user_cont";
     }
 	
@@ -1357,47 +1361,74 @@ public class AdminController {
 			@RequestParam("sub_price") int sub_price,
 			HttpServletResponse response, Model model, SubscribeDTO dto) {
 		
-//		dto.setSub_date(sub_date + " " + sub_date_time);
-//		dto.setSub_enddate(sub_enddate + " " + sub_date_endtime);
-		
+
+		int sub_package_no = sdao.getSubMaxPackageNo();
 		String sub_dateString = sub_date + " " + sub_date_time;
 		String sub_enddateString = sub_enddate + " " + sub_date_endtime;
-		List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
-				
+		String sub_image = "sub_package.png";
+		String sub_status = "신청불가";
+		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("product_no1", sub_item1);
-//		map.put("product_no2", sub_item2);
-//		map.put("product_no3", sub_item3);
-		map.put("sub_date", sub_dateString);
-		map.put("sub_enddate", sub_enddateString);
-		map.put("sub_package",sub_package);
-		map.put("sub_price",sub_price);
+		
+		dto.setSub_package(sub_package);
+		dto.setSub_date(sub_dateString);
 
-		listMap.add(map);
+		dto.setSub_image(sub_image);
+		dto.setSub_enddate(sub_enddateString);
+		dto.setSub_status(sub_status);
+		dto.setSub_price(sub_price);
+		dto.setSub_package_no(sub_package_no);
 		
-		
-		Map<String, Object> map2 = new HashMap<String, Object>();
-//		map.put("product_no1", sub_item1);
+		map.put("dto", dto);
+		map.put("product_no1", sub_item1);
 		map.put("product_no2", sub_item2);
-//		map.put("product_no3", sub_item3);
-		map.put("sub_date", sub_dateString);
-		map.put("sub_enddate", sub_enddateString);
-		map.put("sub_package",sub_package);
-		map.put("sub_price",sub_price);
-		
-		listMap.add(map2);
-		
-		
-		Map<String, Object> map3 = new HashMap<String, Object>();
-//		map.put("product_no1", sub_item1);
-//		map.put("product_no2", sub_item2);
 		map.put("product_no3", sub_item3);
-		map.put("sub_date", sub_dateString);
-		map.put("sub_enddate", sub_enddateString);
-		map.put("sub_package",sub_package);
-		map.put("sub_price",sub_price);
 		
-		listMap.add(map3);
+		sdao.insertSub1(map);
+		sdao.insertSub2(map);
+		sdao.insertSub3(map);
+		
+		
+		
+//		List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
+				
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("product_no", sub_item1);
+////		map.put("product_no2", sub_item2);
+////		map.put("product_no3", sub_item3);
+//		map.put("sub_date", sub_dateString);
+//		map.put("sub_enddate", sub_enddateString);
+//		map.put("sub_package",sub_package);
+//		map.put("sub_price",sub_price);
+//
+//		listMap.add(map);
+//		
+//		
+//		Map<String, Object> map2 = new HashMap<String, Object>();
+////		map.put("product_no1", sub_item1);
+//		map.put("product_no", sub_item2);
+////		map.put("product_no3", sub_item3);
+//		map.put("sub_date", sub_dateString);
+//		map.put("sub_enddate", sub_enddateString);
+//		map.put("sub_package",sub_package);
+//		map.put("sub_price",sub_price);
+//		
+//		listMap.add(map2);
+//		
+//		
+//		Map<String, Object> map3 = new HashMap<String, Object>();
+////		map.put("product_no1", sub_item1);
+////		map.put("product_no2", sub_item2);
+//		map.put("product_no", sub_item3);
+//		map.put("sub_date", sub_dateString);
+//		map.put("sub_enddate", sub_enddateString);
+//		map.put("sub_package",sub_package);
+//		map.put("sub_price",sub_price);
+//		
+//		listMap.add(map3);
+		
+		
+		
 		
 		
 	}

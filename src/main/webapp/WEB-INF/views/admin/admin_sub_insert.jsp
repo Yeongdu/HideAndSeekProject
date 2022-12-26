@@ -194,6 +194,11 @@ $(document).on("change", ".product_category3", function(){
 border: 0.5px solid lightgray;
 }
 
+.adminSubItemInputBtn{
+font-size: 1.3em;
+font-weight: bold;
+}
+
 /* .product_wrab{ */
 /* display: flex; */
 /* } */
@@ -248,7 +253,7 @@ border: 0.5px solid lightgray;
 		<option value="wine">과실주</option>
 		<option value="soju">증류주</option>
 	</select>
-	<button class="adminSubItemInputBtn" >담기</button></span>
+	<span class="adminSubItemInputBtn" >담기</span></span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	<span>
 	<select class="product_category2" required>
@@ -258,7 +263,7 @@ border: 0.5px solid lightgray;
 		<option value="wine">과실주</option>
 		<option value="soju">증류주</option>
 	</select>
-	<button class="adminSubItemInputBtn2" >담기</button></span>
+	<span class="adminSubItemInputBtn2" >담기</span></span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	<span>
 	<select class="product_category3" required>
@@ -268,7 +273,7 @@ border: 0.5px solid lightgray;
 		<option value="wine">과실주</option>
 		<option value="soju">증류주</option>
 	</select>
-	<button class="adminSubItemInputBtn3" >담기</button></span>
+	<span class="adminSubItemInputBtn3" >담기</span></span>
 </div>
 
 <button type="submit">제출</button>

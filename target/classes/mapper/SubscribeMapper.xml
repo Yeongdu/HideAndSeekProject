@@ -29,20 +29,72 @@
   		order by sub_package_no desc
   	</select>
   	
-<!--   	<insert id="admin_all_sub_list" parameterType="java.util.List"> -->
- 
-<!--     INSERT ALL -->
-    
-<!--     <foreach collection="list" item="item" index="index"  open="" separator=" " close="SELECT * FROM DUAL"> -->
-    
-<!--     INTO TABLE_NAME -->
-<!--         (TEST_ID, TEST_NAME, UPDATE_DATE, IP_ADDRESS) -->
-<!--     VALUES -->
-<!--         (#{item.test_id}, #{item.test_name}, SYSDATE, (SELECT SYS_CONTEXT ('USERENV', 'IP_ADDRESS') FROM DUAL)) -->
-        
-<!--     </foreach> -->
- 
-<!-- 	</insert> -->
+  	
+<!--   	SUB_NO -->
+<!-- SUB_PACKAGE -->
+<!-- SUB_DATE -->
+<!-- PRODUCT_NO -->
+<!-- SUB_IMAGE -->
+<!-- SUB_ENDDATE -->
+<!-- SUB_STATUS -->
+<!-- SUB_PACKAGE_NO -->
+<!-- SUB_PRICE -->
+<!-- to_date(#{dto.sub_date},'YYYY/MM/DD HH24:MI:SS') -->
+<!-- to_date(#{dto.sub_enddate},'YYYY/MM/DD HH24:MI:SS') -->
+  	
+  	
+  	<select id="getSubMaxPackageNo" resultType="int">
+		select nvl(max(SUB_PACKAGE_NO),0)+1 from subscribe
+	</select>
+  	
+  	
+  	<insert id="admin_sub_insert1" parameterType="map">
+    insert into subscribe 
+    values
+        (
+        (select max(sub_no) from subscribe) +1
+        , #{dto.sub_package}
+        , to_date(#{dto.sub_date},'YYYY/MM/DD HH24:MI:SS')
+        , #{product_no1}
+        , #{dto.sub_image}
+        , to_date(#{dto.sub_enddate},'YYYY/MM/DD HH24:MI:SS')
+        , #{dto.sub_status}
+        , #{dto.sub_package_no}
+        , #{dto.sub_price}
+        )
+	</insert>
+  	
+  	<insert id="admin_sub_insert2" parameterType="map">
+    insert into subscribe 
+    values
+        (
+        (select max(sub_no) from subscribe) +1
+        , #{dto.sub_package}
+        , to_date(#{dto.sub_date},'YYYY/MM/DD HH24:MI:SS')
+        , #{product_no2}
+        , #{dto.sub_image}
+        , to_date(#{dto.sub_enddate},'YYYY/MM/DD HH24:MI:SS')
+        , #{dto.sub_status}
+        , #{dto.sub_package_no}
+        , #{dto.sub_price}
+        )
+	</insert>
+  	
+  	<insert id="admin_sub_insert3" parameterType="map">
+    insert into subscribe 
+    values
+        (
+        (select max(sub_no) from subscribe) +1
+        , #{dto.sub_package}
+        , to_date(#{dto.sub_date},'YYYY/MM/DD HH24:MI:SS')
+        , #{product_no3}
+        , #{dto.sub_image}
+        , to_date(#{dto.sub_enddate},'YYYY/MM/DD HH24:MI:SS')
+        , #{dto.sub_status}
+        , #{dto.sub_package_no}
+        , #{dto.sub_price}
+        )
+	</insert>
   
   
   
