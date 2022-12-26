@@ -26,8 +26,8 @@
   		)
   	</insert>
   	
-  	<select id="subList" resultType="Subscribe_userDTO">
-  		select * from subscribe_user
+  	<select id="sub_List" resultType="int" parameterType="String">
+  		select count(*) from subscribe_user where user_id = #{userId}
   	</select>
   
   </mapper>

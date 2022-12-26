@@ -26,8 +26,8 @@ public class Subscribe_userDAOImpl implements Subscribe_userDAO{
 	}
 
 	@Override
-	public List<Subscribe_userDTO> SubList() {
-		return this.sqlSession.selectList("subList");
+	public int SubList(String userId) {
+		return this.sqlSession.selectOne("sub_List", userId);
 	}
 
 }
