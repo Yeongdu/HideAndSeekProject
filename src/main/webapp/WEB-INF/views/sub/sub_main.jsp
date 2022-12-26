@@ -13,6 +13,7 @@
 	</c:if>
 	
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link href="resources/css/sub/sub_main.css" rel="stylesheet" type="text/css">
 
 <div id = "sub_main">
@@ -91,10 +92,13 @@
         	
         	$.ajax({
         		type : "post",
-        		url : "<%=request.getContextPath()%>/sub_check.do">,
+        		url : "<%=request.getContextPath()%>/sub_check.do",
         		data : {userId : id},
         		datatype : "text",
         		success : function(result){
+        			
+        			console.log("ajax 진입");
+        			
         			if(result == 1){
         				swal("구독회원", "이미 구독중인 회원입니다.", "warning");
         			}else if(result == 0){

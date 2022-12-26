@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.model.DeliveryDTO;
 import com.spring.model.SubscribeDTO;
@@ -40,22 +41,12 @@ public class SubscribeController {
 	}
 	
 	@RequestMapping("sub_check.do")
+	@ResponseBody
 	public int sub_check(@RequestParam("userId")String userId, Model model) {
 		
-		List<Subscribe_userDTO> suball = this.sudao.SubList();
+		int suball = this.sudao.SubList(userId);
 		
-		int text1 = 0;
-		
-		for(Subscribe_userDTO item : suball) {
-			String user = item.getUser_id();
-			if(userId == user) {
-				text1 = 1;
-			}else {
-				text1 = 0;
-			}
-		}
-		
-		return text1;
+		return suball;
 	}
 	
 	@RequestMapping("sub_info.do")

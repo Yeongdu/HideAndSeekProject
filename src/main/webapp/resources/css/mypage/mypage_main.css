@@ -85,6 +85,19 @@ main{
     align-items: center;
 }
 
+#mypage_select > div:hover{
+	cursor: pointer;
+	font-size: 16px;
+    font-weight: 600;
+    color: #3395ED;
+    text-shadow: 1.2px 1.2px 2.5px #abaaaa;
+}
+
+#mypage_select > div > img:hover{
+	width: 45px;
+	height: 45px;
+}
+
 .mypage_icon {
 	width: 42px;
 	height: 42px;
@@ -95,7 +108,39 @@ main{
 	height: auto;
 }
 
-.mypage_loading{
+#mypage_sub-active {
+	font-size: 16px;
+    font-weight: 600;
+    color: #3395ED;
+    text-shadow: 1.2px 1.2px 2.5px #abaaaa;
+}
+
+#mypage_order-active {
+	font-size: 16px;
+    font-weight: 600;
+    color: #3395ED;
+    text-shadow: 1.2px 1.2px 2.5px #abaaaa;
+}
+
+#mypage_user-active {
+	font-size: 16px;
+    font-weight: 600;
+    color: #3395ED;
+    text-shadow: 1.2px 1.2px 2.5px #abaaaa;
+}
+
+#mypage_review-active {
+	font-size: 16px;
+    font-weight: 600;
+    color: #3395ED;
+    text-shadow: 1.2px 1.2px 2.5px #abaaaa;
+}
+
+#mypage_delivery-active {
+	font-size: 16px;
+    font-weight: 600;
+    color: #3395ED;
+    text-shadow: 1.2px 1.2px 2.5px #abaaaa;
 }
 
 /* 구독관리 css ===============================================================================================*/
