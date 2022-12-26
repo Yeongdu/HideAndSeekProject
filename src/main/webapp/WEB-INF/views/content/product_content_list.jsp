@@ -27,10 +27,28 @@
 <div id="main" align="center">
 	<c:forEach items="${list }" var="dto">
 		<div class="productContentWrap">
-			<div class="picture_1">
-				<img src="resources/upload/${pdto.product_thumbnail }">
+		<div class="picture_1"> 
+			<div class="img_wrap">
+				<c:if test="${pdto.product_status != '품절'}" >
+					<span>
+						<img alt="img" src="resources/upload/${pdto.product_thumbnail }" style="width: 100%;">
+					</span>
+				</c:if>
+				<c:if test="${pdto.product_status == '품절'}" >
+					<span>
+						<img alt="img" src="resources/upload/${pdto.product_thumbnail }" style="width: 100%;">
+					</span>
+				
+					<div class="soldout">
+						<div class="soldout_title">품절</div>
+						<div class="margin_box"></div>
+						<div class="soldout_cont">술 빚는 중이에요</div>
+					</div>
+				</c:if>
 			</div>
+		</div>
 
+<!-- 		<div class="product_size"> -->
 			<div class="product_cont" align="left">
 				<span class="name">${pdto.product_name }</span>
 
@@ -90,15 +108,40 @@
 				</form>
 				
 				<c:if test="${!empty userId}">
-			   		<input type="button" class="buybtn" onclick="cart_delivery();" value="바로 구매">
-			   		<input type="button" class="cartbtn" onclick="cart()" value="장바구니">
+					<div class="mbtn">
+						<div class="bbtn">
+				   			<input type="button" class="buybtn" onclick="cart_delivery();" value="바로 구매">
+				   		</div>
+				   		<div class="cbtn">
+				   			<input type="button" class="cartbtn" onclick="cart()" value="장바구니">
+				   		</div>
+				   </div>
 			   	</c:if>
 				<c:if test="${empty userId}">
-			   		<input type="button" class="buybtn" onclick="login_check();" value="바로 구매">
-			   		<input type="button" class="cartbtn" onclick="login_check();" value="장바구니">
+					<c:if test="${pdto.product_status == '품절'}" >
+						<div class="mbtn">
+							<div class="bbtn">
+				   				<input type="button" class="buybtn" style="color: red" value="바로 구매">
+				   			</div>
+				   			<div class="cbtn">
+				   				<input type="button" class="cartbtn" style="color: red" value="장바구니">
+				   			</div>
+				   		</div>
+					</c:if>
+					<c:if test="${pdto.product_status != '품절'}" >
+						<div class="mbtn">
+							<div class="bbtn">
+				   				<input type="button" class="buybtn" onclick="login_check();" value="바로 구매">
+				   			</div>
+				   			<div class="cbtn">
+				   				<input type="button" class="cartbtn" onclick="login_check();" value="장바구니">
+				   			</div>
+				   		</div>
+				   	</c:if>
 			   	</c:if>
 			</div>
-		</div>
+<!-- 		</div> -->
+	</div>
 
 		<div class="main_cont">
 			<div class="picture_2">
@@ -253,6 +296,9 @@
 				
 		window.location.href = "<%=request.getContextPath() %>/cart_delivery.do?product_no="+product_no+"&cart_no="+cart_no+"&amount="+amount+"&name="+encodeURIComponent(name)+"&sum="+sum+"&delivery="+delivery+"&userId="+id+""
 		
+		if(hm.value = 0) {
+			
+		}
 	}
 	//변수
 	let status = true;
@@ -686,6 +732,7 @@
 		    hm.value--;
 				if(${pdto.product_stock} == 0 ){
 					swal('',"품절되었습니다",'warning');
+					$('.buybtn').attr("disabled", true);
 				}
 		} else {
 			change();
@@ -717,17 +764,22 @@
 	
 	//로그인 확인
 	function login_check() {
-		swal({
-			text : "회원가입 및 로그인 부탁드려요!\n실례지만 민증 검사하겠습니다!",
-			icon: "warning",
-			buttons: ["취소" , "이동"]
-		})
-		.then(function(result){
-			console.log(result);        
-		       if(result){
-		       	location.href = "<%=request.getContextPath() %>/user_login_buy.do";
-		       }
-		})
+		if (${pdto.product_stock } == 0) {
+			$('.cartbtn').attr("disabled", true);
+			$('.buybtn').attr("disabled", true);
+		} else {
+			swal({
+				text : "회원가입 및 로그인 부탁드려요!\n실례지만 민증 검사하겠습니다!",
+				icon: "warning",
+				buttons: ["취소" , "이동"]
+			})
+			.then(function(result){
+				console.log(result);        
+			       if(result){
+			       	location.href = "<%=request.getContextPath() %>/user_login_buy.do";
+			       }
+			})
+		}
 	}
 	//로그인 확인 끝
 	
