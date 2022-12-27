@@ -36,7 +36,7 @@
  	 -->
   
   	<select id = "eventList" resultType="eventDTO">
-  		select * from event
+  		select * from event where event_status = '진행중'
   	</select>
   	
   	<select id = "eventContent" parameterType="int" resultType="eventDTO">

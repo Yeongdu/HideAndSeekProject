@@ -141,4 +141,14 @@ public class MyPageDAOImpl implements MyPageDAO{
 		return this.sqlSession.update("deli_modify_ok", map);
 	}
 
+	@Override
+	public int reviewCheck(Map<String, Object> map) {
+		return this.sqlSession.selectOne("review_check", map);
+	}
+
+	@Override
+	public List<OrderDTO> sortOrder(Map<String, Object> map, String sort) {
+		return this.sqlSession.selectList(sort, map);
+	}
+
 }

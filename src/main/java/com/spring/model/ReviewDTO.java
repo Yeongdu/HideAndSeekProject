@@ -21,7 +21,8 @@ public class ReviewDTO {
 	
 	private String user_id; // 유저 아이디 FK
 	private int product_no; // 상품 번호
-
+	private int order_no;
+	
 	//product
 	private String product_name; // 상품 이름
 	private String product_status; // 상품 상태 기본값:판매 .. 품절, 종료
