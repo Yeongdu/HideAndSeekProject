@@ -543,7 +543,7 @@
 									<c:forEach items="${list }" var="dto">
 										<div class="product">
 											<div class="product_wrap">
-												<a href="<%=request.getContextPath() %>/product_content.do?no=${dto.product_no}">
+												<a href="<%=request.getContextPath() %>/product_content_list.do?no=${dto.product_no}">
 													<div class="img_wrap">
 														<c:if test="${dto.product_status != '품절'}" >
 															<span>

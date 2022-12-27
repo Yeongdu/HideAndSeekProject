@@ -12,6 +12,12 @@ $(function(){
 	
 	let list = ${json};
 	
+	$(document).on("click", ".search_keyword", function(){
+		
+		tag();
+	
+	});
+	
 	$(document).on("click", ".b1", function(){
 		
 		tag();
