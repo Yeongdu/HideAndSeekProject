@@ -24,34 +24,42 @@
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
-<div id="main" align="center">
+<div id="main" align="center" style="min-width: 900px;">
 	<c:forEach items="${list }" var="dto">
+	<br /><br />
 		<div class="productContentWrap">
-			<div class="img_wrap">
-					<c:if test="${pdto.product_status != '품절'}" >
-						
-							<img alt="img" src="resources/upload/${pdto.product_thumbnail }" style="width: 100%;">
-						
-					</c:if>
-					<c:if test="${pdto.product_status == '품절'}" >
-						
-							<img alt="img" src="resources/upload/${pdto.product_thumbnail }" style="width: 100%;">
-						
-					
-						<div class="soldout">
-							<div class="soldout_title">품절</div>
-							<div class="margin_box"></div>
-							<div class="soldout_cont">술 빚는 중이에요</div>
-						</div>
-					</c:if>
-				</div>
 		
-		<div class="p_cont_wrap">
+
+		
+		<div class="picture_1"> 
+			<div class="img_wrap">
+				<c:if test="${pdto.product_status != '품절'}" >
+					
+						<img alt="img" src="resources/upload/${pdto.product_thumbnail }" style="width: 100%; height: 100%;'">
+					
+				</c:if>
+				<c:if test="${pdto.product_status == '품절'}" >
+					
+						<img alt="img" src="resources/upload/${pdto.product_thumbnail }" style="width: 100%; height: 100%;">
+					
+				
+					<div class="soldout">
+						<div class="soldout_title">품절</div>
+						<div class="margin_box"></div>
+						<div class="soldout_cont">술 빚는 중이에요</div>
+					</div>
+				</c:if>
+			</div>
+		</div>
+
 			<div class="product_cont" align="left">
 				<span class="name">${pdto.product_name }</span>
 
 				<div class="ex_box">
-					<span class="sub_ex">#${pdto.product_introduce1}&nbsp;&nbsp;#${pdto.product_introduce2 }</span>&nbsp;
+					<span class="sub_ex">#${pdto.product_introduce1}&nbsp;&nbsp;#${pdto.product_introduce2 }</span>
+					<div style="display: flex;align-items: center;
+    justify-content: flex-start;
+    margin-left: 8px;">
 					<div class="review_info_star-rat">
 		    			<div class="star-ratings-fill space-x-2 text-lg" style="width:${SCount }%">
 		    				<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
@@ -60,7 +68,10 @@
 			    			<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
 			   			</div>
 		    		</div>
-		    		<a href="#tab-button" id="review_count">[ ${RCount } 건 ]</a>
+		    		<div>
+		    		<a href="#tab-button" id="review_count">[ ${RCount } 리뷰 ]</a>
+		    		</div>
+		    		</div>
 		    		<div class="ssub_span">
 						<span class="ssub_ex">주종 : 
 							<c:if test="${pdto.product_category eq 'takju' }">
@@ -80,6 +91,7 @@
 						<span class="ssub_ex">용량 : ${pdto.product_amount }ml</span>
 					</div>
 				</div>
+				<br>
 				<span class="price_w">판매가격: </span>
 				<span id="money" class="price">${pdto.product_price }원</span>
 				<hr class="first">
@@ -138,7 +150,7 @@
 				   	</c:if>
 			   	</c:if>
 			</div>
-			</div>
+			
 		</div>
 		
 		<hr class="hr">
@@ -358,7 +370,7 @@
 								html += "</div>"
 							count += 1;
 						});
-					if(count > 6) {
+					if(count > 5) {
 						html += "<input type='button' value='더 많은 리뷰' class='more'>"
 					}
 				} else if(data.length == 0) {
@@ -415,7 +427,7 @@
 							html += "</div>"
 							count += 1;
 						});
-						if(count > 6) {
+						if(count > 5) {
 							html += "<input type='button' value='더 많은 리뷰' class='more'>"
 						}
 					}else if(data.length == 0) {
@@ -481,7 +493,7 @@
 								html += "</div>"
 								count += 1;
 						});
-					if(count > 6) {
+					if(count > 5) {
 						html += "<input type='button' value='더 많은 리뷰' class='more'>"
 					}
 				} else if(data.length == 0) {
@@ -537,7 +549,7 @@
 									html += "</div>"
 									count += 1;
 							});
-							if(count > 6) {
+							if(count > 5) {
 								html += "<input type='button' value='더 많은 리뷰' class='more'>"
 							}
 						}else if(data.length == 0) {
@@ -727,8 +739,8 @@
 		sum = document.form.sum;
 		hm.value++;
 		
-		if(hm.value > ${pdto.product_stock}) {
-		    swal('',"${pdto.product_stock}개까지 주문 할 수 있습니다",'warning');
+		if(hm.value >= ${pdto.product_stock}) {
+		    swal('',"${pdto.product_stock -1}개까지 주문 할 수 있습니다",'warning');
 		    hm.value--;
 				if(${pdto.product_stock} == 0 ){
 					swal('',"품절되었습니다",'warning');

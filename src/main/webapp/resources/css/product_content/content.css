@@ -33,31 +33,30 @@ body {
 }
 
 .productContentWrap {
-    flex-flow: row wrap;
-    width: 800px;
-    position: relative;
+	width: 65%;
+	display: -webkit-flex;
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    margin-top: 3%;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
 }
 
 .picture_1 {
-	width: 35%;
+	width:400px;
     overflow: hidden;
     border-radius: 10px;
-    margin-left: 33%;
+/*     margin-left: 33%; */
 }
 
 .product_cont {
 	width: 31%;
-	margin-left: 33%;
+/* 	margin-left: 33%; */
 }
 
 .name {
-	font-size: 1.6vw;
+	font-size: 1.8em;
 	width: auto;
-	font-weight: 500;
+	font-weight: 700;
 }
 
 .sub_ex {
@@ -65,13 +64,12 @@ body {
     font-weight: bolder;
     line-height: 25px;
     display: block;
-    font-size: 0.95vw;
+    font-size: 1.1em;
     color: rgb(255, 186, 0);
-    margin-bottom: 2%;
-    margin-top: 1%;
+/*     margin-bottom: 2%; */
+/*     margin-top: 1%; */
     width: auto;
 }
-
 .ssub_span {
 	margin-top: 3%;
 	width: auto;
@@ -80,22 +78,21 @@ body {
 .ssub_ex {
     font-style: normal;
     font-weight: 700;
-    font-size: 1vw;
+    font-size: 1.2em;
     line-height: 25px;
     display: flex;
     -webkit-box-align: center;
     align-items: center;
     color: rgb(112, 112, 112);
-    margin-bottom: 3%;
     word-break: keep-all;
     width: auto;
 }
 
 .price_w {
 	color: rgb(112, 112, 112);
-	font-size: 1.2vw;
+	font-size: 1.2em;
 	font-weight: 700;
-	margin-top: 5%;
+
 	display: block;
 	width: auto;
 }
@@ -103,12 +100,12 @@ body {
 .price {
 	color: rgb(112, 112, 112);
 	font-weight: 900;
-	font-size: 1.8vw;
+	font-size: 1.8em;
 	opacity: 1;
 	line-height: 31px;
 	display: block;
 	letter-spacing: 1px;
-    margin: 1% 0 0 1%;
+/*     margin: 1% 0 0 1%; */
     width: auto;
 }
 
@@ -121,15 +118,15 @@ body {
 
 .su {
 	width: auto;
-	font-size: 1.5vw;
+	font-size: 1.5em;
     display: inline-block;
 }
 
 .total_price_w {
 	width: auto;
-	font-size: 1.5vw;
+	font-size: 1.5em;
 	display: block;
-	margin-top: 3%;
+	margin-top: 5px;
 }
 
 .total_price {
@@ -143,7 +140,7 @@ body {
 .p_price, .won {
 	font-style: normal;
 	font-weight: 700;
-	font-size: 1.2vw;
+	font-size: 1.2em;
 	border: 0px;
 	text-align: right;
 	letter-spacing: 3px;
@@ -281,10 +278,10 @@ textarea:focus {
     background: white;
     display: inline-block;
     border: 0;
-    font-size: 2.2vw;
+    font-size: 2.2em;
     font-family: serif;
     border-radius: 10px;
-    padding: 3% 0 0 3%;
+/*     padding: 3% 0 0 3%; */
 }
 
 .minus_border {
@@ -299,10 +296,10 @@ textarea:focus {
     background: white;
     display: inline-block;
     border: 0;
-    font-size: 2.2vw;
+    font-size: 2.2em;
     font-family: serif;
     border-radius: 10px;
-    padding: 3% 0 0 4%;
+/*     padding: 3% 0 0 4%; */
 }
 
 .plus_border {
@@ -317,7 +314,7 @@ textarea:focus {
     background: white;
     display: inline-block;
     border: 0;
-    font-size: 1.5vw;
+    font-size: 1.5em;
     border-radius: 10px;
     text-align: center;
 }
@@ -445,7 +442,7 @@ textarea:focus {
 	width: max-content;
 	-webkit-text-fill-color: transparent;
 	display: flex;
-	font-size: 1.3vw;
+	font-size: 1.3em;
 	margin-left: -15%;
 }
 
@@ -456,7 +453,7 @@ textarea:focus {
 	width: max-content;
 	-webkit-text-fill-color: transparent;
 	display: inline-flex;
-    font-size: 2vw;
+    font-size: 2em;
     cursor: pointer;
     text-align: left;
     -webkit-tap-highlight-color: transparent;
@@ -480,8 +477,8 @@ textarea:focus {
 
 .no_review {
     margin: 40px auto 0px;
-    width: 53%;
-    height: 228px;
+    width: 906px;
+    height: 200px;
     font-size: 18px;
     font-family: 'ChosunGu';
     font-weight: bold;
@@ -580,7 +577,7 @@ option {
 }
 
 #review_count{
-	font-size: 1.1vw;
+	font-size: 1.1em;
     font-weight: 900;
     color: black;
     margin-left: 10px;
@@ -640,27 +637,25 @@ option {
 }
 
 .soldout_title {
-	font-size: 3vw;
+	font-size: 2em;
     line-height: 66px;
     font-weight: 600;
 }
 
 .soldout_cont {
-	font-size: 1.5vw;s
+	font-size: 1.5em;
 }
 
 .img_wrap {
-	width: 350px;
-    height: 565px;
-}
-
-.img_wrap > img {
 	width: 100%;
-    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    margin:0 auto;
 }
 
 .img_wrap > span {
-	box-sizing: border-box; 
+	sbox-sizing: border-box; 
 	display: block; 
 	overflow: hidden; 
 	width: initial; 
@@ -674,7 +669,9 @@ option {
 }
 
 .img_wrap > span > img {
+	height: 100%;
 	width: 100%;
+	object-fit: cover
 	-webkit-transform: scale(1);
 	transition: all 0.25s ease-in-out; 
 }
@@ -689,13 +686,7 @@ option {
 	background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
 
-.p_cont_wrap {
-	width: 350px;
-    height: 650px;
-    margin-left: 20px;
-}
-
-@media (min-width: 1000px) {
+@media (min-width: 2px) {
       .picture_1 {
         width: 100%;
         -webkit-order: 2;
@@ -710,6 +701,9 @@ option {
 
 
 /* 끝 */
+.d {
+	display: inline-block;
+}
 
 .hr {
 	width: 60%;
@@ -723,9 +717,10 @@ option {
 
 .picture_1 {
 	display: inline-block;
-	width: 534px;
-	margin-left: 20%;
-	margin-top: 1.8%;
+	width: 500px;
+/* 	margin-left: 20%; */
+/* 	margin-top: 1.8%; */
+	overflow:hidden;
 }
 
 .product_size {
@@ -735,18 +730,19 @@ option {
 
 .product_cont {
 	display: inline-block;
+/*     margin-top: 1.8%; */
+/*     margin-left: 5.5%; */
     border: 2px solid rgb(224, 224, 224);
     padding: 1% 2% 1%;
     border-radius: 2%;
-    width: 100%;
-    height: 100%;
-    margin-left: 0px;
+    width: 500px;
+    height: 589px;
 }
 
 .name {
-	font-size: 1.6vw;
+	font-size: 1.8em;
 	width: auto;
-	font-weight: 500;
+	font-weight: 700;
 }
 
 .sub_ex {
@@ -754,10 +750,10 @@ option {
     font-weight: bolder;
     line-height: 25px;
     display: block;
-    font-size: 0.95vw;
+    font-size: 1.1em;
     color: rgb(255, 186, 0);
-    margin-bottom: 2%;
-    margin-top: 1%;
+/*     margin-bottom: 2%; */
+/*     margin-top: 1%; */
     width: auto;
 }
 .ssub_span {
@@ -768,22 +764,22 @@ option {
 .ssub_ex {
     font-style: normal;
     font-weight: 700;
-    font-size: 1vw;
+    font-size: 1.5em;
     line-height: 25px;
     display: flex;
     -webkit-box-align: center;
     align-items: center;
     color: rgb(112, 112, 112);
-    margin-bottom: 3%;
+    margin-bottom: 5px;
     word-break: keep-all;
     width: auto;
 }
 
 .price_w {
 	color: rgb(112, 112, 112);
-	font-size: 1.2vw;
+	font-size: 1.4em;
 	font-weight: 700;
-	margin-top: 5%;
+/* 	margin-top: 5%; */
 	display: block;
 	width: auto;
 }
@@ -791,12 +787,12 @@ option {
 .price {
 	color: rgb(112, 112, 112);
 	font-weight: 900;
-	font-size: 1.8vw;
+	font-size: 2em;
 	opacity: 1;
 	line-height: 31px;
 	display: block;
 	letter-spacing: 1px;
-    margin: 1% 0 0 1%;
+/*     margin: 1% 0 0 1%; */
     width: auto;
 }
 
@@ -809,15 +805,15 @@ option {
 
 .su {
 	width: auto;
-	font-size: 1.5vw;
+	font-size: 1.5em;
     display: inline-block;
 }
 
 .total_price_w {
 	width: auto;
-	font-size: 1.5vw;
+	font-size: 1.5em;
 	display: block;
-	margin-top: 3%;
+	margin-top: 5px;
 }
 
 .total_price {
@@ -831,7 +827,7 @@ option {
 .p_price, .won {
 	font-style: normal;
 	font-weight: 700;
-	font-size: 1.2vw;
+	font-size: 1.4em;
 	border: 0px;
 	text-align: right;
 	letter-spacing: 3px;
@@ -965,7 +961,7 @@ textarea:focus {
     background: white;
     display: inline-block;
     border: 0;
-    font-size: 2.2vw;
+    font-size: 2.2em;
     font-family: serif;
     border-radius: 10px;
     padding: 3% 0 0 3%;
@@ -983,7 +979,7 @@ textarea:focus {
     background: white;
     display: inline-block;
     border: 0;
-    font-size: 2.2vw;
+    font-size: 2.2em;
     font-family: serif;
     border-radius: 10px;
     padding: 3% 0 0 4%;
@@ -1001,7 +997,7 @@ textarea:focus {
     background: white;
     display: inline-block;
     border: 0;
-    font-size: 1.5vw;
+    font-size: 1.5em;
     border-radius: 10px;
     text-align: center;
 }
@@ -1133,7 +1129,7 @@ pre {
 	width: max-content;
 	-webkit-text-fill-color: transparent;
 	display: flex;
-	font-size: 1.3vw;
+	font-size: 1.3em;
 	margin-left: -15%;
 }
 
@@ -1144,7 +1140,7 @@ pre {
 	width: max-content;
 	-webkit-text-fill-color: transparent;
 	display: inline-flex;
-    font-size: 2vw;
+    font-size: 2em;
     cursor: pointer;
     text-align: left;
     -webkit-tap-highlight-color: transparent;
@@ -1168,8 +1164,8 @@ pre {
 
 .no_review {
     margin: 40px auto 0px;
-    width: 53%;
-    height: 228px;
+    width: 906px;
+    height: 200px;
     font-size: 18px;
     font-family: 'ChosunGu';
     font-weight: bold;
@@ -1267,7 +1263,7 @@ option {
 }
 
 #review_count{
-	font-size: 1.1vw;
+	font-size: 1.1em;
     font-weight: 900;
     color: black;
     margin-left: 10px;
@@ -1337,16 +1333,17 @@ option {
 }
 
 .img_wrap {
-	width: 350px;
-}
-
-.img_wrap > img {
-	width: 100%;
-    height: 100%;
+	width: 500px;
+	height:589px;
+	
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    margin:0 auto;
 }
 
 .img_wrap > span {
-	box-sizing: border-box; 
+	sbox-sizing: border-box; 
 	display: block; 
 	overflow: hidden; 
 	width: initial; 
@@ -1363,10 +1360,4 @@ option {
 	width: 100%;
 	-webkit-transform: scale(1);
 	transition: all 0.25s ease-in-out; 
-}
-
-.p_cont_wrap {
-	width: 350px;
-    height: 650px;
-    margin-left: 20px;
 }
