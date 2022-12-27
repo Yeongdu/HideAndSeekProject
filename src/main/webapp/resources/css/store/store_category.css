@@ -198,6 +198,11 @@ span {
 	box-sizing: border-box;
 }
 
+.search_keyword {
+	height: 39px;
+    border-radius: 5px;
+}
+
 .filter {
 	color: rgb(112, 112, 112);
     font-size: 13px;

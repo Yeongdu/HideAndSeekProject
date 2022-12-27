@@ -27,27 +27,26 @@
 <div id="main" align="center">
 	<c:forEach items="${list }" var="dto">
 		<div class="productContentWrap">
-		<div class="picture_1"> 
 			<div class="img_wrap">
-				<c:if test="${pdto.product_status != '품절'}" >
-					<span>
-						<img alt="img" src="resources/upload/${pdto.product_thumbnail }" style="width: 100%;">
-					</span>
-				</c:if>
-				<c:if test="${pdto.product_status == '품절'}" >
-					<span>
-						<img alt="img" src="resources/upload/${pdto.product_thumbnail }" style="width: 100%;">
-					</span>
-				
-					<div class="soldout">
-						<div class="soldout_title">품절</div>
-						<div class="margin_box"></div>
-						<div class="soldout_cont">술 빚는 중이에요</div>
-					</div>
-				</c:if>
-			</div>
-		</div>
-
+					<c:if test="${pdto.product_status != '품절'}" >
+						
+							<img alt="img" src="resources/upload/${pdto.product_thumbnail }" style="width: 100%;">
+						
+					</c:if>
+					<c:if test="${pdto.product_status == '품절'}" >
+						
+							<img alt="img" src="resources/upload/${pdto.product_thumbnail }" style="width: 100%;">
+						
+					
+						<div class="soldout">
+							<div class="soldout_title">품절</div>
+							<div class="margin_box"></div>
+							<div class="soldout_cont">술 빚는 중이에요</div>
+						</div>
+					</c:if>
+				</div>
+		
+		<div class="p_cont_wrap">
 			<div class="product_cont" align="left">
 				<span class="name">${pdto.product_name }</span>
 
@@ -138,6 +137,7 @@
 				   		</div>
 				   	</c:if>
 			   	</c:if>
+			</div>
 			</div>
 		</div>
 		
@@ -358,7 +358,7 @@
 								html += "</div>"
 							count += 1;
 						});
-					if(count > 5) {
+					if(count > 6) {
 						html += "<input type='button' value='더 많은 리뷰' class='more'>"
 					}
 				} else if(data.length == 0) {
@@ -415,7 +415,7 @@
 							html += "</div>"
 							count += 1;
 						});
-						if(count > 5) {
+						if(count > 6) {
 							html += "<input type='button' value='더 많은 리뷰' class='more'>"
 						}
 					}else if(data.length == 0) {
@@ -481,7 +481,7 @@
 								html += "</div>"
 								count += 1;
 						});
-					if(count > 5) {
+					if(count > 6) {
 						html += "<input type='button' value='더 많은 리뷰' class='more'>"
 					}
 				} else if(data.length == 0) {
@@ -537,7 +537,7 @@
 									html += "</div>"
 									count += 1;
 							});
-							if(count > 5) {
+							if(count > 6) {
 								html += "<input type='button' value='더 많은 리뷰' class='more'>"
 							}
 						}else if(data.length == 0) {
@@ -727,8 +727,8 @@
 		sum = document.form.sum;
 		hm.value++;
 		
-		if(hm.value >= ${pdto.product_stock}) {
-		    swal('',"${pdto.product_stock -1}개까지 주문 할 수 있습니다",'warning');
+		if(hm.value > ${pdto.product_stock}) {
+		    swal('',"${pdto.product_stock}개까지 주문 할 수 있습니다",'warning');
 		    hm.value--;
 				if(${pdto.product_stock} == 0 ){
 					swal('',"품절되었습니다",'warning');

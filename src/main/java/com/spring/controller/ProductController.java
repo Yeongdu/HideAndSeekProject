@@ -353,8 +353,6 @@ public class ProductController {
 		
 		totalRecord = this.dao.getListTagCount(map);
 		
-		System.out.println("total >>> " + totalRecord);
-		 
 		int page = 1;
 		
 		String sort = "released";
