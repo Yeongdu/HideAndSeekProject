@@ -80,6 +80,8 @@ public class SubscribeController {
 	@RequestMapping("sub_complete.do")
 	public String sub_complete(@RequestParam("userId")String userId, @RequestParam("deli_no")int deli_no, Model model){
 		
+		System.out.println("Controller 진입");
+		
 		DeliveryDTO ddto = this.ddao.getDeli(deli_no);
 		SubscribeDTO sdto = this.sdao.subCont();
 		
@@ -93,8 +95,23 @@ public class SubscribeController {
 		this.sudao.insertSubUser(map);
 		this.sudao.insertSubStatus(map);
 		
+		System.out.println("실행");
+		
 		model.addAttribute("userId", userId);
 		model.addAttribute("deli_no", deli_no);
+		model.addAttribute("sdto", sdto);
+		model.addAttribute("ddto", ddto);
+		
+		return "redirect:sub_complete_ok.do";
+		
+	}
+	
+	@RequestMapping("sub_complete_ok.do")
+	public String sub_complete_ok(@RequestParam("userId")String userId, @RequestParam("deli_no")int deli_no, Model model) {
+		
+		DeliveryDTO ddto = this.ddao.getDeli(deli_no);
+		SubscribeDTO sdto = this.sdao.subCont();
+		
 		model.addAttribute("sdto", sdto);
 		model.addAttribute("ddto", ddto);
 		

@@ -37,3 +37,8 @@
 	height: 100%;	
 }
 
+.cart_count{
+	position: relative;
+    bottom: 7px;
+}
+

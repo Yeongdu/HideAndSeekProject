@@ -43,7 +43,7 @@
                    <div style="width: 800px;">
                   <h3 class="title_1_span">기본정보</h3>
                   <p class="subTx">
-                     <strong>* </strong>필수입력사항
+                     <strong><sup>*</sup> </strong>필수입력사항
                   </p>   
                   <hr style="width: 100%; margin-top: 5px;">
                   </div>
@@ -53,20 +53,20 @@
                               
                
                   <div class="join_id">
-                    <label for="user_id" class="user_label"><strong class="join_star">* </strong>아이디</label>
+                    <label for="user_id" class="user_label"><strong class="join_star"><sup>*</sup> </strong>아이디</label>
                        
                          <input type="text"  class="user_id" id="user_id" name="user_id" placeholder="영문, 숫자 4-10자"   onblur="idCheck()" required><br>
                              <span id="idcheck" class="idcheck"></span>
                      </div>
                   
                   <div class="join_pwd">
-                     <label for="user_pwd" class="user_label"><strong class="join_star">* </strong>비밀번호</label>
+                     <label for="user_pwd" class="user_label"><strong class="join_star"><sup>*</sup> </strong>비밀번호</label>
                         <input type="password" class="user_pwd" id="user_pwd" name="user_pwd" placeholder="영문, 숫자, 특수문자 조합 최소 8자"  required><br>
                             <span id="pwcheck" class="pwcheck"></span>
                   </div>
                   
                   <div class="join_pwd_check">
-                     <label for="user_pwd_check" class="user_label"><strong class="join_star">* </strong>비밀번호 확인</label>
+                     <label for="user_pwd_check" class="user_label"><strong class="join_star"><sup>*</sup> </strong>비밀번호 확인</label>
                         <input type="password"  class="user_pwd_check"    id="user_pwd_check" name="user_pwd_check" placeholder="비밀번호 재입력" required><br>
                         <span id="pwcheck2" class="pwcheck2"></span>
                   </div>
@@ -74,19 +74,19 @@
                
                   
                   <div class="join_email">
-                     <label for="user_email" class="user_label"><strong class="join_star">* </strong>이메일</label>
+                     <label for="user_email" class="user_label"><strong class="join_star"><sup>*</sup> </strong>이메일</label>
                         <input type="email"  class="user_email"  name="user_email" id="user_email" onblur="emailCheck()" required><br>
                         <span id="emailcheck" class="emailcheck"></span>
                   </div>
                   
                      <div class="join_name">
-                     <label for="user_name" class="user_label"><strong class="join_star">* </strong>이름</label>
+                     <label for="user_name" class="user_label"><strong class="join_star"><sup>*</sup> </strong>이름</label>
                         <input type="text"  class="user_name"     id="user_name" name="user_name" required>
                   </div>
                   
                   
                   <div class="join_idnum">
-                     <label for="user_idnum" class="user_label"><strong class="join_star">* </strong>주민등록번호</label>
+                     <label for="user_idnum" class="user_label"><strong class="join_star"><sup>*</sup> </strong>주민등록번호</label>
                       <div class="join_idnum_input">
                      <input type="text"  name="user_jumin1" id="user_jumin1"  minlength="6" maxlength="6"  placeholder="생년월일 6자리" required><span> - </span><input type="password"  name="user_jumin2"  id="user_jumin2"  maxlength="7" minlength="6"    required>
                      <!-- <input type="checkbox" value="성인인증"  class="chk1" id="chk1"  name="chk1" onclick="getAge();" required> -->
@@ -103,7 +103,7 @@
                   
                   
                   <div class="join_phone">
-                            <label for="user_phone" class="user_label"><strong class="join_star">* </strong>전화번호</label>
+                            <label for="user_phone" class="user_label"><strong class="join_star"><sup>*</sup> </strong>전화번호</label>
                                <div class="join_phone_input">
                               <select name="user_phone1" id="user_phone1" required>
                                 <option value="" selected>선택하세요.</option>

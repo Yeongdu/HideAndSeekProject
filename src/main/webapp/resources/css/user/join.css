@@ -114,6 +114,8 @@ h1, h2, h3, h4, h5 {
 
 /*===============================================================================*/
 
+
+
 /* @import url('https://fonts.googleapis.com/css?family=Yydimibang&display=swap'); */
 @font-face {
     font-family: 'kdg_Medium';
@@ -194,6 +196,10 @@ h1, h2, h3, h4, h5 {
 .join_star{
    color: #ff3333;
    font-size: 16px;
+}
+
+.join_star > sup {
+	font-size:  16px;
 }
 
 .user_label{

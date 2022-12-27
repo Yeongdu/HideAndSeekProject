@@ -1148,7 +1148,7 @@ public class AdminController {
 	// 관리자 이벤트
 	@RequestMapping("/admin_event.do")
 	public String admin_event(HttpServletRequest request, Model model) {
-		List<EventDTO> list = edao.eventList();
+		List<EventDTO> list = edao.eventListall();
 		model.addAttribute("list", list);
 		return "admin/admin_event";
 	}

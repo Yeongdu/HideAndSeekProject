@@ -55,9 +55,30 @@
 		select * from tb_order tbo join product p on tbo.product_no = p.product_no where user_id = #{userId} and order_status ='배송완료'
 	</select>
 	
-	 <select id ="count_order" parameterType="String" resultType="int">
+	
+	<!-- 정렬 totalRecord -->
+	 <select id ="order_all_count" parameterType="String" resultType="int">
  	 	select count(*) as count from tb_order where user_id = #{userId}
  	 </select>
+ 	 
+ 	 <select id ="order_success_count" parameterType="String" resultType="int">
+ 	 	select count(*) as count from tb_order where user_id = #{userId} and order_status = '주문 완료'
+ 	 </select>
+ 	 
+ 	 <select id ="order_cancel_count" parameterType="String" resultType="int">
+ 	 	select count(*) as count from tb_order where user_id = #{userId} and order_status = '취소'
+ 	 </select>
+ 	 
+ 	 <select id ="delivering_count" parameterType="String" resultType="int">
+ 	 	select count(*) as count from tb_order where user_id = #{userId} and order_status = '배송중'
+ 	 </select>
+ 	 
+ 	 <select id ="delivery_complete_count" parameterType="String" resultType="int">
+ 	 	select count(*) as count from tb_order where user_id = #{userId} and order_status = '배송 완료'
+ 	 </select>
+ 	 
+ 	 
+ 	 
  	 
  	 <select id ="count_review" parameterType="String" resultType="int">
  	 	select count(*) as count from review where user_id = #{userId}
