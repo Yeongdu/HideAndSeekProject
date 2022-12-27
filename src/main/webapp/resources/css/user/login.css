@@ -143,11 +143,12 @@ h1, h2, h3, h4, h5 {
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-family: Yydimibang;
   font-weight: Bold; */
-  font-size: 70px;
+  font-size: 65px;
   opacity: 1;
   text-align: center;
   font-family: 'ChosunGu';
   font-weight: bold;
+  
 
 } 
 
@@ -169,16 +170,24 @@ h1, h2, h3, h4, h5 {
 	height: 45px;
 }
 
-.btn_login{
-	width: 440px;
-	height: 45px;
-	
-}
+
 
 .btn_login{
 	
-	background-color: lightgray;
-	width: 470px;
+	background-color: #FFD166;
+	width: 462px;
+	height: 60px;
+	display: block;
+	color: white;
+   /*  transition:all 0.9s, color 0.3; */
+    border: 1px solid #ddd;
+    font-weight: bold;
+	margin-right: 6px;
+}
+
+.btn_login:hover{
+   background-color: #FFBD52;
+  /*  box-shadow:462px 0 0 0 rgba(0,0,0,0.5) inset; */
 }
 
 
@@ -233,6 +242,9 @@ h1, h2, h3, h4, h5 {
     flex-direction: column;
     align-items: center;
 }
+
+
+
 
 
 

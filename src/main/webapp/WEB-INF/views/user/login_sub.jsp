@@ -19,7 +19,7 @@
                              			<form action="user_check_sub.do" method="post">
                              		
                              		<div class="login_input_wrap_title">
-                             			<span>입 장 하 기</span>
+                             			<span>로 그 인</span>
                              		</div>
                              		
                              <div class="login_input_inner_wrap">
