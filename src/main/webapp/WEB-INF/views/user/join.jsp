@@ -37,7 +37,7 @@
          <form  name="form1" method="post" action="<%=request.getContextPath() %>/user_join_ok.do">
          
              <div style="width: 800px;">
-            <span class="join_legend">회원가입</span>
+            <span class="join_legend">회 원 가 입</span>
             </div>
             
                    <div style="width: 800px;">
@@ -417,7 +417,7 @@
                   }
                  
                  
-                  if(parseInt(tmpAge)>19){
+                  if(parseInt(tmpAge)>18){
                  
                   //alert ("성인인증 완료")
                 swal('성인인증완료!',"성인인증을 완료했습니다.",'success');
