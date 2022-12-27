@@ -1005,6 +1005,8 @@ public class AdminController {
 			HttpServletResponse response, 
 			Model model, UserDTO dto) throws Exception {
 		
+		String userId = dto.getUser_id();
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("user_no",no);
@@ -1014,7 +1016,7 @@ public class AdminController {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		if (check > 0) {
-			out.println("<script> alert('회원 수정 성공'); location.href='admin_user_cont.do?no="+no+"'; </script>");
+			out.println("<script> alert('회원 수정 성공'); location.href='admin_user_content.do?no="+no+"&page="+1+"&userId="+userId+"'; </script>");
 		} else {
 			out.println("<script> alert('회원 수정 실패.'); history.back(); </script>");
 		}
@@ -1433,9 +1435,41 @@ public class AdminController {
 		
 	}
 	
+	//구독 상세보기
+	@RequestMapping("/admin_sub_content.do")
+	public String admin_sub_content(@RequestParam("no") int no, Model model) {
+		List<SubscribeDTO> list = sdao.adminSubCont(no);
+		model.addAttribute("Subscribe", list);
+		
+		return "admin/admin_sub_content";
+	}
 	
+	//구독 수정
+	@RequestMapping("/admin_sub_update.do")
+	public String admin_sub_update(@RequestParam("no") int no, Model model) {
+		List<SubscribeDTO> list = sdao.adminSubCont(no);
+		model.addAttribute("Subscribe", list);
+		
+		return "admin/admin_sub_update";
+	}
 	
-	
+	//구독 수정완료
+	@RequestMapping("/admin_sub_update_ok.do")
+	public void admin_sub_update_ok(@RequestParam("no") int no, 
+			@RequestParam("sub_status") String sub_status, 
+			Model model, HttpServletResponse response, SubscribeDTO dto) throws Exception {
+		
+		dto.setSub_status(sub_status);
+		dto.setSub_package_no(no);
+		int check = sdao.updateSubStatus(dto);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		if (check > 0) {
+			out.println("<script> alert('구독상태 수정성공'); location.href='admin_sub_content.do?no=" + no + "'; </script>");
+		} else {
+			out.println("<script> alert('구독상태 수정실패'); history.back(); </script>");
+		}
+	}	
 	
 	
 	

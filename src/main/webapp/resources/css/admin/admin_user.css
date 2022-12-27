@@ -94,6 +94,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  min-width: 1200px;
   width: 60%;
   height: 50%;
   overflow: auto;

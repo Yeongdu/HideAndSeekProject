@@ -18,5 +18,11 @@ public interface SubscribeDAO {
 	int insertSub3(Map<String, Object> map);
 	
 	int getSubMaxPackageNo();
+	
+	List<SubscribeDTO> adminSubCont(int sub_package_no);
+	
+	int updateSubStatus(SubscribeDTO dto);
+	
+	
 
 }

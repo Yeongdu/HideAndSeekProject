@@ -50,5 +50,15 @@ public class SubscribeDAOImpl implements SubscribeDAO{
 		return this.sqlSession.insert("admin_sub_insert3", map);
 	}
 
+	@Override
+	public List<SubscribeDTO> adminSubCont(int sub_package_no) {
+		return this.sqlSession.selectList("admin_sub_content", sub_package_no);
+	}
+
+	@Override
+	public int updateSubStatus(SubscribeDTO dto) {
+		return this.sqlSession.update("admin_sub_status_update", dto);
+	}
+
 
 }

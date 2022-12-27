@@ -10,9 +10,7 @@
 <title>관리자 구독</title>
 <style>
 
-.btn.btn-light_admin_sub_mainBtn{
-border: 0.5px solid lightgray;
-}
+
 
 </style>
 
@@ -26,7 +24,8 @@ onclick="location.href='<%=request.getContextPath()%>/admin_sub_insert.do?'">구
 	<h4>이달의 구독</h4><br>
 	<table class="table table-hover table-bordered"
 		style="margin-left: auto; margin-right: auto; font-size: 1.2em; text-align: center; width: 66em;">
-		<tr>
+		<tr onclick="location.href='<%=request.getContextPath()%>/admin_sub_content.do?no=${cdto.sub_package_no }'"
+		>
 			<td>${cdto.sub_package_no }</td>
 			<td>${cdto.sub_package }</td>
 			<td><img width="150px" src="resources/image/${cdto.sub_image}"></td>
@@ -45,7 +44,8 @@ onclick="location.href='<%=request.getContextPath()%>/admin_sub_insert.do?'">구
 		style="margin-left: auto; margin-right: auto; font-size: 1.2em; text-align: center; width: 66em;">
 
 		<c:forEach items="${list }" var="dto">
-			<tr>
+			<tr onclick="location.href='<%=request.getContextPath()%>/admin_sub_content.do?no=${dto.sub_package_no }'"
+			>
 				<td>${dto.sub_package_no }</td>
 				<td>${dto.sub_package }</td>
 

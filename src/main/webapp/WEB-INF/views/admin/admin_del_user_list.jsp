@@ -50,14 +50,14 @@
 
 			<c:if test="${!empty list }">
 				<c:forEach items="${list }" var="dto">
-					<tr>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }'">${dto.user_no }</td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }'">${dto.user_id }</td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }'">${dto.user_name }</td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }'">${dto.user_email }</td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }'">${dto.user_point }</td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }'"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.user_date }" /></td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }'">
+					<tr onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }&userId=${dto.user_id }'">
+						<td>${dto.user_no }</td>
+						<td>${dto.user_id }</td>
+						<td>${dto.user_name }</td>
+						<td>${dto.user_email }</td>
+						<td>${dto.user_point }</td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.user_date }" /></td>
+						<td>
 							<c:if test="${dto.user_leave eq '1' }">
 									<span></span>
 							</c:if>

@@ -74,23 +74,23 @@
 
 	<%-- 페이징 처리 --%>
 		<div class="page-paging">
-		    <c:if test="${page.startBlock > 1}"><span><a href="admin_product_search.do?page=1&field=${field }&keyword=${keyword}"><i class="fa fa-angle-double-left"></i></a></span></c:if>
+		    <c:if test="${page.startBlock > 1}"><span><a href="admin_order_del.do?page=1"><i class="fa fa-angle-double-left"></i></a></span></c:if>
 		    <c:if test="${page.startBlock <= 1}"><span class="nolink"><i class="fa fa-angle-double-left"></i></span></c:if>
 		
-		    <c:if test="${page.page > 1}"><span><a href="admin_product_search.do?page=${page.page - 1}&field=${field }&keyword=${keyword}"><i class="fa fa-angle-left"></i></a></span></c:if>
+		    <c:if test="${page.page > 1}"><span><a href="admin_order_del.do?page=${page.page - 1}"><i class="fa fa-angle-left"></i></a></span></c:if>
 		    <c:if test="${page.page <= 1}"><span class="nolink"><i class="fa fa-angle-left"></i></span></c:if>
 		
 		    <ol class="paging_1">
 		        <c:forEach begin="${page.startBlock}" end="${page.endBlock}" var="i">
 		        <c:if test="${i == page.page}"><li class="now">${i}</li></c:if>
-		        <c:if test="${i != page.page}"><li><a href="admin_product_search.do?page=${i}&field=${field }&keyword=${keyword}">${i}</a></li></c:if>
+		        <c:if test="${i != page.page}"><li><a href="admin_order_del.do?page=${i}">${i}</a></li></c:if>
 		        </c:forEach>
 		    </ol>
 		
-		    <c:if test="${page.page < page.allPage}"><span><a href="admin_product_search.do?page=${page.page + 1}&field=${field }&keyword=${keyword}"><i class="fa fa-angle-right"></i></a></span></c:if>
+		    <c:if test="${page.page < page.allPage}"><span><a href="admin_order_del.do?page=${page.page + 1}"><i class="fa fa-angle-right"></i></a></span></c:if>
 		    <c:if test="${page.page >= page.allPage}"><span class="nolink"><i class="fa fa-angle-right"></i></span></c:if>
 		
-		    <c:if test="${page.endBlock < page.allPage}"><span><a href="admin_product_search.do?page=${page.allPage}&field=${field }&keyword=${keyword}"><i class="fa fa-angle-double-right"></i></a></span></c:if>
+		    <c:if test="${page.endBlock < page.allPage}"><span><a href="admin_order_del.do?page=${page.allPage}"><i class="fa fa-angle-double-right"></i></a></span></c:if>
 		    <c:if test="${page.endBlock >= page.allPage}"><span class="nolink"><i class="fa fa-angle-double-right"></i></span></c:if>
 		</div>
 	<%-- 페이징 처리 end --%>

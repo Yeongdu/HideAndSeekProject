@@ -11,13 +11,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 <link href="resources/css/banner/admin_banner.css" rel="stylesheet" type="text/css">
 
-<div style="height: 100%">
+<div style="min-height: 100%">
 <br>
 <br>
 <br>
 
 	<div class="adminProductListTitle" align="center">
-		<h4>전체 주문 목록</h4>
+		<h4>주문자 ' ${keyword } ' 검색 결과</h4>
 	</div>
 	<br>
 	<div align="center">
@@ -42,6 +42,8 @@
 						<td>${dto.product_name }</td>
 						<td><img style="width: 100%; height: 60px" src="resources/upload/${dto.product_thumbnail }"></td>
 						<td>${dto.order_amount }</td>
+						
+						
 						<c:if test="${dto.order_status =='주문 완료' }">
 							<td style="text-align: right;">
 								<input type="button" class="btn btn-outline-success" value="주문 완료"
@@ -61,15 +63,15 @@
 						<c:if test="${dto.order_status =='배송중' }">
 							<td colspan="2" align="right">
 								<input type="button" value="배송중" class="btn btn-outline-primary"
-									onclick="if(confirm('배송완료로 변경 하시겠습니까?')){
-									location.href='<%=request.getContextPath() %>/admin_order_statusChange.do?no=${dto.order_no }&page=${page.page }&key=배송완료'} 
+									onclick="if(confirm('배송 완료로 변경 하시겠습니까?')){
+									location.href='<%=request.getContextPath() %>/admin_order_statusChange.do?no=${dto.order_no }&page=${page.page }&key=배송 완료'} 
 									else{return; }">
 							</td>
 						</c:if>
 						
-						<c:if test="${dto.order_status == '배송완료' }">
+						<c:if test="${dto.order_status == '배송 완료' }">
 							<td colspan="2" align="right">
-								<input type="button" class="btn btn-outline-dark" value="배송완료" disabled>
+								<input type="button" class="btn btn-outline-dark" value="배송 완료" disabled>
 							</td>
 						</c:if>
 						
@@ -78,6 +80,8 @@
 								<input type="button" class="btn btn-outline-danger" value="주문취소" disabled>
 							</td>
 						</c:if>
+						
+						
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -93,7 +97,7 @@
 			<c:if test="${!empty keyword }">
 				<tr>
 					<td colspan="9" align="center">
-						<input type="button" value="전체목록" onclick="location.href='admin_order_list.do'">
+						<input type="button" class="btn btn-light" value="전체목록" onclick="location.href='admin_order_list.do'">
 					</td>
 				</tr>
 			</c:if>
@@ -103,23 +107,23 @@
 
 	<%-- 페이징 처리 --%>
 		<div class="page-paging">
-		    <c:if test="${page.startBlock > 1}"><span><a href="admin_product_search.do?page=1&field=${field }&keyword=${keyword}"><i class="fa fa-angle-double-left"></i></a></span></c:if>
+		    <c:if test="${page.startBlock > 1}"><span><a href="admin_order_search.do?page=1&field=${field }&keyword=${keyword}"><i class="fa fa-angle-double-left"></i></a></span></c:if>
 		    <c:if test="${page.startBlock <= 1}"><span class="nolink"><i class="fa fa-angle-double-left"></i></span></c:if>
 		
-		    <c:if test="${page.page > 1}"><span><a href="admin_product_search.do?page=${page.page - 1}&field=${field }&keyword=${keyword}"><i class="fa fa-angle-left"></i></a></span></c:if>
+		    <c:if test="${page.page > 1}"><span><a href="admin_order_search.do?page=${page.page - 1}&field=${field }&keyword=${keyword}"><i class="fa fa-angle-left"></i></a></span></c:if>
 		    <c:if test="${page.page <= 1}"><span class="nolink"><i class="fa fa-angle-left"></i></span></c:if>
 		
 		    <ol class="paging_1">
 		        <c:forEach begin="${page.startBlock}" end="${page.endBlock}" var="i">
 		        <c:if test="${i == page.page}"><li class="now">${i}</li></c:if>
-		        <c:if test="${i != page.page}"><li><a href="admin_product_search.do?page=${i}&field=${field }&keyword=${keyword}">${i}</a></li></c:if>
+		        <c:if test="${i != page.page}"><li><a href="admin_order_search.do?page=${i}&field=${field }&keyword=${keyword}">${i}</a></li></c:if>
 		        </c:forEach>
 		    </ol>
 		
-		    <c:if test="${page.page < page.allPage}"><span><a href="admin_product_search.do?page=${page.page + 1}&field=${field }&keyword=${keyword}"><i class="fa fa-angle-right"></i></a></span></c:if>
+		    <c:if test="${page.page < page.allPage}"><span><a href="admin_order_search.do?page=${page.page + 1}&field=${field }&keyword=${keyword}"><i class="fa fa-angle-right"></i></a></span></c:if>
 		    <c:if test="${page.page >= page.allPage}"><span class="nolink"><i class="fa fa-angle-right"></i></span></c:if>
 		
-		    <c:if test="${page.endBlock < page.allPage}"><span><a href="admin_product_search.do?page=${page.allPage}&field=${field }&keyword=${keyword}"><i class="fa fa-angle-double-right"></i></a></span></c:if>
+		    <c:if test="${page.endBlock < page.allPage}"><span><a href="admin_order_search.do?page=${page.allPage}&field=${field }&keyword=${keyword}"><i class="fa fa-angle-double-right"></i></a></span></c:if>
 		    <c:if test="${page.endBlock >= page.allPage}"><span class="nolink"><i class="fa fa-angle-double-right"></i></span></c:if>
 		</div>
 	<%-- 페이징 처리 end --%>
@@ -145,7 +149,7 @@
 </div>
 <%-- 검색 기능 end --%>
 
-
+<br><br>
 </div>
 
 
