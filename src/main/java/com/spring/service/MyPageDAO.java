@@ -23,9 +23,14 @@ public interface MyPageDAO {
 	int getDeliveryCount(String userId);
 	int getDeliveryCompleteCount(String userId);
 	
+	List<OrderDTO> sortOrder(Map<String, Object> map, String sort);
+	
+	
+	
 	List<ReviewDTO> getReviewCont(Map<String, Object> map);
 	int getReviewCount(String userId);
 	int reviewInsert(ReviewDTO rdto);
+	int reviewCheck(Map<String, Object> map);
 	
 	List<Subscribe_userDTO> getSubCont(String userId);
 	List<Subscribe_userDTO> getSubList(String userId);

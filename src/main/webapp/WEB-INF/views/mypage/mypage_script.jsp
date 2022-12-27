@@ -189,6 +189,14 @@ $(document).on("click", "#mypage_order", function(){
 	$(".order_delivery_complete_all").append($("<div class = 'order_title'> 배송 완료 </div>"));
 	$(".order_delivery_complete_all").append($("<div class = 'order_count'><span>" + ${delivery_complete} + "</span>건</div>"));
 	
+	$("#mypage_content").append($("<div class = 'sort_category'></div>"));
+	$(".sort_category").append($("<select class = 'sort_select'></select>"));
+	$(".sort_select").append($("<option value = 'order_all'>전체 주문</option>"));
+	$(".sort_select").append($("<option value = 'order_success'>주문 완료</option>"));
+	$(".sort_select").append($("<option value = 'order_cancel'>취소</option>"));
+	$(".sort_select").append($("<option value = 'delivering'>배송중</option>"));
+	$(".sort_select").append($("<option value = 'delivery_complete'>배송 완료</option>"));
+	
 	page = 1;
 	
 	$("#mypage_order").attr("id","mypage_order-active");
@@ -200,6 +208,25 @@ $(document).on("click", "#mypage_order", function(){
 	loading = true;
 	
 }); // 주문내역 열기 onclick 끝
+
+$(document).on("change", ".sort_category", function(){
+	var id = '<%=(String)session.getAttribute("userId")%>';
+	var sort = $(".sort_select").val();
+	
+	$.ajax({
+		 type : 'get',
+		    url : "<%=request.getContextPath() %>/mypage_order_sort.do",
+		    dataType : 'json',      
+		    data : {userId : id,
+		    		page : page,
+		    		sort : sort},
+		    success : function(result) {
+		    	
+		    }
+	});
+	
+	
+});
 
 $(document).on("click", "#mypage_order-active", function(){
 	$("#mypage_order-active").attr("id","mypage_order");
@@ -260,6 +287,9 @@ function getorder(){
 	    			
 	    			var price = item.product_price * item.order_amount;
 	    			var totalprice = price.toLocaleString('ko-KR');
+	    			var order_no = item.order_no;
+	    			var product_no = item.product_no;
+	    			var order_package_no = item.order_package_no;
 			    	
 		    		res += "<div id = 'order_wrap'>";
 	    			res += 		"<div id = 'order_image'>";
@@ -284,10 +314,35 @@ function getorder(){
 	    									}else{
 	    			res +=						"<div style = 'color:black;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"
 	    						}
-	    			
-								if(item.order_status == "배송 완료"){
-					res +=			"<input type = 'button' class = 'review_goBtn' value = '리뷰하러가기' onclick = 'review_submit("+item.product_no+")'>"				
-								}
+					
+									
+									console.log("order_no >>> " + order_no);
+									console.log("product_no >>> " + item.product_no);
+									
+									if(item.order_status == "배송 완료"){
+										
+										res += "<input type = 'button' class = 'review_goBtn review_goBtn"+item.order_no+"' value = '리뷰하러가기' onclick = 'review_submit("+item.product_no+","+item.order_no+")'>"
+										
+									$.ajax({
+										type : 'get',
+									    url : "<%=request.getContextPath() %>/mypage_review_check.do",
+									    dataType : 'text',       
+									    data : {order_no : order_no,
+									    		userId : id},
+									    success : function(result) {
+									    	
+									    	console.log("ajax 진입");
+												 console.log("ajax result >>> " + result);									    	
+									    	if(result != 0){
+									    		console.log("if문 진입");
+									    		$(".review_goBtn"+item.order_no).css("display", "none");
+									    	}
+									    	},error : function(request, status, error) { // 결과 에러 콜백함수
+ 										    	 alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+										    }
+									});
+	    					}
+									
 					res +=		"</div>"
 					
 					res += "</div>"
@@ -308,7 +363,7 @@ function getorder(){
 	    	
 	    	loading = false;
 	    	
-	    	$('#mypage_content').append(res);
+	    	$('#mypage_content').append(res);	    
 	    	
 	    },error : function(request, status, error) { // 결과 에러 콜백함수
 	    	/* alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); */
@@ -327,8 +382,11 @@ $(document).on("click", ".modalClose", function(){
 });
 
 
-function review_submit(no){
+function review_submit(no,ono){
+	console.log("no >> " + no);
+	console.log("ono >> " + ono);
 	$(".review_content").append($("<input type = 'hidden' value = '" +no+"' name = 'product_insert_no' class = 'product_insert_no'>"));
+	$(".review_content").append($("<input type = 'hidden' value = '" +ono+"' name = 'order_insert_no' class = 'order_insert_no'>"));
 }
 
 

@@ -122,6 +122,45 @@ public class MyPageController {
 		
 	}
 	
+	@RequestMapping("mypage_review_check.do")
+	@ResponseBody
+	public int review_check(@RequestParam("userId")String userId, 
+							@RequestParam("order_no")int order_no ) {
+		
+		System.out.println("controller userId >>> " + userId);
+		System.out.println("controller order_no >>> " + order_no);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("userId", userId);
+		map.put("order_no", order_no);
+		
+		int check = this.mypage_dao.reviewCheck(map);
+		
+		System.out.println("check >>> " + check);
+		
+		return check;
+	}
+	
+	@RequestMapping("mypage_order_sort.do")
+	@ResponseBody
+	public List<OrderDTO> sortorder(@RequestParam("userId") String userId, @RequestParam("page") int page, @RequestParam("sort")String sort){
+		
+		totalRecord = this.mypage_dao.getOrderCount(userId);
+		
+		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("userId", userId);
+		map.put("startNo", dto.getStartNo());
+		map.put("endNo", dto.getEndNo());
+		
+		List<OrderDTO> sortOrder = this.mypage_dao.sortOrder(map,sort);
+		
+		return sortOrder;
+	}
+	
 	@RequestMapping("mypage_user.do")
 	@ResponseBody
 	public UserDTO mypage_user(Model model, @RequestParam("userId")String userId) {
@@ -238,6 +277,7 @@ public class MyPageController {
 								@RequestParam("review_insert_image")MultipartFile file,
 								@RequestParam("reviewStar") String star2,
 								@RequestParam("review_insert_userId")String userId,
+								@RequestParam("order_insert_no")int order_no,
 								HttpServletResponse response,
 								ReviewDTO rdto) throws IllegalStateException, IOException {
 		int star = Integer.parseInt(star2);
@@ -253,6 +293,7 @@ public class MyPageController {
 		
 		rdto.setReview_cont(cont);
 		rdto.setProduct_no(no);
+		rdto.setOrder_no(order_no);
 		
 		if(star == 0) {
 			rdto.setReview_star(0);
