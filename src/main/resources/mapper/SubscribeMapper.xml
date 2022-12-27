@@ -96,7 +96,13 @@
         )
 	</insert>
   
+  	<select id="admin_sub_content" resultType="SubscribeDTO">
+  		select * from subscribe s join product p on s.product_no = p.product_no where sub_package_no = #{sub_package_no}
+  	</select>
   
+  	<update id="admin_sub_status_update" parameterType="SubscribeDTO">
+  		update subscribe set sub_status = #{sub_status} where sub_package_no=#{sub_package_no}
+  	</update>
   
   
   

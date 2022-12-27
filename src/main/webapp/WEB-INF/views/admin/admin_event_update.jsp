@@ -270,6 +270,7 @@
 		<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/admin_event_update_ok.do?no=${dto.event_no }" class="border-top">
 		<input type="hidden" name="event_no" value="${dto.event_no }" />
 			<br />
+			
 		<button type="submit" class="btn btn-secondary" >
 			상세정보 수정완료</button>
 			<br />

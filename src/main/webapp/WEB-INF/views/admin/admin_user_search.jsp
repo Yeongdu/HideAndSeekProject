@@ -41,13 +41,13 @@
 			<c:if test="${!empty list }">
 				<c:forEach items="${list }" var="dto">
 					<tr>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }'">${dto.user_no }</td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }'">${dto.user_id }</td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }'">${dto.user_name }</td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }'">${dto.user_email }</td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }'">${dto.user_point }</td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }'"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.user_date }" /></td>
-						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }'">
+						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }&userId=${dto.user_id }'">${dto.user_no }</td>
+						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }&userId=${dto.user_id }'">${dto.user_id }</td>
+						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }&userId=${dto.user_id }'">${dto.user_name }</td>
+						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }&userId=${dto.user_id }'">${dto.user_email }</td>
+						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }&userId=${dto.user_id }'">${dto.user_point }</td>
+						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }&userId=${dto.user_id }'"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.user_date }" /></td>
+						<td onclick="location.href='<%=request.getContextPath()%>/admin_user_content.do?no=${dto.user_no }&page=${page.page }&userId=${dto.user_id }'">
 							<c:if test="${dto.user_leave eq '1' }">
 									<span></span>
 							</c:if>
@@ -80,23 +80,23 @@
 
 	<%-- 페이징 처리 --%>
 		<div class="page-paging">
-		    <c:if test="${page.startBlock > 1}"><span><a href="admin_user_search.do?page=1"><i class="fa fa-angle-double-left"></i></a></span></c:if>
+		    <c:if test="${page.startBlock > 1}"><span><a href="admin_user_search.do?page=1&keyword=${keyword}"><i class="fa fa-angle-double-left"></i></a></span></c:if>
 		    <c:if test="${page.startBlock <= 1}"><span class="nolink"><i class="fa fa-angle-double-left"></i></span></c:if>
 		
-		    <c:if test="${page.page > 1}"><span><a href="admin_user_search.do?page=${page.page - 1}"><i class="fa fa-angle-left"></i></a></span></c:if>
+		    <c:if test="${page.page > 1}"><span><a href="admin_user_search.do?page=${page.page - 1}&keyword=${keyword}"><i class="fa fa-angle-left"></i></a></span></c:if>
 		    <c:if test="${page.page <= 1}"><span class="nolink"><i class="fa fa-angle-left"></i></span></c:if>
 		
 		    <ol class="paging_1">
 		        <c:forEach begin="${page.startBlock}" end="${page.endBlock}" var="i">
 		        <c:if test="${i == page.page}"><li class="now">${i}</li></c:if>
-		        <c:if test="${i != page.page}"><li><a href="admin_user_search.do?page=${i}">${i}</a></li></c:if>
+		        <c:if test="${i != page.page}"><li><a href="admin_user_search.do?page=${i}&keyword=${keyword}">${i}</a></li></c:if>
 		        </c:forEach>
 		    </ol>
 		
-		    <c:if test="${page.page < page.allPage}"><span><a href="admin_user_search.do?page=${page.page + 1}"><i class="fa fa-angle-right"></i></a></span></c:if>
+		    <c:if test="${page.page < page.allPage}"><span><a href="admin_user_search.do?page=${page.page + 1}&keyword=${keyword}"><i class="fa fa-angle-right"></i></a></span></c:if>
 		    <c:if test="${page.page >= page.allPage}"><span class="nolink"><i class="fa fa-angle-right"></i></span></c:if>
 		
-		    <c:if test="${page.endBlock < page.allPage}"><span><a href="admin_user_search.do?page=${page.allPage}"><i class="fa fa-angle-double-right"></i></a></span></c:if>
+		    <c:if test="${page.endBlock < page.allPage}"><span><a href="admin_user_search.do?page=${page.allPage}&keyword=${keyword}"><i class="fa fa-angle-double-right"></i></a></span></c:if>
 		    <c:if test="${page.endBlock >= page.allPage}"><span class="nolink"><i class="fa fa-angle-double-right"></i></span></c:if>
 		</div>
 	<%-- 페이징 처리 end --%>

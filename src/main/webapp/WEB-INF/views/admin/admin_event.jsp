@@ -9,33 +9,6 @@
 <title>관리자 이벤트</title>
 <style>
 
- .event_wrap {
- 	width: 80%;
- 	height: 15%;
- 	margin : 10px auto;
- 	position: relative;
- 	}
-
-.event_wrap > img {
-
-	width: 100%;
-	height: 20vw;
-	vertical-align: middle;
-	object-fit: cover;
-	overflow:hidden;
-	border-radius: 15px;
-}
-
- .event_text { 
- 	position: absolute; 
- 	top: 40%; 
- 	left: 50%; 
- 	transform: translate(-50%, -50%); 
- 	font-size: 4vw;; 
- 	font-weight: bold; 
- 	color: white; 
- 	text-align: left; 
- } 
 
 
 

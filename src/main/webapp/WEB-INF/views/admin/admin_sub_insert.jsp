@@ -190,14 +190,6 @@ $(document).on("change", ".product_category3", function(){
 
 <style>
 
-.btn.btn-light_admin_sub_mainBtn{
-border: 0.5px solid lightgray;
-}
-
-.adminSubItemInputBtn{
-font-size: 1.3em;
-font-weight: bold;
-}
 
 /* .product_wrab{ */
 /* display: flex; */
@@ -216,36 +208,53 @@ font-weight: bold;
 
 <!-- <button type="button" class="btn btn-light_admin_sub_mainBtn" -->
 <%-- onclick="location.href='<%=request.getContextPath()%>/admin_sub_insert.do?'">만들기</button> --%>
-<br><br><br><br>
-	<h4>구독 만들기</h4><br>
-<br><br><br><br>
+<br><br>
+	<h4>구독 만들기</h4>
+	<div style="width: 800px;" align="right"><button class="btn btn-secondary"
+ onclick="location.href='<%=request.getContextPath()%>/admin_subscribe.do'">구독 전체목록</button></div>
+<br><br>
 
 
 <div align="center">
 	<form method="post" action="<%=request.getContextPath()%>/admin_sub_insert_ok.do">
-
 <span>ex) 2023-01월 패키지 </span><br />
-패키지 명 : <input type="text" name="sub_package" >
+<div style="width: 300px;" align="left">
+<span class="admin_sub_inputLabel">패키지 이름 : </span><input class="admin_sub_input" type="text" name="sub_package" >
 <br>
 <hr>
-구독 시작일 : <input type="date" name="sub_date">
+<span class="admin_sub_inputLabel">구독 시작일 : </span><input class="admin_sub_input"  type="date" name="sub_date">
 <input type="hidden" name="sub_date_time" value="00:00:00">
 <br><br>
-구독 종료일 : <input type="date" name="sub_enddate">
+<span class="admin_sub_inputLabel">구독 종료일 : </span><input class="admin_sub_input"  type="date" name="sub_enddate">
 <input type="hidden" name="sub_date_endtime" value="23:59:59">
 <br>
 <hr>
-구독 가격 : <input type="number" name="sub_price">
+<span class="admin_sub_inputLabel">한달 구독비 : </span><input class="admin_sub_input"  type="number" name="sub_price">
 <hr>
-
-
-<div style="width: 1000px;display: flex;justify-content: space-evenly;">
-<span>첫번째 :<input name="sub_item1" id="sub_item1"> </span>&nbsp;&nbsp;&nbsp;&nbsp;
-<span>두번째 :<input name="sub_item2" id="sub_item2"> </span>&nbsp;&nbsp;&nbsp;&nbsp;
-<span>세번째 :<input name="sub_item3" id="sub_item3"> </span> <br>
 </div>
+
+
 <div style="width: 1000px;display: flex;justify-content: space-evenly;">
-<span>
+<!-- <span>첫번째 :<input name="sub_item1" id="sub_item1"> </span>&nbsp;&nbsp;&nbsp;&nbsp; -->
+<!-- <span>두번째 :<input name="sub_item2" id="sub_item2"> </span>&nbsp;&nbsp;&nbsp;&nbsp; -->
+<!-- <span>세번째 :<input name="sub_item3" id="sub_item3"> </span> -->
+
+<div class="input-group flex-nowrap">
+  <span class="input-group-text" id="addon-wrapping">첫번째</span>
+  <input type="text" name="sub_item1" id="sub_item1" class="form-control" placeholder="첫번째 상품" aria-describedby="addon-wrapping">
+</div><br>
+<div class="input-group flex-nowrap">
+  <span class="input-group-text" id="addon-wrapping">두번째</span>
+  <input type="text" name="sub_item2" id="sub_item2" class="form-control" placeholder="두번째 상품" aria-describedby="addon-wrapping">
+</div><br>
+<div class="input-group flex-nowrap">
+  <span class="input-group-text" id="addon-wrapping">세번째</span>
+  <input type="text" name="sub_item3" id="sub_item3" class="form-control" placeholder="세번째 상품" aria-describedby="addon-wrapping">
+</div>
+</div>
+<hr>
+<div style="width: 1000px;display: flex;justify-content: space-evenly;">
+<span class="admin_sub_insert_select_wrab">
 	<select class="product_category1" required>
 		<option value="" selected disabled hidden>첫번째 술 선택</option>
 		<option value="takju">탁주</option>
@@ -255,7 +264,7 @@ font-weight: bold;
 	</select>
 	<span class="adminSubItemInputBtn" >담기</span></span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
-	<span>
+	<span class="admin_sub_insert_select_wrab">
 	<select class="product_category2" required>
 		<option value="" selected disabled hidden>두번째 술 선택</option>
 		<option value="takju">탁주</option>
@@ -265,7 +274,7 @@ font-weight: bold;
 	</select>
 	<span class="adminSubItemInputBtn2" >담기</span></span>
 	&nbsp;&nbsp;&nbsp;&nbsp;
-	<span>
+	<span class="admin_sub_insert_select_wrab">
 	<select class="product_category3" required>
 		<option value="" selected disabled hidden>세번째 술 선택</option>
 		<option value="takju">탁주</option>
@@ -275,8 +284,9 @@ font-weight: bold;
 	</select>
 	<span class="adminSubItemInputBtn3" >담기</span></span>
 </div>
+<br>
+<button type="submit" class="btn btn-primary">제출</button>
 
-<button type="submit">제출</button>
 </form>
 </div>
 
