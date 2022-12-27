@@ -8,7 +8,8 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link href="resources/css/sub/sub_pay.css" rel="stylesheet" type="text/css">
 <script>
-	
+		let check = true;
+		
 		var phone = ${ddto.getDeli_phone1()}+"-"+${ddto.getDeli_phone2()}+"-"+${ddto.getDeli_phone3()}
 		var addr = "${ddto.getDeli_addr1()}${ddto.getDeli_addr2()}"
 		var zipcode = ${ddto.getDeli_zipcode()}
@@ -31,6 +32,7 @@
 	    var makeMerchantUid = hours +  minutes + seconds + milliseconds;
 	     
 	    function requestPay() {
+	    	
 	    	IMP.request_pay({
 	      	pg : 'kcp',
 	        pay_method : 'card',
@@ -48,15 +50,34 @@
 	    		var msg = '결제가 완료되었습니다.\n';       
 	    		msg += '결제 금액 : ' + rsp.paid_amount+'\n원';            
 	    		msg += '카드 승인번호 : ' + rsp.apply_num+'\n';
-	    		window.location.href = "<%=request.getContextPath() %>/sub_complete.do?deli_no="+deli_no+"&userId="+userId+"";
+	    		
+	    		check = false;
+	    		location.href = "<%=request.getContextPath() %>/sub_complete.do?deli_no="+deli_no+"&userId="+userId+"";
+	    		console.log("삽입");
+	    		
 	    		} else {               
 	    			window.history.go(-2);
 	    			swal('결제 실패',rsp.error_msg,'warning');
-	    		}         
-	    		swal('결제 완료',msg,'success');
+	    			
+	    			check = true;
+	    		}
+	    		
 	    		});
+	    	
 	    	}
 	  	//결제 api 끝
+	  	
+	  	$(document).on("click", ".sub_pay_btn", function(){
+	    	requestPay();
+	    	
+// 	    	console.log("check >>> " + check);
+	    	
+// 	    	if(!check){
+// 	    		console.log("결제");
+	    		
+// 	    	}
+	    	
+	    });
 	
 	</script>
 
@@ -94,7 +115,7 @@
 		</div>
 	
 		<div class = "sub_pay">
-			<input type = "button" class = "sub_pay_btn" onclick = "requestPay()" value = "결제하기">
+			<input type = "button" class = "sub_pay_btn" value = "결제하기">
 		</div>
 	</div>
 

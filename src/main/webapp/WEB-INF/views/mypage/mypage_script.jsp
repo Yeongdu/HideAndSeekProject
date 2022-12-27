@@ -159,6 +159,42 @@ $(document).on("click", "#mypage_sub-active", function(){
 	$("#mypage_content").empty();
 }); // 구독관리 닫기 - onclick 끝
 
+
+
+function getDefault() {
+	
+	$("#mypage_content").append($("<div class = 'order_category_all'></div>"));
+	$(".order_category_all").append($("<div class = 'order_category'></div>"));
+	$(".order_category").append($("<div class = 'order_title'> 전체 주문 </div>"));
+	$(".order_category").append($("<div class = 'order_count'><span>" + ${count} + "</span>&nbsp;건</div>"));
+	
+	$(".order_category_all").append($("<div class = 'order_orderall'></div>"));
+	$(".order_orderall").append($("<div class = 'order_title'> 주문 완료 </div>"));
+	$(".order_orderall").append($("<div class = 'order_count'><span>" + ${order} + "</span>&nbsp;건</div>"));
+	
+	$(".order_category_all").append($("<div class = 'order_refund_all'></div>"));
+	$(".order_refund_all").append($("<div class = 'order_title'> 취 소 </div>"));
+	$(".order_refund_all").append($("<div class = 'order_count'><span>" + ${refund } + "</span>&nbsp;건</div>"));
+	
+	$(".order_category_all").append($("<div class = 'order_delivery_all'></div>"));
+	$(".order_delivery_all").append($("<div class = 'order_title'> 배송중 </div>"));
+	$(".order_delivery_all").append($("<div class = 'order_count'><span>" + ${delivery} + "</span>&nbsp;건</div>"));
+	
+	$(".order_category_all").append($("<div class = 'order_delivery_complete_all'></div>"));
+	$(".order_delivery_complete_all").append($("<div class = 'order_title'> 배송 완료 </div>"));
+	$(".order_delivery_complete_all").append($("<div class = 'order_count'><span>" + ${delivery_complete} + "</span>&nbsp;건</div>"));
+	
+	$("#mypage_content").append($("<div class = 'sort_category'></div>"));
+	$(".sort_category").append($("<select id = 'sort_select'></select>"));
+	$("#sort_select").append($("<option value = 'order_all'>전체 주문</option>"));
+	$("#sort_select").append($("<option value = 'order_success'>주문 완료</option>"));
+	$("#sort_select").append($("<option value = 'order_cancel'>취소</option>"));
+	$("#sort_select").append($("<option value = 'delivering'>배송중</option>"));
+	$("#sort_select").append($("<option value = 'delivery_complete'>배송 완료</option>"));
+	
+}
+on1 = false;
+
 // 주문내역 ==============================================================================================================
 $(document).on("click", "#mypage_order", function(){
 	
@@ -168,34 +204,7 @@ $(document).on("click", "#mypage_order", function(){
 	displayoff();
 	
 	// 주문 건수 div 추가
-	$("#mypage_content").append($("<div class = 'order_category_all'></div>"));
-	$(".order_category_all").append($("<div class = 'order_category'></div>"));
-	$(".order_category").append($("<div class = 'order_title'> 전체 주문 </div>"));
-	$(".order_category").append($("<div class = 'order_count'><span>" + ${count} + "</span>건</div>"));
-	
-	$(".order_category_all").append($("<div class = 'order_orderall'></div>"));
-	$(".order_orderall").append($("<div class = 'order_title'> 주문 완료 </div>"));
-	$(".order_orderall").append($("<div class = 'order_count'><span>" + ${order} + "</span>건</div>"));
-	
-	$(".order_category_all").append($("<div class = 'order_refund_all'></div>"));
-	$(".order_refund_all").append($("<div class = 'order_title'> 취 소 </div>"));
-	$(".order_refund_all").append($("<div class = 'order_count'><span>" + ${refund } + "</span>건</div>"));
-	
-	$(".order_category_all").append($("<div class = 'order_delivery_all'></div>"));
-	$(".order_delivery_all").append($("<div class = 'order_title'> 배송중 </div>"));
-	$(".order_delivery_all").append($("<div class = 'order_count'><span>" + ${delivery} + "</span>건</div>"));
-	
-	$(".order_category_all").append($("<div class = 'order_delivery_complete_all'></div>"));
-	$(".order_delivery_complete_all").append($("<div class = 'order_title'> 배송 완료 </div>"));
-	$(".order_delivery_complete_all").append($("<div class = 'order_count'><span>" + ${delivery_complete} + "</span>건</div>"));
-	
-	$("#mypage_content").append($("<div class = 'sort_category'></div>"));
-	$(".sort_category").append($("<select class = 'sort_select'></select>"));
-	$(".sort_select").append($("<option value = 'order_all'>전체 주문</option>"));
-	$(".sort_select").append($("<option value = 'order_success'>주문 완료</option>"));
-	$(".sort_select").append($("<option value = 'order_cancel'>취소</option>"));
-	$(".sort_select").append($("<option value = 'delivering'>배송중</option>"));
-	$(".sort_select").append($("<option value = 'delivery_complete'>배송 완료</option>"));
+	getDefault();
 	
 	page = 1;
 	
@@ -209,9 +218,15 @@ $(document).on("click", "#mypage_order", function(){
 	
 }); // 주문내역 열기 onclick 끝
 
-$(document).on("change", ".sort_category", function(){
+let sort = "";
+
+function getChange(){
+	
 	var id = '<%=(String)session.getAttribute("userId")%>';
-	var sort = $(".sort_select").val();
+// 	sort = $(".sort_select").val();
+	var res = '';
+	
+	console.log("function sort >>> " + sort);
 	
 	$.ajax({
 		 type : 'get',
@@ -221,12 +236,114 @@ $(document).on("change", ".sort_category", function(){
 		    		page : page,
 		    		sort : sort},
 		    success : function(result) {
+		    	if(result == 0){
+		    		if(su) {
+		    			res = "<div class = 'order_main_wrap'>" +
+	    				"<div id = 'none_order'>" + 
+	    				"<h3 id = 'none_order_title'>주문한 술이 없어요" + "</h3>" +
+	    				"<input type = 'button' value = '구매하러 가기 >' class = 'order_btn'>" +
+	    				"</div>";
+	    				su = true;
+		    		}
+		    	}else {
+		    		
+		    		$.each(result, function(index, item){
+	    			
+	    			var price = item.product_price * item.order_amount;
+	    			var totalprice = price.toLocaleString('ko-KR');
+	    			var order_no = item.order_no;
+	    			var product_no = item.product_no;
+	    			var order_package_no = item.order_package_no;
+			    	
+		    		res += "<div id = 'order_wrap'>";
+	    			res += 		"<div id = 'order_image'>";
+	    			res += 			"<img src = 'resources/upload/" + item.product_thumbnail + "' class = 'order_thumbnail'>";
+	    			res += 		"</div>"
+	    			
+	    			res += 		"<div id = 'order_info'>"
+	    			res += 			"<div id = 'order_info_date'><span>" + item.order_date + "</span>" + "</div>"
+	    			res += 			"<div id = 'order_info_title'>" + item.product_name + "</div>"
+	    			res += 			"<div id = 'order_info_alchol'>도수 : " + item.product_alcohol + "%</div>"
+	    			res += 			"<div id = 'order_info_amount'>수량 : " + item.order_amount + "개</div>"
+	    			res += 			"<div id = 'order_info_price'>" + totalprice + "원</div>"
+	    			res +=			"<input type = 'hidden' value = '" + item.product_no + "' class = 'product_review_no' name = 'product_review_no'>"
+					res += 		"</div>"
+					res +=		"<div class = 'order_review_insert'>"
+							if(item.order_status == "취소"){
+	    			res +=						"<div style = 'color:red;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"							
+	    									}else if(item.order_status == "배송중"){
+	    			res +=						"<div style = 'color:#0097F3;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"	    										
+	    									}else if(item.order_status == "배송 완료"){
+	    			res +=						"<div style = 'color:#FAAF00;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"
+	    									}else{
+	    			res +=						"<div style = 'color:black;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"
+	    						}
+					
+									
+									
+									if(item.order_status == "배송 완료"){
+										
+										res += "<input type = 'button' class = 'review_goBtn review_goBtn"+item.order_no+"' style = 'display:none;' value = '리뷰하러가기' onclick = 'review_submit("+item.product_no+","+item.order_no+")'>"
+										
+									$.ajax({
+										type : 'get',
+									    url : "<%=request.getContextPath() %>/mypage_review_check.do",
+									    dataType : 'text',       
+									    data : {order_no : order_no,
+									    		userId : id},
+									    success : function(result) {
+									    	
+									    	if(result == 0){
+									    		$(".review_goBtn"+item.order_no).css("display", "block");
+									    	}
+									    	},error : function(request, status, error) { // 결과 에러 콜백함수
+ 										    	 alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+										    }
+									});
+	    					}
+									
+					res +=		"</div>"
+					
+					res += "</div>"
+					
+	    			count += 1;
+					
+	    	});
+		    		
+		    		// 구독페이지로 이동
+			    	$(document).on("click",".order_btn", function() {
+			    		location.href = "<%=request.getContextPath() %>/sub.do";					
+			    	});
+			    	
+			    	}
+			    	
+			    	page += 1;
+			    	
+			    	
+			    	loading = false;
+			    	
+			    	$('#mypage_content').append(res);
 		    	
 		    }
 	});
+}
+
+
+$(document).on("change", ".sort_category", function(){
 	
+	page = 1;
 	
-});
+	sort = $("#sort_select").val();
+	
+	$('#mypage_content').empty()
+		getDefault();
+		
+		$('#sort_select').val(sort).prop('selected', true);
+	
+		getChange();
+	on1 = true;
+	
+}); // onchange 끝
 
 $(document).on("click", "#mypage_order-active", function(){
 	$("#mypage_order-active").attr("id","mypage_order");
@@ -238,22 +355,56 @@ $(document).on("click", "#mypage_order-active", function(){
 }); // 주문내역 닫기 - onclick 끝
 
 // 무한스크롤
+// $(document).on("scroll", function(){
+	
+// 		if($(window).scrollTop()+200>=$(document).height() - $(window).height())
+// 	    {	
+	    	
+// 	        if(!loading)    //실행 가능 상태라면?
+// 	        {	if(!su){
+// 	        	if(!su2){
+// 	        		loading = true; //실행 불가능 상태로 변경
+// 		            getorder();
+// 		            $("#none_order").css("display","none");	
+// 	        	}
+	        	
+// 	        }
+	            
+// 	        }
+// 	    }
+// });
+
+//무한스크롤 - onchange
 $(document).on("scroll", function(){
 	
 		if($(window).scrollTop()+200>=$(document).height() - $(window).height())
 	    {	
-	    	
-	        if(!loading)    //실행 가능 상태라면?
-	        {	if(!su){
-	        	if(!su2){
-	        		loading = true; //실행 불가능 상태로 변경
-		            getorder();
-		            $("#none_order").css("display","none");	
-	        	}
-	        	
-	        }
-	            
-	        }
+	    	if(!on1){
+	    		if(!loading)    //실행 가능 상태라면?
+		        {	if(!su){
+		        	if(!su2){
+		        		loading = true; //실행 불가능 상태로 변경
+			            getorder();
+			            $("#none_order").css("display","none");	
+		        	}
+		        	
+		        }
+		            
+		        }
+	    	}else{
+	    		if(!loading)    //실행 가능 상태라면?
+		        {	if(!su){
+		        	if(!su2){
+		        		loading = true; //실행 불가능 상태로 변경
+			            getChange();
+			            $("#none_order").css("display","none");	
+		        	}
+		        	
+		        }
+		            
+		        }
+	    	}
+	        
 	    }
 });
 
@@ -316,8 +467,6 @@ function getorder(){
 	    						}
 					
 									
-									console.log("order_no >>> " + order_no);
-									console.log("product_no >>> " + item.product_no);
 									
 									if(item.order_status == "배송 완료"){
 										
@@ -331,10 +480,7 @@ function getorder(){
 									    		userId : id},
 									    success : function(result) {
 									    	
-									    	console.log("ajax 진입");
-												 console.log("ajax result >>> " + result);									    	
 									    	if(result != 0){
-									    		console.log("if문 진입");
 									    		$(".review_goBtn"+item.order_no).css("display", "none");
 									    	}
 									    	},error : function(request, status, error) { // 결과 에러 콜백함수
@@ -383,8 +529,6 @@ $(document).on("click", ".modalClose", function(){
 
 
 function review_submit(no,ono){
-	console.log("no >> " + no);
-	console.log("ono >> " + ono);
 	$(".review_content").append($("<input type = 'hidden' value = '" +no+"' name = 'product_insert_no' class = 'product_insert_no'>"));
 	$(".review_content").append($("<input type = 'hidden' value = '" +ono+"' name = 'order_insert_no' class = 'order_insert_no'>"));
 }
@@ -539,7 +683,6 @@ $(document).on("click", "#mypage_user", function(){
 			var user_phone3 = $(".user_phone3").val();
 			var user_dto_pwd = $(".user_dto_pwd").val();
 			
-			console.log("user_email >> " + user_email);
 			
 			$.ajax({
 			    type : 'get',           // 타입 (get, post, put 등등)
@@ -559,7 +702,6 @@ $(document).on("click", "#mypage_user", function(){
 			    	
 			    	if(check>0){
 			    		
-			    		console.log("check >>> " + check);
 			    		
 			    			$("#mypage_content").empty();
 			    			
@@ -824,7 +966,6 @@ $(document).on("blur", ".user_pwd_new",function(){
 			    
 			    	var res = '';
 			    
-			    console.log(result.length);
 			    
 			    	if(result.length == 0){
 			    		res = "<div id = 'none_delivery'>" + 
@@ -833,7 +974,6 @@ $(document).on("blur", ".user_pwd_new",function(){
 			    			  "</div>";
 			    	}else{
 			    		$.each(result, function(index, item){
-			    			console.log("de >>> " +de);
 			    			var de = item.deli_default;
 			    			
 				    		res += "<div class = 'delivery_main_wrap'>"
@@ -919,7 +1059,6 @@ $(document).on("blur", ".user_pwd_new",function(){
 		$(document).on("click",".deli_modi_btn"+no, function(){
 			
 			$("#delivery_modify_modal"+no).fadeIn(500);
-			console.log("no >>>" + no);
 			
 		$.ajax({
 			type : 'get',           // 타입 (get, post, put 등등)
@@ -929,7 +1068,6 @@ $(document).on("blur", ".user_pwd_new",function(){
 		    success : function(result) { // 결과 성공 콜백함수
 		    	
 		    	var res = '';
-		    console.log("ajax >>> " + result.deli_no);
 		    	
 		    	res = "<div id='delivery_modify_modal"+result.deli_no+"' style = 'z-index:1;'>"+
 		   		 		"<div class='delivery_modify_modal_body' align = 'center'>"+

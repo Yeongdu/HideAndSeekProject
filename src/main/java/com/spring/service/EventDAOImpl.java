@@ -34,9 +34,16 @@ public class EventDAOImpl implements EventDAO{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	// 홈페이지 이벤트 목록
 	@Override
 	public List<EventDTO> eventList() {
 		return this.sqlSession.selectList("eventList");
+	}
+	
+	// 관리자 이벤트 목록
+	@Override
+	public List<EventDTO> eventListall() {
+		return this.sqlSession.selectList("eventListall");
 	}
 
 	@Override
@@ -53,6 +60,8 @@ public class EventDAOImpl implements EventDAO{
 	public int updateEvent(EventDTO dto) {
 		return this.sqlSession.update("eventUpdate", dto);
 	}
+
+	
 	
 	
 }

@@ -68,8 +68,8 @@ public class MyPageDAOImpl implements MyPageDAO{
 	}
 	
 	@Override
-	public int getOrderCount(String userId) {
-		return this.sqlSession.selectOne("count_order", userId);
+	public int getOrderCount(String userId, String sort) {
+		return this.sqlSession.selectOne(sort+"_count", userId);
 	}
 	
 	@Override

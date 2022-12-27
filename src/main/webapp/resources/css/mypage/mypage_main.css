@@ -315,6 +315,7 @@ main{
     background-color: skyblue;
     padding: 20px 10px;
     border-radius: 10px;
+    box-shadow: 1px 1px 5px #487f91;
 }
 
 #order_info_date{
@@ -350,6 +351,7 @@ main{
 .order_title{
 	font-size:1.2em;
 	font-weight: bold;
+	text-shadow: 1px 1px 2px lightgray;
 }
 
 .order_count{

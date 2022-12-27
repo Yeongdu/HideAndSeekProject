@@ -58,8 +58,6 @@
 		month = date.getMonth() + 1;
 		day = date.getDate();
 		
-		console.log(date);
-		
 		$(".todayDate").text(year + " / " + month + " / " + day + " ~ ");
 	
 	</script>

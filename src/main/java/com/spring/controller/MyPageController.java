@@ -51,7 +51,9 @@ public class MyPageController {
 		 List<OrderDTO> olist = this.mypage_dao.orderContent(userId);
 		 List<Subscribe_userDTO> sub_list = this.mypage_dao.getSubList(userId);
 		 
-		 int count = this.mypage_dao.getOrderCount(userId);
+		 String sort = "order_all";
+		 
+		 int count = this.mypage_dao.getOrderCount(userId,sort);
 		 int order = this.mypage_dao.getOrderAllCount(userId);
 		 int refund = this.mypage_dao.getRefundCount(userId);
 		 int delivery = this.mypage_dao.getDeliveryCount(userId);
@@ -103,10 +105,9 @@ public class MyPageController {
 		
 		int totalRecord;
 		
-		System.out.println("userId >>> " + userId);
-		System.out.println("page >>> " + page);
+		String sort = "order_all";
 		
-		totalRecord = this.mypage_dao.getOrderCount(userId);
+		totalRecord = this.mypage_dao.getOrderCount(userId,sort);
 		
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
 		
@@ -146,7 +147,7 @@ public class MyPageController {
 	@ResponseBody
 	public List<OrderDTO> sortorder(@RequestParam("userId") String userId, @RequestParam("page") int page, @RequestParam("sort")String sort){
 		
-		totalRecord = this.mypage_dao.getOrderCount(userId);
+		totalRecord = this.mypage_dao.getOrderCount(userId,sort);
 		
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
 		
@@ -157,6 +158,9 @@ public class MyPageController {
 		map.put("endNo", dto.getEndNo());
 		
 		List<OrderDTO> sortOrder = this.mypage_dao.sortOrder(map,sort);
+		
+		System.out.println("page >>> " + page);
+		System.out.println("controller sort >>> " + sort);
 		
 		return sortOrder;
 	}

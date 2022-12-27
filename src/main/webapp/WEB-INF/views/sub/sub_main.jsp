@@ -169,7 +169,7 @@
               }
             }); 
     
-    $("#section2").on('mousewheel',function(e){ 
+    $(document).on('mousewheel',"#section1",function(e){ 
     	var wheels2 = e.originalEvent.wheelDelta;
               if(wheels2>0){ 
               } else { 

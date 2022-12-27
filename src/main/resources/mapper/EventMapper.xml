@@ -39,6 +39,10 @@
   		select * from event where event_status = '진행중'
   	</select>
   	
+  	<select id="eventListall" resultType="eventDTO">
+  		select * from event
+  	</select>
+  	
   	<select id = "eventContent" parameterType="int" resultType="eventDTO">
   		select * from event where event_no = #{event_no}
   	</select>
