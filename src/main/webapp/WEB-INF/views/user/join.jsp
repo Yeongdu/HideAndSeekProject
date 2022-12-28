@@ -341,6 +341,24 @@
              });
                  
                  
+                 
+                 $(document).on("change", "input:checkbox[name=agree]", function(){
+                	
+                	 console.log("체크박스 이벤트 진입");
+                	 
+                	 let count = $("input:checkbox[name=agree]").length;
+                	 
+                	 let ckcount = $("input:checkbox[name=agree]:checked").length;
+                	 
+                	 if(count == ckcount){
+                		 document.getElementById("agree_all").checked = true;
+                	 }else {
+                		 document.getElementById("agree_all").checked = false;
+                	 }
+                	 
+                 });
+                 
+                 
      
       
 
@@ -716,6 +734,7 @@
                         $("#pwcheck").text('');      // span 태그 영역 초기화
                         
                         $("#pwcheck").append(warningTxt);
+                        document.getElementById('user_pwd').value = '';
                         
                         //$("#user_pwd").val('');
                         
@@ -727,6 +746,7 @@
                         $("#pwcheck").text('');      // span 태그 영역 초기화
                         
                         $("#pwcheck").append(warningTxt);
+                        document.getElementById('user_pwd').value = '';
                         
                         //$("#user_pwd").val('');
                         
