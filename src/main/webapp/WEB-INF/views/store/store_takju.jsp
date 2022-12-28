@@ -88,7 +88,7 @@
 													</span>
 												</label>
 												<label style="box-sizing: border-box">
-													<span>0%~10%</span>
+													<span>0%~7%</span>
 												</label>
 											</div>
 										</div>
@@ -103,7 +103,7 @@
 													</span>
 												</label>
 												<label style="box-sizing: border-box">
-													<span>10%~20%</span>
+													<span>8%~20%</span>
 												</label>
 											</div>
 										</div>
@@ -118,7 +118,7 @@
 													</span>
 												</label>
 												<label style="box-sizing: border-box">
-													<span>20%~30%</span>
+													<span>21%~35%</span>
 												</label>
 											</div>
 										</div>
@@ -133,7 +133,7 @@
 													</span>
 												</label>
 												<label style="box-sizing: border-box">
-													<span>30% 이상</span>
+													<span>36% 이상</span>
 												</label>
 											</div>
 										</div>

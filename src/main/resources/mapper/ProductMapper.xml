@@ -166,7 +166,7 @@
 		</if>
 		
 		<if test="keyword != null">
-			and (product_name like '%' || #{keyword} || '%') or (product_introduce1 like '%' || #{keyword} || '%') or (product_introduce2 like '%' || #{keyword} || '%')
+			and (product_name like '%' || #{keyword} || '%' or product_introduce1 like '%' || #{keyword} || '%' or product_introduce2 like '%' || #{keyword} || '%')
 		</if>
 	</select>
 	
@@ -208,7 +208,7 @@
 		</if> 
 		
 		<if test="keyword != null">
-			and (product_name like '%' || #{keyword} || '%') or (product_introduce1 like '%' || #{keyword} || '%') or (product_introduce2 like '%' || #{keyword} || '%')
+			and (product_name like '%' || #{keyword} || '%' or product_introduce1 like '%' || #{keyword} || '%' or product_introduce2 like '%' || #{keyword} || '%')
 		</if>
 		
 		) where rnum >= #{startNo} and rnum <![CDATA[<=]]> #{endNo} order by product_date desc
@@ -256,7 +256,7 @@
 		</if>
 		
 		<if test="keyword != null">
-			and (product_name like '%' || #{keyword} || '%') or (product_introduce1 like '%' || #{keyword} || '%') or (product_introduce2 like '%' || #{keyword} || '%')
+			and (product_name like '%' || #{keyword} || '%' or product_introduce1 like '%' || #{keyword} || '%' or product_introduce2 like '%' || #{keyword} || '%')
 		</if>
 		
 		) where SEQ >= #{startNo} and SEQ <![CDATA[<=]]> #{endNo}
@@ -304,7 +304,7 @@
 		</if>
 		
 		<if test="keyword != null">
-			and (product_name like '%' || #{keyword} || '%') or (product_introduce1 like '%' || #{keyword} || '%') or (product_introduce2 like '%' || #{keyword} || '%')
+			and (product_name like '%' || #{keyword} || '%' or product_introduce1 like '%' || #{keyword} || '%' or product_introduce2 like '%' || #{keyword} || '%')
 		</if>
 		
 		) where SEQ >= #{startNo} and SEQ <![CDATA[<=]]> #{endNo}
@@ -352,7 +352,7 @@
 		</if>
 		
 		<if test="keyword != null">
-			and (product_name like '%' || #{keyword} || '%') or (product_introduce1 like '%' || #{keyword} || '%') or (product_introduce2 like '%' || #{keyword} || '%')
+			and (product_name like '%' || #{keyword} || '%' or product_introduce1 like '%' || #{keyword} || '%' or product_introduce2 like '%' || #{keyword} || '%')
 		</if>
 		
 		) where SEQ >= #{startNo} and SEQ <![CDATA[<=]]> #{endNo}
@@ -396,11 +396,10 @@
 		</if>
 		
 		<if test="keyword != null">
-			and (product_name like '%' || #{keyword} || '%') or (product_introduce1 like '%' || #{keyword} || '%') or (product_introduce2 like '%' || #{keyword} || '%')
+			and (product_name like '%' || #{keyword} || '%' or product_introduce1 like '%' || #{keyword} || '%' or product_introduce2 like '%' || #{keyword} || '%')
 		</if>
 		
-		)
-		where rnum >= #{startNo} and rnum <![CDATA[<=]]> #{endNo}
+		) where rnum >= #{startNo} and rnum <![CDATA[<=]]> #{endNo}
 	</select>
 	
 	<!-- 낮은 가격순으로 필터 정렬된 상품들을 불러오는 메서드 -->
@@ -441,11 +440,10 @@
 		</if>
 		
 		<if test="keyword != null">
-			and (product_name like '%' || #{keyword} || '%') or (product_introduce1 like '%' || #{keyword} || '%') or (product_introduce2 like '%' || #{keyword} || '%')
+			and (product_name like '%' || #{keyword} || '%' or product_introduce1 like '%' || #{keyword} || '%' or product_introduce2 like '%' || #{keyword} || '%')
 		</if>
 		
-		)
-		where rnum >= #{startNo} and rnum <![CDATA[<=]]> #{endNo}
+		) where rnum >= #{startNo} and rnum <![CDATA[<=]]> #{endNo}
 	</select>
 	
 	
