@@ -28,7 +28,7 @@
 			
 			<div class="carousel-inner">
 				<div class="carousel-item active" data-bs-interval="3500">
-					<a href="<%=request.getContextPath()%>/evnet.content.do?event_no=1">
+					<a href="<%=request.getContextPath()%>/product_content_list.do?no=1">
 						<img class="d-block w-100" src="resources/image/055z-1670381772398-PC_MAIN_BANNER2.jpg">
 					</a>
 				</div>
