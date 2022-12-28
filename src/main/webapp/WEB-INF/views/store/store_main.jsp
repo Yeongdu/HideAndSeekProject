@@ -23,19 +23,12 @@
 			<div class="carousel-indicators">
 				<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 				<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-				<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
 			</div>
 			
 			<div class="carousel-inner">
 				<div class="carousel-item active" data-bs-interval="3500">
 					<a href="<%=request.getContextPath()%>/product_content_list.do?no=1">
 						<img class="d-block w-100" src="resources/image/055z-1670381772398-PC_MAIN_BANNER2.jpg">
-					</a>
-				</div>
-				
-				<div class="carousel-item" data-bs-interval="3500">
-					<a href="<%=request.getContextPath()%>/sub.do">
-						<img class="d-block w-100" src="resources/image/oTga-1669011693969-damhwabox_12_pc.png">
 					</a>
 				</div>
 				
