@@ -278,9 +278,6 @@ function getChange(){
 	    									}else{
 	    			res +=						"<div style = 'color:black;' class = 'order_info_status order_info_status"+count+"'>" + item.order_status + "</div>"
 	    						}
-					
-									
-									
 									if(item.order_status == "배송 완료"){
 										
 										res += "<input type = 'button' class = 'review_goBtn review_goBtn"+item.order_no+"' style = 'display:none;' value = '리뷰하러가기' onclick = 'review_submit("+item.product_no+","+item.order_no+")'>"
@@ -300,8 +297,10 @@ function getChange(){
  										    	 alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
 										    }
 									});
+	    					}else if(item.order_status == "주문 완료"){
+	    						console.log("if문 진입 >>> " + item.order_status);
+	    		    			res +=		"<input type = 'button' class = 'order_cancel_btn' value = '취소'>"
 	    					}
-									
 					res +=		"</div>"
 					
 					res += "</div>"
