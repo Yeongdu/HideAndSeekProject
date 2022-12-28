@@ -335,7 +335,7 @@
 								
 									html += "<input type='hidden' class='cartno"+j+"' name='cartno' value='"+item.cart_no+"'>"
 		 							html += "<input type='hidden' class='stock"+j+"' name='stock' value='"+item.product_stock+"'>"
-		 							html += "<input type='hidden' class='productno"+j+"' name='stock' value='"+item.product_no+"'>"
+		 							html += "<input type='hidden' class='product_no"+j+"' name='stock' value='"+item.product_no+"'>"
 	 								html += "<div class='head head'>"
 	 								html += "<div class='company_name'>"+item.product_company+"</div></div>"
 	 								html += "<div class='none_block'></div>"
@@ -431,7 +431,7 @@
 	 								
 	 								html += "<input type='hidden' class='cartno"+j+"' name='cartno' value='"+item.cart_no+"'>"
 		 							html += "<input type='hidden' class='stock"+j+"' name='stock' value='"+item.product_stock+"'>"
-		 							html += "<input type='hidden' class='productno"+j+"' name='stock' value='"+item.product_no+"'>"
+		 							html += "<input type='hidden' class='product_no"+j+"' name='stock' value='"+item.product_no+"'>"
 	 								html += "<div class='head head'>"
 	 								html += "<div class='company_name'>"+item.product_company+"</div></div>"
 	 								html += "<div class='none_block'></div>"
