@@ -13,8 +13,8 @@
     
 <style>
 
- .event_wrap {
- 	width: 70%;
+ 	 .event_wrap {
+ 	width: 80%;
  	height: 15%;
  	margin : 10px auto;
  	position: relative;
@@ -23,10 +23,10 @@
 .event_wrap > img {
 
 	width: 100%;
-	height: 20vw;
+/* 	height: 20vw; */
 	vertical-align: middle;
-	object-fit: cover;
-	overflow:hidden;
+/* 	object-fit: cover; */
+/* 	overflow:hidden; */
 	border-radius: 15px;
 }
 
@@ -40,7 +40,6 @@
  	color: white; 
  	text-align: left; 
  } 
-
 /* .event_imageThumbnail { */
 /* 	width: 100%; */
 /* } */
@@ -65,7 +64,7 @@
 			</c:forEach>
 		</div>
 	</div>
-
+<br><br>
 </div>
 
 <script>

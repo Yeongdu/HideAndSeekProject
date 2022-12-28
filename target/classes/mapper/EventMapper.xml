@@ -36,11 +36,11 @@
  	 -->
   
   	<select id = "eventList" resultType="eventDTO">
-  		select * from event where event_status = '진행중'
+  		select * from event where event_status = '진행중' order by event_no desc
   	</select>
   	
   	<select id="eventListall" resultType="eventDTO">
-  		select * from event
+  		select * from event order by event_no desc
   	</select>
   	
   	<select id = "eventContent" parameterType="int" resultType="eventDTO">
