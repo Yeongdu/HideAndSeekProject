@@ -290,6 +290,8 @@
 	
 	function cart_delivery(){
 		
+		var hm = 1;
+		
 		var delivery = 3000;
 		
 		var product_no = ${pdto.product_no };
@@ -300,7 +302,7 @@
 		
 		var price = ${pdto.product_price };
 		
-		var sum = price + delivery;
+		var sum = price;
 		
 		var id = '<%=(String)session.getAttribute("userId")%>';
 		
