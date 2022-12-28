@@ -508,6 +508,7 @@ main{
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    font-weight: 600;
 }
 
 .user_info_middle_left > div {
@@ -522,6 +523,7 @@ main{
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    font-weight: 600;
 }
 
 .user_info_middle_right > div {
