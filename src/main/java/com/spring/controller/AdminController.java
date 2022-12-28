@@ -777,9 +777,9 @@ public class AdminController {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		if (check > 0) {
-			out.println("<script> alert('제품 판매상태 변경 성공'); location.href='admin_order_list.do'; </script>");
+			out.println("<script> alert('제품 배송상태 변경 성공'); location.href='admin_order_list.do'; </script>");
 		} else {
-			out.println("<script> alert('제품 판매상태 변경을 실패했습니다.'); history.back(); </script>");
+			out.println("<script> alert('제품 배송상태 변경을 실패했습니다.'); history.back(); </script>");
 		}
 	}
 	

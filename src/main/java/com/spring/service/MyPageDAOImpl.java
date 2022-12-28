@@ -151,4 +151,10 @@ public class MyPageDAOImpl implements MyPageDAO{
 		return this.sqlSession.selectList(sort, map);
 	}
 
+	@Override
+	public void orderCancle(int order_no) {
+		this.sqlSession.update("orderCancel", order_no);
+		
+	}
+
 }

@@ -11,7 +11,7 @@
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 </head>
 	<div id="div_load_image" style="position:absolute; width:100%;height:100%; z-index:9999; background:#FCFCFC; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; text-align:center">
-     	 <img src="resources/image/loading_new.gif" style="width:400px; height:400px; position:relative; top:30%;" class = "loading">
+     	 <img src="resources/image/loading_new.gif" style="width:400px; height:400px; position:relative; transform: translate(0%, 50%);" class = "loading">
   	</div>
 
 	<div id = "header">
