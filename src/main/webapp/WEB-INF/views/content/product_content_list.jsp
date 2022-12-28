@@ -118,14 +118,26 @@
 				</form>
 				
 				<c:if test="${!empty userId}">
-					<div class="mbtn">
-						<div class="bbtn">
-				   			<input type="button" class="buybtn" onclick="cart_delivery();" value="바로 구매">
+					<c:if test="${pdto.product_status == '품절'}" >
+						<div class="mbtn">
+							<div class="bbtn">
+				   				<input type="button" class="buybtn" style="background-color: rgb(178, 178, 178); border: 0; color: white;" value="바로 구매">
+				   			</div>
+				   			<div class="cbtn">
+				   				<input type="button" class="cartbtn" style="background-color: rgb(178, 178, 178); border: 0; color: white;" value="장바구니">
+				   			</div>
 				   		</div>
-				   		<div class="cbtn">
-				   			<input type="button" class="cartbtn" onclick="cart()" value="장바구니">
+					</c:if>
+					<c:if test="${pdto.product_status != '품절'}" >
+						<div class="mbtn">
+							<div class="bbtn">
+				   				<input type="button" class="buybtn" onclick="cart_delivery();" value="바로 구매">
+				   			</div>
+				   			<div class="cbtn">
+				   				<input type="button" class="cartbtn" onclick="cart();" value="장바구니">
+				   			</div>
 				   		</div>
-				   </div>
+				   	</c:if>
 			   	</c:if>
 				<c:if test="${empty userId}">
 					<c:if test="${pdto.product_status == '품절'}" >
@@ -290,6 +302,8 @@
 	
 	function cart_delivery(){
 		
+		var hm = 1;
+		
 		var delivery = 3000;
 		
 		var product_no = ${pdto.product_no };
@@ -300,7 +314,7 @@
 		
 		var price = ${pdto.product_price };
 		
-		var sum = price + delivery;
+		var sum = price;
 		
 		var id = '<%=(String)session.getAttribute("userId")%>';
 		
@@ -370,7 +384,7 @@
 								html += "</div>"
 							count += 1;
 						});
-					if(count > 5) {
+					if(count > 6) {
 						html += "<input type='button' value='더 많은 리뷰' class='more'>"
 					}
 				} else if(data.length == 0) {
@@ -427,7 +441,7 @@
 							html += "</div>"
 							count += 1;
 						});
-						if(count > 5) {
+						if(count > 6) {
 							html += "<input type='button' value='더 많은 리뷰' class='more'>"
 						}
 					}else if(data.length == 0) {
@@ -493,7 +507,7 @@
 								html += "</div>"
 								count += 1;
 						});
-					if(count > 5) {
+					if(count > 6) {
 						html += "<input type='button' value='더 많은 리뷰' class='more'>"
 					}
 				} else if(data.length == 0) {
@@ -549,7 +563,7 @@
 									html += "</div>"
 									count += 1;
 							});
-							if(count > 5) {
+							if(count > 6) {
 								html += "<input type='button' value='더 많은 리뷰' class='more'>"
 							}
 						}else if(data.length == 0) {
@@ -739,8 +753,8 @@
 		sum = document.form.sum;
 		hm.value++;
 		
-		if(hm.value >= ${pdto.product_stock}) {
-		    swal('',"${pdto.product_stock -1}개까지 주문 할 수 있습니다",'warning');
+		if(hm.value > ${pdto.product_stock}) {
+		    swal('',"${pdto.product_stock}개까지 주문 할 수 있습니다",'warning');
 		    hm.value--;
 				if(${pdto.product_stock} == 0 ){
 					swal('',"품절되었습니다",'warning');
