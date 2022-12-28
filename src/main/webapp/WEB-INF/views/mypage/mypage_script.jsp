@@ -299,7 +299,7 @@ function getChange(){
 									});
 	    					}else if(item.order_status == "주문 완료"){
 	    						console.log("if문 진입 >>> " + item.order_status);
-	    		    			res +=		"<input type = 'button' class = 'order_cancel_btn' value = '취소'>"
+	    		    			res +=		"<input type = 'button' class = 'order_cancel_btn' value = '취소' onmouseover = 'orderCancel("+item.order_no+")'>"
 	    					}
 					res +=		"</div>"
 					
@@ -343,6 +343,31 @@ $(document).on("change", ".sort_category", function(){
 	on1 = true;
 	
 }); // onchange 끝
+
+function orderCancel(no){
+	
+	$(document).on("click", ".order_cancel_btn", function(){
+		
+		console.log("order_no >>> " + no);
+		
+		swal({
+				text : "정말로 주문을 취소하시겠습니까?\n취소된 주문은 다시 되돌릴 수 없습니다.",
+				icon: "warning",
+				buttons: ["돌아가기" , "취소하기"]
+			})
+			.then(function(result){
+				console.log(result);        
+			       if(result){
+			    	   swal("주문이 취소 되었습니다.", "결제하신 금액은 2~3일 내로 반환됩니다.", "success")
+			       	location.href = "<%=request.getContextPath() %>/mypage_order_cancel.do?order_no="+no;
+			       }
+			})
+		
+		
+	});
+	
+}
+
 
 $(document).on("click", "#mypage_order-active", function(){
 	$("#mypage_order-active").attr("id","mypage_order");
@@ -486,6 +511,9 @@ function getorder(){
  										    	 alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
 										    }
 									});
+	    					}else if(item.order_status == "주문 완료"){
+	    						console.log("if문 진입 >>> " + item.order_status);
+	    		    			res +=		"<input type = 'button' class = 'order_cancel_btn' value = '취소' onmouseover = 'orderCancel("+item.order_no+")'>"
 	    					}
 									
 					res +=		"</div>"
@@ -544,7 +572,7 @@ $(window).scroll(function() {
     //이동 애니메이션
     $("#modal").stop().animate({
       "top" : modalTop
-    }, 1);
+    });
 }).scroll();
 
 

@@ -19,6 +19,22 @@
     pageEncoding="UTF-8"%>
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 <script type="text/javascript">
+//기본 위치(top)값
+var floatPosition = parseInt($("#div_load_image").css('top'))
+// scroll 인식
+$(window).scroll(function() {
+  
+    // 현재 스크롤 위치
+    var currentTop = $(window).scrollTop();
+    var modalTop = currentTop + floatPosition + "px";
+    //이동 애니메이션
+    $("#div_load_image").stop().animate({
+      "top" : modalTop
+    }, 1);
+}).scroll();
+
+
+
 // 일정 페이지 아래로 내려가면 맨 위로 올라가는 버튼 활성화
 $(document).ready(function() {
 	$(window).scroll(function() {

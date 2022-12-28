@@ -143,6 +143,16 @@ main{
     text-shadow: 1.2px 1.2px 2.5px #abaaaa;
 }
 
+.order_cancel_btn{
+	border: 0;
+    cursor: pointer;
+    background-color: #ff00008f;
+    border-radius: 10px;
+    color: white;
+    height: 50%;
+    margin-top: 10px;
+}
+
 /* 구독관리 css ===============================================================================================*/
 
 #mypage_sub_wrap{

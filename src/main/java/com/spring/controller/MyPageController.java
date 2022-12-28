@@ -165,6 +165,17 @@ public class MyPageController {
 		return sortOrder;
 	}
 	
+	@RequestMapping("mypage_order_cancel.do")
+	public String mypage_order_cancel(@RequestParam("order_no")int order_no) {
+		
+		System.out.println("orderno >>> " +order_no);
+		
+		this.mypage_dao.orderCancle(order_no);
+		
+		return "redirect:mypage.do";
+		
+	}
+	
 	@RequestMapping("mypage_user.do")
 	@ResponseBody
 	public UserDTO mypage_user(Model model, @RequestParam("userId")String userId) {

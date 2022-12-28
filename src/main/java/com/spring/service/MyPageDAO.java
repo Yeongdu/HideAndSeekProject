@@ -24,6 +24,7 @@ public interface MyPageDAO {
 	int getDeliveryCompleteCount(String userId);
 	
 	List<OrderDTO> sortOrder(Map<String, Object> map, String sort);
+	void orderCancle(int order_no);
 	
 	
 	

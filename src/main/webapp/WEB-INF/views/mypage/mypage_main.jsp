@@ -8,11 +8,12 @@
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link href="resources/css/mypage/mypage_main.css" rel="stylesheet" type="text/css">
-
+<title>마이페이지</title>
 
 	<jsp:include page="../banner/user_top.jsp" />
-<title>마이페이지</title>
+
 <main style = "min-height : 100%;">
+
 
 	<c:set var="today" value="<%=new java.util.Date()%>" />
 	<c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /></c:set>

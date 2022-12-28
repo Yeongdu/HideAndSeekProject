@@ -107,7 +107,7 @@
 
 			<c:if test="${empty list }">
 				<tr>
-					<td colspan="8" align="center">
+					<td colspan="9" align="center">
 						<h4>게시물이 없습니다.</h4>
 					</td>
 				</tr>

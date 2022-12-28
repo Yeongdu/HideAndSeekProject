@@ -85,6 +85,11 @@
     <!-- 아이디 찾기 -->
     var findIdCheck = function() {
     	
+    	$(".loading").fadeIn(100,function(){
+            $("#div_load_image").fadeIn(300);
+        });
+    	
+    	
     	var email = document.getElementById('tomail').value;
 		
     	$.ajax({
@@ -93,6 +98,11 @@
     		data : {'tomail':email},
     		dataType: 'text',
     		success :function(result){
+    			
+    			$(".loading").fadeOut(100,function(){
+    	            $("#div_load_image").fadeOut(300);
+    	        });
+    			
     			if(result == 1){
     				swal({
     					title: "메일발송완료!",
@@ -123,6 +133,10 @@
           <!-- 비밀번호 찾기 -->
     
         var findPwCheck = function() {
+        	
+        	$(".loading").fadeIn(100,function(){
+                $("#div_load_image").fadeIn(300);
+            });
     	
     	var email = document.getElementById('tomail1').value;
     	var id = document.getElementById('id').value;
@@ -134,6 +148,11 @@
     			     id:$("#id").val()},
     		dataType: 'text',
     		success :function(result){
+    			
+    			$(".loading").fadeOut(100,function(){
+    	            $("#div_load_image").fadeOut(300);
+    	        });
+    			
     			 if(result == 1){
     				 swal({
      					   title: "메일발송완료!",
@@ -170,11 +189,6 @@
             $("#div_load_image").fadeOut(300);
         });
     }
-    
-    
-    
-    
-    
     
     
     </script>

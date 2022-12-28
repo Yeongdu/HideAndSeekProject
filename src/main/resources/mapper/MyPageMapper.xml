@@ -202,5 +202,8 @@
  	 	]]>
  	 </select>
  	 
+ 	 <update id="orderCancel" parameterType="int">
+ 	 	update tb_order set order_status = '취소' where order_no = #{order_no}
+ 	 </update>
  	 
   </mapper>
