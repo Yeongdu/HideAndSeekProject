@@ -19,6 +19,12 @@ $(function(){
 	
 	});
 	
+	$(document).on("click", ".sort-menu", function(){
+		
+		tag();
+		
+	});
+	
 	$(document).on("click", ".b1", function(){
 		
 		tag();
