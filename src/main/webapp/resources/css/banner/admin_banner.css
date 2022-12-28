@@ -376,10 +376,10 @@ h1, h2, h3, h4, h5 {
 .event_wrap > img {
 
 	width: 100%;
-	height: 20vw;
+/* 	height: 20vw; */
 	vertical-align: middle;
-	object-fit: cover;
-	overflow:hidden;
+/* 	object-fit: cover; */
+/* 	overflow:hidden; */
 	border-radius: 15px;
 }
 
@@ -518,18 +518,8 @@ h1, h2, h3, h4, h5 {
 	object-position: right;
 }
 
-.admin_event3In {
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
 
-.btn.btn-light-eventItemBtn {
-	width: 120px;
-	font-size: 1.5em;
-	border: 1px solid gray;
-}
+
 
 .btn.btn-light_admin_sub_mainBtn{
 border: 0.5px solid lightgray;

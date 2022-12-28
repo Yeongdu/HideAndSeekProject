@@ -7,23 +7,10 @@
 
 <jsp:include page="../banner/admin_top.jsp" />
 
-
-<!-- <script src="resources/assets/js/jquery.min.js"></script> -->
-<!-- <script src="resources/assets/js/jquery.scrollex.min.js"></script> -->
-<!-- <script src="resources/assets/js/jquery.scrolly.min.js"></script> -->
-<!-- <script src="resources/assets/js/browser.min.js"></script> -->
-<!-- <script src="resources/assets/js/breakpoints.min.js"></script> -->
-<!-- <script src="resources/assets/js/util.js"></script> -->
-<!-- <script src="resources/assets/js/main.js"></script> -->
-<!-- <link rel="stylesheet" href="resources/assets/css/main.css" /> -->
-<!-- <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript> -->
 <title>관리자 이벤트</title>
 
 <script type="text/javascript">
 $(function() {
-	
-	
-	
 	
 
 	function adjustHeight1() {
@@ -199,15 +186,10 @@ onclick = "location.href ='<%=request.getContextPath() %>/admin_event.do'"
 		<!-- 세번째 영역 -->
 		<div class="admin_event3Wrap" style="display: flex;">
 			<div class="admin_event_cont3Wrap">
-			<div class="admin_event3In">
 			<div>
 				<textarea class="admin_event_cont3" id="admin_event_cont3"
 					spellcheck="false" readonly
 					style="width: 100%; resize: none; font-size: 1.4em; border: 0px;">${dto.event_cont3 }</textarea>
-			</div>
-			<div align="center">
-				<button type="button" class="btn btn-light-eventItemBtn">사러가기</button>			
-			</div>
 			</div>
 			</div>
 			<div class="admin_event_file3Wrap">
