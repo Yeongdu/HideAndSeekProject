@@ -556,7 +556,7 @@ hr {
 
 .cont {
 	width: 270px;
-    height: 40px;
+    height: auto;
     font-size: 0.8rem;
     color: rgb(112, 112, 112);
     line-height: 2;

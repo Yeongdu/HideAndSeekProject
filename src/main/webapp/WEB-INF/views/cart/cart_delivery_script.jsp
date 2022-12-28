@@ -55,7 +55,6 @@
 			if (rsp.success) {   
  			var msg = '결제가 완료되었습니다.\n';       
  			msg += '결제 금액 : ' + rsp.paid_amount+'원\n';            
- 			msg += '카드 승인번호 : ' + rsp.apply_num+'\n';
  			
 			} else {               
  				window.history.go(-2);
