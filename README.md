@@ -5,7 +5,7 @@
 
 <br/>
 
-#### 진행기간 : 2022.10.18 ~ 2022.11.14
+#### 진행기간 : 2022.11.25 ~ 2022.12.29
 #### 팀리더 : [이현지](https://github.com/leehyunji1107)
 #### 팀원 : [정영훈](https://github.com/qjqtkwns), [김예지](https://github.com/yeajizy), [김경령](https://github.com/KyungY-K), [전영주](https://github.com/Yeongdu)
 
